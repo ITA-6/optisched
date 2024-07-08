@@ -21,6 +21,7 @@ export default {
       },
       fontFamily: {
         noto: ["Noto Sans", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },

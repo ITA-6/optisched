@@ -1,7 +1,14 @@
 import pncHeader from "../../assets/pnc-header.png";
 import optischedLogo from "../../assets/optisched-logo.png";
+import show from "../../assets/show.png";
+import hide from "../../assets/hide.png";
+import { useState } from "react";
 
 const Form = () => {
+  const [isHide, setIsHide] = useState(false);
+
+  const showPassword = () => setIsHide(!isHide);
+
   return (
     <div className="w-[25em] bg-white">
       <div className="mt-28 flex justify-center">
@@ -18,15 +25,15 @@ const Form = () => {
           className="h-[5.375em] w-[13.8125em]"
         />
       </div>
-      <h3 className="font-noto mt-2 text-center text-sm font-normal leading-4 tracking-widest">
+      <h3 className="mt-2 text-center font-noto text-sm font-normal leading-4 tracking-widest">
         Class Scheduling System
       </h3>
 
       <div className="mx-auto w-[15.625em]">
-        <div className="bg-light-green/35 mt-8 flex justify-center py-1">
-          <span>Login</span>
+        <div className="mt-8 flex justify-center bg-light-green/35 py-1">
+          <span className="font-inter tracking-widest">Login</span>
         </div>
-        <p className="mt-1 text-xs text-red-500">
+        <p className="mt-1 font-inter text-xs text-red-500">
           This website you are trying to access is for authorized personnel
           only!
         </p>
@@ -37,17 +44,23 @@ const Form = () => {
           type="text"
           placeholder="Username..."
           required
-          className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4"
+          className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4 font-inter"
         />
-        <div>
+        <div className="relative">
           <input
-            type="password"
+            type={isHide ? "text" : "password"}
             placeholder="Password..."
             required
-            className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4"
+            className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4 font-inter"
+          />
+          <img
+            src={isHide ? hide : show}
+            alt="Show Password"
+            onClick={showPassword}
+            className="absolute right-5 top-2 w-8 cursor-pointer"
           />
         </div>
-        <button className="bg-dark-green text-white-grayish mx-auto w-[8.3125em] rounded-3xl py-2 uppercase tracking-widest">
+        <button className="mx-auto w-[8.3125em] rounded-3xl bg-green py-2 font-inter uppercase tracking-widest text-white-grayish">
           Login
         </button>
       </form>
