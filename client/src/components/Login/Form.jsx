@@ -51,10 +51,10 @@ const Form = () => {
             type={isHide ? "text" : "password"}
             placeholder="Password..."
             required
-            className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4 font-inter"
+            className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4 pr-12 font-inter"
           />
           <img
-            src={isHide ? hide : show}
+            src={isHide ? show : hide}
             alt="Show Password"
             onClick={showPassword}
             className="absolute right-5 top-2 w-8 cursor-pointer"
