@@ -23,7 +23,27 @@ export default {
         noto: ["Noto Sans", "sans-serif"],
         inter: ["Inter", "sans-serif"],
       },
+      gridTemplateAreas : {
+        'layout' : [
+          'admin .  profile',
+          'adminname . .',
+          'box box box',
+          'text text text',
+          'history history history'
+        ],
+        'text-user' : [
+          '. userText search list .'
+        ],
+        'table ' : [
+          '. table .'
+        ]
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@savvywombat/tailwindcss-grid-areas')
+  ],
+  variants: {
+    gridTemplateAreas: ['responsive']
+  }
 };
