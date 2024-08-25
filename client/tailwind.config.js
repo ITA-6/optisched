@@ -36,7 +36,23 @@ export default {
         ],
         'table ' : [
           '. table .'
-        ]
+        ],
+        'user-layout' : [
+          'userText  Profile',
+          'userTable newUser',
+          '. button'
+        ],
+        'user-table-layout' : [
+          'div div div',
+          'table table table'
+        ],
+        'user-filter' : [
+          '. search list'
+        ],
+        'create-user-layout' : [
+          '. . .',
+          'table table table'
+        ],
       }
     },
   },
