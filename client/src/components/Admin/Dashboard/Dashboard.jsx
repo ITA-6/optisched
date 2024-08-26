@@ -46,7 +46,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div class="grid grid-areas-text-user grid-cols-[1fr_5fr_1.5fr_1.5fr_1fr] grid-in-text items-center">
+        <div class="grid grid-areas-text-user grid-cols-[1fr_5fr_1.5fr_1.5fr_1fr] grid-in-text  items-center">
           <p class="text-2xl grid-in-userText mt-5">User Login History</p>
           <div class ="grid-in-search border pl-7 rounded-md">
             <input type="text" name="search" id="search" placeholder="Search" />
@@ -57,6 +57,7 @@ const Dashboard = () => {
                 <option value="option3">Option 3</option>
             </select>
           </div>
+          <div className="grid-in-list bg-green text-center ml-7" > Filter</div>
         </div>
         <div class="grid grid-cols-[1fr_8fr_1fr] grid-areas-table grid-in-history h-full">
           <table class="bg-white grid-in-table table-fixed mb-5">
@@ -134,9 +135,6 @@ const Dashboard = () => {
       </div>
 
     )
-
-
-
 };
 
 export default Dashboard;
