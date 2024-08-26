@@ -33,7 +33,7 @@ const Sidenav = () => {
           </Link>
         </li>
         <li>
-            <Link to="#" className="flex flex-col items-center py-2">
+            <Link to="Generate" className="flex flex-col items-center py-2">
               <img src={generate} alt="Dashboard Icon" className="h-8 w-8" />
               <span className="text-center leading-5">Generate Schedule</span>
             </Link>
@@ -51,22 +51,22 @@ const Sidenav = () => {
           </button>
         </li>
         <li>
-          <Link to="#" className="flex flex-col items-center">
+          <Link to="Professor" className="flex flex-col items-center">
             <span className="text-center leading-5">Professor</span>
           </Link>
         </li>
         <li>
-          <Link to="#" className="flex flex-col items-center">
+          <Link to="Section" className="flex flex-col items-center">
             <span className="text-center leading-5">Section</span>
           </Link>
         </li>
         <li>
-          <Link to="#" className="flex flex-col items-center">
+          <Link to="Classroom" className="flex flex-col items-center">
             <span className="text-center leading-5">Classroom</span>
           </Link>
         </li>
         <li>
-          <Link to="#" className="flex flex-col items-center">
+          <Link to="Course" className="flex flex-col items-center">
             <span className="text-center leading-5">Course</span>
           </Link>
         </li>
