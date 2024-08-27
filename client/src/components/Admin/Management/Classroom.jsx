@@ -11,63 +11,66 @@ const Classroom = () => {
         <div className="mt-10 flex items-end justify-end grid-in-Profile">
           <img src={user} alt="" className="mb-2 mr-2 h-8 w-8" />
         </div>
-        <div className="grid-in-user-table-layout mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout">
-          <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
-            <input
-              type="text"
-              placeholder="search"
-              className="rounded-md border pl-7 grid-in-search"
-            />
-            <div className="bg-green text-center grid-in-list">Filter</div>
-          </div>
-          <table class="w-full table-fixed bg-white grid-in-table">
-            <thead className="bg-green">
-              <tr class="h-[30px]">
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Department</th>
-                <th scope="col">Employment Status</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody className="mb-10 h-full overflow-auto">
-              <tr class="h-[30px]">
-                <th scope="row">1</th>
-                <td>John Doe</td>
-                <td>Engineering</td>
-                <td>Full-Time</td>
-                <td>Active</td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">2</th>
-                <td>Jane Smith</td>
-                <td>Human Resources</td>
-                <td>Part-Time</td>
-                <td>Active</td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">3</th>
-                <td>Mike Johnson</td>
-                <td>Marketing</td>
-                <td>Full-Time</td>
-                <td>Inactive</td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">4</th>
-                <td>Emily Davis</td>
-                <td>Finance</td>
-                <td>Contract</td>
-                <td>Active</td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">5</th>
-                <td>Robert Brown</td>
-                <td>IT</td>
-                <td>Full-Time</td>
-                <td>Active</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="grid-in-user-table-layout grid grid-areas-user-table-layout grid-rows-[1fr_8fr] mr-5">
+            <div className="grid-in-div grid grid-areas-user-filter grid-cols-[8fr_2fr_2fr] gap-5 h-full justify-center items-center">
+                <input type="text" placeholder="search" className="grid-in-search border pl-7 rounded-md" />
+                <div className="grid-in-list  text-center">
+                    <select className="w-full">
+                        <option value="">List: All users</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                </div>
+            </div>
+            <table class="bg-white  grid-in-table table-fixed text-center w-full">
+                <thead className="bg-green">
+                    <tr class="h-[30px]">
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Employment Status</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody className="mb-10 overflow-auto h-full">
+                    <tr class="h-[30px]">
+                        <th scope="row">1</th>
+                        <td>John Doe</td>
+                        <td>Engineering</td>
+                        <td>Full-Time</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="h-[30px]">
+                        <th scope="row">2</th>
+                        <td>Jane Smith</td>
+                        <td>Human Resources</td>
+                        <td>Part-Time</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="h-[30px]">
+                        <th scope="row">3</th>
+                        <td>Mike Johnson</td>
+                        <td>Marketing</td>
+                        <td>Full-Time</td>
+                        <td>Inactive</td>
+                    </tr>
+                    <tr class="h-[30px]">
+                        <th scope="row">4</th>
+                        <td>Emily Davis</td>
+                        <td>Finance</td>
+                        <td>Contract</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr class="h-[30px]">
+                        <th scope="row">5</th>
+                        <td>Robert Brown</td>
+                        <td>IT</td>
+                        <td>Full-Time</td>
+                        <td>Active</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div className="grid-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
           <div className="h-full grid-in-table">

@@ -8,6 +8,10 @@ import parameters from "../../../assets/parameters.png";
 import menu from "../../../assets/menu.png";
 
 const Sidenav = () => {
+  const managementDropDown = () => {
+     const manage = document.querySelector(".manangement");
+     console.log(manage);
+  }
   return (
     <>
       <nav className="absolute min-h-screen w-[7em] bg-green pt-8">
@@ -45,7 +49,7 @@ const Sidenav = () => {
           </Link>
         </li>
         <li>
-          <button type="button" className="flex flex-col items-center py-2">
+          <button type="button"  onClick={managementDropDown} className="flex flex-col items-center py-2 management">
             <img src={menu} alt="Menu Icon" className="h-9 w-9" />
             <span className="text-center leading-5">Management Systems</span>
           </button>

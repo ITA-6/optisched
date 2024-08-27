@@ -18,7 +18,14 @@ const User = () => {
               placeholder="search"
               class="rounded-md border pl-7 grid-in-search"
             />
-            <div className="bg-green text-center grid-in-list"> Filter</div>
+            <div className="text-center grid-in-list">
+                <select className="w-full">
+                    <option value="">List: All users</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+            </div>
           </div>
           <table class="w-full table-fixed bg-white grid-in-table">
             <thead class="bg-green">
@@ -63,9 +70,9 @@ const User = () => {
             </tbody>
           </table>
         </div>
-        <div className="grid-newUser grid grid-rows-[1fr_8fr] bg-white grid-areas-create-user-layout">
-          <div className="grid-in-table">
-            <div className="flex h-1/5 items-center justify-center bg-green">
+        <div className="grid-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
+          <div className="grid-in-table  bg-white">
+            <div className="flex h-1/5 items-center justify-center  bg-green">
               <img src={user} alt="" className="h-[50px] w-[50px]" />
               <h2 className="ml-2 text-3xl font-extrabold">Create New User</h2>
             </div>
