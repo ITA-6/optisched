@@ -7,14 +7,7 @@ import course from "../../../assets/course.png";
 const Dashboard = () => {
     return (
         <div class="bg-white-grayish h-screen w-screen">
-          <div class="grid grid-areas-layout grid-cols-[1fr_4fr_1fr] grid-rows-[1fr_1fr_3fr_1fr_8fr] justify-between ml-[10rem] mr-[2rem] h-screen">
-            <div class=" grid-in-admin text-3xl font-extrabold mt-10 whitespace-nowrap">
-              Admin Dashboard
-              </div>
-            <div class="grid-in-profile mt-10 flex justify-end items-end">
-              <img src={user} class="w-8 h-8 mb-2 mr-2" />
-            </div>
-            
+          <div class="grid grid-areas-layout grid-cols-[1fr_4fr_1fr] grid-rows-[1fr_1fr_3fr_1fr_8fr] justify-between ml-[18rem] mr-[2rem] h-screen">
             <div class="grid-in-adminname mt-7  font-extrabold text-2xl">
               Welcome John Doe
             </div>

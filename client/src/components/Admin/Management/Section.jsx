@@ -5,14 +5,8 @@ import section from "../../../assets/section.png";
 const Section = () => {
   return (
     <div className="h-screen w-screen bg-white-grayish">
-      <div className="ml-[10rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
-        <div className="mt-10 text-4xl font-extrabold grid-in-userText">
-          All Users
-        </div>
-        <div className="mt-10 flex items-end justify-end grid-in-Profile">
-          <img src={user} alt="" className="mb-2 mr-2 h-8 w-8" />
-        </div>
-        <div className="grid-in-user-table-layout mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout">
+      <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
+        <div className="grid-in-userTable mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout">
           <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
             <input
               type="text"
@@ -77,7 +71,7 @@ const Section = () => {
             </tbody>
           </table>
         </div>
-        <div className="grid-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
+        <div className="grid-in-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
             <div className="h-full grid-in-table">
                 <div className="flex h-1/6 items-center justify-center bg-green">
                 <img src={section} alt="plus" className="h-[40px] w-[50px]" />

@@ -4,14 +4,8 @@ import add from "../../../assets/add.png";
 const User = () => {
   return (
     <div class="h-screen w-screen bg-white-grayish">
-      <div className="ml-[10rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
-        <div class="mt-10 text-4xl font-extrabold grid-in-userText">
-          All User
-        </div>
-        <div class="mt-10 flex items-end justify-end grid-in-Profile">
-          <img src={user} class="mb-2 mr-2 h-8 w-8" />
-        </div>
-        <div className="grid-in-user-table-layout mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout">
+      <div className="ml-[19rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
+        <div className="grid-in-userTable mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout">
           <div class="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
             <input
               type="text"
@@ -70,7 +64,7 @@ const User = () => {
             </tbody>
           </table>
         </div>
-        <div className="grid-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
+        <div className="grid-in-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
           <div className="grid-in-table  bg-white">
             <div className="flex h-1/5 items-center justify-center  bg-green">
               <img src={user} alt="" className="h-[50px] w-[50px]" />

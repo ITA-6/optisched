@@ -4,14 +4,9 @@ import classroom from "../../../assets/classroom.png";
 const Classroom = () => {
   return (
     <div className="h-screen w-screen bg-white-grayish">
-      <div className="ml-[10rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
-        <div className="mt-10 text-4xl font-extrabold grid-in-userText">
-          All Users
-        </div>
-        <div className="mt-10 flex items-end justify-end grid-in-Profile">
-          <img src={user} alt="" className="mb-2 mr-2 h-8 w-8" />
-        </div>
-        <div className="grid-in-user-table-layout grid grid-areas-user-table-layout grid-rows-[1fr_8fr] mr-5">
+      <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
+        
+        <div className="grid-in-userTable grid grid-areas-user-table-layout grid-rows-[1fr_8fr] mr-5">
             <div className="grid-in-div grid grid-areas-user-filter grid-cols-[8fr_2fr_2fr] gap-5 h-full justify-center items-center">
                 <input type="text" placeholder="search" className="grid-in-search border pl-7 rounded-md" />
                 <div className="grid-in-list  text-center">
@@ -72,7 +67,7 @@ const Classroom = () => {
                 </tbody>
             </table>
         </div>
-        <div className="grid-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
+        <div className="grid-in-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
           <div className="h-full grid-in-table">
             <div className="flex h-1/6 items-center justify-center bg-green">
               <img src={classroom} alt="plus" className="h-[50px] w-[50px]" />

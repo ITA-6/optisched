@@ -3,12 +3,8 @@ import user from "../../../assets/user.png";
 const Professor = () => {
     return(
         <div className="h-screen w-screen bg-white-grayish">
-            <div className="grid grid-areas-user-layout grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] h-screen  ml-[10rem]  mr-[2rem]">
-                <div className="grid-in-userText font-extrabold text-4xl  mt-10">All Users</div>
-                <div className="grid-in-Profile flex justify-end items-end mt-10">
-                    <img src={user} alt="" className="w-8 h-8 mb-2 mr-2" />
-                </div>
-                <div className="grid-in-user-table-layout grid grid-areas-user-table-layout grid-rows-[1fr_8fr] mr-5">
+            <div className="grid grid-areas-user-layout grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] h-screen  ml-[18rem]  mr-[2rem]">
+                <div className="grid-in-userTable grid grid-areas-user-table-layout grid-rows-[1fr_8fr] mr-5">
                     <div className="grid-in-div grid grid-areas-user-filter grid-cols-[8fr_2fr_2fr] gap-5 h-full justify-center items-center">
                         <input type="text" placeholder="search" className="grid-in-search border pl-7 rounded-md" />
                         <div className="grid-in-list text-center">
@@ -69,7 +65,7 @@ const Professor = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className="grid-newUser grid grid-areas-create-user-layout grid-rows-[1fr_8fr]">
+                <div className="grid-in-newUser grid grid-areas-create-user-layout grid-rows-[1fr_8fr]">
                     <div className="grid-in-table h-full">
                         <div className="flex items-center  justify-center bg-green h-1/6">
                             <img src={user} alt="plus" className="h-[50px] w-[50px]" />
@@ -114,5 +110,5 @@ const Professor = () => {
         </div>
     )
 }
-
+    
 export default Professor;
