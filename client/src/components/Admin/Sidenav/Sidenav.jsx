@@ -11,6 +11,7 @@ import { useState } from "react";
 const Sidenav = () => {
   const [isManagementOpen, setIsManagementOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
   const toggleManagementDropdown = () => {
     setIsManagementOpen(!isManagementOpen);
@@ -20,9 +21,13 @@ const Sidenav = () => {
     setIsUserOpen(!isUserOpen);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
+
   return (
     <>
-      <nav className="absolute min-h-screen w-[16em] bg-white pt-8 text-black z-3">
+      <nav className={`absolute min-h-screen w-[16em] bg-white pt-8 text-black z-3`}>
         <div className="flex justify-center">
           <img src={optisched} alt="OptiSched Logo" className="h-16 w-auto" />
         </div>
@@ -66,7 +71,7 @@ const Sidenav = () => {
           </li>
           <li className="w-full">
             <Link
-              to="Generate"
+              to="generate"
               className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
             >
               <img src={generate} alt="Generate Icon" className="h-8 w-8" />
@@ -75,7 +80,7 @@ const Sidenav = () => {
           </li>
           <li className="w-full">
             <Link
-              to="#"
+              to="parameter"
               className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
             >
               <img
