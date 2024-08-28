@@ -1,10 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/Login";
 
 import Admin from "./components/Admin";
 import Dashboard from "./components/Admin/Dashboard/Dashboard"
 import User from "./components/Admin/User/User"
+import Generate from "./components/Admin/Generate/Generate";
+import Parameter from "./components/Admin/Parameter/parameter";
 import Professor from "./components/Admin/Management/Professors";
 import Section from "./components/Admin/Management/Section";
 import Classroom from "./components/Admin/Management/Classroom";
@@ -21,13 +23,16 @@ const App = () => {
 
         {/* ADMIN */}
         <Route path="admin" element={<Admin />}>
-          <Route index element={<Dashboard />} />
-          <Route index path="user" element={<User />} />
-          <Route index path="dashboard" element={<Dashboard />} />
-          <Route index path="Professor" element={<Professor />} />
-          <Route index path="Section" element={<Section />} />
-          <Route index path="Classroom" element={<Classroom />} />
-          <Route index path="Course" element={<Course />} />
+            <Route index element={<Dashboard />} />
+            <Route path="user" element={<Navigate to="manage" />} />
+            <Route index path="user/manage" element={<User/>} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="generate" element={<Generate />} />
+            <Route path="parameter" element={<Parameter />} />
+            <Route path="management/professor" element={<Professor />} />
+            <Route path="management/section" element={<Section />} />
+            <Route path="management/classroom" element={<Classroom />} />
+            <Route path="management/course" element={<Course />} />
         </Route>
       </Routes>
     </BrowserRouter>

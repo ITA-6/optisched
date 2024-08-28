@@ -4,10 +4,11 @@ export default {
   theme: {
     extend: {
       screens: {
-        sm: "480px",
-        md: "768px",
-        lg: "976px",
-        xl: "1440px",
+        "xm": {'max': "479px"},
+        "sm": "480px",
+        "md": "768px",
+        "lg": "976px",
+        "xl": "1440px",
       },
       colors: {
         white: "#FFFFFF",
@@ -38,7 +39,7 @@ export default {
           '. table .'
         ],
         'user-layout' : [
-          'userText  Profile',
+          'userText Profile',
           'userTable newUser',
           '. button'
         ],
