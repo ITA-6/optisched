@@ -22,7 +22,7 @@ const Sidenav = () => {
 
   return (
     <>
-      <nav className="absolute min-h-screen w-[16em] bg-white pt-8 text-black">
+      <nav className="absolute min-h-screen w-[16em] bg-white pt-8 text-black z-3">
         <div className="flex justify-center">
           <img src={optisched} alt="OptiSched Logo" className="h-16 w-auto" />
         </div>
@@ -55,7 +55,7 @@ const Sidenav = () => {
               <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green py-4">
                 <li className="w-full">
                   <Link
-                    to="#"
+                    to="user"
                     className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
                   >
                     <span className="ml-2 text-sm">Manage</span>
@@ -99,7 +99,7 @@ const Sidenav = () => {
               <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green py-2">
                 <li className="w-full">
                   <Link
-                    to="Professor"
+                    to="management/professor"
                     className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
                   >
                     <span className="ml-4 text-sm">Professor</span>
@@ -107,7 +107,7 @@ const Sidenav = () => {
                 </li>
                 <li className="w-full">
                   <Link
-                    to="Section"
+                    to="management/section"
                     className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
                   >
                     <span className="ml-4 text-sm">Section</span>
@@ -115,7 +115,7 @@ const Sidenav = () => {
                 </li>
                 <li className="w-full">
                   <Link
-                    to="Classroom"
+                    to="management/classroom"
                     className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
                   >
                     <span className="ml-4 text-sm">Classroom</span>
@@ -123,7 +123,7 @@ const Sidenav = () => {
                 </li>
                 <li className="w-full">
                   <Link
-                    to="Course"
+                    to="management/course"
                     className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
                   >
                     <span className="ml-4 text-sm">Course</span>
