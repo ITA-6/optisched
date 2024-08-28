@@ -5,6 +5,8 @@ import Login from "./components/Login";
 import Admin from "./components/Admin";
 import Dashboard from "./components/Admin/Dashboard/Dashboard"
 import User from "./components/Admin/User/User"
+import Generate from "./components/Admin/Generate/Generate";
+import Parameter from "./components/Admin/Parameter/parameter";
 import Professor from "./components/Admin/Management/Professors";
 import Section from "./components/Admin/Management/Section";
 import Classroom from "./components/Admin/Management/Classroom";
@@ -25,6 +27,8 @@ const App = () => {
             <Route path="user" element={<Navigate to="manage" />} />
             <Route index path="user/manage" element={<User/>} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="generate" element={<Generate />} />
+            <Route path="parameter" element={<Parameter />} />
             <Route path="management/professor" element={<Professor />} />
             <Route path="management/section" element={<Section />} />
             <Route path="management/classroom" element={<Classroom />} />
