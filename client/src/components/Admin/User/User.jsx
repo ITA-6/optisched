@@ -71,14 +71,14 @@ const User = () => {
               <h2 className="ml-2 text-3xl font-extrabold">Create New User</h2>
             </div>
             <div className="p-5">
-              <form action="" className="mt-5 grid gap-5">
-                <div className="ml-20 flex items-center justify-start">
-                  <label for="role" className="text-base font-extrabold">
+              <form action="" className="mt-5 grid justify-center items-center gap-5">
+                <div className="grid items-center justify-center w-full">
+                  <label for="role" className="text-base">
                     Role
                   </label>
                   <input
                     type="text"
-                    className="ml-[1rem] w-3/5 rounded-md border pl-3"
+                    className="rounded border w-full"
                   />
                 </div>
                 <div className="ml-[4.5rem] flex items-center">

@@ -19,6 +19,10 @@ const Admin = () => {
                 return 'Manage Sections';
             case '/admin/management/classroom':
                 return 'Manage Classrooms';
+            case '/admin/generate':
+                return "Generate";
+            case '/admin/parameter':
+                return "Parameter";
             case '/admin/management/course':
                 return 'Manage Courses';
             default:
