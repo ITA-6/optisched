@@ -86,7 +86,7 @@ const User = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
             <div className="flex h-1/5 items-center justify-center bg-green">
-              <img src={user} alt="" className="h-[50px] w-[50px]" />
+              <img src={user} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
               <h2 className="ml-2 text-3xl font-extrabold">Create New User</h2>
             </div>
             <div className="p-5">
@@ -169,6 +169,38 @@ const User = () => {
                   />
                 </div>
 
+                {/* Phone Number Field */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="phone"
+                    className="text-lg font-medium text-gray-700"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="+63"
+                  />
+                </div>
+
+                {/* Profile Picture Upload */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="profilePicture"
+                    className="text-lg font-medium text-gray-700"
+                  >
+                    Profile Picture
+                  </label>
+                  <input
+                    type="file"
+                    id="profilePicture"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    accept="image/*"
+                  />
+                </div>
+
                 {/* Department Field */}
                 <div className="flex flex-col">
                   <label
@@ -187,8 +219,12 @@ const User = () => {
                     <option value="BSBA">BSBA</option>
                   </select>
                 </div>
+                <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
+                  <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
+                    <span>Confirm</span>
+                  </button>
+                </div>
               </form>
-
               <button
                 className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
                 onClick={closeModal}
