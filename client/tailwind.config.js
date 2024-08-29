@@ -40,7 +40,7 @@ export default {
         ],
         'user-layout' : [
           'userText Profile',
-          'userTable newUser',
+          'userTable userTable',
           '. button'
         ],
         'user-table-layout' : [
