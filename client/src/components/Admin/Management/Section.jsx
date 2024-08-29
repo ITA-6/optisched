@@ -44,35 +44,75 @@ const Section = () => {
                             <td>John Doe</td>
                             <td>Engineering</td>
                             <td>Full-Time</td>
-                            <td>Active</td>
+                            <td>
+                                <div className="flex justify-center items-center">
+                                    <span>Active</span>
+                                    <div className="ml-5 flex gap-2">
+                                        <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                        <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr class="h-[30px]">
                             <th scope="row">2</th>
                             <td>Jane Smith</td>
                             <td>Human Resources</td>
                             <td>Part-Time</td>
-                            <td>Active</td>
+                            <td>
+                                <div className="flex justify-center items-center">
+                                    <span>Active</span>
+                                    <div className="ml-5 flex gap-2">
+                                        <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                        <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr class="h-[30px]">
                             <th scope="row">3</th>
                             <td>Mike Johnson</td>
                             <td>Marketing</td>
                             <td>Full-Time</td>
-                            <td>Inactive</td>
+                            <td>
+                                <div className="flex justify-center items-center">
+                                    <span>Inactive</span>
+                                    <div className="ml-5 flex gap-2">
+                                        <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                        <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr class="h-[30px]">
                             <th scope="row">4</th>
                             <td>Emily Davis</td>
                             <td>Finance</td>
                             <td>Contract</td>
-                            <td>Active</td>
+                            <td>
+                                <div className="flex justify-center items-center">
+                                    <span>Active</span>
+                                    <div className="ml-5 flex gap-2">
+                                        <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                        <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         <tr class="h-[30px]">
                             <th scope="row">5</th>
                             <td>Robert Brown</td>
                             <td>IT</td>
                             <td>Full-Time</td>
-                            <td>Active</td>
+                            <td>
+                                <div className="flex justify-center items-center">
+                                    <span>Active</span>
+                                    <div className="ml-5 flex gap-2">
+                                        <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                        <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

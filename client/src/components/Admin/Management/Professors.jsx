@@ -1,5 +1,5 @@
 import user from "../../../assets/user.png";
-
+import add from "../../../assets/add.png"
 const Professor = () => {
     return(
         <div className="h-screen w-screen bg-white-grayish">
@@ -32,38 +32,86 @@ const Professor = () => {
                                 <td>John Doe</td>
                                 <td>Engineering</td>
                                 <td>Full-Time</td>
-                                <td>Active</td>
+                                <td>
+                                    <div className="flex justify-center items-center">
+                                        <span>Active</span>
+                                        <div className="ml-5 flex gap-2">
+                                            <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                            <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr class="h-[30px]">
                                 <th scope="row">2</th>
                                 <td>Jane Smith</td>
                                 <td>Human Resources</td>
                                 <td>Part-Time</td>
-                                <td>Active</td>
+                                <td>
+                                    <div className="flex justify-center items-center">
+                                        <span>Active</span>
+                                        <div className="ml-5 flex gap-2">
+                                            <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                            <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr class="h-[30px]">
                                 <th scope="row">3</th>
                                 <td>Mike Johnson</td>
                                 <td>Marketing</td>
                                 <td>Full-Time</td>
-                                <td>Inactive</td>
+                                <td>
+                                    <div className="flex justify-center items-center">
+                                        <span>Inactive</span>
+                                        <div className="ml-5 flex gap-2">
+                                            <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                            <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr class="h-[30px]">
                                 <th scope="row">4</th>
                                 <td>Emily Davis</td>
                                 <td>Finance</td>
                                 <td>Contract</td>
-                                <td>Active</td>
+                                <td>
+                                    <div className="flex justify-center items-center">
+                                        <span>Active</span>
+                                        <div className="ml-5 flex gap-2">
+                                            <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                            <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr class="h-[30px]">
                                 <th scope="row">5</th>
                                 <td>Robert Brown</td>
                                 <td>IT</td>
                                 <td>Full-Time</td>
-                                <td>Active</td>
+                                <td>
+                                    <div className="flex justify-center items-center">
+                                        <span>Active</span>
+                                        <div className="ml-5 flex gap-2">
+                                            <button className="w-16 -h5 bg-green text-white"> Edit</button>
+                                            <button className="w-16 -h5 bg-green text-white"> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div className="mt-5 flex items-start justify-end grid-in-button">
+                    <button
+                        className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-white"
+                    >
+                        <img src={add} alt="" className="h-[30px] w-[30px]" />
+                        <span>Add New Professor</span>
+                    </button>
                 </div>
             </div>
         </div>
