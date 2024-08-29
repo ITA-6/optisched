@@ -12,22 +12,22 @@ const User = () => {
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
         <div className="mr-5 grid grid-rows-[1fr_4fr] grid-areas-user-table-layout grid-in-userTable">
-          <div className="flex items-center justify-end gap-5">
-            <input
-              type="text"
-              placeholder="search"
-              className="rounded-md border pl-5 grid-in-search"
-            />
-            <div className="text-center grid-in-list">
-              <select className="w-full">
-                <option value="">List: All users</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </select>
+          <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
+              <input
+                type="text"
+                placeholder="search"
+                className="rounded-md border pl-7 grid-in-search"
+              />
+              <div className="text-center grid-in-list">
+                  <select className="w-full">
+                      <option value="">List: All users</option>
+                      <option value="option1">Option 1</option>
+                      <option value="option2">Option 2</option>
+                      <option value="option3">Option 3</option>
+                  </select>
+              </div>
             </div>
-          </div>
-          <table className="w-[150%] table-fixed bg-white grid-in-table">
+          <table className="table-fixed bg-white grid-in-table">
             <thead className="bg-green">
               <tr>
                 <th scope="col">User ID</th>
