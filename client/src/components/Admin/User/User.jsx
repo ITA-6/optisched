@@ -13,20 +13,20 @@ const User = () => {
       <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
         <div className="mr-5 grid grid-rows-[1fr_4fr] grid-areas-user-table-layout grid-in-userTable">
           <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
-              <input
-                type="text"
-                placeholder="search"
-                className="rounded-md border pl-7 grid-in-search"
-              />
-              <div className="text-center grid-in-list">
-                  <select className="w-full">
-                      <option value="">List: All users</option>
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
-                  </select>
-              </div>
+            <input
+              type="text"
+              placeholder="search"
+              className="rounded-md border pl-7 grid-in-search"
+            />
+            <div className="text-center grid-in-list">
+              <select className="w-full">
+                <option value="">List: All users</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+              </select>
             </div>
+          </div>
           <table className="table-fixed bg-white grid-in-table">
             <thead className="bg-green">
               <tr>
@@ -91,6 +91,21 @@ const User = () => {
             </div>
             <div className="p-5">
               <form className="mt-5 space-y-6">
+                {/* User ID */}
+                <div className="flex items-center">
+                  <div className="flex flex-1">
+                    <label htmlFor="userId" className="text-lg font-medium">
+                      User ID :
+                    </label>
+                    <p
+                      id="userId"
+                      name="userId"
+                      className="inlin text-lg font-medium"
+                    >
+                      1
+                    </p>
+                  </div>
+                </div>
                 {/* Role Field */}
                 <div className="flex flex-col">
                   <label
