@@ -28,7 +28,7 @@ const Sidenav = () => {
   return (
     <>
       <nav
-        className={`z-3 absolute min-h-screen w-[16em] bg-white pt-8 text-black`}
+        className={`z-3 absolute top-0 min-h-screen w-[16em] bg-white pt-8 text-black`}
       >
         <div className="flex justify-center">
           <img src={optisched} alt="OptiSched Logo" className="h-16 w-auto" />
