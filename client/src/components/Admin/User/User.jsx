@@ -185,22 +185,6 @@ const User = () => {
                   />
                 </div>
 
-                {/* Profile Picture Upload */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="profilePicture"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Profile Picture
-                  </label>
-                  <input
-                    type="file"
-                    id="profilePicture"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                    accept="image/*"
-                  />
-                </div>
-
                 {/* Department Field */}
                 <div className="flex flex-col">
                   <label
