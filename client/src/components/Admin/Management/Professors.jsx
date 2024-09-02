@@ -31,9 +31,12 @@ const Professors = () => {
               <tr class="h-[30px]">
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Phone No.</th>
                 <th scope="col">Department</th>
-                <th scope="col">Employment Status</th>
-                <th scope="col">Status</th>
+                <th scope="col">Masteral</th>
+                <th scope="col">Active Status</th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">

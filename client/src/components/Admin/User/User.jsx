@@ -32,40 +32,52 @@ const User = () => {
               <tr>
                 <th scope="col">User ID</th>
                 <th scope="col">Name</th>
+                <th scope="col">Gender</th>
                 <th scope="col">Email Address</th>
                 <th scope="col">Phone Number</th>
+                <th scope="col">Department</th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
               <tr className="h-[30px] text-center">
                 <th scope="row">1</th>
                 <td>John Doe</td>
+                <td>Male</td>
                 <td>johndoe2922@gmail.com</td>
-                <th>21312323213</th>
+                <td>21312323213</td>
+                <td>CCS</td>
               </tr>
               <tr className="h-[30px] text-center">
                 <th scope="row">2</th>
                 <td>Jane Smith</td>
+                <td>Female</td>
                 <td>janesmith1234@gmail.com</td>
-                <th>31231231231</th>
+                <td>31231231231</td>
+                <td>BSeD</td>
               </tr>
               <tr className="h-[30px] text-center">
                 <th scope="row">3</th>
                 <td>Michael Johnson</td>
+                <td>Male</td>
                 <td>michaeljohnson5678@gmail.com</td>
-                <th>42342342342</th>
+                <td>42342342342</td>
+                <td>CoE</td>
               </tr>
               <tr className="h-[30px] text-center">
                 <th scope="row">4</th>
                 <td>Emily Davis</td>
+                <td>Female</td>
                 <td>emilydavis9012@gmail.com</td>
-                <th>53453453453</th>
+                <td>53453453453</td>
+                <td>BSBA</td>
               </tr>
               <tr className="h-[30px] text-center">
                 <th scope="row">5</th>
                 <td>Daniel Brown</td>
+                <td>Male</td>
                 <td>danielbrown3456@gmail.com</td>
-                <th>64564564564</th>
+                <td>64564564564</td>
+                <td>CCS</td>
               </tr>
             </tbody>
           </table>
