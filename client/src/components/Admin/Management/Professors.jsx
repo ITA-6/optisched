@@ -43,18 +43,19 @@ const Professors = () => {
               <tr class="h-[30px]">
                 <th scope="row">1</th>
                 <td>John Doe</td>
+                <td>Male</td>
+                <td>johndoe@example.com</td>
+                <td>+63 912 345 6789</td>
                 <td>Engineering</td>
-                <td>Full-Time</td>
+                <td>MSc</td>
                 <td>
                   <div className="flex items-center justify-center">
                     <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
-                        {" "}
                         Edit
                       </button>
                       <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
                         Delete
                       </button>
                     </div>
@@ -64,18 +65,19 @@ const Professors = () => {
               <tr class="h-[30px]">
                 <th scope="row">2</th>
                 <td>Jane Smith</td>
+                <td>Female</td>
+                <td>janesmith@example.com</td>
+                <td>+63 987 654 3210</td>
                 <td>Human Resources</td>
-                <td>Part-Time</td>
+                <td>MBA</td>
                 <td>
                   <div className="flex items-center justify-center">
                     <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
-                        {" "}
                         Edit
                       </button>
                       <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
                         Delete
                       </button>
                     </div>
@@ -85,18 +87,19 @@ const Professors = () => {
               <tr class="h-[30px]">
                 <th scope="row">3</th>
                 <td>Mike Johnson</td>
+                <td>Male</td>
+                <td>mikejohnson@example.com</td>
+                <td>+63 555 123 4567</td>
                 <td>Marketing</td>
-                <td>Full-Time</td>
+                <td>BBA</td>
                 <td>
                   <div className="flex items-center justify-center">
                     <span>Inactive</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
-                        {" "}
                         Edit
                       </button>
                       <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
                         Delete
                       </button>
                     </div>
@@ -106,18 +109,19 @@ const Professors = () => {
               <tr class="h-[30px]">
                 <th scope="row">4</th>
                 <td>Emily Davis</td>
+                <td>Female</td>
+                <td>emilydavis@example.com</td>
+                <td>+63 666 777 8888</td>
                 <td>Finance</td>
-                <td>Contract</td>
+                <td>MSc</td>
                 <td>
                   <div className="flex items-center justify-center">
                     <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
-                        {" "}
                         Edit
                       </button>
                       <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
                         Delete
                       </button>
                     </div>
@@ -127,18 +131,129 @@ const Professors = () => {
               <tr class="h-[30px]">
                 <th scope="row">5</th>
                 <td>Robert Brown</td>
+                <td>Male</td>
+                <td>robertbrown@example.com</td>
+                <td>+63 444 555 6666</td>
                 <td>IT</td>
-                <td>Full-Time</td>
+                <td>BSc</td>
                 <td>
                   <div className="flex items-center justify-center">
                     <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
-                        {" "}
                         Edit
                       </button>
                       <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">6</th>
+                <td>Anna White</td>
+                <td>Female</td>
+                <td>annawhite@example.com</td>
+                <td>+63 333 222 1111</td>
+                <td>Mathematics</td>
+                <td>MSc</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <span>Active</span>
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">7</th>
+                <td>Chris Lee</td>
+                <td>Male</td>
+                <td>chrislee@example.com</td>
+                <td>+63 888 999 0000</td>
+                <td>Physics</td>
+                <td>PhD</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <span>Active</span>
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">8</th>
+                <td>Lisa Green</td>
+                <td>Female</td>
+                <td>lisagreen@example.com</td>
+                <td>+63 777 888 9999</td>
+                <td>Biology</td>
+                <td>PhD</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <span>Inactive</span>
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">9</th>
+                <td>David King</td>
+                <td>Male</td>
+                <td>davidking@example.com</td>
+                <td>+63 999 111 2222</td>
+                <td>Chemistry</td>
+                <td>MSc</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <span>Active</span>
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">10</th>
+                <td>Maria Garcia</td>
+                <td>Female</td>
+                <td>mariagarcia@example.com</td>
+                <td>+63 555 333 4444</td>
+                <td>Economics</td>
+                <td>MSc</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <span>Active</span>
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
                         Delete
                       </button>
                     </div>

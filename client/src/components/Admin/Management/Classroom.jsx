@@ -30,117 +30,82 @@ const Classroom = () => {
             <thead className="bg-green">
               <tr class="h-[30px]">
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Department</th>
-                <th scope="col">Employment Status</th>
-                <th scope="col">Status</th>
+                <th scope="col">Building Name</th>
+                <th scope="col">Room Number</th>
+                <th scope="col">Room Capacity</th>
+                <th scope="col">Floor Number</th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
               <tr class="h-[30px]">
                 <th scope="row">1</th>
-                <td>John Doe</td>
-                <td>Engineering</td>
-                <td>Full-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Main Academic Building</td>
+                <td>101</td>
+                <td>40</td>
+                <td>1</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">2</th>
-                <td>Jane Smith</td>
-                <td>Human Resources</td>
-                <td>Part-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Science Wing</td>
+                <td>205</td>
+                <td>35</td>
+                <td>2</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">3</th>
-                <td>Mike Johnson</td>
-                <td>Marketing</td>
-                <td>Full-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Inactive</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Library Annex</td>
+                <td>310</td>
+                <td>50</td>
+                <td>3</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">4</th>
-                <td>Emily Davis</td>
-                <td>Finance</td>
-                <td>Contract</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Arts and Music Building</td>
+                <td>415</td>
+                <td>25</td>
+                <td>4</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">5</th>
-                <td>Robert Brown</td>
-                <td>IT</td>
-                <td>Full-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Administration Office</td>
+                <td>520</td>
+                <td>20</td>
+                <td>5</td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">6</th>
+                <td>Sports Complex</td>
+                <td>601</td>
+                <td>100</td>
+                <td>1</td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">7</th>
+                <td>Engineering Lab</td>
+                <td>702</td>
+                <td>30</td>
+                <td>2</td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">8</th>
+                <td>Medical Center</td>
+                <td>803</td>
+                <td>15</td>
+                <td>3</td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">9</th>
+                <td>Design Studio</td>
+                <td>904</td>
+                <td>20</td>
+                <td>4</td>
+              </tr>
+              <tr class="h-[30px]">
+                <th scope="row">10</th>
+                <td>Computer Science Building</td>
+                <td>1010</td>
+                <td>45</td>
+                <td>5</td>
               </tr>
             </tbody>
           </table>

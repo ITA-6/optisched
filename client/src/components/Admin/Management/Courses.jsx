@@ -30,119 +30,49 @@ const Course = () => {
             <thead className="bg-green">
               <tr class="h-[30px]">
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
+                <th scope="col">Course Title</th>
+                <th scope="col">Course Code</th>
                 <th scope="col">Department</th>
-                <th scope="col">Employment Status</th>
-                <th scope="col">Status</th>
+                <th scope="col">Course type</th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
               <tr class="h-[30px]">
                 <th scope="row">1</th>
-                <td>John Doe</td>
-                <td>Engineering</td>
-                <td>Full-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Introduction to Programming</td>
+                <td>CS101</td>
+                <td>Computer Science</td>
+                <td>Lecture / Laboratory</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">2</th>
-                <td>Jane Smith</td>
-                <td>Human Resources</td>
-                <td>Part-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Data Structures and Algorithms</td>
+                <td>CS201</td>
+                <td>Computer Science</td>
+                <td>Lecture / Laboratory</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">3</th>
-                <td>Mike Johnson</td>
-                <td>Marketing</td>
-                <td>Full-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Inactive</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Introduction to Economics</td>
+                <td>ECON101</td>
+                <td>Economics</td>
+                <td>Lecture</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">4</th>
-                <td>Emily Davis</td>
-                <td>Finance</td>
-                <td>Contract</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Principles of Psychology</td>
+                <td>PSY101</td>
+                <td>Psychology</td>
+                <td>Lecture</td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">5</th>
-                <td>Robert Brown</td>
-                <td>IT</td>
-                <td>Full-Time</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
+                <td>Modern World History</td>
+                <td>HIST201</td>
+                <td>History</td>
+                <td>Lecture</td>
               </tr>
-            </tbody>
+              </tbody>
           </table>
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
