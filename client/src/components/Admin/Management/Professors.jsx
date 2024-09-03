@@ -29,14 +29,14 @@ const Professors = () => {
           <table class="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
               <tr class="h-[30px]">
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Email Address</th>
-                <th scope="col">Phone No.</th>
-                <th scope="col">Department</th>
-                <th scope="col">Masteral</th>
-                <th scope="col">Active Status</th>
+                <th scope="col" className="w-[100px] h-[30px]">ID</th>
+                <th scope="col" className="w-[150px] h-[30px]">Name</th>
+                <th scope="col" className="w-[150px] h-[30px]">Gender</th>
+                <th scope="col" className="w-[200px] h-[30px]">Email Address</th>
+                <th scope="col" className="w-[150px] h-[30px]">Phone No.</th>
+                <th scope="col" className="w-[150px] h-[30px]">Department</th>
+                <th scope="col" className="w-[100px] h-[30px]">Masteral</th>
+                <th scope="col" className="w-[220px] h-[30px]">Active Status</th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
@@ -46,7 +46,7 @@ const Professors = () => {
                 <td>Male</td>
                 <td>johndoe@example.com</td>
                 <td>+63 912 345 6789</td>
-                <td>Engineering</td>
+                <td className="w-[100px]">Engineering</td>
                 <td>MSc</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -68,7 +68,7 @@ const Professors = () => {
                 <td>Female</td>
                 <td>janesmith@example.com</td>
                 <td>+63 987 654 3210</td>
-                <td>Human Resources</td>
+                <td className="w-[100px]">Human Resources</td>
                 <td>MBA</td>
                 <td>
                   <div className="flex items-center justify-center">
