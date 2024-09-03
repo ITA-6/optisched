@@ -32,21 +32,21 @@ const Section = () => {
             <thead className="bg-green">
               <tr class="h-[30px]">
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Department</th>
-                <th scope="col">Employment Status</th>
+                <th scope="col">Section Name</th>
+                <th scope="col">Maximum Capacity</th>
+                <th scope="col">Section Type</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
               <tr class="h-[30px]">
                 <th scope="row">1</th>
-                <td>John Doe</td>
-                <td>Engineering</td>
-                <td>Full-Time</td>
+                <td>IT-A</td>
+                <td>50</td>
+                <td>Lecture & Lab</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
+                    <span>Open</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -62,12 +62,12 @@ const Section = () => {
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">2</th>
-                <td>Jane Smith</td>
-                <td>Human Resources</td>
-                <td>Part-Time</td>
+                <td>IT-B</td>
+                <td>50</td>
+                <td>Lecture</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
+                    <span>Open</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -83,12 +83,12 @@ const Section = () => {
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">3</th>
-                <td>Mike Johnson</td>
-                <td>Marketing</td>
-                <td>Full-Time</td>
+                <td>IT-C</td>
+                <td>50</td>
+                <td>Laboratory</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Inactive</span>
+                    <span>Closed</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -104,12 +104,12 @@ const Section = () => {
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">4</th>
-                <td>Emily Davis</td>
-                <td>Finance</td>
-                <td>Contract</td>
+                <td>IT-D</td>
+                <td>50</td>
+                <td>Lecture</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
+                    <span>Closed</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -125,12 +125,12 @@ const Section = () => {
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">5</th>
-                <td>Robert Brown</td>
-                <td>IT</td>
-                <td>Full-Time</td>
+                <td>IT-E</td>
+                <td>50</td>
+                <td>Lecture & Lab</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
+                    <span>Open</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
