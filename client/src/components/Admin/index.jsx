@@ -5,7 +5,7 @@ import Sidenav from './Sidenav';
 
 const Admin = () => {
     const location = useLocation();
-
+    const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
     const getPageName = (path) => {
         switch (path) {
             case '/admin':
@@ -25,7 +25,14 @@ const Admin = () => {
                 return "Parameter";
             case '/admin/management/course':
                 return 'Manage Courses';
+            case '/admin/generated/':
+                return 'Generate Schedule';
             default:
+                // Check if path matches dynamic route pattern
+                if (generatedPattern.test(path)) {
+                    return 'Generate Schedule';
+                }
+                // Fallback for unknown paths
                 return 'Admin Dashboard';
         }
     };
