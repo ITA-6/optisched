@@ -1,7 +1,6 @@
 from rest_framework.response import Response
 from .serializers import RegisterSerializer, LoginSerializer
 from rest_framework.views import APIView
-from rest_framework.authentication import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -25,12 +24,11 @@ class RegisterApiView(APIView):
             data["email"] = account.email
             data["first_name"] = account.first_name
             data["last_name"] = account.last_name
-            data["department"] = account.department
+            data["department"] = account.department.id if account.department else None
 
-        else:
-            data = serializer.errors
+            return Response(data, status=status.HTTP_201_CREATED)
 
-        return Response(data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -41,31 +39,26 @@ class LoginApiView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data)
 
-        if serializer.is_valid(raise_exception=True):
-            email = serializer.validated_data["email"]
-            password = serializer.validated_data["password"]
-            user = authenticate(request, email=email, password=password)
+        if serializer.is_valid():
+            user = serializer.validated_data["user"]
 
-            if not user:
-                return Response(
-                    {"error": "Invalid email or password."},
-                    status=status.HTTP_401_UNAUTHORIZED,
-                )
-
-            if user.is_active:
-                refresh = RefreshToken.for_user(user)
-                return Response(
-                    {
-                        "refresh": str(refresh),
-                        "access": str(refresh.access_token),
-                        "Success": "Login Successfully",
-                    },
-                    status=status.HTTP_200_OK,
-                )
-            else:
+            if not user.is_active:
                 return Response(
                     {"error": "This account is inactive."},
                     status=status.HTTP_403_FORBIDDEN,
                 )
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            refresh = RefreshToken.for_user(user)
+            return Response(
+                {
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                    "success": "Login successfully.",
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        return Response(
+            {"error": "Invalid credentials provided."},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )

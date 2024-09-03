@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     "django_filters",
     "department",
     "account",
+    "professor",
+    "schedule",
+    "course",
+    "building",
+    "section",
+    "room",
 ]
 
 MIDDLEWARE = [

@@ -1,8 +1,8 @@
 from .models import CustomUser
 from rest_framework import serializers
-from department.models import Department
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from department.serializers import DepartmentSerializer
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -18,9 +18,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    department = serializers.PrimaryKeyRelatedField(
-        queryset=Department.objects.all(), allow_null=True
-    )
+    department = DepartmentSerializer(read_only=True)
 
     class Meta:
         model = CustomUser
@@ -34,7 +32,6 @@ class RegisterSerializer(serializers.ModelSerializer):
             "department",
             "is_active",
             "is_staff",
-            "is_superuser",
             "last_login",
             "date_joined",
         ]
@@ -43,6 +40,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             "last_login",
             "date_joined",
         ]
+        extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
         department = validated_data.pop("department", None)
@@ -54,22 +52,14 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        """
-        Update and return an existing CustomUser instance, given the validated data.
-        """
-        # Update user attributes
-        instance.email = validated_data.get("username", instance.username)
+        instance.username = validated_data.get("username", instance.username)
         instance.email = validated_data.get("email", instance.email)
         instance.first_name = validated_data.get("first_name", instance.first_name)
         instance.last_name = validated_data.get("last_name", instance.last_name)
         instance.department = validated_data.get("department", instance.department)
         instance.is_active = validated_data.get("is_active", instance.is_active)
         instance.is_staff = validated_data.get("is_staff", instance.is_staff)
-        instance.is_superuser = validated_data.get(
-            "is_superuser", instance.is_superuser
-        )
 
-        # Save updated user
         instance.save()
         return instance
 
@@ -81,12 +71,15 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data):
         username = data.get("username")
         password = data.get("password")
+
         if username and password:
-            user = authenticate(usernam=username, password=password)
+            user = authenticate(username=username, password=password)
             if user is None:
                 raise serializers.ValidationError(
-                    "Unable to log in with provided credentials."
+                    "Invalid credentials provided.", code="authorization"
                 )
+            data["user"] = user
         else:
-            raise serializers.ValidationError("Must include 'email' and 'password'.")
+            raise serializers.ValidationError("Must include 'username' and 'password'.")
+
         return data
