@@ -58,12 +58,6 @@ const Generate = () => {
             )}
           </tbody>
         </table>
-        <div className="grid justify-end items-center">
-          <p> PS : this button is just here to show the generated schedule table</p>
-          <div className="flex justify-end mr-5">
-            <button className="w-20 h-10 bg-green-500 text-white">Generate</button>
-          </div>
-        </div>
       </div>
     </div>
   );
