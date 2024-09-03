@@ -11,7 +11,7 @@ import { useState } from "react";
 const Sidenav = () => {
   const [isManagementOpen, setIsManagementOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleManagementDropdown = () => {
     setIsManagementOpen(!isManagementOpen);
@@ -22,12 +22,14 @@ const Sidenav = () => {
   };
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen)
-  }
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   return (
     <>
-      <nav className={`absolute min-h-screen w-[16em] bg-white pt-8 text-black z-3`}>
+      <nav
+        className={`z-3 absolute top-0 min-h-screen w-[16em] bg-white pt-8 text-black`}
+      >
         <div className="flex justify-center">
           <img src={optisched} alt="OptiSched Logo" className="h-16 w-auto" />
         </div>
@@ -35,7 +37,7 @@ const Sidenav = () => {
           <img src={pncHeader} alt="Pnc Header" className="h-10 w-auto" />
         </div>
         <div className="mb-4 flex justify-center bg-grayish">
-          <h1 className="text-xl">Scheduling System</h1>
+          <h1 className="m-2 text-xl">Scheduling System</h1>
         </div>
         <ul className="flex flex-col gap-4 px-4">
           <li className="w-full">
@@ -57,7 +59,7 @@ const Sidenav = () => {
               <span className="text-md ml-6">Users</span>
             </button>
             {isUserOpen && (
-              <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green py-4">
+              <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green">
                 <li className="w-full">
                   <Link
                     to="user"
@@ -101,11 +103,11 @@ const Sidenav = () => {
               <span className="text-md ml-4">Management Systems</span>
             </button>
             {isManagementOpen && (
-              <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green py-2">
+              <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green">
                 <li className="w-full">
                   <Link
                     to="management/professor"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
+                    className="hover:bg-green-700 mt-2 flex w-full items-center rounded-lg px-4 py-2"
                   >
                     <span className="ml-4 text-sm">Professor</span>
                   </Link>
@@ -113,7 +115,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/section"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
+                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4"
                   >
                     <span className="ml-4 text-sm">Section</span>
                   </Link>
@@ -121,7 +123,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/classroom"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
+                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4"
                   >
                     <span className="ml-4 text-sm">Classroom</span>
                   </Link>
@@ -129,7 +131,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/course"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4"
                   >
                     <span className="ml-4 text-sm">Course</span>
                   </Link>

@@ -1,124 +1,228 @@
+import { useState } from "react";
 import user from "../../../assets/user.png";
 import add from "../../../assets/add.png";
 
 const User = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
-    <div class="h-screen w-screen bg-white-grayish">
-      <div className="ml-[19rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
-        <div className="grid-in-userTable mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout">
-          <div class="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
+    <div className="h-screen w-screen bg-white-grayish">
+      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
+        <div className="mr-5 grid grid-rows-[1fr_4fr] grid-areas-user-table-layout grid-in-userTable">
+          <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
             <input
               type="text"
               placeholder="search"
-              class="rounded-md border pl-7 grid-in-search"
+              className="rounded-md border pl-7 grid-in-search"
             />
             <div className="text-center grid-in-list">
-                <select className="w-full">
-                    <option value="">List: All users</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                </select>
+              <select className="w-full">
+                <option value="">List: All users</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+              </select>
             </div>
           </div>
-          <table class="w-full table-fixed bg-white grid-in-table">
-            <thead class="bg-green">
+          <table className="table-fixed bg-white grid-in-table">
+            <thead className="bg-green">
               <tr>
                 <th scope="col">User ID</th>
                 <th scope="col">Name</th>
+                <th scope="col">Gender</th>
                 <th scope="col">Email Address</th>
                 <th scope="col">Phone Number</th>
+                <th scope="col">Department</th>
               </tr>
             </thead>
-            <tbody class="mb-10 h-full overflow-auto">
-              <tr class="h-[30px] text-center">
+            <tbody className="mb-10 h-full overflow-auto">
+              <tr className="h-[30px] text-center">
                 <th scope="row">1</th>
                 <td>John Doe</td>
+                <td>Male</td>
                 <td>johndoe2922@gmail.com</td>
-                <th>21312323213</th>
+                <td>21312323213</td>
+                <td>CCS</td>
               </tr>
-              <tr class="h-[30px] text-center">
+              <tr className="h-[30px] text-center">
                 <th scope="row">2</th>
                 <td>Jane Smith</td>
+                <td>Female</td>
                 <td>janesmith1234@gmail.com</td>
-                <th>31231231231</th>
+                <td>31231231231</td>
+                <td>BSeD</td>
               </tr>
-              <tr class="h-[30px] text-center">
+              <tr className="h-[30px] text-center">
                 <th scope="row">3</th>
                 <td>Michael Johnson</td>
+                <td>Male</td>
                 <td>michaeljohnson5678@gmail.com</td>
-                <th>42342342342</th>
+                <td>42342342342</td>
+                <td>CoE</td>
               </tr>
-              <tr class="h-[30px] text-center">
+              <tr className="h-[30px] text-center">
                 <th scope="row">4</th>
                 <td>Emily Davis</td>
+                <td>Female</td>
                 <td>emilydavis9012@gmail.com</td>
-                <th>53453453453</th>
+                <td>53453453453</td>
+                <td>BSBA</td>
               </tr>
-              <tr class="h-[30px] text-center">
+              <tr className="h-[30px] text-center">
                 <th scope="row">5</th>
                 <td>Daniel Brown</td>
+                <td>Male</td>
                 <td>danielbrown3456@gmail.com</td>
-                <th>64564564564</th>
+                <td>64564564564</td>
+                <td>CCS</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div className="grid-in-newUser grid grid-rows-[1fr_8fr] grid-areas-create-user-layout">
-          <div className="grid-in-table  bg-white">
-            <div className="flex h-1/5 items-center justify-center  bg-green">
-              <img src={user} alt="" className="h-[50px] w-[50px]" />
+        <div className="mt-5 flex items-start justify-end grid-in-button">
+          <button
+            className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-white"
+            onClick={openModal}
+          >
+            <img src={add} alt="" className="h-[30px] w-[30px]" />
+            <span>Add New User</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
+            <div className="flex h-1/5 items-center justify-center bg-green">
+              <img src={user} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
               <h2 className="ml-2 text-3xl font-extrabold">Create New User</h2>
             </div>
             <div className="p-5">
-              <form action="" className="mt-5 grid justify-center items-center gap-5">
-                <div className="grid items-center justify-center w-full">
-                  <label for="role" className="text-base">
+              <form className="mt-5 space-y-6">
+                {/* User ID */}
+                <div className="flex items-center">
+                  <div className="flex flex-1">
+                    <label htmlFor="userId" className="text-lg font-medium">
+                      User ID :
+                    </label>
+                    <p
+                      id="userId"
+                      name="userId"
+                      className="inlin text-lg font-medium"
+                    >
+                      1
+                    </p>
+                  </div>
+                </div>
+                {/* Role Field */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="role"
+                    className="text-lg font-medium text-gray-700"
+                  >
                     Role
                   </label>
                   <input
                     type="text"
-                    className="rounded border w-full"
+                    id="role"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
-                <div className="ml-[4.5rem] flex items-center">
-                  <label
-                    for="name"
-                    className="text-center text-base font-extrabold"
-                  >
+
+                {/* Name Fields */}
+                <div className="flex flex-col">
+                  <label className="text-lg font-medium text-gray-700">
                     Name
                   </label>
-                  <div className="ml-[1rem] mr-2 grid">
-                    <label for="firstname">Firstname</label>
-                    <input type="text" className="rounded-md border pl-3" />
-                  </div>
-                  <div className="grid">
-                    <label for="lastname">Lastname</label>
-                    <input type="text" className="rounded-md border pl-3" />
+                  <div className="mt-2 flex space-x-4">
+                    <div className="flex-1">
+                      <label
+                        htmlFor="firstname"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Firstname
+                      </label>
+                      <input
+                        type="text"
+                        id="firstname"
+                        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label
+                        htmlFor="middlename"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Middlename
+                      </label>
+                      <input
+                        type="text"
+                        id="middlename"
+                        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label
+                        htmlFor="lastname"
+                        className="block text-sm font-medium text-gray-600"
+                      >
+                        Lastname
+                      </label>
+                      <input
+                        type="text"
+                        id="lastname"
+                        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-start">
+
+                {/* Email Address Field */}
+                <div className="flex flex-col">
                   <label
-                    for="mail"
-                    className="ml-[0.7rem] mr-3 text-base font-extrabold"
+                    htmlFor="mail"
+                    className="text-lg font-medium text-gray-700"
                   >
                     Email Address
                   </label>
                   <input
                     type="email"
-                    className="w-3/4 rounded-md border pl-3"
+                    id="mail"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
-                <div className="flex items-center justify-start">
+
+                {/* Phone Number Field */}
+                <div className="flex flex-col">
                   <label
-                    for="department"
-                    className="ml-2 mr-3 text-base font-extrabold"
+                    htmlFor="phone"
+                    className="text-lg font-medium text-gray-700"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="+63"
+                  />
+                </div>
+
+                {/* Department Field */}
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="department"
+                    className="text-lg font-medium text-gray-700"
                   >
                     Department
                   </label>
                   <select
                     id="department"
-                    className="ml-[1rem] w-full rounded-md border pl-2"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                   >
                     <option value="CCS">CCS</option>
                     <option value="BSeD">BSeD</option>
@@ -126,17 +230,22 @@ const User = () => {
                     <option value="BSBA">BSBA</option>
                   </select>
                 </div>
+                <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
+                  <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
+                    <span>Confirm</span>
+                  </button>
+                </div>
               </form>
+              <button
+                className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
+                onClick={closeModal}
+              >
+                &times;
+              </button>
             </div>
           </div>
         </div>
-        <div className="mt-5 flex items-start justify-end grid-in-button">
-          <button className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-white">
-            <img src={add} alt="" className="h-[30px] w-[30px]" />
-            <span>Add New User</span>
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

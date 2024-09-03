@@ -40,7 +40,7 @@ export default {
         ],
         'user-layout' : [
           'userText Profile',
-          'userTable newUser',
+          'userTable userTable',
           '. button'
         ],
         'user-table-layout' : [
@@ -54,6 +54,18 @@ export default {
           '. . .',
           'table table table'
         ],
+        'generated-table-layout' : [
+          ". .",
+          'generatedText printBtn',
+          'table table'
+        ],
+        'generated-table' : [
+          'profName .',
+          'departmentName .',
+          'appointmentStatus .',
+          'table table',
+          'units units'
+        ]
       }
     },
   },

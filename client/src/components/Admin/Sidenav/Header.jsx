@@ -5,7 +5,7 @@ const Header = ({ pageName }) => {
     const [isUserOpen, setUserOpen] = useState(false)
     const toggleUser = () => setUserOpen(!isUserOpen);
     return (
-        <div className="flex absolute w-screen items-center justify-between bg-green sm: xl:  z-1">
+        <div className="flex  top-0 absolute w-screen items-center justify-between bg-green sm: xl:  z-1">
             <h1 className="xm:hidden sm:hidden lg:inline m-4 ml-[11.5em] xl: text-2xl font-bold text-white">
                 {pageName}
             </h1>
