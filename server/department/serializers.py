@@ -1,4 +1,4 @@
-from .models import Department
+from department.models import Department
 from rest_framework import serializers
 
 
