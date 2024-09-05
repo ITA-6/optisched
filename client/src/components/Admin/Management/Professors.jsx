@@ -36,7 +36,8 @@ const Professors = () => {
                 <th scope="col" className="w-[150px] h-[30px]">Phone No.</th>
                 <th scope="col" className="w-[150px] h-[30px]">Department</th>
                 <th scope="col" className="w-[100px] h-[30px]">Masteral</th>
-                <th scope="col" className="w-[220px] h-[30px]">Active Status</th>
+                <th scope="col" className="w-[150px] h-[30px]">Status</th>
+                <th scope="col" className="w-[220px] h-[30px]"></th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
@@ -48,9 +49,9 @@ const Professors = () => {
                 <td>+63 912 345 6789</td>
                 <td className="w-[100px]">Engineering</td>
                 <td>MSc</td>
+                <td>Active</td>
                 <td>
-                  <div className="flex items-center justify-center">
-                    <span>Active</span>
+                <div className="flex items-center justify-center">
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -70,9 +71,9 @@ const Professors = () => {
                 <td>+63 987 654 3210</td>
                 <td className="w-[100px]">Human Resources</td>
                 <td>MBA</td>
+                <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -92,9 +93,9 @@ const Professors = () => {
                 <td>+63 555 123 4567</td>
                 <td>Marketing</td>
                 <td>BBA</td>
+                <td>Inactive</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Inactive</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -114,9 +115,9 @@ const Professors = () => {
                 <td>+63 666 777 8888</td>
                 <td>Finance</td>
                 <td>MSc</td>
+                <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -136,9 +137,9 @@ const Professors = () => {
                 <td>+63 444 555 6666</td>
                 <td>IT</td>
                 <td>BSc</td>
+                <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -158,9 +159,9 @@ const Professors = () => {
                 <td>+63 333 222 1111</td>
                 <td>Mathematics</td>
                 <td>MSc</td>
+                <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -180,9 +181,9 @@ const Professors = () => {
                 <td>+63 888 999 0000</td>
                 <td>Physics</td>
                 <td>PhD</td>
+                <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -202,9 +203,9 @@ const Professors = () => {
                 <td>+63 777 888 9999</td>
                 <td>Biology</td>
                 <td>PhD</td>
+                <td>Inactive</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Inactive</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -224,9 +225,9 @@ const Professors = () => {
                 <td>+63 999 111 2222</td>
                 <td>Chemistry</td>
                 <td>MSc</td>
+                <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit
@@ -246,9 +247,9 @@ const Professors = () => {
                 <td>+63 555 333 4444</td>
                 <td>Economics</td>
                 <td>MSc</td>
+                <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Active</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         Edit

@@ -34,6 +34,8 @@ const Course = () => {
                 <th scope="col">Course Code</th>
                 <th scope="col">Department</th>
                 <th scope="col">Course type</th>
+                <th scope="col"> Status </th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
@@ -43,6 +45,21 @@ const Course = () => {
                 <td>CS101</td>
                 <td>Computer Science</td>
                 <td>Lecture / Laboratory</td>
+                <td>Open</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        {" "}
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        {" "}
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">2</th>
@@ -50,6 +67,21 @@ const Course = () => {
                 <td>CS201</td>
                 <td>Computer Science</td>
                 <td>Lecture / Laboratory</td>
+                <td>Open</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        {" "}
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        {" "}
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">3</th>
@@ -57,6 +89,21 @@ const Course = () => {
                 <td>ECON101</td>
                 <td>Economics</td>
                 <td>Lecture</td>
+                <td>Open</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        {" "}
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        {" "}
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">4</th>
@@ -64,6 +111,21 @@ const Course = () => {
                 <td>PSY101</td>
                 <td>Psychology</td>
                 <td>Lecture</td>
+                <td>Open</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        {" "}
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        {" "}
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
               </tr>
               <tr class="h-[30px]">
                 <th scope="row">5</th>
@@ -71,6 +133,21 @@ const Course = () => {
                 <td>HIST201</td>
                 <td>History</td>
                 <td>Lecture</td>
+                <td>Open</td>
+                <td>
+                  <div className="flex items-center justify-center">
+                    <div className="ml-5 flex gap-2">
+                      <button className="-h5 w-16 bg-green text-white">
+                        {" "}
+                        Edit
+                      </button>
+                      <button className="-h5 w-16 bg-red-500 text-white">
+                        {" "}
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </td>
               </tr>
               </tbody>
           </table>
