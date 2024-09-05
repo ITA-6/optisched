@@ -12,7 +12,8 @@ import Professor from "./components/Admin/Management/Professors";
 import Section from "./components/Admin/Management/Section";
 import Classroom from "./components/Admin/Management/Classroom";
 import Course from "./components/Admin/Management/Courses";
-
+import Building from "./components/Admin/Management/Building";
+import Department from "./components/Admin/Management/Department";
 const App = () => {
   return (
     <BrowserRouter>
@@ -35,6 +36,8 @@ const App = () => {
             <Route path="management/section" element={<Section />} />
             <Route path="management/classroom" element={<Classroom />} />
             <Route path="management/course" element={<Course />} />
+            <Route path="management/building" element={<Building />} />
+            <Route path="management/department" element={<Department />} />
         </Route>
       </Routes>
     </BrowserRouter>
