@@ -203,15 +203,15 @@ const Building = () => {
                         </div>
                         <div className="flex gap-10">
                             <div className="flex flex-1 flex-col">
-                                <label htmlFor="NoFloors" className="text-lg font-medium">
+                                <label htmlFor="totalRooms" className="text-lg font-medium">
                                     {" "}
-                                    No. Floors
+                                    Total Rooms
                                 </label>
                                 <input
                                     type="number"
-                                    id="NoFloors"
-                                    name="NoFloors"
-                                    placeholder="No. Floors"
+                                    id="totalRooms"
+                                    name="totalRooms"
+                                    placeholder="0"
                                     className="rounded-md border border-gray-300 p-2"
                                     required
                                 />
@@ -225,7 +225,7 @@ const Building = () => {
                                     type="number"
                                     id="availableRooms"
                                     name="availableRooms"
-                                    placeholder="availableRooms"
+                                    placeholder="0"
                                     className="rounded-md border border-gray-300 p-2"
                                     required
                                 />
