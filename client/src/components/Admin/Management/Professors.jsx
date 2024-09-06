@@ -32,12 +32,14 @@ const Professors = () => {
                 <th scope="col" className="w-[100px] h-[30px]">ID</th>
                 <th scope="col" className="w-[150px] h-[30px]">Name</th>
                 <th scope="col" className="w-[150px] h-[30px]">Gender</th>
+                <th scope="col" className="w-[150px] h-[30px]">Birthdate</th>
                 <th scope="col" className="w-[200px] h-[30px]">Email Address</th>
                 <th scope="col" className="w-[150px] h-[30px]">Phone No.</th>
                 <th scope="col" className="w-[150px] h-[30px]">Department</th>
                 <th scope="col" className="w-[100px] h-[30px]">Masteral</th>
-                <th scope="col" className="w-[150px] h-[30px]">Status</th>
-                <th scope="col" className="w-[220px] h-[30px]"></th>
+                <th scope="col" className="w-[150px] h-[30px]">Employment Status</th>
+                <th scope="col" className="w-[100px] h-[30px]">Status</th>
+                <th scope="col" className="w-[200px] h-[30px]"></th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
@@ -45,10 +47,12 @@ const Professors = () => {
                 <th scope="row">1</th>
                 <td>John Doe</td>
                 <td>Male</td>
+                <td>1992-07-25</td>
                 <td>johndoe@example.com</td>
                 <td>+63 912 345 6789</td>
                 <td className="w-[100px]">Engineering</td>
                 <td>MSc</td>
+                <td>Part-time</td>
                 <td>Active</td>
                 <td>
                 <div className="flex items-center justify-center">
@@ -67,10 +71,12 @@ const Professors = () => {
                 <th scope="row">2</th>
                 <td>Jane Smith</td>
                 <td>Female</td>
+                <td>1985-03-14</td>
                 <td>janesmith@example.com</td>
                 <td>+63 987 654 3210</td>
                 <td className="w-[100px]">Human Resources</td>
                 <td>MBA</td>
+                <td>Part-time</td>
                 <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -89,10 +95,12 @@ const Professors = () => {
                 <th scope="row">3</th>
                 <td>Mike Johnson</td>
                 <td>Male</td>
+                <td>2000-11-01</td>
                 <td>mikejohnson@example.com</td>
                 <td>+63 555 123 4567</td>
                 <td>Marketing</td>
                 <td>BBA</td>
+                <td>Permanent</td>
                 <td>Inactive</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -111,10 +119,12 @@ const Professors = () => {
                 <th scope="row">4</th>
                 <td>Emily Davis</td>
                 <td>Female</td>
+                <td>1978-09-17</td>
                 <td>emilydavis@example.com</td>
                 <td>+63 666 777 8888</td>
                 <td>Finance</td>
                 <td>MSc</td>
+                <td>Part-time</td>
                 <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -133,10 +143,12 @@ const Professors = () => {
                 <th scope="row">5</th>
                 <td>Robert Brown</td>
                 <td>Male</td>
+                <td>1995-12-30</td>
                 <td>robertbrown@example.com</td>
                 <td>+63 444 555 6666</td>
                 <td>IT</td>
                 <td>BSc</td>
+                <td>Permanent</td>
                 <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -155,10 +167,12 @@ const Professors = () => {
                 <th scope="row">6</th>
                 <td>Anna White</td>
                 <td>Female</td>
+                <td>1980-02-29</td>
                 <td>annawhite@example.com</td>
                 <td>+63 333 222 1111</td>
                 <td>Mathematics</td>
                 <td>MSc</td>
+                <td>Casual</td>
                 <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -177,10 +191,12 @@ const Professors = () => {
                 <th scope="row">7</th>
                 <td>Chris Lee</td>
                 <td>Male</td>
+                <td>1999-06-15</td>
                 <td>chrislee@example.com</td>
                 <td>+63 888 999 0000</td>
                 <td>Physics</td>
                 <td>PhD</td>
+                <td>Part-time</td>
                 <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -199,10 +215,12 @@ const Professors = () => {
                 <th scope="row">8</th>
                 <td>Lisa Green</td>
                 <td>Female</td>
+                <td>2004-08-22</td>
                 <td>lisagreen@example.com</td>
                 <td>+63 777 888 9999</td>
                 <td>Biology</td>
                 <td>PhD</td>
+                <td>Casual</td>
                 <td>Inactive</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -221,10 +239,12 @@ const Professors = () => {
                 <th scope="row">9</th>
                 <td>David King</td>
                 <td>Male</td>
+                <td>2010-04-09</td>
                 <td>davidking@example.com</td>
                 <td>+63 999 111 2222</td>
                 <td>Chemistry</td>
                 <td>MSc</td>
+                <td>Casual</td>
                 <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -243,10 +263,12 @@ const Professors = () => {
                 <th scope="row">10</th>
                 <td>Maria Garcia</td>
                 <td>Female</td>
+                <td>1972-10-05</td>
                 <td>mariagarcia@example.com</td>
                 <td>+63 555 333 4444</td>
                 <td>Economics</td>
                 <td>MSc</td>
+                <td>Permanent</td>
                 <td>Active</td>
                 <td>
                   <div className="flex items-center justify-center">
@@ -321,6 +343,7 @@ const Professors = () => {
                         type="text"
                         id="firstname"
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                        required
                       />
                     </div>
                     <div className="flex-1">
@@ -334,6 +357,7 @@ const Professors = () => {
                         type="text"
                         id="middlename"
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                        required
                       />
                     </div>
                     <div className="flex-1">
@@ -347,25 +371,59 @@ const Professors = () => {
                         type="text"
                         id="lastname"
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                        required
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Gender Field */}
+                <div className="flex gap-10">
+                  <div className="flex-1">
+                    <label
+                      htmlFor="gender"
+                      className="text-lg font-medium text-gray-700"
+                    >
+                      Gender
+                    </label>
+                    <select
+                      id="gender"
+                      className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    >
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  <div className="grid flex-1">
+                    <label
+                      htmlFor="birthdate"
+                      className="text-lg font-medium text-gray-700"
+                    >
+                      Birthdate
+                    </label>
+                    <input 
+                      className="border border-gray-300 rounded-md p-2" 
+                      type="date"
+                      name="birthdate"
+                      id="birthdate"
+                      option
+                    />
+                  </div>
+                </div>
+
+                {/* Employment Status */}
                 <div className="flex flex-col">
-                  <label
-                    htmlFor="gender"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Gender
+                  <label htmlFor="employmentStatus" className="text-lg font-medium text-gray-700">
+                    Employment Status
                   </label>
-                  <select
-                    id="gender"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                  <select 
+                    name="employmentStatus" id="employmentStatus" className="border border-gray-300 rounded-md p-2"
+                    required
                   >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                      <option value="Casual">Casual</option>
+                      <option value="Part-time">Part-time</option>
+                      <option value="Permanent">Permanent</option>
                   </select>
                 </div>
 
@@ -381,6 +439,7 @@ const Professors = () => {
                     type="email"
                     id="mail"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    required
                   />
                 </div>
 
@@ -397,44 +456,49 @@ const Professors = () => {
                     id="phone"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                     placeholder="+63"
+                    required
                   />
                 </div>
 
                 {/* Department Field */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="department"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Department
-                  </label>
-                  <select
-                    id="department"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                  >
-                    <option value="CCS">CCS</option>
-                    <option value="BSeD">BSeD</option>
-                    <option value="CoE">CoE</option>
-                    <option value="BSBA">BSBA</option>
-                  </select>
+                <div className="flex gap-10">
+                  <div className="flex-1">
+                    <label
+                      htmlFor="department"
+                      className="text-lg font-medium text-gray-700"
+                    >
+                      Department
+                    </label>
+                    <select
+                      id="department"
+                      className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    >
+                      <option value="CCS">CCS</option>
+                      <option value="BSeD">BSeD</option>
+                      <option value="CoE">CoE</option>
+                      <option value="BSBA">BSBA</option>
+                    </select>
+                  </div>
+                    {/* Masteral Field */}
+                  <div className="flex-1">
+                    <label
+                      htmlFor="masteral"
+                      className="text-lg font-medium text-gray-700"
+                    >
+                      Masteral
+                    </label>
+                    <select
+                      id="masteral"
+                      className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                      required
+                    >
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
                 </div>
 
-                {/* Masteral Field */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="masteral"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Masteral
-                  </label>
-                  <select
-                    id="masteral"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                  >
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                  </select>
-                </div>
                 <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
                   <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
                     <span>Confirm</span>
