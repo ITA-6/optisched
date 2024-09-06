@@ -184,6 +184,7 @@ const Section = () => {
                       id="section"
                       placeholder="Section Name"
                       className="rounded-lg border border-gray-300 p-2"
+                      required
                     />
                   </div>
                   <div className="flex flex-1 flex-col">
@@ -194,6 +195,7 @@ const Section = () => {
                       id="maximumCount"
                       placeholder="0"
                       className="rounded-lg border border-gray-300 p-2"
+                      required
                     />
                   </div>
                 </div>
@@ -204,6 +206,7 @@ const Section = () => {
                       name="sectionType"
                       id="sectionType"
                       className="flex-1 rounded-lg border border-gray-300 p-2"
+                      required
                     >
                       <option value="Lecture">Lecture</option>
                       <option value="Laboratory">Laboratory</option>
@@ -216,6 +219,7 @@ const Section = () => {
                       name="sectionStatus"
                       id="sectionStatus"
                       className="flex-1 rounded-lg border border-gray-300 p-2"
+                      required
                     >
                       <option value="Open">Open</option>
                       <option value="Closed">Closed</option>

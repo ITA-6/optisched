@@ -201,6 +201,7 @@ const Course = () => {
                     name="courseTitle"
                     placeholder="Course Title"
                     className="rounded-md border border-gray-300 p-2"
+                    required
                   />
                 </div>
                 <div className="flex flex-1 flex-col">
@@ -214,6 +215,7 @@ const Course = () => {
                     id="courseCode"
                     placeholder="Course Code"
                     className="rounded-md border border-gray-300 p-2"
+                    required
                   />
                 </div>
                 <div className="flex gap-5">
@@ -225,6 +227,7 @@ const Course = () => {
                       name="department"
                       id="department"
                       className="rounded-md border border-gray-300 p-2"
+                      required
                     >
                       <option value="CCS">CCS</option>
                       <option value="CCS">CCS</option>
@@ -241,6 +244,7 @@ const Course = () => {
                       name="courseType"
                       id="courseType"
                       className="rounded-md border border-gray-300 p-2"
+                      required
                     >
                       <option value="CCS">Lecture</option>
                       <option value="CCS">Laboratory</option>

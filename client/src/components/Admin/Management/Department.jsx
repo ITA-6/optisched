@@ -184,6 +184,7 @@ const Department = () => {
                             name="departmentName"
                             placeholder="Department Name"
                             className="rounded-md border border-gray-300 p-2"
+                            required
                         />
                         </div>
                         <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">

@@ -32,7 +32,7 @@ const Building = () => {
                             <tr className="h-[30px]">
                                 <th scope="col">ID</th>
                                 <th scope="col">Building Name</th>
-                                <th scope="col">No. Floors</th>
+                                <th scope="col">Total Rooms</th>
                                 <th scope="col">Available Rooms</th>
                                 <th scope="col"></th>
                             </tr>
@@ -198,6 +198,7 @@ const Building = () => {
                                 name="BuildingName"
                                 placeholder="Building  Name"
                                 className="rounded-md border border-gray-300 p-2"
+                                required
                             />
                         </div>
                         <div className="flex gap-10">
@@ -212,6 +213,7 @@ const Building = () => {
                                     name="NoFloors"
                                     placeholder="No. Floors"
                                     className="rounded-md border border-gray-300 p-2"
+                                    required
                                 />
                             </div>
                             <div className="flex flex-1 flex-col">
@@ -225,6 +227,7 @@ const Building = () => {
                                     name="availableRooms"
                                     placeholder="availableRooms"
                                     className="rounded-md border border-gray-300 p-2"
+                                    required
                                 />
                             </div>
                         </div>

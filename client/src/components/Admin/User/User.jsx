@@ -150,6 +150,7 @@ const User = () => {
                         type="text"
                         id="firstname"
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                        required
                       />
                     </div>
                     <div className="flex-1">
@@ -163,6 +164,7 @@ const User = () => {
                         type="text"
                         id="middlename"
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                        option
                       />
                     </div>
                     <div className="flex-1">
@@ -176,6 +178,7 @@ const User = () => {
                         type="text"
                         id="lastname"
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                        required
                       />
                     </div>
                   </div>
@@ -193,6 +196,7 @@ const User = () => {
                     type="email"
                     id="mail"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    required
                   />
                 </div>
 
@@ -209,6 +213,7 @@ const User = () => {
                     id="phone"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                     placeholder="+63"
+                    required
                   />
                 </div>
 
@@ -223,6 +228,7 @@ const User = () => {
                   <select
                     id="department"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    required
                   >
                     <option value="CCS">CCS</option>
                     <option value="BSeD">BSeD</option>

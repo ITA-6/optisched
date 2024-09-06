@@ -313,6 +313,7 @@ const Classroom = () => {
                     type="text"
                     placeholder="Building Name"
                     className="rounded-md border border-gray-300 p-2"
+                    required
                   />
                 </div>
                 <div className="flex flex-1 flex-col">
