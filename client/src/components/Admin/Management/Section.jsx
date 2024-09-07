@@ -36,6 +36,7 @@ const Section = () => {
                 <th scope="col">Maximum Capacity</th>
                 <th scope="col">Section Type</th>
                 <th scope="col">Status</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
@@ -44,9 +45,9 @@ const Section = () => {
                 <td>IT-A</td>
                 <td>50</td>
                 <td>Lecture & Lab</td>
+                <td>Open</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Open</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -65,9 +66,9 @@ const Section = () => {
                 <td>IT-B</td>
                 <td>50</td>
                 <td>Lecture</td>
+                <td>Open</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Open</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -86,9 +87,9 @@ const Section = () => {
                 <td>IT-C</td>
                 <td>50</td>
                 <td>Laboratory</td>
+                <td>Closed</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Closed</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -107,9 +108,9 @@ const Section = () => {
                 <td>IT-D</td>
                 <td>50</td>
                 <td>Lecture</td>
+                <td>Closed</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Closed</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -128,9 +129,9 @@ const Section = () => {
                 <td>IT-E</td>
                 <td>50</td>
                 <td>Lecture & Lab</td>
+                <td>Open</td>
                 <td>
                   <div className="flex items-center justify-center">
-                    <span>Open</span>
                     <div className="ml-5 flex gap-2">
                       <button className="-h5 w-16 bg-green text-white">
                         {" "}
@@ -183,6 +184,7 @@ const Section = () => {
                       id="section"
                       placeholder="Section Name"
                       className="rounded-lg border border-gray-300 p-2"
+                      required
                     />
                   </div>
                   <div className="flex flex-1 flex-col">
@@ -193,6 +195,7 @@ const Section = () => {
                       id="maximumCount"
                       placeholder="0"
                       className="rounded-lg border border-gray-300 p-2"
+                      required
                     />
                   </div>
                 </div>
@@ -203,6 +206,7 @@ const Section = () => {
                       name="sectionType"
                       id="sectionType"
                       className="flex-1 rounded-lg border border-gray-300 p-2"
+                      required
                     >
                       <option value="Lecture">Lecture</option>
                       <option value="Laboratory">Laboratory</option>
@@ -215,6 +219,7 @@ const Section = () => {
                       name="sectionStatus"
                       id="sectionStatus"
                       className="flex-1 rounded-lg border border-gray-300 p-2"
+                      required
                     >
                       <option value="Open">Open</option>
                       <option value="Closed">Closed</option>
