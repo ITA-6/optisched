@@ -325,6 +325,7 @@ const Classroom = () => {
                     type="number"
                     placeholder="Floor Number"
                     className="rounded-md border border-gray-300 p-2"
+                    required
                   />
                 </div>
                 <div className="flex gap-5">
@@ -338,6 +339,7 @@ const Classroom = () => {
                       name="roomNumber"
                       placeholder="Room Number"
                       className="rounded-md border border-gray-300 p-2"
+                      required
                     />
                   </div>
                   <div className="flex flex-1 flex-col">
@@ -353,6 +355,7 @@ const Classroom = () => {
                       name="roomCapacity"
                       placeholder="Room Number"
                       className="rounded-md border border-gray-300 p-2"
+                      required
                     />
                   </div>
                 </div>
