@@ -136,6 +136,22 @@ const Sidenav = () => {
                     <span className="ml-4 text-sm">Course</span>
                   </Link>
                 </li>
+                <li className="w-full">
+                  <Link
+                    to="management/building"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4"
+                  >
+                    <span className="ml-4 text-sm">Building</span>
+                  </Link>
+                </li>
+                <li className="w-full">
+                  <Link
+                    to="management/department"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4"
+                  >
+                    <span className="ml-4 text-sm">Department</span>
+                  </Link>
+                </li>
               </ul>
             )}
           </li>
