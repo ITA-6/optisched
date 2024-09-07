@@ -209,11 +209,15 @@ const User = () => {
                   >
                     Role
                   </label>
-                  <input
-                    type="text"
+                  <select 
+                    name="role"
                     id="role"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                  />
+                    className="border border-gray-300 p-2"
+                    >
+                      <option value="casual">Casual</option>
+                      <option value="part-time">Part-time</option>
+                      <option value="permanent">Permanent</option>
+                  </select>
                 </div>
 
                 {/* Name Fields */}
