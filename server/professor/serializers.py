@@ -12,12 +12,15 @@ class ProfessorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professor
         fields = [
+            "prof_id",
             "first_name",
             "last_name",
             "middle_name",
-            "date_of_birth",
+            "birth_date",
             "has_masteral",
             "department",
+            "email",
+            "gender",
             "employment_status",
             "required_units",
             "current_units",

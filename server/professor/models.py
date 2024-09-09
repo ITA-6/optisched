@@ -11,6 +11,13 @@ class Professor(models.Model):
         ("PERMANENT", "Permanent"),
     )
 
+    GENDER_CHOICES = [
+        ("M", "Male"),
+        ("F", "Female"),
+        ("O", "Other"),
+    ]
+
+    prof_id = models.BigIntegerField(default=0000000)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255)
@@ -19,10 +26,12 @@ class Professor(models.Model):
     )
     has_masteral = models.BooleanField(default=False)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    required_units = models.IntegerField(default=0)
-    current_units = models.IntegerField(default=0)
-    handled_schedule = models.ManyToManyField(Schedule)
-    date_of_birth = models.DateField()
+    required_units = models.IntegerField(default=0, null=True)
+    current_units = models.IntegerField(default=0, null=True)
+    handled_schedule = models.ManyToManyField(Schedule, blank=True)
+    birth_date = models.DateField(auto_now=True)
+    email = models.EmailField(null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="O")
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

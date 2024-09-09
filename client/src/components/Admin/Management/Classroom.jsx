@@ -1,12 +1,48 @@
 import user from "../../../assets/user.png";
 import classroom from "../../../assets/classroom.png";
 import add from "../../../assets/add.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import api from "../../../api";
+
 const Classroom = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [buildings, setBuildings] = useState([]);
+  const [floorNumber, setFloorNumber] = useState(0);
+  const [roomNumber, setRoomNumber] = useState(0);
+  const [building, setBuilding] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get("rooms/");
+      const buildings = await api.get("buildings/");
+      setBuildings(buildings.data);
+      setData(response.data);
+    };
+    fetchData();
+  }, []);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await api.post("rooms/", {
+        number: roomNumber,
+        floor: floorNumber,
+        building: building,
+      });
+      const response = await api.get("rooms/");
+      setData(response.data);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -29,236 +65,34 @@ const Classroom = () => {
           <table class="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
               <tr class="h-[30px]">
-                <th scope="col">ID</th>
                 <th scope="col">Building Name</th>
                 <th scope="col">Room Number</th>
-                <th scope="col">Room Capacity</th>
                 <th scope="col">Floor Number</th>
-                <th scope="col">Status</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
-              <tr class="h-[30px]">
-                <th scope="row">1</th>
-                <td>Main Academic Building</td>
-                <td>101</td>
-                <td>40</td>
-                <td>1</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
+              {data?.map((item) => (
+                <tr key={item.id} class="h-[30px]">
+                  <td>{item.building}</td>
+                  <td>{item.number}</td>
+                  <td>{item.floor}</td>
+                  <td>
+                    <div className="flex items-center justify-center">
+                      <div className="ml-5 flex gap-2">
+                        <button className="-h5 w-16 bg-green text-white">
+                          {" "}
+                          Edit
+                        </button>
+                        <button className="-h5 w-16 bg-red-500 text-white">
+                          {" "}
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">2</th>
-                <td>Science Wing</td>
-                <td>205</td>
-                <td>35</td>
-                <td>2</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">3</th>
-                <td>Library Annex</td>
-                <td>310</td>
-                <td>50</td>
-                <td>3</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">4</th>
-                <td>Arts and Music Building</td>
-                <td>415</td>
-                <td>25</td>
-                <td>4</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">5</th>
-                <td>Administration Office</td>
-                <td>520</td>
-                <td>20</td>
-                <td>5</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">6</th>
-                <td>Sports Complex</td>
-                <td>601</td>
-                <td>100</td>
-                <td>1</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">7</th>
-                <td>Engineering Lab</td>
-                <td>702</td>
-                <td>30</td>
-                <td>2</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">8</th>
-                <td>Medical Center</td>
-                <td>803</td>
-                <td>15</td>
-                <td>3</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">9</th>
-                <td>Design Studio</td>
-                <td>904</td>
-                <td>20</td>
-                <td>4</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">10</th>
-                <td>Computer Science Building</td>
-                <td>1010</td>
-                <td>45</td>
-                <td>5</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -286,35 +120,27 @@ const Classroom = () => {
               </h2>
             </div>
             <div className="p-5">
-              <form className="mt-5 space-y-6">
-                <div className="flex items-center">
-                  <div className="flex flex-1">
-                    <label
-                      htmlFor="classroomId"
-                      className="text-lg font-medium"
-                    >
-                      Classroom ID :
-                    </label>
-                    <p
-                      id="classroomId"
-                      name="classroomId"
-                      className="inlin text-lg font-medium"
-                    >
-                      1
-                    </p>
-                  </div>
-                </div>
+              <form onSubmit={handleSubmit} className="mt-5 space-y-6">
                 <div className="flex flex-1 flex-col">
                   <label htmlFor="buildingName" className="text-lg font-medium">
                     {" "}
                     Building Name
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Building Name"
-                    className="rounded-md border border-gray-300 p-2"
+                  <select
+                    id="building"
+                    onChange={(e) => setBuilding(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                     required
-                  />
+                  >
+                    <option selected value="" disabled>
+                      Select Building
+                    </option>
+                    {buildings?.map((building) => (
+                      <option key={building.id} value={building.id}>
+                        {building.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="flex flex-1 flex-col">
                   <label htmlFor="floorNumber" className="text-lg font-medium">
@@ -324,6 +150,7 @@ const Classroom = () => {
                   <input
                     type="number"
                     placeholder="Floor Number"
+                    onChange={(e) => setFloorNumber(e.target.value)}
                     className="rounded-md border border-gray-300 p-2"
                     required
                   />
@@ -338,22 +165,7 @@ const Classroom = () => {
                       id="roomNumber"
                       name="roomNumber"
                       placeholder="Room Number"
-                      className="rounded-md border border-gray-300 p-2"
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col">
-                    <label
-                      htmlFor="roomCapacity"
-                      className="text-lg font-medium"
-                    >
-                      Room Capacity
-                    </label>
-                    <input
-                      type="number"
-                      id="roomCapacity"
-                      name="roomCapacity"
-                      placeholder="Room Number"
+                      onChange={(e) => setRoomNumber(e.target.value)}
                       className="rounded-md border border-gray-300 p-2"
                       required
                     />

@@ -2,13 +2,50 @@ import user from "../../../assets/user.png";
 import course from "../../../assets/course.png";
 import section from "../../../assets/section.png";
 import add from "../../../assets/add.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import api from "../../../api";
 
 const Section = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [label, setLabel] = useState("");
+  const [yearLevel, setYearLevel] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("sections/");
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await api.post("sections/", {
+        label: label,
+        year_level: yearLevel,
+      });
+      const response = await api.get("sections/");
+      setData(response.data);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log(data);
+
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -31,127 +68,44 @@ const Section = () => {
           <table class="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
               <tr class="h-[30px]">
-                <th scope="col">ID</th>
-                <th scope="col">Section Name</th>
-                <th scope="col">Maximum Capacity</th>
-                <th scope="col">Section Type</th>
-                <th scope="col">Status</th>
+                <th scope="col">Label</th>
+                <th scope="col">Year Level</th>
+                <th scope="col">Adviser</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
-              <tr class="h-[30px]">
-                <th scope="row">1</th>
-                <td>IT-A</td>
-                <td>50</td>
-                <td>Lecture & Lab</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
+              {data?.map((item) => (
+                <tr key={item.id} class="h-[30px]">
+                  <td>{item.label}</td>
+                  <td>{item.year_level}</td>
+                  <td>{item.adviser}</td>
+                  <td>
+                    <div className="flex items-center justify-center">
+                      <div className="ml-5 flex gap-2">
+                        <button className="-h5 w-16 bg-green text-white">
+                          {" "}
+                          Edit
+                        </button>
+                        <button className="-h5 w-16 bg-red-500 text-white">
+                          {" "}
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">2</th>
-                <td>IT-B</td>
-                <td>50</td>
-                <td>Lecture</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">3</th>
-                <td>IT-C</td>
-                <td>50</td>
-                <td>Laboratory</td>
-                <td>Closed</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">4</th>
-                <td>IT-D</td>
-                <td>50</td>
-                <td>Lecture</td>
-                <td>Closed</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">5</th>
-                <td>IT-E</td>
-                <td>50</td>
-                <td>Lecture & Lab</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
-          <button className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-black">
+          <button
+            onClick={openModal}
+            className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-black"
+          >
             <img src={add} alt="" className="h-[30px] w-[30px]" />
-            <span onClick={openModal}>Add New Section</span>
+            <span>Add New Section</span>
           </button>
         </div>
       </div>
@@ -170,60 +124,34 @@ const Section = () => {
               </h2>
             </div>
             <div className="p-5">
-              <form className="mr-5 mt-5 space-y-6 text-lg font-medium">
-                <div className="flex">
-                  <label htmlFor="sectionId"> Section ID :</label>
-                  <p className="text-lg font-medium">1</p>
-                </div>
+              <form
+                onSubmit={handleSubmit}
+                className="mr-5 mt-5 space-y-6 text-lg font-medium"
+              >
                 <div className="flex gap-5">
                   <div className="flex flex-1 flex-col">
-                    <label htmlFor="section">Section Name</label>
+                    <label htmlFor="section">Label</label>
                     <input
                       type="text"
-                      name="section"
-                      id="section"
-                      placeholder="Section Name"
+                      name="label"
+                      id="label"
+                      placeholder="Label"
+                      onChange={(e) => setLabel(e.target.value)}
                       className="rounded-lg border border-gray-300 p-2"
                       required
                     />
                   </div>
                   <div className="flex flex-1 flex-col">
-                    <label htmlFor="maximumCount">Maximum Capacity</label>
+                    <label htmlFor="maximumCount">Year Level</label>
                     <input
                       type="number"
                       name="maximumCount"
                       id="maximumCount"
                       placeholder="0"
+                      onChange={(e) => setYearLevel(e.target.value)}
                       className="rounded-lg border border-gray-300 p-2"
                       required
                     />
-                  </div>
-                </div>
-                <div className="flex gap-5">
-                  <div className="flex flex-1 flex-col">
-                    <label htmlFor="sectionType">Section Type</label>
-                    <select
-                      name="sectionType"
-                      id="sectionType"
-                      className="flex-1 rounded-lg border border-gray-300 p-2"
-                      required
-                    >
-                      <option value="Lecture">Lecture</option>
-                      <option value="Laboratory">Laboratory</option>
-                      <option value="labLec">Laboratory && Lecture</option>
-                    </select>
-                  </div>
-                  <div className="flex flex-1 flex-col">
-                    <label htmlFor="sectionStatus">Status</label>
-                    <select
-                      name="sectionStatus"
-                      id="sectionStatus"
-                      className="flex-1 rounded-lg border border-gray-300 p-2"
-                      required
-                    >
-                      <option value="Open">Open</option>
-                      <option value="Closed">Closed</option>
-                    </select>
                   </div>
                 </div>
                 <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">

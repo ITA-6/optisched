@@ -1,12 +1,67 @@
 import user from "../../../assets/user.png";
 import classroom from "../../../assets/classroom.png";
 import add from "../../../assets/add.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import api from "../../../api";
+
 const Professors = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [professorId, setProfessorId] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [hasMasteral, setHasMasteral] = useState(false);
+  const [birthDate, setBirthDate] = useState(Date.now());
+  const [department, setDepartment] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("O");
+  const [employmentStatus, setEmploymentStatus] = useState("PERMANENT");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("professors/");
+        const departmentResponse = await api.get("departments/");
+        setData(response.data);
+        setDepartments(departmentResponse.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await api.post("professors/", {
+        prof_id: professorId,
+        first_name: firstName,
+        last_name: lastName,
+        middle_name: middleName,
+        birth_date: birthDate,
+        has_masteral: hasMasteral,
+        department: department,
+        email: email,
+        gender: gender,
+        employment_status: employmentStatus,
+      });
+      const response = await api.get("professors/");
+      setData(response.data);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -29,260 +84,54 @@ const Professors = () => {
           <table class="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
               <tr class="h-[30px]">
-                <th scope="col" className="w-[100px] h-[30px]">ID</th>
-                <th scope="col" className="w-[150px] h-[30px]">Name</th>
-                <th scope="col" className="w-[150px] h-[30px]">Gender</th>
-                <th scope="col" className="w-[150px] h-[30px]">Birthdate</th>
-                <th scope="col" className="w-[200px] h-[30px]">Email Address</th>
-                <th scope="col" className="w-[150px] h-[30px]">Phone No.</th>
-                <th scope="col" className="w-[150px] h-[30px]">Department</th>
-                <th scope="col" className="w-[100px] h-[30px]">Masteral</th>
-                <th scope="col" className="w-[150px] h-[30px]">Employment Status</th>
-                <th scope="col" className="w-[100px] h-[30px]">Status</th>
-                <th scope="col" className="w-[200px] h-[30px]"></th>
+                <th scope="col" className="h-[30px] w-[100px]">
+                  ID
+                </th>
+                <th scope="col" className="h-[30px] w-[150px]">
+                  Name
+                </th>
+                <th scope="col" className="h-[30px] w-[150px]">
+                  Birthdate
+                </th>
+                <th scope="col" className="h-[30px] w-[200px]">
+                  Email Address
+                </th>
+                <th scope="col" className="h-[30px] w-[150px]">
+                  Department
+                </th>
+                <th scope="col" className="h-[30px] w-[100px]">
+                  Masteral
+                </th>
+                <th scope="col" className="h-[30px] w-[150px]">
+                  Employment Status
+                </th>
+                <th scope="col" className="h-[30px] w-[200px]"></th>
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
-              <tr class="h-[30px]">
-                <th scope="row">1</th>
-                <td>John Doe</td>
-                <td>Male</td>
-                <td>1992-07-25</td>
-                <td>johndoe@example.com</td>
-                <td>+63 912 345 6789</td>
-                <td className="w-[100px]">Engineering</td>
-                <td>MSc</td>
-                <td>Part-time</td>
-                <td>Active</td>
-                <td>
-                <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
+              {data?.map((item) => (
+                <tr class="h-[30px]" key={item.prof_id}>
+                  <th scope="row">{item.prof_id}</th>
+                  <td>{`${item.first_name} ${item.last_name}`}</td>
+                  <td>{item.birth_date}</td>
+                  <td>{item.email}</td>
+                  <td className="w-[100px]">{item.department}</td>
+                  <td>{item.has_materal ? "Yes" : "No"}</td>
+                  <td>{item.employment_status}</td>
+                  <td>
+                    <div className="flex items-center justify-center">
+                      <div className="ml-5 flex gap-2">
+                        <button className="-h5 w-16 bg-green text-white">
+                          Edit
+                        </button>
+                        <button className="-h5 w-16 bg-red-500 text-white">
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">2</th>
-                <td>Jane Smith</td>
-                <td>Female</td>
-                <td>1985-03-14</td>
-                <td>janesmith@example.com</td>
-                <td>+63 987 654 3210</td>
-                <td className="w-[100px]">Human Resources</td>
-                <td>MBA</td>
-                <td>Part-time</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">3</th>
-                <td>Mike Johnson</td>
-                <td>Male</td>
-                <td>2000-11-01</td>
-                <td>mikejohnson@example.com</td>
-                <td>+63 555 123 4567</td>
-                <td>Marketing</td>
-                <td>BBA</td>
-                <td>Permanent</td>
-                <td>Inactive</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">4</th>
-                <td>Emily Davis</td>
-                <td>Female</td>
-                <td>1978-09-17</td>
-                <td>emilydavis@example.com</td>
-                <td>+63 666 777 8888</td>
-                <td>Finance</td>
-                <td>MSc</td>
-                <td>Part-time</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">5</th>
-                <td>Robert Brown</td>
-                <td>Male</td>
-                <td>1995-12-30</td>
-                <td>robertbrown@example.com</td>
-                <td>+63 444 555 6666</td>
-                <td>IT</td>
-                <td>BSc</td>
-                <td>Permanent</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">6</th>
-                <td>Anna White</td>
-                <td>Female</td>
-                <td>1980-02-29</td>
-                <td>annawhite@example.com</td>
-                <td>+63 333 222 1111</td>
-                <td>Mathematics</td>
-                <td>MSc</td>
-                <td>Casual</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">7</th>
-                <td>Chris Lee</td>
-                <td>Male</td>
-                <td>1999-06-15</td>
-                <td>chrislee@example.com</td>
-                <td>+63 888 999 0000</td>
-                <td>Physics</td>
-                <td>PhD</td>
-                <td>Part-time</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">8</th>
-                <td>Lisa Green</td>
-                <td>Female</td>
-                <td>2004-08-22</td>
-                <td>lisagreen@example.com</td>
-                <td>+63 777 888 9999</td>
-                <td>Biology</td>
-                <td>PhD</td>
-                <td>Casual</td>
-                <td>Inactive</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">9</th>
-                <td>David King</td>
-                <td>Male</td>
-                <td>2010-04-09</td>
-                <td>davidking@example.com</td>
-                <td>+63 999 111 2222</td>
-                <td>Chemistry</td>
-                <td>MSc</td>
-                <td>Casual</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">10</th>
-                <td>Maria Garcia</td>
-                <td>Female</td>
-                <td>1972-10-05</td>
-                <td>mariagarcia@example.com</td>
-                <td>+63 555 333 4444</td>
-                <td>Economics</td>
-                <td>MSc</td>
-                <td>Permanent</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -306,24 +155,22 @@ const Professors = () => {
               </h2>
             </div>
             <div className="p-5">
-              <form className="mt-5 space-y-6">
+              <form onSubmit={handleSubmit} className="mt-5 space-y-6">
                 {/* Professor ID */}
-                <div className="flex items-center">
-                  <div className="flex flex-1">
-                    <label
-                      htmlFor="professorId"
-                      className="text-lg font-medium"
-                    >
-                      Professor ID :
-                    </label>
-                    <p
-                      id="professorId"
-                      name="professorId"
-                      className="inlin text-lg font-medium"
-                    >
-                      1
-                    </p>
-                  </div>
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="mail"
+                    className="text-lg font-medium text-gray-700"
+                  >
+                    Professor ID
+                  </label>
+                  <input
+                    type="number"
+                    id="professorID"
+                    onChange={(e) => setProfessorId(e.target.value)}
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    required
+                  />
                 </div>
 
                 {/* Name Fields */}
@@ -342,6 +189,7 @@ const Professors = () => {
                       <input
                         type="text"
                         id="firstname"
+                        onChange={(e) => setFirstName(e.target.value)}
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                         required
                       />
@@ -356,6 +204,7 @@ const Professors = () => {
                       <input
                         type="text"
                         id="middlename"
+                        onChange={(e) => setMiddleName(e.target.value)}
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                         required
                       />
@@ -370,6 +219,7 @@ const Professors = () => {
                       <input
                         type="text"
                         id="lastname"
+                        onChange={(e) => setLastName(e.target.value)}
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                         required
                       />
@@ -388,11 +238,16 @@ const Professors = () => {
                     </label>
                     <select
                       id="gender"
+                      onChange={(e) => setGender(e.target.value)}
                       className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                       required
                     >
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                      <option selected value="" disabled>
+                        Select Gender
+                      </option>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                      <option value="O">Other</option>
                     </select>
                   </div>
                   <div className="grid flex-1">
@@ -402,28 +257,37 @@ const Professors = () => {
                     >
                       Birthdate
                     </label>
-                    <input 
-                      className="border border-gray-300 rounded-md p-2" 
+                    <input
+                      className="rounded-md border border-gray-300 p-2"
                       type="date"
                       name="birthdate"
                       id="birthdate"
-                      option
+                      onChange={(e) => setBirthDate(e.target.value)}
                     />
                   </div>
                 </div>
 
                 {/* Employment Status */}
                 <div className="flex flex-col">
-                  <label htmlFor="employmentStatus" className="text-lg font-medium text-gray-700">
+                  <label
+                    htmlFor="employmentStatus"
+                    className="text-lg font-medium text-gray-700"
+                  >
                     Employment Status
                   </label>
-                  <select 
-                    name="employmentStatus" id="employmentStatus" className="border border-gray-300 rounded-md p-2"
+                  <select
+                    name="employmentStatus"
+                    id="employmentStatus"
+                    onChange={(e) => setEmploymentStatus(e.target.value)}
+                    className="rounded-md border border-gray-300 p-2"
                     required
                   >
-                      <option value="Casual">Casual</option>
-                      <option value="Part-time">Part-time</option>
-                      <option value="Permanent">Permanent</option>
+                    <option selected value="" disabled>
+                      Select Employment Status
+                    </option>
+                    <option value="CASUAL">Casual</option>
+                    <option value="PART_TIME">Part-time</option>
+                    <option value="PERMANENT">Permanent</option>
                   </select>
                 </div>
 
@@ -438,24 +302,8 @@ const Professors = () => {
                   <input
                     type="email"
                     id="mail"
+                    onChange={(e) => setEmail(e.target.value)}
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                {/* Phone Number Field */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="phone"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                    placeholder="+63"
                     required
                   />
                 </div>
@@ -471,16 +319,23 @@ const Professors = () => {
                     </label>
                     <select
                       id="department"
+                      onChange={(e) => setDepartment(e.target.value)}
                       className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                       required
                     >
-                      <option value="CCS">CCS</option>
-                      <option value="BSeD">BSeD</option>
-                      <option value="CoE">CoE</option>
-                      <option value="BSBA">BSBA</option>
+                      <option selected value="" disabled>
+                        Select Department
+                      </option>
+                      {departments?.map((department) => (
+                        <>
+                          <option value={department.id}>
+                            {department.name}
+                          </option>
+                        </>
+                      ))}
                     </select>
                   </div>
-                    {/* Masteral Field */}
+                  {/* Masteral Field */}
                   <div className="flex-1">
                     <label
                       htmlFor="masteral"
@@ -490,9 +345,13 @@ const Professors = () => {
                     </label>
                     <select
                       id="masteral"
+                      onChange={(e) => setHasMasteral(e.target.value === "yes")}
                       className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                       required
                     >
+                      <option selected value="" disabled>
+                        Select If Has Masteral
+                      </option>
                       <option value="yes">Yes</option>
                       <option value="no">No</option>
                     </select>
