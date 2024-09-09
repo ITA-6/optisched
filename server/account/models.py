@@ -1,6 +1,5 @@
-from department.models import Department
+from professor.models import Professor
 
-# Djando Module
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -27,10 +26,8 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser):
     username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    department = models.ForeignKey(
-        Department, on_delete=models.SET_NULL, null=True, blank=True
+    professor = models.OneToOneField(
+        Professor, on_delete=models.CASCADE, null=True, blank=True
     )
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -44,7 +41,7 @@ class CustomUser(AbstractBaseUser):
 
     USERNAME_FIELD = "username"
 
-    REQUIRED_FIELDS = ("email", "first_name", "last_name")
+    REQUIRED_FIELDS = ["email"]
 
     class Meta:
         db_table = "user"

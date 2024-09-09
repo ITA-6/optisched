@@ -6,7 +6,9 @@ from professor.models import Professor
 class Section(models.Model):
     label = models.CharField(max_length=5)
     year_level = models.IntegerField()
-    adviser = models.ForeignKey(Professor, on_delete=models.CASCADE, null=True)
+    adviser = models.ForeignKey(
+        Professor, on_delete=models.CASCADE, null=True, blank=True
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

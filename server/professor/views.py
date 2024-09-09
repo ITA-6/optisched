@@ -2,9 +2,21 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from rest_framework.exceptions import NotFound
 
 from professor.models import Professor
 from professor.serializers import ProfessorSerializer
+from account.serializers import RegisterSerializer
+from department.models import Department
+
+
+class ProfessorManager:
+    @staticmethod
+    def create_account(user_data):
+        user_serializer = RegisterSerializer(data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()
+        return user
 
 
 class ProfessorAPIView(APIView):
@@ -29,10 +41,44 @@ class ProfessorAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
-        serializer = ProfessorSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        data = {"message": "Professor has been created.", "data": serializer.data}
+        # Ensure department exists
+        department_id = request.data.get("department")
+        if not Department.objects.filter(id=department_id).exists():
+            raise NotFound("Department not found")
+
+        professor_data = {
+            "prof_id": request.data.get("prof_id"),
+            "first_name": request.data.get("first_name"),
+            "last_name": request.data.get("last_name"),
+            "middle_name": request.data.get("middle_name"),
+            "birth_date": request.data.get("birth_date"),
+            "department": request.data.get("department"),
+            "email": request.data.get("email"),
+            "gender": request.data.get("gender"),
+            "employment_status": request.data.get("employment_status"),
+            "required_units": request.data.get("required_units"),
+            "current_units": request.data.get("current_units"),
+            "handled_schedule": [],
+        }
+
+        professor_serializer = ProfessorSerializer(data=professor_data)
+        professor_serializer.is_valid(raise_exception=True)
+        professor = professor_serializer.save()
+
+        user_data = {
+            "username": professor.prof_id,
+            "email": professor.email,
+            "password": professor.birth_date.strftime("%Y-%m-%d"),
+            "professor": professor.id,
+        }
+
+        ProfessorManager.create_account(user_data)
+
+        data = {
+            "message": "Professor has been created.",
+            "data": professor_serializer.data,
+        }
+
         return Response(data, status=status.HTTP_201_CREATED)
 
     def delete(self, request, *args, **kwargs):

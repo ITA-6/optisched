@@ -6,4 +6,4 @@ from section.models import Section
 class SectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Section
-        fields = ["label", "year_level", "adviser"]
+        fields = ["id", "label", "year_level", "adviser"]

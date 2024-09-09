@@ -1,11 +1,13 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+
 from rest_framework.response import Response
-from .serializers import RegisterSerializer, LoginSerializer
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
+
+from account.serializers import RegisterSerializer, LoginSerializer
 
 
 class RegisterApiView(APIView):
@@ -22,9 +24,6 @@ class RegisterApiView(APIView):
             data["response"] = "account has been created"
             data["username"] = account.username
             data["email"] = account.email
-            data["first_name"] = account.first_name
-            data["last_name"] = account.last_name
-            data["department"] = account.department.id if account.department else None
 
             return Response(data, status=status.HTTP_201_CREATED)
 

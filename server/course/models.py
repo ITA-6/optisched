@@ -2,10 +2,14 @@ from django.db import models
 
 
 class Course(models.Model):
-    COURSE_CATEGORY = (("LECTURE", "Lecture"), ("LABORATORY", "Laboratory"))
+    COURSE_CATEGORY = (
+        ("LECTURE", "Lecture"),
+        ("LABORATORY", "Laboratory"),
+        ("BOTH", "Lecture & Category"),
+    )
 
     name = models.CharField(max_length=255)
-    code = models.IntegerField()
+    code = models.CharField(max_length=10)
     category = models.CharField(max_length=25, choices=COURSE_CATEGORY)
     total_units = models.IntegerField(default=0)
     current_units = models.IntegerField(default=0)
