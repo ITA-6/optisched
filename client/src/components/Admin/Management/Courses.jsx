@@ -1,12 +1,51 @@
 import user from "../../../assets/user.png";
 import course from "../../../assets/course.png";
 import add from "../../../assets/add.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import api from "../../../api";
+
 const Course = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [name, setName] = useState("");
+  const [code, setCode] = useState("");
+  const [category, setCategory] = useState("");
+  const [totalUnits, setTotalUnits] = useState(0);
+  const [totalHours, setTotalHours] = useState(0);
+  const [needMasteral, setNeedMasteral] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api("courses/");
+      setData(response.data);
+    };
+    fetchData();
+  }, []);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await api.post("courses/", {
+        name: name,
+        code: code,
+        category: category,
+        total_units: totalUnits,
+        total_hours: totalHours,
+        need_masteral: needMasteral,
+      });
+      const response = await api("courses/");
+      setData(response.data);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -32,9 +71,7 @@ const Course = () => {
                 <th scope="col">ID</th>
                 <th scope="col">Course Title</th>
                 <th scope="col">Course Code</th>
-                <th scope="col">Department</th>
                 <th scope="col">Course type</th>
-                <th scope="col"> Status </th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -43,9 +80,7 @@ const Course = () => {
                 <th scope="row">1</th>
                 <td>Introduction to Programming</td>
                 <td>CS101</td>
-                <td>Computer Science</td>
                 <td>Lecture / Laboratory</td>
-                <td>Open</td>
                 <td>
                   <div className="flex items-center justify-center">
                     <div className="ml-5 flex gap-2">
@@ -61,95 +96,7 @@ const Course = () => {
                   </div>
                 </td>
               </tr>
-              <tr class="h-[30px]">
-                <th scope="row">2</th>
-                <td>Data Structures and Algorithms</td>
-                <td>CS201</td>
-                <td>Computer Science</td>
-                <td>Lecture / Laboratory</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">3</th>
-                <td>Introduction to Economics</td>
-                <td>ECON101</td>
-                <td>Economics</td>
-                <td>Lecture</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">4</th>
-                <td>Principles of Psychology</td>
-                <td>PSY101</td>
-                <td>Psychology</td>
-                <td>Lecture</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr class="h-[30px]">
-                <th scope="row">5</th>
-                <td>Modern World History</td>
-                <td>HIST201</td>
-                <td>History</td>
-                <td>Lecture</td>
-                <td>Open</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              </tbody>
+            </tbody>
           </table>
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
@@ -172,24 +119,7 @@ const Course = () => {
               </h2>
             </div>
             <div className="p-5">
-              <form className="mt-5 space-y-6">
-                <div className="flex items-center">
-                  <div className="flex flex-1">
-                    <label
-                      htmlFor="classroomId"
-                      className="text-lg font-medium"
-                    >
-                      Course ID :
-                    </label>
-                    <p
-                      id="courseId"
-                      name="courseId"
-                      className="inlin text-lg font-medium"
-                    >
-                      1
-                    </p>
-                  </div>
-                </div>
+              <form onSubmit={handleSubmit} className="mt-5 space-y-6">
                 <div className="flex flex-1 flex-col">
                   <label htmlFor="courseTitle" className="text-lg font-medium">
                     {" "}
@@ -200,6 +130,7 @@ const Course = () => {
                     id="courseTitle"
                     name="courseTitle"
                     placeholder="Course Title"
+                    onChange={(e) => setName(e.target.value)}
                     className="rounded-md border border-gray-300 p-2"
                     required
                   />
@@ -214,28 +145,61 @@ const Course = () => {
                     name="courseCode"
                     id="courseCode"
                     placeholder="Course Code"
+                    onChange={(e) => setCode(e.target.value)}
                     className="rounded-md border border-gray-300 p-2"
                     required
                   />
                 </div>
+                <div className="flex flex-1 flex-col">
+                  <label htmlFor="totalUnits" className="text-lg font-medium">
+                    {" "}
+                    Total Units
+                  </label>
+                  <input
+                    type="number"
+                    name="totalUnits"
+                    id="totalUnits"
+                    placeholder="Total Units"
+                    onChange={(e) => setTotalUnits(e.target.value)}
+                    className="rounded-md border border-gray-300 p-2"
+                    required
+                  />
+                </div>
+                <div className="flex flex-1 flex-col">
+                  <label htmlFor="totalHours" className="text-lg font-medium">
+                    {" "}
+                    Total Hours
+                  </label>
+                  <input
+                    type="number"
+                    name="totalHours"
+                    id="totalHours"
+                    placeholder="Total Hours"
+                    onChange={(e) => setTotalHours(e.target.value)}
+                    className="rounded-md border border-gray-300 p-2"
+                    required
+                  />
+                </div>
+                <div className="flex flex-1 flex-col">
+                  <label htmlFor="courseCode" className="text-lg font-medium">
+                    {" "}
+                    Need Masteral
+                  </label>
+                  <select
+                    name="needMasteral"
+                    id="needMasteral"
+                    onChange={(e) => setNeedMasteral(e.target.value)}
+                    className="rounded-md border border-gray-300 p-2"
+                    required
+                  >
+                    <option selected disabled value="">
+                      Select If Need Masteral
+                    </option>
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                  </select>
+                </div>
                 <div className="flex gap-5">
-                  <div className="flex flex-1 flex-col">
-                    <label htmlFor="department" className="text-lg font-medium">
-                      Department
-                    </label>
-                    <select
-                      name="department"
-                      id="department"
-                      className="rounded-md border border-gray-300 p-2"
-                      required
-                    >
-                      <option value="CCS">CCS</option>
-                      <option value="CCS">CCS</option>
-                      <option value="CCS">CCS</option>
-                      <option value="CCS">CCS</option>
-                      <option value="CCS">CCS</option>
-                    </select>
-                  </div>
                   <div className="flex flex-1 flex-col">
                     <label htmlFor="courseType" className="text-lg font-medium">
                       Course Type
@@ -243,12 +207,16 @@ const Course = () => {
                     <select
                       name="courseType"
                       id="courseType"
+                      onChange={(e) => setCategory(e.target.value)}
                       className="rounded-md border border-gray-300 p-2"
                       required
                     >
-                      <option value="CCS">Lecture</option>
-                      <option value="CCS">Laboratory</option>
-                      <option value="Both">Laboratory && Lecture</option>
+                      <option selected disabled value="">
+                        Select Course Type
+                      </option>
+                      <option value="LECTURE">Lecture</option>
+                      <option value="LABORATORY">Laboratory</option>
+                      <option value="BOTH">Laboratory & Lecture</option>
                     </select>
                   </div>
                 </div>
