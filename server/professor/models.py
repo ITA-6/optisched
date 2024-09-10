@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from department.models import Department
 from schedule.models import Schedule
@@ -17,6 +18,8 @@ class Professor(models.Model):
         ("O", "Other"),
     ]
 
+    HAS_MASTERAL_CHOICES = [("Y", "Yes"), ("N", "No")]
+
     prof_id = models.BigIntegerField(default=0000000)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -24,12 +27,14 @@ class Professor(models.Model):
     employment_status = models.CharField(
         max_length=25, choices=EMPLOYMENT_STATUS_CHOICES
     )
-    has_masteral = models.BooleanField(default=False)
+    has_masteral = models.CharField(
+        max_length=3, choices=HAS_MASTERAL_CHOICES, default="Y"
+    )
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     required_units = models.IntegerField(default=0, null=True)
     current_units = models.IntegerField(default=0, null=True)
     handled_schedule = models.ManyToManyField(Schedule, blank=True)
-    birth_date = models.DateField(auto_now=True)
+    birth_date = models.DateField(default=timezone.now)
     email = models.EmailField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="O")
     is_active = models.BooleanField(default=True)

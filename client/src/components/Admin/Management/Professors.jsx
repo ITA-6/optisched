@@ -13,7 +13,7 @@ const Professors = () => {
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [hasMasteral, setHasMasteral] = useState(false);
+  const [hasMasteral, setHasMasteral] = useState("");
   const [birthDate, setBirthDate] = useState(Date.now());
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
@@ -115,8 +115,8 @@ const Professors = () => {
                   <td>{`${item.first_name} ${item.last_name}`}</td>
                   <td>{item.birth_date}</td>
                   <td>{item.email}</td>
-                  <td className="w-[100px]">{item.department}</td>
-                  <td>{item.has_materal ? "Yes" : "No"}</td>
+                  <td className="w-[100px]">{item.department_name}</td>
+                  <td>{item.has_masteral === "Y" ? "Yes" : "No"}</td>
                   <td>{item.employment_status}</td>
                   <td>
                     <div className="flex items-center justify-center">
@@ -345,15 +345,15 @@ const Professors = () => {
                     </label>
                     <select
                       id="masteral"
-                      onChange={(e) => setHasMasteral(e.target.value === "yes")}
+                      onChange={(e) => setHasMasteral(e.target.value)}
                       className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                       required
                     >
                       <option selected value="" disabled>
                         Select If Has Masteral
                       </option>
-                      <option value="yes">Yes</option>
-                      <option value="no">No</option>
+                      <option value="Y">Yes</option>
+                      <option value="N">No</option>
                     </select>
                   </div>
                 </div>

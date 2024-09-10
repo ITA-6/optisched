@@ -8,6 +8,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
     handled_schedule = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Schedule.objects.all(), allow_empty=True
     )
+    department_name = serializers.CharField(source="department.name", read_only=True)
 
     class Meta:
         model = Professor
@@ -19,6 +20,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "birth_date",
             "has_masteral",
             "department",
+            "department_name",
             "email",
             "gender",
             "employment_status",

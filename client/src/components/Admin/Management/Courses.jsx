@@ -68,7 +68,6 @@ const Course = () => {
           <table class="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
               <tr class="h-[30px]">
-                <th scope="col">ID</th>
                 <th scope="col">Course Title</th>
                 <th scope="col">Course Code</th>
                 <th scope="col">Course type</th>
@@ -76,26 +75,27 @@ const Course = () => {
               </tr>
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
-              <tr class="h-[30px]">
-                <th scope="row">1</th>
-                <td>Introduction to Programming</td>
-                <td>CS101</td>
-                <td>Lecture / Laboratory</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
+              {data?.map((item) => (
+                <tr class="h-[30px]">
+                  <td>{item.name}</td>
+                  <td>{item.code}</td>
+                  <td>{item.category}</td>
+                  <td>
+                    <div className="flex items-center justify-center">
+                      <div className="ml-5 flex gap-2">
+                        <button className="-h5 w-16 bg-green text-white">
+                          {" "}
+                          Edit
+                        </button>
+                        <button className="-h5 w-16 bg-red-500 text-white">
+                          {" "}
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
