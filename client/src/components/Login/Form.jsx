@@ -28,7 +28,7 @@ const Form = () => {
     event.preventDefault();
 
     try {
-      const response = await api.post("token/", {
+      const response = await api.post("account/login/", {
         username,
         password,
       });
