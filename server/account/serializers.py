@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import make_password
 
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -33,6 +34,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             "professor",
             "last_login",
         ]
+
+    def create(self, validated_data):
+        validated_data["password"] = make_password(validated_data["password"])
+        return super().create(validated_data)
 
 
 class LoginSerializer(serializers.Serializer):
