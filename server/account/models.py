@@ -24,6 +24,14 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser):
+    USER_TYPES_CHOICES = [
+        ("R", "Registrar"),
+        ("DC", "Department Chair"),
+        ("D", "Dean"),
+        ("P", "Professor"),
+        ("VPAA", "Vice President for Academic Affairs"),
+    ]
+
     username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     professor = models.OneToOneField(
