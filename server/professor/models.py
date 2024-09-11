@@ -33,7 +33,9 @@ class Professor(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     required_units = models.IntegerField(default=0, null=True)
     current_units = models.IntegerField(default=0, null=True)
-    handled_schedule = models.ManyToManyField(Schedule, blank=True)
+    handled_schedule = models.ManyToManyField(
+        Schedule, blank=True, related_name="professors"
+    )
     birth_date = models.DateField(default=timezone.now)
     email = models.EmailField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="O")
