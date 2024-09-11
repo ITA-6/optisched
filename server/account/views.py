@@ -10,6 +10,10 @@ from rest_framework.permissions import AllowAny
 from account.serializers import RegisterSerializer, LoginSerializer
 
 
+class Account(APIView):
+    pass
+
+
 class RegisterApiView(APIView):
     serializer = RegisterSerializer
     permission_classes = [AllowAny]
