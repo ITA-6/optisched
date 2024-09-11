@@ -11,6 +11,20 @@ const Department = () => {
   const [departmentName, setDepartmentName] = useState("");
   const [departmentCode, setDepartmentCode] = useState("");
 
+   // edit modal data
+   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+   const [selectedDepartment, setSelectedDepartment] = useState("")
+   const setDepartment = data.filter(department => department.id === selectedDepartment)
+  
+   // toggle the state
+   const closeEditModal = () => setIsEditModalOpen(false);
+   const openEditModal = (department) => {
+     // set the value of selected Department to the value of the row of the button
+     setSelectedDepartment(department)
+     setIsEditModalOpen(true)
+     console.log(setDepartment)
+   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,7 +92,7 @@ const Department = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="h-7 w-20 bg-green text-white">
+                        <button className="h-7 w-20 bg-green text-white" onClick={() => openEditModal(item.id)}>
                           Edit
                         </button>
                         <button className="h-7 w-20 bg-red-500 text-white">
@@ -158,6 +172,77 @@ const Department = () => {
               <button
                 className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
                 onClick={closeModal}
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* edit Modal Department */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
+            <div className="flex h-1/5 items-center justify-center bg-green">
+              <img src={course} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
+              <h2 className="ml-2 text-3xl font-extrabold">
+                Edit Course
+              </h2>
+            </div>
+            <div className="p-5">
+              <form onSubmit={handleSubmit} className="mt-5 space-y-6">
+                {setDepartment.map(department => (
+                  <>
+                    <div className="flex flex-1 flex-col">
+                      <label
+                        htmlFor="departmentName"
+                        className="text-lg font-medium"
+                      >
+                        {" "}
+                        Department Name
+                      </label>
+                      <input
+                        type="text"
+                        id="departmentName"
+                        name="departmentName"
+                        value={department.name}
+                        placeholder="Department Name"
+                        onChange={(e) => setDepartmentName(e.target.value)}
+                        className="rounded-md border border-gray-300 p-2"
+                        required
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col">
+                      <label
+                        htmlFor="departmentCode"
+                        className="text-lg font-medium"
+                      >
+                        {" "}
+                        Department Code
+                      </label>
+                      <input
+                        type="text"
+                        id="departmentCode"
+                        name="departmentCode"
+                        value={department.acronym}
+                        placeholder="Department Code"
+                        onChange={(e) => setDepartmentCode(e.target.value)}
+                        className="rounded-md border border-gray-300 p-2"
+                        required
+                      />
+                    </div>
+                  </>
+                ))} 
+                <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
+                  <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
+                    <span>Confirm</span>
+                  </button>
+                </div>
+              </form>
+              <button
+                className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
+                onClick={closeEditModal}
               >
                 &times;
               </button>

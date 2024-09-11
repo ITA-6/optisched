@@ -13,6 +13,19 @@ const Classroom = () => {
   const [roomNumber, setRoomNumber] = useState(0);
   const [building, setBuilding] = useState(0);
 
+  // edit modal data
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedClassroom, setSelectedClassroom] = useState("")
+  const setClassroom = data.filter(classroom => classroom.id === selectedClassroom)
+  
+  // toggle the state
+  const closeEditModal = () => setIsEditModalOpen(false);
+  const openEditModal = (classroom) => {
+    // set the value of selected building to the value of the row of the button
+    setSelectedClassroom(classroom)
+    setIsEditModalOpen(true)
+  };
+  
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("rooms/");
@@ -62,9 +75,9 @@ const Classroom = () => {
               </select>
             </div>
           </div>
-          <table class="w-full table-fixed bg-white text-center grid-in-table">
+          <table className="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
-              <tr class="h-[30px]">
+              <tr className="h-[30px]">
                 <th scope="col">Building Name</th>
                 <th scope="col">Room Number</th>
                 <th scope="col">Floor Number</th>
@@ -73,14 +86,14 @@ const Classroom = () => {
             </thead>
             <tbody className="mb-10 h-full overflow-auto">
               {data?.map((item) => (
-                <tr key={item.id} class="h-[30px]">
+                <tr key={item.id} className="h-[30px]">
                   <td>{item.building}</td>
                   <td>{item.number}</td>
                   <td>{item.floor}</td>
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="-h5 w-16 bg-green text-white">
+                        <button className="-h5 w-16 bg-green text-white" onClick={() => openEditModal(item.id)}>
                           {" "}
                           Edit
                         </button>
@@ -180,6 +193,96 @@ const Classroom = () => {
               <button
                 className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
                 onClick={closeModal}
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* edit classroom modal */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
+            <div className="flex h-1/5 items-center justify-center bg-green">
+              <img
+                src={classroom}
+                alt=""
+                className="m-3 mr-4 h-[40px] w-[40px]"
+              />
+              <h2 className="ml-2 text-3xl font-extrabold">
+                Edit Section
+              </h2>
+            </div>
+            <div className="p-5">
+              <form onSubmit={handleSubmit} className="mt-5 space-y-6">
+                {setClassroom.map(classroom => (
+                  <>
+                    <div className="flex flex-1 flex-col">
+                      <label htmlFor="buildingName" className="text-lg font-medium">
+                        {" "}
+                        Building Name
+                      </label>
+                      <select
+                        id="building"
+                        value={classroom.id}
+                        onChange={(e) => setBuilding(e.target.value)}
+                        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                        required
+                      >
+                        <option selected value="" disabled>
+                          Select Building
+                        </option>
+                        {buildings?.map((building) => (
+                          <option key={building.id} value={building.id}>
+                            {building.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex flex-1 flex-col">
+                      <label htmlFor="floorNumber" className="text-lg font-medium">
+                        {" "}
+                        Floor Number
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="Floor Number"
+                        value={classroom.floor}
+                        onChange={(e) => setFloorNumber(e.target.value)}
+                        className="rounded-md border border-gray-300 p-2"
+                        required
+                      />
+                    </div>
+                    <div className="flex gap-5">
+                      <div className="flex flex-1 flex-col">
+                        <label htmlFor="roomNumber" className="text-lg font-medium">
+                          Room Number
+                        </label>
+                        <input
+                          type="number"
+                          id="roomNumber"
+                          name="roomNumber"
+                          placeholder="Room Number"
+                          value={classroom.number}
+                          onChange={(e) => setRoomNumber(e.target.value)}
+                          className="rounded-md border border-gray-300 p-2"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </>
+                ))}
+                <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
+                  <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
+                    <span>Confirm</span>
+                  </button>
+                </div>
+              </form>
+              <button
+                className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
+                onClick={closeEditModal}
               >
                 &times;
               </button>
