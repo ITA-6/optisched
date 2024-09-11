@@ -14,6 +14,7 @@ import Classroom from "./components/Admin/Management/Classroom";
 import Course from "./components/Admin/Management/Courses";
 import Building from "./components/Admin/Management/Building";
 import Department from "./components/Admin/Management/Department";
+import Program from "./components/Admin/Management/Program";
 const App = () => {
   return (
     <BrowserRouter>
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="management/course" element={<Course />} />
           <Route path="management/building" element={<Building />} />
           <Route path="management/department" element={<Department />} />
+          <Route path="management/program" element={<Program />} />
         </Route>
       </Routes>
     </BrowserRouter>

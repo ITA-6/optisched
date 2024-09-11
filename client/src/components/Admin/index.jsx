@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav";
+import { useEffect } from "react";
 
 const Admin = () => {
   const location = useLocation();
@@ -10,9 +10,7 @@ const Admin = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (!token) {
-      navigate("/");
-    }
+    if (!token) navigate("/");
   }, []);
 
   const getPageName = (path) => {
@@ -38,6 +36,8 @@ const Admin = () => {
         return "Manage Department";
       case "/admin/management/course":
         return "Manage Courses";
+      case "/admin/management/program":
+        return "Manage Programs";
       case "/admin/generated/":
         return "Generate Schedule";
       default:
