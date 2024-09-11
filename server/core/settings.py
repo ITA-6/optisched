@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "building",
     "section",
     "room",
+    "program",
 ]
 
 MIDDLEWARE = [
