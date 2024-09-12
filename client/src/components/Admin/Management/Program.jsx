@@ -12,6 +12,21 @@ const Program = () => {
   const [departments, setDepartments] = useState([]);
   const [department, setDepartment] = useState(0);
 
+  // edit modal data
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState("")
+  const setProgramId = programs.filter(section => section.name === selectedProgram)
+ 
+  // toggle the state
+  const closeEditModal = () => setIsEditModalOpen(false);
+  const openEditModal = (program) => {
+    // set the value of selected Section to the value of the row of the button
+    setSelectedProgram(program)
+    setIsEditModalOpen(true)
+    console.log(programs)
+  };
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,6 +57,16 @@ const Program = () => {
       const response = await api.get("programs/");
       setPrograms(response.data);
       setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`programs/${id}`);
+      const response = await api.get("programs/");
+      setPrograms(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -82,10 +107,16 @@ const Program = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="h-7 w-20 bg-green text-white">
+                        <button 
+                          className="h-7 w-20 bg-green text-white"
+                          onClick={() => openEditModal(program.name)}
+                          >
                           Edit
                         </button>
-                        <button className="h-7 w-20 bg-red-500 text-white">
+                        <button 
+                          className="h-7 w-20 bg-red-500 text-white"
+                          onClick={() => handleDelete(program.name)}
+                        >
                           Delete
                         </button>
                       </div>
@@ -161,6 +192,76 @@ const Program = () => {
               <button
                 className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
                 onClick={closeModal}
+              >
+                &times;
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* editModal Program */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
+            <div className="flex h-1/5 items-center justify-center bg-green">
+              <img src={course} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
+              <h2 className="ml-2 text-3xl font-extrabold">
+                Edit Program
+              </h2>
+            </div>
+            <div className="p-5">
+              <form onSubmit={handleSubmit} className="mt-5 space-y-6">
+                {setProgramId?.map(program => (
+                  <>
+                      <div className="flex flex-1 flex-col">
+                        <label htmlFor="programName" className="text-lg font-medium">
+                          {" "}
+                          Program Name
+                        </label>
+                        <input
+                          type="text"
+                          id="programName"
+                          name="programName"
+                          value={program.name}
+                          placeholder="Program Name"
+                          onChange={(e) => setProgramName(e.target.value)}
+                          className="rounded-md border border-gray-300 p-2"
+                          required
+                        />
+                      </div>
+                      <div className="flex flex-1 flex-col">
+                        <label
+                          htmlFor="departmentName"
+                          className="text-lg font-medium"
+                        >
+                          {" "}
+                          Department
+                        </label>
+                        <select
+                          value={program.department_name}
+                          onChange={(e) => setDepartment(e.target.value)}
+                          className="w-full rounded-md border border-gray-300 p-2"
+                        >
+                          <option selected disabled value="">
+                            Select Department
+                          </option>
+                          {departments?.map((department) => (
+                            <option value={department.id}>{department.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                  </>
+                ))}
+                <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
+                  <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
+                    <span>Confirm</span>
+                  </button>
+                </div>
+              </form>
+              <button
+                className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
+                onClick={closeEditModal}
               >
                 &times;
               </button>
