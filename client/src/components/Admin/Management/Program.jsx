@@ -7,15 +7,19 @@ import api from "../../../api";
 
 const Program = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const [programs, setPrograms] = useState([]);
   const [programName, setProgramName] = useState("");
-  const [departmentName, setDepartmentName] = useState("");
+  const [departments, setDepartments] = useState([]);
+  const [department, setDepartment] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.get("programs/");
-        setData(response.data);
+        const departmentResponse = await api.get("departments/");
+
+        setPrograms(response.data);
+        setDepartments(departmentResponse.data);
       } catch (error) {
         console.error(error);
       }
@@ -33,10 +37,10 @@ const Program = () => {
     try {
       await api.post("programs/", {
         name: programName,
-        acronym: departmentName,
+        department: department,
       });
       const response = await api.get("programs/");
-      setData(response.data);
+      setPrograms(response.data);
       setIsModalOpen(false);
     } catch (error) {
       console.error(error);
@@ -71,10 +75,10 @@ const Program = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((item) => (
+              {programs?.map((program) => (
                 <tr>
-                  <td>{item.name}</td>
-                  <td>{item.acronym}</td>
+                  <td>{program.name}</td>
+                  <td>{program.department_name}</td>
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
@@ -136,22 +140,16 @@ const Program = () => {
                     {" "}
                     Department
                   </label>
-                  <select className="w-full rounded-md border border-gray-300 p-2">
-                    <option value="">Select Department</option>
-                    <option value="option1">
-                      College of Arts and Sciences
+                  <select
+                    onChange={(e) => setDepartment(e.target.value)}
+                    className="w-full rounded-md border border-gray-300 p-2"
+                  >
+                    <option selected disabled value="">
+                      Select Department
                     </option>
-                    <option value="option2">
-                      College of Business, Accountancy, and Administration
-                    </option>
-                    <option value="option3">
-                      College of Computing Studies
-                    </option>
-                    <option value="option3">College of Education</option>
-                    <option value="option3">College of Engineering</option>
-                    <option value="option3">
-                      College of Health and Allied Science
-                    </option>
+                    {departments?.map((department) => (
+                      <option value={department.id}>{department.name}</option>
+                    ))}
                   </select>
                 </div>
                 <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
