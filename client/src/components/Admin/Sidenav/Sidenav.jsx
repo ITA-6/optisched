@@ -82,7 +82,7 @@ const Sidenav = () => {
           </li>
           <li className="w-full">
             <Link
-              to="parameter"
+              to="curriculum"
               className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
             >
               <img

@@ -114,8 +114,8 @@ const Course = () => {
                           Edit
                         </button>
                         <button
-                          onClick={() => handleDelete(item.id)}
                           className="-h5 w-16 bg-red-500 text-white"
+                          onClick={() => handleDelete(item.id)}
                         >
                           {" "}
                           Delete

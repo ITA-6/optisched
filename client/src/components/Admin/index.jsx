@@ -28,8 +28,8 @@ const Admin = () => {
         return "Manage Classrooms";
       case "/admin/generate":
         return "Generate";
-      case "/admin/parameter":
-        return "Parameter";
+      case "/admin/curriculum":
+        return "Curriculum";
       case "/admin/management/building":
         return "Manage Building";
       case "/admin/management/department":

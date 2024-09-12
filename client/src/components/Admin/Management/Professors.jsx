@@ -73,8 +73,8 @@ const Professors = () => {
 
   const handleDelete = async (id) => {
     try {
-      await api.delete(`courses/${id}`);
-      const response = await api.get("courses/");
+      await api.delete(`professors/${id}`);
+      const response = await api.get("professors/");
       setData(response.data);
     } catch (error) {
       console.error(error);
@@ -147,8 +147,8 @@ const Professors = () => {
                           Edit
                         </button>
                         <button
-                          onClick={() => handleDelete(item.id)}
                           className="-h5 w-16 bg-red-500 text-white"
+                          onClick={() => handleDelete(item.prof_id)}
                         >
                           Delete
                         </button>

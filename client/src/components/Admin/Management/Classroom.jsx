@@ -15,17 +15,19 @@ const Classroom = () => {
 
   // edit modal data
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedClassroom, setSelectedClassroom] = useState("")
-  const setClassroom = data.filter(classroom => classroom.id === selectedClassroom)
-  
+  const [selectedClassroom, setSelectedClassroom] = useState("");
+  const setClassroom = data.filter(
+    (classroom) => classroom.id === selectedClassroom,
+  );
+
   // toggle the state
   const closeEditModal = () => setIsEditModalOpen(false);
   const openEditModal = (classroom) => {
     // set the value of selected building to the value of the row of the button
-    setSelectedClassroom(classroom)
-    setIsEditModalOpen(true)
+    setSelectedClassroom(classroom);
+    setIsEditModalOpen(true);
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("rooms/");
@@ -66,7 +68,6 @@ const Classroom = () => {
     }
   };
 
-
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -104,11 +105,17 @@ const Classroom = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="-h5 w-16 bg-green text-white" onClick={() => openEditModal(item.id)}>
+                        <button
+                          className="-h5 w-16 bg-green text-white"
+                          onClick={() => openEditModal(item.id)}
+                        >
                           {" "}
                           Edit
                         </button>
-                        <button onClick={() => handleDelete(item.id)} className="-h5 w-16 bg-red-500 text-white">
+                        <button
+                          className="-h5 w-16 bg-red-500 text-white"
+                          onClick={() => handleDelete(item.id)}
+                        >
                           {" "}
                           Delete
                         </button>
@@ -222,16 +229,17 @@ const Classroom = () => {
                 alt=""
                 className="m-3 mr-4 h-[40px] w-[40px]"
               />
-              <h2 className="ml-2 text-3xl font-extrabold">
-                Edit Section
-              </h2>
+              <h2 className="ml-2 text-3xl font-extrabold">Edit Section</h2>
             </div>
             <div className="p-5">
               <form onSubmit={handleSubmit} className="mt-5 space-y-6">
-                {setClassroom.map(classroom => (
+                {setClassroom.map((classroom) => (
                   <>
                     <div className="flex flex-1 flex-col">
-                      <label htmlFor="buildingName" className="text-lg font-medium">
+                      <label
+                        htmlFor="buildingName"
+                        className="text-lg font-medium"
+                      >
                         {" "}
                         Building Name
                       </label>
@@ -253,7 +261,10 @@ const Classroom = () => {
                       </select>
                     </div>
                     <div className="flex flex-1 flex-col">
-                      <label htmlFor="floorNumber" className="text-lg font-medium">
+                      <label
+                        htmlFor="floorNumber"
+                        className="text-lg font-medium"
+                      >
                         {" "}
                         Floor Number
                       </label>
@@ -268,7 +279,10 @@ const Classroom = () => {
                     </div>
                     <div className="flex gap-5">
                       <div className="flex flex-1 flex-col">
-                        <label htmlFor="roomNumber" className="text-lg font-medium">
+                        <label
+                          htmlFor="roomNumber"
+                          className="text-lg font-medium"
+                        >
                           Room Number
                         </label>
                         <input
