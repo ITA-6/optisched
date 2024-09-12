@@ -59,6 +59,16 @@ const Section = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`sections/${id}`);
+      const response = await api.get("sections/");
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -96,11 +106,15 @@ const Section = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="-h5 w-16 bg-green text-white" onClick={()=> openEditModal(item.id)}>
+                        <button 
+                          className="-h5 w-16 bg-green text-white" 
+                          onClick={()=> openEditModal(item.id)}>
                           {" "}
                           Edit
                         </button>
-                        <button className="-h5 w-16 bg-red-500 text-white">
+                        <button 
+                          className="-h5 w-16 bg-red-500 text-white" 
+                          onClick={() => handleDelete(item.id)}>
                           {" "}
                           Delete
                         </button>

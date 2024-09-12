@@ -56,6 +56,16 @@ const Classroom = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`rooms/${id}`);
+      const response = await api.get("rooms/");
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -97,7 +107,9 @@ const Classroom = () => {
                           {" "}
                           Edit
                         </button>
-                        <button className="-h5 w-16 bg-red-500 text-white">
+                        <button 
+                          className="-h5 w-16 bg-red-500 text-white"
+                          onClick={() => handleDelete(item.id)}>
                           {" "}
                           Delete
                         </button>
