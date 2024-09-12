@@ -12,20 +12,19 @@ const Section = () => {
   const [label, setLabel] = useState("");
   const [yearLevel, setYearLevel] = useState(0);
 
+  // edit modal data
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedSection, setSelectedSection] = useState("");
+  const setSection = data.filter((section) => section.id === selectedSection);
 
-   // edit modal data
-   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-   const [selectedSection, setSelectedSection] = useState("")
-   const setSection = data.filter(section => section.id === selectedSection)
-  
-   // toggle the state
-   const closeEditModal = () => setIsEditModalOpen(false);
-   const openEditModal = (section) => {
-     // set the value of selected Section to the value of the row of the button
-     setSelectedSection(section)
-     setIsEditModalOpen(true)
-     console.log(setSection)
-   };
+  // toggle the state
+  const closeEditModal = () => setIsEditModalOpen(false);
+  const openEditModal = (section) => {
+    // set the value of selected Section to the value of the row of the button
+    setSelectedSection(section);
+    setIsEditModalOpen(true);
+    console.log(setSection);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,6 +53,16 @@ const Section = () => {
       const response = await api.get("sections/");
       setData(response.data);
       setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`sections/${id}`);
+      const response = await api.get("sections/");
+      setData(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -96,11 +105,17 @@ const Section = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="-h5 w-16 bg-green text-white" onClick={()=> openEditModal(item.id)}>
+                        <button
+                          className="-h5 w-16 bg-green text-white"
+                          onClick={() => openEditModal(item.id)}
+                        >
                           {" "}
                           Edit
                         </button>
-                        <button className="-h5 w-16 bg-red-500 text-white">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="-h5 w-16 bg-red-500 text-white"
+                        >
                           {" "}
                           Delete
                         </button>
@@ -194,16 +209,14 @@ const Section = () => {
                 alt=""
                 className="m-3 mr-4 h-[30px] w-[40px]"
               />
-              <h2 className="ml-2 text-3xl font-extrabold">
-                Edit Section
-              </h2>
+              <h2 className="ml-2 text-3xl font-extrabold">Edit Section</h2>
             </div>
             <div className="p-5">
               <form
                 onSubmit={handleSubmit}
                 className="mr-5 mt-5 space-y-6 text-lg font-medium"
               >
-                {setSection.map(section => (
+                {setSection.map((section) => (
                   <>
                     <div className="flex gap-5">
                       <div className="flex flex-1 flex-col">

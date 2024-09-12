@@ -9,7 +9,7 @@ const Professors = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // stored data
   const [data, setData] = useState([]);
-  const [selectedProf, setSelectedProf] = useState("")
+  const [selectedProf, setSelectedProf] = useState("");
   const [departments, setDepartments] = useState([]);
   const [professorId, setProfessorId] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -21,15 +21,13 @@ const Professors = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("O");
   const [employmentStatus, setEmploymentStatus] = useState("PERMANENT");
-  const setProf = data.filter(item => item.prof_id === selectedProf)
+  const setProf = data.filter((item) => item.prof_id === selectedProf);
 
   const closeEditModal = () => setIsEditModalOpen(false);
   const openEditModal = (selectProf) => {
-    setSelectedProf(selectProf)
-    setIsEditModalOpen(true)
+    setSelectedProf(selectProf);
+    setIsEditModalOpen(true);
   };
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,6 +70,17 @@ const Professors = () => {
       console.error(error);
     }
   };
+
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`courses/${id}`);
+      const response = await api.get("courses/");
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="h-screen w-screen bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -131,10 +140,16 @@ const Professors = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="-h5 w-16 bg-green text-white" onClick={() => openEditModal(item.prof_id)}>
+                        <button
+                          className="-h5 w-16 bg-green text-white"
+                          onClick={() => openEditModal(item.prof_id)}
+                        >
                           Edit
                         </button>
-                        <button className="-h5 w-16 bg-red-500 text-white">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="-h5 w-16 bg-red-500 text-white"
+                        >
                           Delete
                         </button>
                       </div>
@@ -399,7 +414,7 @@ const Professors = () => {
             <div className="p-5">
               <form onSubmit={handleSubmit} className="mt-5 space-y-6">
                 {/* Professor ID */}
-                
+
                 {setProf?.map((selectedProf) => (
                   <>
                     <div className="flex flex-col">
@@ -412,7 +427,7 @@ const Professors = () => {
                       <input
                         type="number"
                         id="professorID"
-                        value= {selectedProf.prof_id}
+                        value={selectedProf.prof_id}
                         onChange={(e) => setProfessorId(e.target.value)}
                         className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                         required

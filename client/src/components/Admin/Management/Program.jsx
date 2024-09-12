@@ -47,6 +47,16 @@ const Program = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`programs/${id}`);
+      const response = await api.get("programs/");
+      setData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
@@ -85,7 +95,10 @@ const Program = () => {
                         <button className="h-7 w-20 bg-green text-white">
                           Edit
                         </button>
-                        <button className="h-7 w-20 bg-red-500 text-white">
+                        <button
+                          onClick={() => handleDelete(program.id)}
+                          className="h-7 w-20 bg-red-500 text-white"
+                        >
                           Delete
                         </button>
                       </div>
