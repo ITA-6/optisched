@@ -12,18 +12,19 @@ const Building = () => {
   const [totalRooms, setTotalRooms] = useState(0);
   const [availableRooms, setAvailableRooms] = useState(0);
 
-
   // edit modal data
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedBuilding, setSelectedBuilding] = useState("")
-  const setBuilding = data.filter(building => building.id === selectedBuilding)
- 
+  const [selectedBuilding, setSelectedBuilding] = useState("");
+  const setBuilding = data.filter(
+    (building) => building.id === selectedBuilding,
+  );
+
   // toggle the state
   const closeEditModal = () => setIsEditModalOpen(false);
   const openEditModal = (building) => {
     // set the value of selected building to the value of the row of the button
-    setSelectedBuilding(building)
-    setIsEditModalOpen(true)
+    setSelectedBuilding(building);
+    setIsEditModalOpen(true);
   };
 
   useEffect(() => {
@@ -50,6 +51,16 @@ const Building = () => {
       const response = await api.get("buildings/");
       setData(response.data);
       setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`buildings/${id}`);
+      const response = await api.get("buildings/");
+      setData(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -92,10 +103,16 @@ const Building = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="h-7 w-20 bg-green text-white" onClick={() => openEditModal(item.id)}>
+                        <button
+                          className="h-7 w-20 bg-green text-white"
+                          onClick={() => openEditModal(item.id)}
+                        >
                           Edit
                         </button>
-                        <button className="h-7 w-20 bg-red-500 text-white">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="h-7 w-20 bg-red-500 text-white"
+                        >
                           Delete
                         </button>
                       </div>
@@ -204,10 +221,13 @@ const Building = () => {
             </div>
             <div className="p-5">
               <form onSubmit={handleSubmit} className="mt-5 space-y-6">
-                {setBuilding?.map(building => (
+                {setBuilding?.map((building) => (
                   <>
                     <div className="flex flex-1 flex-col" key={building.id}>
-                      <label htmlFor="BuildingName" className="text-lg font-medium">
+                      <label
+                        htmlFor="BuildingName"
+                        className="text-lg font-medium"
+                      >
                         {" "}
                         Building Name
                       </label>
@@ -224,7 +244,10 @@ const Building = () => {
                     </div>
                     <div className="flex gap-10">
                       <div className="flex flex-1 flex-col">
-                        <label htmlFor="totalRooms" className="text-lg font-medium">
+                        <label
+                          htmlFor="totalRooms"
+                          className="text-lg font-medium"
+                        >
                           {" "}
                           Total Rooms
                         </label>
