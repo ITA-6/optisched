@@ -11,19 +11,21 @@ const Department = () => {
   const [departmentName, setDepartmentName] = useState("");
   const [departmentCode, setDepartmentCode] = useState("");
 
-   // edit modal data
-   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-   const [selectedDepartment, setSelectedDepartment] = useState("")
-   const setDepartment = data.filter(department => department.id === selectedDepartment)
-  
-   // toggle the state
-   const closeEditModal = () => setIsEditModalOpen(false);
-   const openEditModal = (department) => {
-     // set the value of selected Department to the value of the row of the button
-     setSelectedDepartment(department)
-     setIsEditModalOpen(true)
-     console.log(setDepartment)
-   };
+  // edit modal data
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const setDepartment = data.filter(
+    (department) => department.id === selectedDepartment,
+  );
+
+  // toggle the state
+  const closeEditModal = () => setIsEditModalOpen(false);
+  const openEditModal = (department) => {
+    // set the value of selected Department to the value of the row of the button
+    setSelectedDepartment(department);
+    setIsEditModalOpen(true);
+    console.log(setDepartment);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,6 +54,16 @@ const Department = () => {
       const response = await api.get("departments/");
       setData(response.data);
       setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`departments/${id}`);
+      const response = await api.get("departments/");
+      setData(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -92,10 +104,16 @@ const Department = () => {
                   <td>
                     <div className="flex items-center justify-center">
                       <div className="ml-5 flex gap-2">
-                        <button className="h-7 w-20 bg-green text-white" onClick={() => openEditModal(item.id)}>
+                        <button
+                          className="h-7 w-20 bg-green text-white"
+                          onClick={() => openEditModal(item.id)}
+                        >
                           Edit
                         </button>
-                        <button className="h-7 w-20 bg-red-500 text-white">
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="h-7 w-20 bg-red-500 text-white"
+                        >
                           Delete
                         </button>
                       </div>
@@ -186,13 +204,11 @@ const Department = () => {
           <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
             <div className="flex h-1/5 items-center justify-center bg-green">
               <img src={course} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
-              <h2 className="ml-2 text-3xl font-extrabold">
-                Edit Course
-              </h2>
+              <h2 className="ml-2 text-3xl font-extrabold">Edit Course</h2>
             </div>
             <div className="p-5">
               <form onSubmit={handleSubmit} className="mt-5 space-y-6">
-                {setDepartment.map(department => (
+                {setDepartment.map((department) => (
                   <>
                     <div className="flex flex-1 flex-col">
                       <label
@@ -233,7 +249,7 @@ const Department = () => {
                       />
                     </div>
                   </>
-                ))} 
+                ))}
                 <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
                   <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
                     <span>Confirm</span>
