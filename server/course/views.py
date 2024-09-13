@@ -36,6 +36,24 @@ class CourseAPIView(APIView):
         data = {"message": "Course has been created.", "data": serializer.data}
         return Response(data, status=status.HTTP_201_CREATED)
 
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+        # Retrieve the existing instance of Building
+        try:
+            course = Course.objects.get(pk=pk)
+        except Course.DoesNotExist:
+            return Response(
+                {"message": "Course not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Pass the instance to the serializer along with the new data
+        serializer = CourseSerializer(course, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        data = {"message": "Course has been updated.", "data": serializer.data}
+        return Response(data, status=status.HTTP_200_OK)
+
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
 
