@@ -43,7 +43,7 @@ const Sidenav = () => {
           <li className="w-full">
             <Link
               to="dashboard"
-              className="flex w-full items-center rounded-lg px-1 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-dark-green"
             >
               <img src={dash} alt="Dashboard Icon" className="h-10 w-10" />
               <span className="text-md ml-4">Dashboard</span>
@@ -53,7 +53,7 @@ const Sidenav = () => {
             <button
               type="button"
               onClick={toggleUserDropdown}
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={user} alt="Users Icon" className="h-7 w-7" />
               <span className="text-md ml-6">Users</span>
@@ -74,7 +74,7 @@ const Sidenav = () => {
           <li className="w-full">
             <Link
               to="generate"
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={generate} alt="Generate Icon" className="h-8 w-8" />
               <span className="text-md ml-5">Generate Schedule</span>
@@ -83,7 +83,7 @@ const Sidenav = () => {
           <li className="w-full">
             <Link
               to="curriculum"
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img
                 src={parameters}
@@ -97,7 +97,7 @@ const Sidenav = () => {
             <button
               type="button"
               onClick={toggleManagementDropdown}
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={menu} alt="Menu Icon" className="h-9 w-9" />
               <span className="text-md ml-4">Management Systems</span>
