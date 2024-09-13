@@ -75,7 +75,7 @@ const Form = () => {
         <div className="mt-8 flex justify-center bg-light-green/35 py-1">
           <span className="font-inter tracking-widest">Login</span>
         </div>
-        <p className="mt-1 font-inter text-xs text-red-500">
+        <p className="mt-1 font-inter text-xs text-red-500" hidden>
           This website you are trying to access is for authorized personnel
           only!
         </p>
@@ -108,12 +108,12 @@ const Form = () => {
             required
             className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4 pr-12 font-inter"
           />
-          <img
+          {/* <img
             src={isHide ? show : hide}
             alt="Show Password"
             onClick={showPassword}
             className="absolute right-5 top-2 w-8 cursor-pointer"
-          />
+          /> */}
         </div>
         <button
           type="submit"
