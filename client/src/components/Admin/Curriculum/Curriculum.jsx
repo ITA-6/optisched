@@ -22,42 +22,19 @@ const Curriculum = () => {
         <div className="grid">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}
-            <button
-              className="h-10 w-20 flex-1 rounded-t-lg bg-gray-300"
-              onClick={() => handleButtonClick("CSS")}
-            >
-              CSS
-            </button>
-            <button
-              className="h-10 w-20 flex-1 rounded-t-lg bg-gray-300"
-              onClick={() => handleButtonClick("COE")}
-            >
-              COE
-            </button>
-            <button
-              className="h-10 w-20 flex-1 rounded-t-lg bg-gray-300"
-              onClick={() => handleButtonClick("CBAA")}
-            >
-              CBAA
-            </button>
-            <button
-              className="h-10 w-20 flex-1 rounded-t-lg bg-gray-300"
-              onClick={() => handleButtonClick("COED")}
-            >
-              COED
-            </button>
-            <button
-              className="h-10 w-20 flex-1 rounded-t-lg bg-gray-300"
-              onClick={() => handleButtonClick("CHAS")}
-            >
-              CHAS
-            </button>
-            <button
-              className="h-10 w-20 flex-1 rounded-t-lg bg-gray-300"
-              onClick={() => handleButtonClick("CAS")}
-            >
-              CAS
-            </button>
+            {["CSS", "COE", "CBAA", "COED", "CHAS", "CAS"].map((department) => (
+              <button
+                key={department}
+                className={`h-10 w-20 flex-1 rounded-t-lg ${
+                  selectedDepartment === department
+                    ? "bg-gray-700"
+                    : "bg-gray-300 hover:bg-gray-700"
+                }`}
+                onClick={() => handleButtonClick(department)}
+              >
+                {department}
+              </button>
+            ))}
           </div>
         </div>
         <table className="h-3/4 w-full table-auto bg-white text-center">

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { departments } from './data';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { departments } from "./data";
 
 const Generate = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState('CSS');
+  const [selectedDepartment, setSelectedDepartment] = useState("CSS");
   const navigate = useNavigate(); // Hook to handle navigation
 
   useEffect(() => {
-    setSelectedDepartment('CSS');
+    setSelectedDepartment("CSS");
   }, []);
 
   const handleButtonClick = (department) => {
@@ -18,23 +18,32 @@ const Generate = () => {
     navigate(`/admin/generated/${encodeURIComponent(name)}`); // Navigate to details page with the name
   };
 
-  const filteredData = departments.filter(item => item.department === selectedDepartment);
+  const filteredData = departments.filter(
+    (item) => item.department === selectedDepartment,
+  );
 
   return (
     <div className="h-screen bg-white-grayish">
-      <div className="h-full ml-[18rem] mr-[2rem]">
+      <div className="ml-[18rem] mr-[2rem] h-full">
         <div className="grid">
-          <div className="flex mt-20 gap-x-1 font-bold text-md ">
+          <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}
-            <button className="bg-gray-300 flex-1 h-10 rounded-t-lg w-20" onClick={() => handleButtonClick('CSS')}>CSS</button>
-            <button className="bg-gray-300 flex-1 h-10 rounded-t-lg w-20" onClick={() => handleButtonClick('COE')}>COE</button>
-            <button className="bg-gray-300 flex-1 h-10 rounded-t-lg w-20" onClick={() => handleButtonClick('CBAA')}>CBAA</button>
-            <button className="bg-gray-300 flex-1 h-10 rounded-t-lg w-20" onClick={() => handleButtonClick('COED')}>COED</button>
-            <button className="bg-gray-300 flex-1 h-10 rounded-t-lg w-20" onClick={() => handleButtonClick('CHAS')}>CHAS</button>
-            <button className="bg-gray-300 flex-1 h-10 rounded-t-lg w-20" onClick={() => handleButtonClick('CAS')}>CAS</button>
+            {["CSS", "COE", "CBAA", "COED", "CHAS", "CAS"].map((department) => (
+              <button
+                key={department}
+                className={`h-10 w-20 flex-1 rounded-t-lg ${
+                  selectedDepartment === department
+                    ? "bg-gray-700"
+                    : "bg-gray-300 hover:bg-gray-700"
+                }`}
+                onClick={() => handleButtonClick(department)}
+              >
+                {department}
+              </button>
+            ))}
           </div>
         </div>
-        <table className="w-full h-3/4 table-auto bg-white text-center">
+        <table className="h-3/4 w-full table-auto bg-white text-center">
           <thead className="bg-green-500 text-white">
             <tr className="h-12">
               <th scope="col">Professor Name</th>
@@ -45,7 +54,11 @@ const Generate = () => {
           <tbody className="mb-10 h-full overflow-auto">
             {filteredData.length > 0 ? (
               filteredData.map((item, index) => (
-                <tr key={index} className="h-20 cursor-pointer" onClick={() => handleRowClick(item.name)}>
+                <tr
+                  key={index}
+                  className="h-20 cursor-pointer"
+                  onClick={() => handleRowClick(item.name)}
+                >
                   <td>{item.name}</td>
                   <td>{item.department}</td>
                   <td>{item.appointment}</td>
@@ -53,7 +66,9 @@ const Generate = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="3" className="p-4 text-gray-500">No data available</td>
+                <td colSpan="3" className="p-4 text-gray-500">
+                  No data available
+                </td>
               </tr>
             )}
           </tbody>
@@ -61,6 +76,6 @@ const Generate = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Generate;
