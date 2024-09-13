@@ -11,10 +11,11 @@ import Curriculum from "./components/Admin/Curriculum/Curriculum";
 import Professor from "./components/Admin/Management/Professors";
 import Section from "./components/Admin/Management/Section";
 import Classroom from "./components/Admin/Management/Classroom";
-import Course from "./components/Admin/Management/Courses";
+import Course from "./components/Admin/Management/Course";
 import Building from "./components/Admin/Management/Building";
 import Department from "./components/Admin/Management/Department";
 import Program from "./components/Admin/Management/Program";
+
 const App = () => {
   return (
     <BrowserRouter>
