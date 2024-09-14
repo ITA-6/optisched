@@ -21,10 +21,12 @@ const Building = () => {
     fetchData();
   }, []);
 
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    if (isModalOpen) setInitialData(null);
+  };
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const submitBuilding= async (building) => {
+  const submitBuilding = async (building) => {
     try {
       await api.post("buildings/", building);
       const response = await api("buildings/");
@@ -40,6 +42,8 @@ const Building = () => {
       await api.put(`buildings/${building.id}/`, building);
       const response = await api("buildings/");
       setBuildings(response.data);
+      setBuildings([]);
+      setInitialData(null);
       setIsModalOpen(false);
     } catch (error) {
       console.error(error);
@@ -48,7 +52,7 @@ const Building = () => {
 
   const openUpdate = (initialData) => {
     setInitialData(initialData);
-    openModal();
+    toggleModal();
   };
 
   const DeleteBuilding = async (id) => {
@@ -65,7 +69,7 @@ const Building = () => {
     <div className="flex h-screen w-screen items-center justify-center bg-white-grayish">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
         <div className="mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout grid-in-userTable">
-          <SearchField/>
+          <SearchField />
           <BuildingTable
             DeleteBuilding={DeleteBuilding}
             buildings={buildings}
@@ -81,12 +85,14 @@ const Building = () => {
             </button>
           </div>
         </div>
-        {isModalOpen && 
-        <BuildingForm 
-          DeleteBuilding={DeleteBuilding}
-          handler={initialData ? updateBuilding : submitBuilding}
-          initialData={initialData}
-        />}
+        {isModalOpen && (
+          <BuildingForm
+            DeleteBuilding={DeleteBuilding}
+            handler={initialData ? updateBuilding : submitBuilding}
+            initialData={initialData}
+            toggleModal={toggleModal}
+          />
+        )}
       </div>
     </div>
   );

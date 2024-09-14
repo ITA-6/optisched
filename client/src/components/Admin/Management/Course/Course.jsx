@@ -20,9 +20,10 @@ const Course = () => {
     fetchData();
   }, []);
 
-  const openModal = () => setIsModalOpen(true);
-
-  const closeModal = () => setIsModalOpen(false);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    if (isModalOpen) setInitialData(null);
+  };
 
   const submitCourse = async (course) => {
     try {
@@ -76,7 +77,7 @@ const Course = () => {
         <div className="mt-5 flex items-start justify-end grid-in-button">
           <button
             className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-black"
-            onClick={openModal}
+            onClick={toggleModal}
           >
             <img src={add} alt="" className="h-[30px] w-[30px]" />
             <span>Add New Course</span>
@@ -85,7 +86,7 @@ const Course = () => {
       </div>
       {isModalOpen && (
         <CourseForm
-          closeModal={closeModal}
+          toggleModal={toggleModal}
           handler={initialData ? updateCourse : submitCourse}
           initialData={initialData}
         />

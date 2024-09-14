@@ -1,11 +1,10 @@
 import course from "../../../../../assets/course.png";
 import { useState, useEffect } from "react";
-const BuildingForm = ({closeModal, handler, initialData}) => {
-  
+const BuildingForm = ({ handler, initialData, toggleModal }) => {
   const [name, setName] = useState("");
   const [totalRooms, setTotalRooms] = useState("");
   const [availableRooms, setAvailableRooms] = useState("");
-  
+
   useEffect(() => {
     if (initialData) {
       setName(initialData.name || "");
@@ -24,7 +23,7 @@ const BuildingForm = ({closeModal, handler, initialData}) => {
     if (initialData) buildingData.id = initialData.id;
     handler(buildingData);
   };
-  
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
@@ -94,7 +93,7 @@ const BuildingForm = ({closeModal, handler, initialData}) => {
           </form>
           <button
             className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
-            onClick={closeModal}
+            onClick={toggleModal}
           >
             &times;
           </button>

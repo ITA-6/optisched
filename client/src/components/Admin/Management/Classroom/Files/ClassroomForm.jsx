@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import classroom from "../../../../../assets/classroom.png";
 
-const ClassroomForm = ({ closeModal, buildings, handler, initialData }) => {
+const ClassroomForm = ({ toggleModal, buildings, handler, initialData }) => {
   const [building, setBuilding] = useState("");
   const [floorNumber, setFloorNumber] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
-  
+
   useEffect(() => {
     if (initialData) {
       setBuilding(initialData.building || "");
@@ -29,11 +29,7 @@ const ClassroomForm = ({ closeModal, buildings, handler, initialData }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-          <img
-            src={classroom}
-            alt=""
-            className="m-3 mr-4 h-[40px] w-[40px]"
-          />
+          <img src={classroom} alt="" className="m-3 mr-4 h-[40px] w-[40px]" />
           <h2 className="ml-2 text-3xl font-extrabold">
             {initialData ? "Update Classroom" : "Create New Classroom"}
           </h2>
@@ -100,7 +96,7 @@ const ClassroomForm = ({ closeModal, buildings, handler, initialData }) => {
           </form>
           <button
             className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
-            onClick={closeModal}
+            onClick={toggleModal}
           >
             &times;
           </button>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import course from "../../../../../assets/course.png";
 
-const CourseForm = ({ closeModal, handler, initialData }) => {
+const CourseForm = ({ toggleModal, handler, initialData }) => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [category, setCategory] = useState("");
@@ -159,7 +159,7 @@ const CourseForm = ({ closeModal, handler, initialData }) => {
           </form>
           <button
             className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
-            onClick={closeModal}
+            onClick={toggleModal}
           >
             &times;
           </button>
