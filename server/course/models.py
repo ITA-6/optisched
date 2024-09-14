@@ -11,6 +11,10 @@ class Course(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=10)
     category = models.CharField(max_length=25, choices=COURSE_CATEGORY)
+    department = models.ForeignKey(
+        "department.Department", on_delete=models.CASCADE, null=True, blank=True
+    )
+    sections = models.ManyToManyField("section.Section", blank=True)
     total_units = models.IntegerField(default=0)
     current_units = models.IntegerField(default=0)
     total_hours = models.IntegerField(default=0)

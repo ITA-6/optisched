@@ -43,7 +43,7 @@ const Sidenav = () => {
           <li className="w-full">
             <Link
               to="dashboard"
-              className="flex w-full items-center rounded-lg px-1 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-dark-green"
             >
               <img src={dash} alt="Dashboard Icon" className="h-10 w-10" />
               <span className="text-md ml-4">Dashboard</span>
@@ -53,7 +53,7 @@ const Sidenav = () => {
             <button
               type="button"
               onClick={toggleUserDropdown}
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={user} alt="Users Icon" className="h-7 w-7" />
               <span className="text-md ml-6">Users</span>
@@ -63,7 +63,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="user"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2"
+                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2 text-white"
                   >
                     <span className="ml-2 text-sm">Manage</span>
                   </Link>
@@ -74,7 +74,7 @@ const Sidenav = () => {
           <li className="w-full">
             <Link
               to="generate"
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={generate} alt="Generate Icon" className="h-8 w-8" />
               <span className="text-md ml-5">Generate Schedule</span>
@@ -82,22 +82,22 @@ const Sidenav = () => {
           </li>
           <li className="w-full">
             <Link
-              to="parameter"
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              to="curriculum"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img
                 src={parameters}
                 alt="Parameters Icon"
                 className="h-10 w-10"
               />
-              <span className="text-md ml-4">Parameters</span>
+              <span className="text-md ml-4">Curriculum</span>
             </Link>
           </li>
           <li className="w-full">
             <button
               type="button"
               onClick={toggleManagementDropdown}
-              className="flex w-full items-center rounded-lg px-2 py-4 hover:bg-dark-green"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={menu} alt="Menu Icon" className="h-9 w-9" />
               <span className="text-md ml-4">Management Systems</span>
@@ -107,7 +107,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/professor"
-                    className="hover:bg-green-700 mt-2 flex w-full items-center rounded-lg px-4 py-2"
+                    className="hover:bg-green-700 mt-2 flex w-full items-center rounded-lg px-4 py-2 text-white"
                   >
                     <span className="ml-4 text-sm">Professor</span>
                   </Link>
@@ -115,7 +115,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/section"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
                     <span className="ml-4 text-sm">Section</span>
                   </Link>
@@ -123,7 +123,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/classroom"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
                     <span className="ml-4 text-sm">Classroom</span>
                   </Link>
@@ -131,7 +131,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/course"
-                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
                     <span className="ml-4 text-sm">Course</span>
                   </Link>
@@ -139,7 +139,7 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/building"
-                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
                     <span className="ml-4 text-sm">Building</span>
                   </Link>
@@ -147,9 +147,17 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link
                     to="management/department"
-                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
                     <span className="ml-4 text-sm">Department</span>
+                  </Link>
+                </li>
+                <li className="w-full">
+                  <Link
+                    to="management/program"
+                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
+                  >
+                    <span className="ml-4 text-sm">Program</span>
                   </Link>
                 </li>
               </ul>

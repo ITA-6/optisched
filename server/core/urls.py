@@ -7,6 +7,7 @@ from course.views import CourseAPIView
 from building.views import BuildingAPIView
 from section.views import SectionAPIView
 from room.views import RoomAPIView
+from program.views import ProgramAPIView
 
 # Define a common base URL for all API endpoints
 api_base_url = "api/"
@@ -66,5 +67,16 @@ urlpatterns = [
         f"{api_base_url}departments/<int:pk>/",
         DepartmentAPIView.as_view(),
         name="department-detail",
+    ),
+    # Department Endpoints
+    path(
+        f"{api_base_url}programs/",
+        ProgramAPIView.as_view(),
+        name="program-list",
+    ),
+    path(
+        f"{api_base_url}programs/<int:pk>/",
+        ProgramAPIView.as_view(),
+        name="program-detail",
     ),
 ]

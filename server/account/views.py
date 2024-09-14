@@ -8,6 +8,14 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 from account.serializers import RegisterSerializer, LoginSerializer
+from account.models import CustomUser
+from section.models import Section
+from room.models import Room
+from course.models import Course
+
+
+class Account(APIView):
+    pass
 
 
 class RegisterApiView(APIView):
@@ -60,4 +68,26 @@ class LoginApiView(APIView):
         return Response(
             {"error": "Invalid credentials provided."},
             status=status.HTTP_401_UNAUTHORIZED,
+        )
+
+
+class CountApiView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def get(self, request, *args, **kwargs):
+        # Counting the number of CustomAccount instances
+        user_count = CustomUser.objects.count()
+        section_count = Section.objects.count()
+        room_count = Room.objects.count()
+        course_count = Course.objects.count()
+
+        # Returning both counts in the response
+        return Response(
+            {
+                "user_count": user_count,
+                "section_count": section_count,
+                "room_count": room_count,
+                "course_count": course_count,
+            }
         )
