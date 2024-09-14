@@ -1,6 +1,6 @@
 import BuildingRow from "./BuildingRow";
 
-const BuildingTable = ({ buildings }) => {
+const BuildingTable = ({ buildings, DeleteBuilding, openUpdate}) => {
   return (
     <table className="w-full table-fixed bg-white text-center grid-in-table">
       <thead className="bg-green">
@@ -13,7 +13,12 @@ const BuildingTable = ({ buildings }) => {
       </thead>
       <tbody>
         {buildings?.map((building) => (
-          <BuildingRow building={building} />
+          <BuildingRow 
+            key={building.id}
+            building={building}
+            DeleteBuilding={DeleteBuilding}
+            openUpdate={openUpdate}          
+          />
         ))}
       </tbody>
     </table>

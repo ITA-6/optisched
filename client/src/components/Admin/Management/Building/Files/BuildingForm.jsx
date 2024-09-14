@@ -1,12 +1,38 @@
-import course from "../../../assets/course.png";
+import course from "../../../../../assets/course.png";
+import { useState, useEffect } from "react";
+const BuildingForm = ({closeModal, handler, initialData}) => {
+  
+  const [name, setName] = useState("");
+  const [totalRooms, setTotalRooms] = useState("");
+  const [availableRooms, setAvailableRooms] = useState("");
+  
+  useEffect(() => {
+    if (initialData) {
+      setName(initialData.name || "");
+      setTotalRooms(initialData.total_rooms || 0);
+      setAvailableRooms(initialData.available_rooms || 0);
+    }
+  }, [initialData]);
 
-const BuildingForm = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const buildingData = {
+      name: name,
+      total_rooms: totalRooms,
+      available_rooms: availableRooms,
+    };
+    if (initialData) buildingData.id = initialData.id;
+    handler(buildingData);
+  };
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
           <img src={course} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
-          <h2 className="ml-2 text-3xl font-extrabold">Create New Building</h2>
+          <h2 className="ml-2 text-3xl font-extrabold">
+            {initialData ? "Update Building" : "Create New Building"}
+          </h2>
         </div>
         <div className="p-5">
           <form onSubmit={handleSubmit} className="mt-5 space-y-6">
@@ -20,7 +46,8 @@ const BuildingForm = () => {
                 id="BuildingName"
                 name="BuildingName"
                 placeholder="Building  Name"
-                onChange={(e) => setBuildingName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="rounded-md border border-gray-300 p-2"
                 required
               />
@@ -36,6 +63,7 @@ const BuildingForm = () => {
                   id="totalRooms"
                   name="totalRooms"
                   placeholder="0"
+                  value={totalRooms}
                   onChange={(e) => setTotalRooms(e.target.value)}
                   className="rounded-md border border-gray-300 p-2"
                   required
@@ -51,6 +79,7 @@ const BuildingForm = () => {
                   id="availableRooms"
                   name="availableRooms"
                   placeholder="0"
+                  value={availableRooms}
                   onChange={(e) => setAvailableRooms(e.target.value)}
                   className="rounded-md border border-gray-300 p-2"
                   required

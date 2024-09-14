@@ -8,7 +8,7 @@ import User from "./components/Admin/User/User";
 import Generate from "./components/Admin/Generate/Generate";
 import Generated from "./components/Admin/Generate/generatedForms/Generated";
 import Curriculum from "./components/Admin/Curriculum/Curriculum";
-import Professor from "./components/Admin/Management/Professor";
+import Professor from "./components/Admin/Management/Professors";
 import Section from "./components/Admin/Management/Section";
 import Classroom from "./components/Admin/Management/Classroom";
 import Course from "./components/Admin/Management/Course";
