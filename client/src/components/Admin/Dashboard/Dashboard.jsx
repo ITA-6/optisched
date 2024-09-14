@@ -33,7 +33,7 @@ const Dashboard = () => {
             <img src={user} alt="" class="w-1/3 p-8" />
             <div class="w-2/3">
               <p class="text-4xl font-extrabold">
-                {data ? data.user_count : 0}
+                {data ? data.professor_count : 0}
               </p>
               <p class="text-2xl">Professors</p>
             </div>
