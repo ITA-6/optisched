@@ -4,9 +4,20 @@ from building.models import Building
 
 
 class Room(models.Model):
+    ROOM_CATEGORY = (
+        ("LECTURE", "Lecture"),
+        ("LABORATORY", "Laboratory"),
+        ("BOTH", "Lecture & Category"),
+    )
+
     number = models.IntegerField()
     floor = models.IntegerField()
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
+    room_category = models.CharField(
+        max_length=25,
+        choices=ROOM_CATEGORY,
+        default="LECTURE",
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
