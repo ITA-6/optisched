@@ -8,7 +8,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 from account.serializers import RegisterSerializer, LoginSerializer
-from account.models import CustomUser
+from professor.models import Professor
 from section.models import Section
 from room.models import Room
 from course.models import Course
@@ -77,7 +77,7 @@ class CountApiView(APIView):
 
     def get(self, request, *args, **kwargs):
         # Counting the number of CustomAccount instances
-        user_count = CustomUser.objects.count()
+        professor_count = Professor.objects.count()
         section_count = Section.objects.count()
         room_count = Room.objects.count()
         course_count = Course.objects.count()
@@ -85,7 +85,7 @@ class CountApiView(APIView):
         # Returning both counts in the response
         return Response(
             {
-                "user_count": user_count,
+                "user_count": professor_count,
                 "section_count": section_count,
                 "room_count": room_count,
                 "course_count": course_count,
