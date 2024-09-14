@@ -3,7 +3,25 @@ import section from "../../../assets/section.png";
 import classroom from "../../../assets/classroom.png";
 import course from "../../../assets/course.png";
 
+import api from "../../../api";
+import { useEffect, useState } from "react";
+
 const Dashboard = () => {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get(
+        "http://127.0.0.1:8000/api/account/count/",
+      );
+      setData(...[response.data]);
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(data);
+
   return (
     <div class="h-screen w-screen bg-white-grayish">
       <div class="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[1fr_4fr_1fr] grid-rows-[1fr_1fr_3fr_1fr_8fr] justify-between grid-areas-layout">
@@ -14,28 +32,36 @@ const Dashboard = () => {
           <div class="ml-10 flex h-2/3 flex-1 items-center rounded-3xl bg-white">
             <img src={user} alt="" class="w-1/3 p-8" />
             <div class="w-2/3">
-              <p class="text-4xl font-extrabold">##</p>
+              <p class="text-4xl font-extrabold">
+                {data ? data.user_count : 0}
+              </p>
               <p class="text-2xl">Professors</p>
             </div>
           </div>
           <div class="flex h-2/3 flex-1 items-center rounded-3xl bg-white">
             <img src={section} alt="" class="w-1/3 p-7" />
             <div class="w-2/3">
-              <p class="text-4xl font-extrabold">##</p>
+              <p class="text-4xl font-extrabold">
+                {data ? data.section_count : 0}
+              </p>
               <p class="text-2xl">Section</p>
             </div>
           </div>
           <div class="flex h-2/3 flex-1 items-center rounded-3xl bg-white">
             <img src={classroom} alt="" class="w-1/3 p-7" />
             <div class="w-2/3">
-              <p class="text-4xl font-extrabold">##</p>
+              <p class="text-4xl font-extrabold">
+                {data ? data.room_count : 0}
+              </p>
               <p class="text-2xl">Classroom</p>
             </div>
           </div>
           <div class="mr-10 flex h-2/3 flex-1 items-center rounded-3xl bg-white">
             <img src={course} alt="" class="w-1/3 p-8" />
             <div class="w-2/3">
-              <p class="text-4xl font-extrabold">##</p>
+              <p class="text-4xl font-extrabold">
+                {data ? data.course_count : 0}
+              </p>
               <p class="text-2xl">Courses</p>
             </div>
           </div>
