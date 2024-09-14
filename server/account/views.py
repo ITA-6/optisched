@@ -85,7 +85,7 @@ class CountApiView(APIView):
         # Returning both counts in the response
         return Response(
             {
-                "user_count": professor_count,
+                "professor_count": professor_count,
                 "section_count": section_count,
                 "room_count": room_count,
                 "course_count": course_count,
