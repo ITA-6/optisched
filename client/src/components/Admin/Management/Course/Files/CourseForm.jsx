@@ -8,7 +8,6 @@ const CourseForm = ({ closeModal, handler, initialData }) => {
   const [totalUnits, setTotalUnits] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
   const [needMasteral, setNeedMasteral] = useState(false);
-
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
     if (initialData) {

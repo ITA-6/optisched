@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import user from "../../../assets/user.png";
 import course from "../../../assets/course.png";
 import add from "../../../assets/add.png";
 
