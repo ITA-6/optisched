@@ -35,6 +35,24 @@ class ProgramAPIView(APIView):
 
         data = {"message": "Program has been created.", "data": serializer.data}
         return Response(data, status=status.HTTP_201_CREATED)
+    
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+        # Retrieve the existing instance of Building
+        try:
+            course = Program.objects.get(pk=pk)
+        except Program.DoesNotExist:
+            return Response(
+                {"message": "Program not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Pass the instance to the serializer along with the new data
+        serializer = ProgramSerializer(course, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        data = {"message": "Program has been updated.", "data": serializer.data}
+        return Response(data, status=status.HTTP_200_OK)
 
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
