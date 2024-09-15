@@ -1,0 +1,79 @@
+-- Department
+INSERT INTO department (name, acronym, is_active, created_at, updated_at) VALUES
+('College of Computing Studies', 'CCS', TRUE, '2021-12-28 23:46:44', '2024-02-18 22:04:09');
+
+-- Section
+INSERT INTO section (label, year_level, is_active, created_at, updated_at) VALUES
+('A', 1, TRUE, '2022-09-20 20:59:58', '2024-08-02 08:41:24'),
+('B', 1, TRUE, '2022-11-01 00:41:20', '2024-08-21 16:40:55'),
+('C', 1, TRUE, '2024-06-28 17:06:39', '2024-05-13 11:27:18'),
+('A', 2, TRUE, '2023-04-17 10:38:51', '2024-05-14 09:37:34'),
+('B', 2, TRUE, '2020-09-03 03:48:09', '2024-07-29 20:26:38'),
+('C', 2, TRUE, '2020-09-04 03:38:11', '2024-06-02 09:39:28'),
+('A', 3, TRUE, '2024-04-20 17:36:33', '2024-07-19 17:42:47'),
+('B', 3, TRUE, '2024-06-30 08:00:49', '2024-01-27 07:05:04'),
+('C', 3, TRUE, '2024-04-20 10:12:55', '2024-04-14 09:06:28'),
+('A', 4, TRUE, '2023-03-25 09:38:01', '2024-01-22 21:33:59');
+
+-- Course
+INSERT INTO course (name, code, category, department_id, total_units, current_units, total_hours, current_hours, need_masteral, is_active, created_at, updated_at) VALUES
+('Introduction to Computing', 'CCS101', 'LABORATORY', 1, 2, 1, 51, 34, TRUE, TRUE, '2020-04-07 00:40:08', '2024-05-07 09:50:38'),
+('Computer Programming 1', 'CCS102', 'LABORATORY', 1, 4, 4, 36, 7, FALSE, TRUE, '2022-12-20 21:41:54', '2024-05-25 11:55:11'),
+('Ethics', 'ETH101', 'LECTURE', 1, 4, 4, 47, 24, FALSE, FALSE, '2021-08-28 23:08:29', '2024-05-14 09:48:20'),
+('Mathematics in the Modern World', 'MAT101', 'LECTURE', 1, 4, 4, 97, 12, TRUE, TRUE, '2021-09-06 13:07:41', '2024-04-08 09:37:04'),
+('National Service Training Program 1', 'NSTP1', 'LECTURE', 1, 5, 2, 43, 25, FALSE, TRUE, '2023-02-09 20:22:11', '2024-08-12 01:55:50'),
+('Physical Education 1', 'PED101', 'LABORATORY', 1, 3, 3, 69, 23, FALSE, TRUE, '2024-06-24 15:44:56', '2024-05-05 18:35:59'),
+('Understanding the Self', 'PSY100', 'BOTH', 1, 2, 0, 89, 26, FALSE, TRUE, '2020-12-07 22:39:55', '2024-06-05 17:02:47'),
+('Computer Programming 2', 'CCS103', 'LECTURE', 1, 4, 2, 93, 1, TRUE, TRUE, '2020-12-19 00:08:38', '2024-02-23 08:43:03'),
+('Discrete Structures 1', 'CCS104', 'LABORATORY', 1, 2, 1, 96, 87, TRUE, TRUE, '2023-01-03 07:55:22', '2024-07-17 20:41:06'),
+('Human Computer Interaction 1', 'CCS105', 'LECTURE', 1, 3, 0, 13, 13, TRUE, TRUE, '2022-09-02 11:06:32', '2024-05-05 08:19:44');
+
+INSERT INTO course_sections (course_id, section_id) VALUES
+(1, 1), -- Introduction to Computing with sections 'A' (ID 1) and 'B' (ID 2)
+(2, 1), -- Computer Programming 1 with sections 'A' (ID 1) and 'C' (ID 3)
+(3, 2), -- Ethics with sections 'B' (ID 2) and 'A' (ID 4)
+(4, 3), -- Mathematics in the Modern World with sections 'C' (ID 3) and 'B' (ID 5)
+(5, 4), -- National Service Training Program 1 with sections 'A' (ID 4) and 'C' (ID 6)
+(6, 5), -- Physical Education 1 with sections 'B' (ID 5) and 'A' (ID 7)
+(7, 6), -- Understanding the Self with sections 'C' (ID 6) and 'B' (ID 8)
+(8, 7), -- Computer Programming 2 with sections 'A' (ID 7) and 'C' (ID 9)
+(9, 8), -- Discrete Structures 1 with sections 'B' (ID 8) and 'A' (ID 10)
+(10, 9); -- Human Computer Interaction 1 with section 'C' (ID 9)
+
+
+-- Building
+INSERT INTO building (name, total_rooms, available_rooms, is_active, created_at, updated_at) VALUES
+('Bagong Cabuyao Hall', 100, 100, TRUE, '2022-03-15 09:54:45', '2024-01-19 21:48:34'),
+('Main Building', 50, 50, TRUE, '2020-05-03 17:40:51', '2024-07-26 22:41:05'),
+('Nursing Building', 25, 25, TRUE, '2020-05-05 15:12:30', '2024-04-20 04:10:42');
+
+-- Professor
+INSERT INTO professor (prof_id, first_name, last_name, middle_name, employment_status, has_masteral, department_id, required_units, current_units, birth_date, email, gender, is_active, created_at, updated_at) VALUES
+(9361297, 'Dennis', 'Bailey', 'Courtney', 'PERMANENT', 'N', 1, 10, 4, '1966-05-27', 'amanda46@macdonald-kramer.com', 'M', TRUE, '2024-03-06 12:18:12', '2024-08-23 16:18:40'),
+(5881853, 'Derek', 'Brown', 'Sarah', 'PERMANENT', 'Y', 1, 15, 23, '1995-01-21', 'cmartin@sheppard-martinez.org', 'O', TRUE, '2021-06-07 19:47:31', '2024-01-14 13:28:11'),
+(8968118, 'Barry', 'Brown', 'Eric', 'PART_TIME', 'Y', 1, 23, 11, '1964-04-15', 'bbaker@hotmail.com', 'F', TRUE, '2022-05-12 17:30:31', '2024-04-10 13:34:42'),
+(7484472, 'Melissa', 'Buchanan', 'Devin', 'PART_TIME', 'Y', 1, 4, 8, '1960-10-13', 'stephen69@perez-banks.com', 'M', TRUE, '2021-09-12 15:09:37', '2024-04-12 19:44:35'),
+(2986435, 'Jacob', 'Ryan', 'Rebecca', 'PART_TIME', 'N', 1, 24, 23, '1987-11-29', 'elizabethcruz@landry.com', 'O', TRUE, '2022-11-07 19:08:36', '2024-02-28 01:24:14'),
+(3049848, 'Emily', 'Collins', 'Matthew', 'PERMANENT', 'Y', 1, 16, 3, '1970-12-17', 'ledwards@moody.com', 'M', TRUE, '2020-11-06 22:09:47', '2024-03-12 04:53:46'),
+(9514331, 'Bradley', 'Higgins', 'Richard', 'PART_TIME', 'Y', 1, 6, 4, '1982-05-02', 'nmoore@hotmail.com', 'F', TRUE, '2020-04-08 06:27:26', '2024-05-01 16:35:22'),
+(3378372, 'Joseph', 'Davis', 'Matthew', 'CASUAL', 'Y', 1, 21, 0, '1989-09-15', 'robertcunningham@anderson.com', 'O', TRUE, '2023-02-12 05:20:05', '2024-04-27 13:37:56'),
+(7932192, 'Daniel', 'Williams', 'Kristen', 'CASUAL', 'N', 1, 0, 9, '1981-03-25', 'anthonyreynolds@reyes-mcclain.com', 'F', TRUE, '2022-04-10 01:44:23', '2024-02-09 09:07:23'),
+(5026601, 'Veronica', 'Bishop', 'Hannah', 'PART_TIME', 'Y', 1, 15, 1, '1965-01-22', 'jennifergilbert@mann.com', 'M', TRUE, '2024-09-06 16:10:54', '2024-02-18 21:38:44');
+
+-- Room
+INSERT INTO room (number, floor, building_id, room_category, is_active, created_at, updated_at) VALUES
+(101, 1, 1, 'LECTURE', TRUE, '2022-10-06 17:35:33', '2024-05-31 03:33:39'),
+(102, 1, 1, 'LABORATORY', TRUE, '2023-04-12 23:38:35', '2024-01-16 22:41:24'),
+(103, 1, 1, 'BOTH', TRUE, '2021-10-06 18:14:05', '2024-02-27 02:29:28'),
+(104, 1, 1, 'LECTURE', TRUE, '2024-02-12 23:08:25', '2024-06-30 08:39:25'),
+(105, 1, 1, 'LABORATORY', TRUE, '2020-05-16 08:50:02', '2024-03-19 05:06:37'),
+(106, 1, 1, 'BOTH', TRUE, '2023-10-11 07:50:34', '2024-07-04 08:21:28'),
+(107, 1, 1, 'LECTURE', TRUE, '2024-05-15 09:18:32', '2024-08-28 19:35:46'),
+(108, 1, 1, 'LABORATORY', TRUE, '2020-11-17 16:00:50', '2024-03-29 09:45:03'),
+(109, 1, 1, 'BOTH', TRUE, '2023-01-10 00:14:10', '2024-07-20 07:58:04'),
+(110, 1, 1, 'LECTURE', TRUE, '2023-01-18 08:40:19', '2024-05-01 02:03:14');
+
+-- Program
+INSERT INTO program (name, department_id, is_active, created_at, updated_at) VALUES
+('Information Technology', 1, TRUE, '2022-02-12 23:26:59', '2024-05-17 21:28:41'),
+('Computer Science', 1, TRUE, '2024-03-04 13:58:48', '2024-03-14 07:28:36')
