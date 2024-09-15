@@ -4,7 +4,7 @@ from professor.models import Professor
 
 
 class Section(models.Model):
-    label = models.CharField(max_length=5)
+    label = models.CharField(max_length=255)
     year_level = models.IntegerField()
     adviser = models.ForeignKey(
         Professor, on_delete=models.CASCADE, null=True, blank=True
