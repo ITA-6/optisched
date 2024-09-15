@@ -1,6 +1,6 @@
 import CourseRow from "./CourseRow";
 
-const CourseTable = ({ handleDelete, courses, openUpdate }) => {
+const CourseTable = ({ toggleDialog, courses, openUpdate }) => {
   return (
     <table className="w-full table-fixed bg-white text-center grid-in-table">
       <thead className="bg-green">
@@ -15,7 +15,7 @@ const CourseTable = ({ handleDelete, courses, openUpdate }) => {
         {courses?.map((course) => (
           <CourseRow
             key={course.id}
-            handleDelete={handleDelete}
+            toggleDialog={toggleDialog}
             course={course}
             openUpdate={openUpdate}
           />

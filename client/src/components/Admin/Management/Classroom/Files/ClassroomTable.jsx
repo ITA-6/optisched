@@ -1,6 +1,6 @@
 import ClassroomRow from "./ClassroomRow";
 
-const ClassroomTable = ({DeleteClassroom, classrooms, openUpdate}) => {
+const ClassroomTable = ({toggleDialog, classrooms, openUpdate}) => {
     return (
         <table className="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
@@ -15,7 +15,7 @@ const ClassroomTable = ({DeleteClassroom, classrooms, openUpdate}) => {
               {classrooms?.map((classroom) => (
                 <ClassroomRow 
                     key ={classroom.id}
-                    DeleteClassroom = {DeleteClassroom}
+                    toggleDialog = {toggleDialog}
                     classroom = {classroom}
                     openUpdate = {openUpdate}
                 />

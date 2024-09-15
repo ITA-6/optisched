@@ -1,6 +1,10 @@
-const BuildingRow = ({ building, openUpdate, DeleteBuilding }) => {
+
+
+const BuildingRow = ({ building, openUpdate, toggleDialog }) => {
+
+ 
   return(
-    <tr>
+      <tr>
       <td>{building.name}</td>
       <td>{building.total_rooms}</td>
       <td>{building.available_rooms}</td>
@@ -14,7 +18,7 @@ const BuildingRow = ({ building, openUpdate, DeleteBuilding }) => {
               Edit
             </button>
             <button
-              onClick={() => DeleteBuilding(building.id)}
+              onClick={() => toggleDialog(building.id)}
               className="h-7 w-20 bg-red-500 text-white"
             >
               Delete

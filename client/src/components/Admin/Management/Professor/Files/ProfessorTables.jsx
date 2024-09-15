@@ -1,6 +1,6 @@
 import ProfessorRow from "./ProfessorRow";
 
-const ProfessorTables = ({ DeleteProfessor, professors, openUpdate }) => {
+const ProfessorTables = ({ toggleDialog, professors, openUpdate }) => {
   return (
     <>
       <table className="w-full table-fixed bg-white text-center grid-in-table">
@@ -34,7 +34,7 @@ const ProfessorTables = ({ DeleteProfessor, professors, openUpdate }) => {
           {professors?.map((professor) => (
             <ProfessorRow
               key={professor.prof_id}
-              DeleteProfessor={DeleteProfessor}
+              toggleDialog={toggleDialog}
               professor={professor}
               openUpdate={openUpdate}
             />

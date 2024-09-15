@@ -1,4 +1,4 @@
-const ProfessorRow = ({DeleteProfessor, professor, openUpdate}) => {
+const ProfessorRow = ({toggleDialog, professor, openUpdate}) => {
   return (
     <tr className="h-[30px]" key={professor.prof_id}>
         <th scope="row">{professor.prof_id}</th>
@@ -19,7 +19,7 @@ const ProfessorRow = ({DeleteProfessor, professor, openUpdate}) => {
                 </button>
                 <button
                     className="-h5 w-16 bg-red-500 text-white"
-                    onClick={(() => DeleteProfessor(professor.prof_id ))}
+                    onClick={(() => toggleDialog(professor.prof_id))}
                 >
                     Delete
                 </button>

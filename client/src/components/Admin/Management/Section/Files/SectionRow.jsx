@@ -1,4 +1,4 @@
-const SectionRow = ({DeleteSection, section, openUpdate}) => {
+const SectionRow = ({toggleDialog, section, openUpdate}) => {
   return (
     <tr key={section.id} className="h-[30px]">
         <td>{section.label}</td>
@@ -16,7 +16,7 @@ const SectionRow = ({DeleteSection, section, openUpdate}) => {
             </button>
             <button
                 className="-h5 w-16 bg-red-500 text-white"
-                onClick={() => DeleteSection(section.id)}
+                onClick={() => toggleDialog(section.id)}
             >
                 {" "}
                 Delete

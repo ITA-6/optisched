@@ -1,4 +1,4 @@
-const CourseRow = ({ handleDelete, course, openUpdate }) => {
+const CourseRow = ({ toggleDialog, course, openUpdate }) => {
   return (
     <>
       <tr className="h-[30px]">
@@ -17,7 +17,7 @@ const CourseRow = ({ handleDelete, course, openUpdate }) => {
               </button>
               <button
                 className="-h5 w-16 bg-red-500 text-white"
-                onClick={() => handleDelete(course.id)}
+                onClick={() => toggleDialog(course.id)}
               >
                 {" "}
                 Delete

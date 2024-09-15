@@ -1,6 +1,6 @@
 import BuildingRow from "./BuildingRow";
 
-const BuildingTable = ({ buildings, DeleteBuilding, openUpdate}) => {
+const BuildingTable = ({ buildings, toggleDialog, openUpdate}) => {
   return (
     <table className="w-full table-fixed bg-white text-center grid-in-table">
       <thead className="bg-green">
@@ -16,7 +16,7 @@ const BuildingTable = ({ buildings, DeleteBuilding, openUpdate}) => {
           <BuildingRow 
             key={building.id}
             building={building}
-            DeleteBuilding={DeleteBuilding}
+           toggleDialog={toggleDialog}
             openUpdate={openUpdate}          
           />
         ))}

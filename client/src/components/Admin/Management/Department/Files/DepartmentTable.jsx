@@ -1,6 +1,6 @@
 import DepartmentRow from "./DepartmentRow"
 
-const DepartmentTable = ({departments, DeleteDepartment , openUpdate}) => {
+const DepartmentTable = ({departments, toggleDialog , openUpdate}) => {
   return (
         <table className="w-full table-fixed bg-white text-center grid-in-table">
             <thead className="bg-green">
@@ -14,7 +14,7 @@ const DepartmentTable = ({departments, DeleteDepartment , openUpdate}) => {
             {departments?.map((department) => (
                 <DepartmentRow 
                   key={department.id}
-                  DeleteDepartment={DeleteDepartment}
+                  toggleDialog={toggleDialog}
                   department={department}
                   openUpdate={openUpdate}
                 />

@@ -1,6 +1,6 @@
 import ProgramRow from "./ProgramRow";
 
-const ProgramTable = ({ DeleteProgram, programs, openUpdate }) => {
+const ProgramTable = ({ toggleDialog, programs, openUpdate }) => {
   return (
     <table className="w-full table-fixed bg-white text-center grid-in-table">
       <thead className="bg-green">
@@ -14,7 +14,7 @@ const ProgramTable = ({ DeleteProgram, programs, openUpdate }) => {
         {programs?.map((program) => (
           <ProgramRow
             key={program.id}
-            DeleteProgram={DeleteProgram}
+            toggleDialog={toggleDialog}
             program={program}
             openUpdate={openUpdate}
           />

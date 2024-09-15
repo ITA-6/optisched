@@ -1,6 +1,6 @@
 import SectionRow from "./SectionRow"
 
-const SectionTable = ({DeleteSection, sections, openUpdate}) => {
+const SectionTable = ({toggleDialog, sections, openUpdate}) => {
   return (
     <table className="w-full table-fixed bg-white text-center grid-in-table">
         <thead className="bg-green">
@@ -15,7 +15,7 @@ const SectionTable = ({DeleteSection, sections, openUpdate}) => {
            {sections?.map(section =>(
                 <SectionRow
                     key={section.id}
-                    DeleteSection={DeleteSection}
+                    toggleDialog={toggleDialog}
                     section={section}
                     openUpdate={openUpdate}
                 />

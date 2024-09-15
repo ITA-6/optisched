@@ -43,6 +43,7 @@ const ProgramForms = ({ toggleModal, handler, initialData, departments }) => {
                 id="programName"
                 name="programName"
                 placeholder="Program Name"
+                value={program}
                 onChange={(e) => setProgram(e.target.value)}
                 className="rounded-md border border-gray-300 p-2"
                 required
@@ -54,6 +55,7 @@ const ProgramForms = ({ toggleModal, handler, initialData, departments }) => {
                 Department
               </label>
               <select
+                value={department}
                 onChange={(e) => setDepartment(e.target.value)}
                 className="w-full rounded-md border border-gray-300 p-2"
               >

@@ -1,4 +1,4 @@
-const DepartmentRow = ({DeleteDepartment, department, openUpdate}) => {
+const DepartmentRow = ({toggleDialog, department, openUpdate}) => {
   return (
    <>
      <tr>
@@ -14,7 +14,7 @@ const DepartmentRow = ({DeleteDepartment, department, openUpdate}) => {
                 Edit
               </button>
               <button
-                onClick={() => DeleteDepartment(department.id)}
+                onClick={() => toggleDialog(department.id)}
                 className="h-7 w-20 bg-red-500 text-white"
               >
                 Delete

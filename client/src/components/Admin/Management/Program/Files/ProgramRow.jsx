@@ -1,4 +1,4 @@
-const ProgramRow = ({DeleteProgram, program, openUpdate}) => {
+const ProgramRow = ({toggleDialog, program, openUpdate}) => {
   return (
     <tr>
     <td>{program.name}</td>
@@ -14,7 +14,7 @@ const ProgramRow = ({DeleteProgram, program, openUpdate}) => {
           </button>
           <button
             className="h-7 w-20 bg-red-500 text-white"
-            onClick={() => DeleteProgram(program.name)}
+            onClick={() => toggleDialog(program.id)}
           >
             Delete
           </button>

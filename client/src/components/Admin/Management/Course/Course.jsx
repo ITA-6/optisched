@@ -12,6 +12,13 @@ const Course = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
 
+  const [SelectedCourse, setSelectedCourse] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const toggleDialog = (id) => {
+    setIsDialogOpen(!isDialogOpen)
+    setSelectedCourse(id)
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await api("courses/");
@@ -60,6 +67,7 @@ const Course = () => {
     } catch (error) {
       console.error(error);
     }
+    toggleDialog()
   };
 
   return (
@@ -68,7 +76,7 @@ const Course = () => {
         <div className="mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout grid-in-userTable">
           <SearchField />
           <CourseTable
-            handleDelete={handleDelete}
+            toggleDialog={toggleDialog}
             courses={courses}
             openUpdate={openUpdate}
           />
@@ -91,6 +99,42 @@ const Course = () => {
           initialData={initialData}
         />
       )}
+
+      {isDialogOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
+              <div className="w-[20rem] h-[10rem] flex flex-col justify-center items-center bg-white rounded-md">
+                <div className="flex justify-end w-full">
+                  <button 
+                    className="mr-5 text-white  bg-red-500 rounded-xl text-center pb-0.5 px-2"
+                    onClick={() => toggleDialog()}
+                  >
+                    x
+                  </button>
+                </div>
+                <div className=" mb-3 h-1/3 flex text-md font-medium items-center text-center px-10">
+                  <h1>
+                    Are you sure? you want to delete this item?
+                    </h1>
+                </div>
+                <div 
+                  className="flex gap-4"
+                >
+                  <button 
+                    className=" bg-green text-white  py-2 px-10 text-center"
+                    onClick={() => handleDelete(SelectedCourse)}
+                    >
+                      Yes
+                  </button>
+                  <button
+                    className="py-2 px-10 bg-red-500 text-white"
+                    onClick={() => toggleDialog()}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+          </div>
+        )}
     </div>
   );
 };
