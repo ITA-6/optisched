@@ -1,5 +1,7 @@
 from django.urls import path, include
+
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 
 from department.views import DepartmentAPIView
 from professor.views import ProfessorAPIView
@@ -79,4 +81,6 @@ urlpatterns = [
         ProgramAPIView.as_view(),
         name="program-detail",
     ),
+    # Schedule Endpoints
+    path(f"{api_base_url}schedule/", include("schedule.urls")),
 ]
