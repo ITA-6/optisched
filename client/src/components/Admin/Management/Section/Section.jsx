@@ -55,7 +55,7 @@ const Section = () => {
 
   const openUpdate = (initialData) => {
     setInitialData(initialData);
-    openModal();
+    toggleModal()
   };
 
   const DeleteSection = async (id) => {

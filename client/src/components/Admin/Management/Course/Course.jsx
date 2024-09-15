@@ -56,7 +56,7 @@ const Course = () => {
 
   const openUpdate = (initialData) => {
     setInitialData(initialData);
-    openModal();
+    toggleModal()
   };
 
   const handleDelete = async (id) => {

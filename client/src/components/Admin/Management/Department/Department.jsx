@@ -54,7 +54,7 @@ const Department = () => {
 
   const openUpdate = (initialData) => {
     setInitialData(initialData);
-    openModal();
+    toggleModal()
   };
 
   const DeleteDepartment = async (id) => {

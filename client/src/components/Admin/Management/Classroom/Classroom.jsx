@@ -57,7 +57,7 @@ const Classroom = () => {
 
   const openUpdate = (initialData) => {
     setInitialData(initialData);
-    openModal();
+    toggleModal()
   };
 
   const DeleteClassroom = async (id) => {
