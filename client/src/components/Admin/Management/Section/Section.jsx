@@ -24,7 +24,7 @@ const Section = () => {
     if (isModalOpen) setInitialData(null);
   };
 
-  const submitClassroom = async (section) => {
+  const submitSection = async (section) => {
     try {
       await api.post("sections/", section);
       const response = await api("sections/");
@@ -51,7 +51,7 @@ const Section = () => {
     openModal();
   };
 
-  const DeleteClassroom = async (id) => {
+  const DeleteSection = async (id) => {
     try {
       await api.delete(`sections/${id}`);
       const response = await api("sections/");
@@ -66,7 +66,7 @@ const Section = () => {
         <div className="mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout grid-in-userTable">
           <SearchField />
           <SectionTable
-            DeleteClassroom={DeleteClassroom}
+            DeleteSection={DeleteSection}
             sections={sections}
             openUpdate={openUpdate}
           />
@@ -84,7 +84,7 @@ const Section = () => {
       {isModalOpen && (
         <SectionForm
           toggleModal={toggleModal}
-          handler={initialData ? UpdateSections : submitClassroom}
+          handler={initialData ? UpdateSections : submitSection}
           initialData={initialData}
         />
       )}

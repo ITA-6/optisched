@@ -75,6 +75,7 @@ const Building = () => {
             buildings={buildings}
             openUpdate={openUpdate}
           />
+          </div>
           <div className="mt-5 flex items-start justify-end grid-in-button">
             <button
               className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-black"
@@ -83,7 +84,6 @@ const Building = () => {
               <img src={add} alt="" className="h-[30px] w-[30px]" />
               <span>Add New Building</span>
             </button>
-          </div>
         </div>
         {isModalOpen && (
           <BuildingForm
