@@ -33,7 +33,7 @@ const Admin = () => {
       case "/admin/management/building":
         return "Manage Building";
       case "/admin/management/department":
-        return "Manage Department";
+        return "Manage College";
       case "/admin/management/course":
         return "Manage Courses";
       case "/admin/management/program":

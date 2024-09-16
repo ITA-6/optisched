@@ -166,6 +166,7 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData }) => {
                   type="date"
                   name="birthdate"
                   id="birthdate"
+                  value={birthDate}
                   onChange={(e) => setBirthDate(e.target.value)}
                 />
               </div>

@@ -11,11 +11,11 @@ const Department = () => {
   const [initialData, setInitialData] = useState(null);
 
   const [SelectedDepartment, setSelectedDepartment] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const toggleDialog = (id) => {
-    setIsDialogOpen(!isDialogOpen)
-    setSelectedDepartment(id)
-  }
+    setIsDialogOpen(!isDialogOpen);
+    setSelectedDepartment(id);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +43,7 @@ const Department = () => {
 
   const UpdateDepartment = async (department) => {
     try {
-      await api.put(`departments/${department.id}`, department);
+      await api.put(`departments/${department.id}/`, department);
       const response = await api("departments/");
       setDepartment(response.data);
       setIsModalOpen(false);
@@ -54,7 +54,7 @@ const Department = () => {
 
   const openUpdate = (initialData) => {
     setInitialData(initialData);
-    toggleModal()
+    toggleModal();
   };
 
   const DeleteDepartment = async (id) => {
@@ -65,7 +65,7 @@ const Department = () => {
     } catch (error) {
       console.error(error);
     }
-    toggleDialog()
+    toggleDialog();
   };
 
   return (
@@ -100,40 +100,36 @@ const Department = () => {
       )}
 
       {isDialogOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
-              <div className="w-[20rem] h-[10rem] flex flex-col justify-center items-center bg-white rounded-md">
-                <div className="flex justify-end w-full">
-                  <button 
-                    className="mr-5 text-white  bg-red-500 rounded-xl text-center pb-0.5 px-2"
-                    onClick={() => toggleDialog()}
-                  >
-                    x
-                  </button>
-                </div>
-                <div className=" mb-3 h-1/3 flex text-md font-medium items-center text-center px-10">
-                  <h1>
-                    Are you sure? you want to delete this item?
-                    </h1>
-                </div>
-                <div 
-                  className="flex gap-4"
-                >
-                  <button 
-                    className=" bg-green text-white  py-2 px-10 text-center"
-                    onClick={() => DeleteDepartment(SelectedDepartment)}
-                    >
-                      Yes
-                  </button>
-                  <button
-                    className="py-2 px-10 bg-red-500 text-white"
-                    onClick={() => toggleDialog()}
-                  >
-                    No
-                  </button>
-                </div>
-              </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="flex h-[10rem] w-[20rem] flex-col items-center justify-center rounded-md bg-white">
+            <div className="flex w-full justify-end">
+              <button
+                className="mr-5 rounded-xl bg-red-500 px-2 pb-0.5 text-center text-white"
+                onClick={() => toggleDialog()}
+              >
+                x
+              </button>
+            </div>
+            <div className="text-md mb-3 flex h-1/3 items-center px-10 text-center font-medium">
+              <h1>Are you sure? you want to delete this item?</h1>
+            </div>
+            <div className="flex gap-4">
+              <button
+                className="bg-green px-10 py-2 text-center text-white"
+                onClick={() => DeleteDepartment(SelectedDepartment)}
+              >
+                Yes
+              </button>
+              <button
+                className="bg-red-500 px-10 py-2 text-white"
+                onClick={() => toggleDialog()}
+              >
+                No
+              </button>
+            </div>
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };

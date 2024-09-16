@@ -63,8 +63,8 @@ const Professor = () => {
 
   const DeleteProfessor = async (id) => {
     try {
-      await api.delete(`professor/${id}`);
-      const response = await api.get("professor/");
+      await api.delete(`professors/${id}/`);
+      const response = await api.get("professors/");
       setProfessor(response.data);
     } catch (error) {
       console.error(error);

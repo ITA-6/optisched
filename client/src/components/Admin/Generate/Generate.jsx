@@ -84,7 +84,7 @@ const Generate = () => {
         <div className="mb-4 flex justify-between">
           <button
             onClick={handleGenerateSchedule}
-            className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="hover:bg-dakr-green rounded bg-green px-4 py-2 text-white"
           >
             Generate Schedule
           </button>

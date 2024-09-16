@@ -46,7 +46,7 @@ const Sidenav = () => {
               className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-dark-green"
             >
               <img src={dash} alt="Dashboard Icon" className="h-10 w-10" />
-              <span className="text-md ml-4">Dashboard</span>
+              <span className="text-md ml-3">Dashboard</span>
             </Link>
           </li>
           <li className="w-full">
@@ -56,7 +56,7 @@ const Sidenav = () => {
               className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={user} alt="Users Icon" className="h-7 w-7" />
-              <span className="text-md ml-6">Users</span>
+              <span className="text-md ml-5">Users</span>
             </button>
             {isUserOpen && (
               <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green">
@@ -77,7 +77,7 @@ const Sidenav = () => {
               className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={generate} alt="Generate Icon" className="h-8 w-8" />
-              <span className="text-md ml-5">Generate Schedule</span>
+              <span className="text-md ml-3.5">Generate Schedule</span>
             </Link>
           </li>
           <li className="w-full">
@@ -90,7 +90,7 @@ const Sidenav = () => {
                 alt="Parameters Icon"
                 className="h-10 w-10"
               />
-              <span className="text-md ml-4">Curriculum</span>
+              <span className="text-md ml-2">Curriculum</span>
             </Link>
           </li>
           <li className="w-full">
@@ -100,7 +100,7 @@ const Sidenav = () => {
               className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
               <img src={menu} alt="Menu Icon" className="h-9 w-9" />
-              <span className="text-md ml-4">Management Systems</span>
+              <span className="text-md ml-3">Management Modules</span>
             </button>
             {isManagementOpen && (
               <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green">
@@ -149,7 +149,7 @@ const Sidenav = () => {
                     to="management/department"
                     className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
-                    <span className="ml-4 text-sm">Department</span>
+                    <span className="ml-4 text-sm">College</span>
                   </Link>
                 </li>
                 <li className="w-full">
@@ -157,7 +157,7 @@ const Sidenav = () => {
                     to="management/program"
                     className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
-                    <span className="ml-4 text-sm">Program</span>
+                    <span className="ml-4 text-sm">Department</span>
                   </Link>
                 </li>
               </ul>

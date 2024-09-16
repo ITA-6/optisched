@@ -17,6 +17,13 @@ class ProfessorManager:
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.save()
         return user
+    
+    @staticmethod
+    def update_account(user_data):
+        user_serializer = RegisterSerializer(user_data, data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()
+        return user
 
 
 class ProfessorAPIView(APIView):
@@ -80,11 +87,58 @@ class ProfessorAPIView(APIView):
         }
 
         return Response(data, status=status.HTTP_201_CREATED)
+    
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+
+        try:
+            professor = Professor.objects.get(prof_id=pk)
+        except Department.DoesNotExist:
+            return Response(
+                {"message": "Professor not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+        
+        professor_data = {
+            "prof_id": request.data.get("prof_id"),
+            "first_name": request.data.get("first_name"),
+            "last_name": request.data.get("last_name"),
+            "middle_name": request.data.get("middle_name"),
+            "birth_date": request.data.get("birth_date"),
+            "department": request.data.get("department"),
+            "email": request.data.get("email"),
+            "gender": request.data.get("gender"),
+            "employment_status": request.data.get("employment_status"),
+            "required_units": request.data.get("required_units"),
+            "current_units": request.data.get("current_units"),
+            "handled_schedule": [],
+        }
+        
+        professor_serializer = ProfessorSerializer(professor, data=professor_data)
+        professor_serializer.is_valid(raise_exception=True)
+        professor = professor_serializer.save()
+
+        user_data = {
+            "username": professor.prof_id,
+            "email": professor.email,
+            "password": professor.birth_date.strftime("%Y-%m-%d"),
+            "professor": professor.id,
+        }
+
+        ProfessorManager.create_account(user_data)
+
+        data = {
+            "message": "Professor has been updated.",
+            "data": professor_serializer.data,
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
 
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+        print(pk)
         try:
-            instance = Professor.objects.get(pk=pk)
+            instance = Professor.objects.get(prof_id=pk)
             instance.delete()
             return Response(
                 {"message": "Professor has been deleted successfully."},

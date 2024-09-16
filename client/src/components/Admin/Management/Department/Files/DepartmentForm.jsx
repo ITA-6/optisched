@@ -28,7 +28,7 @@ const DepartmentForm = ({ toggleModal, handler, initialData }) => {
         <div className="flex h-1/5 items-center justify-center bg-green">
           <img src={course} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
           <h2 className="ml-2 text-3xl font-extrabold">
-            {initialData ? "Update Department" : "Create New Department"}
+            {initialData ? "Update Department" : "Create New College"}
           </h2>
         </div>
         <div className="p-5">
@@ -36,7 +36,7 @@ const DepartmentForm = ({ toggleModal, handler, initialData }) => {
             <div className="flex flex-1 flex-col">
               <label htmlFor="departmentName" className="text-lg font-medium">
                 {" "}
-                Department Name
+                College Name
               </label>
               <input
                 type="text"
@@ -52,7 +52,7 @@ const DepartmentForm = ({ toggleModal, handler, initialData }) => {
             <div className="flex flex-1 flex-col">
               <label htmlFor="departmentCode" className="text-lg font-medium">
                 {" "}
-                Department Code
+                College Code
               </label>
               <input
                 type="text"

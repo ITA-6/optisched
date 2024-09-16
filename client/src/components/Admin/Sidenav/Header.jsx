@@ -27,9 +27,6 @@ const Header = ({ pageName }) => {
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
         >
           <li>
-            <a href="">My Profile</a>
-          </li>
-          <li>
             <a href="">Change Password</a>
           </li>
           <button onClick={handleLogout}>Logout</button>
