@@ -20,8 +20,6 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-  console.log(data);
-
   return (
     <div class="h-screen w-screen bg-white-grayish">
       <div class="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[1fr_4fr_1fr] grid-rows-[1fr_1fr_3fr_1fr_8fr] justify-between grid-areas-layout">

@@ -26,7 +26,7 @@ const Form = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    1;
     try {
       const response = await api.post("account/login/", {
         username,
