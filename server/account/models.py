@@ -9,6 +9,8 @@ from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
+    USER_ADMIN = ("R", "Registrar")
+
     def create_user(self, email, password=None, **extra_fields):
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
@@ -17,13 +19,13 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_admin(self, email, password=None, **extra_fields):
-        extra_fields.setdefault("is_staff", False)
-        extra_fields.setdefault("is_admin", True)
-
+        extra_fields.setdefault("user_type", self.USER_ADMIN[0])
         return self.create_user(email, password, **extra_fields)
 
 
 class CustomUser(AbstractBaseUser):
+    DEFAULT_USER = ("P", "Professor")
+
     USER_TYPES_CHOICES = [
         ("R", "Registrar"),
         ("DC", "Department Chair"),
@@ -38,8 +40,9 @@ class CustomUser(AbstractBaseUser):
         Professor, on_delete=models.CASCADE, null=True, blank=True
     )
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
+    user_type = models.CharField(
+        max_length=5, choices=USER_TYPES_CHOICES, default=DEFAULT_USER[0]
+    )
     last_login = models.DateTimeField(null=True)
     date_joined = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(default=timezone.now)
