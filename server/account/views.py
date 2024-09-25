@@ -1,13 +1,15 @@
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
 from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
-from account.serializers import RegisterSerializer, LoginSerializer
+from account.serializers import (
+    RegisterSerializer,
+    LoginSerializer,
+    CustomTokenObtainPairSerializer,
+)
 from professor.models import Professor
 from section.models import Section
 from room.models import Room
@@ -38,7 +40,6 @@ class RegisterApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@method_decorator(csrf_exempt, name="dispatch")
 class LoginApiView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
@@ -49,18 +50,19 @@ class LoginApiView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data["user"]
 
-            if not user.is_active:
-                return Response(
-                    {"error": "This account is inactive."},
-                    status=status.HTTP_403_FORBIDDEN,
-                )
+            refresh = CustomTokenObtainPairSerializer().get_token(user)
 
-            refresh = RefreshToken.for_user(user)
+            # If you need to add more custom claims dynamically, you can do so here
+            # For example:
+            # refresh['custom_claim'] = 'custom_value'
+
+            access_token = refresh.access_token
+
             return Response(
                 {
                     "refresh": str(refresh),
-                    "access": str(refresh.access_token),
-                    "success": "Login successfully.",
+                    "access": str(access_token),
+                    "success": "Login successful.",
                 },
                 status=status.HTTP_200_OK,
             )
@@ -69,6 +71,24 @@ class LoginApiView(APIView):
             {"error": "Invalid credentials provided."},
             status=status.HTTP_401_UNAUTHORIZED,
         )
+
+
+class LogoutApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(
+                {"success": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT
+            )
+        except Exception as e:
+            return Response(
+                {"error": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 class CountApiView(APIView):

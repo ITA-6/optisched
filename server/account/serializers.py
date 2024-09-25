@@ -14,8 +14,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token["username"] = user.username
         token["email"] = user.email
-        token["first_name"] = user.first_name
-        token["last_name"] = user.last_name
+        token["user_type"] = user.user_type
 
         return token
 
@@ -44,18 +43,21 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
-    def validate(self, data):
-        username = data.get("username")
-        password = data.get("password")
+    def validate(self, attrs):
+        username = attrs.get("username")
+        password = attrs.get("password")
 
         if username and password:
             user = authenticate(username=username, password=password)
-            if user is None:
-                raise serializers.ValidationError(
-                    "Invalid credentials provided.", code="authorization"
-                )
-            data["user"] = user
-        else:
-            raise serializers.ValidationError("Must include 'username' and 'password'.")
 
-        return data
+            if user:
+                if not user.is_active:
+                    raise serializers.ValidationError("User account is inactive.")
+                attrs["user"] = user
+            else:
+                raise serializers.ValidationError("Invalid username or password.")
+        else:
+            raise serializers.ValidationError(
+                "Both username and password are required."
+            )
+        return attrs
