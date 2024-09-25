@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
-import Sidenav from "./Sidenav";
+import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
 
 const Admin = () => {
@@ -20,23 +20,23 @@ const Admin = () => {
         return "Admin Dashboard";
       case "/admin/user/manage":
         return "Manage Users";
-      case "/admin/management/professor":
+      case "/admin/view/professor":
         return "Manage Professors";
-      case "/admin/management/section":
+      case "/admin/view/section":
         return "Manage Sections";
-      case "/admin/management/classroom":
+      case "/admin/viewt/classroom":
         return "Manage Classrooms";
       case "/admin/generate":
         return "Generate";
       case "/admin/curriculum":
         return "Curriculum";
-      case "/admin/management/building":
+      case "/admin/view/building":
         return "Manage Building";
-      case "/admin/management/department":
+      case "/admin/view/department":
         return "Manage College";
-      case "/admin/management/course":
+      case "/admin/view/course":
         return "Manage Courses";
-      case "/admin/management/program":
+      case "/admin/view/program":
         return "Manage Programs";
       case "/admin/generated/":
         return "Generate Schedule";
