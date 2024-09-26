@@ -1,11 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
-import api from "../../api";
+import { login } from "../../api";
 import pncHeader from "../../assets/pnc-header.png";
 import optischedLogo from "../../assets/optisched-logo.png";
 import show from "../../assets/show.png";
 import hide from "../../assets/hide.png";
+
+const navigateUserUrl = (token) => {
+  const { user_type } = jwtDecode(token);
+
+  switch (user_type) {
+    case "R":
+      return "admin/dashboard";
+    case "DC":
+    case "D":
+      return "sub-admin";
+    case "P":
+      return "user";
+    default:
+      return "unauthorized";
+  }
+};
 
 const Form = () => {
   const [isHide, setIsHide] = useState(false);
@@ -18,7 +35,7 @@ const Form = () => {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      navigate("admin/dashboard");
+      navigate(navigateUserUrl(token));
     }
   }, [navigate]);
 
@@ -26,9 +43,9 @@ const Form = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    1;
+
     try {
-      const response = await api.post("account/login/", {
+      const response = await login.post("account/login/", {
         username,
         password,
       });
@@ -39,8 +56,7 @@ const Form = () => {
 
       setSuccess(response.data.success);
       setError("");
-      navigate("admin/dashboard");
-      // Handle storing tokens or redirecting the user
+      navigate(navigateUserUrl(response.data.access));
     } catch (error) {
       if (error.response) {
         setError(error.response.data.error);
@@ -108,12 +124,12 @@ const Form = () => {
             required
             className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4 pr-12 font-inter"
           />
-          {/* <img
+          <img
             src={isHide ? show : hide}
             alt="Show Password"
             onClick={showPassword}
             className="absolute right-5 top-2 w-8 cursor-pointer"
-          /> */}
+          />
         </div>
         <button
           type="submit"

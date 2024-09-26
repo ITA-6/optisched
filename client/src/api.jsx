@@ -16,6 +16,11 @@ const api = axios.create({
   },
 });
 
+export const login = axios.create({
+  baseURL: "http://127.0.0.1:8000/api/",
+  timeout: 5000,
+});
+
 /**
  * Axios request interceptor to add the JWT access token to the request headers.
  *
