@@ -13,7 +13,7 @@ import ViewProfessor from "./components/Admin/ViewManagement/Professor";
 import ViewSection from "./components/Admin/ViewManagement/Section";
 import ViewClassroom from "./components/Admin/ViewManagement/Classroom";
 import ViewCourse from "./components/Admin/ViewManagement/Course";
-import ViewDepartment from "./components/Admin/ViewManagement/Department";
+import ViewDepartment from "./components/Admin/Department";
 import ViewProgram from "./components/Admin/ViewManagement/Program";
 import ViewBuilding from "./components/Admin/ViewManagement/Building";
 import Constraint from "./components/Admin/Constraint";
@@ -32,6 +32,17 @@ import Programs from "./components/SubAdmin/Management/Program";
 // User
 import Users from "./components/Users/"
 import GenerateUser from "./components/Users/Generate"
+import Schedule from "./components/Users/MySchedule";
+
+// Unauthorized 
+import Unauthorized from "./components/Error/Unauthorized/Unauthorized";
+
+// Not found
+import Notfound from "./components/Error/Notfound/Notfound";
+import PrintSchedule from "./components/Users/PrintSchedule";
+
+
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -53,7 +64,7 @@ const App = () => {
           <Route path="view/section" element={<ViewSection />} />
           <Route path="view/classroom" element={<ViewClassroom />} />
           <Route path="view/course" element={<ViewCourse />} />
-          <Route path="view/department" element={<ViewDepartment />} />
+          <Route path="view/college" element={<ViewDepartment />} />
           <Route path="view/program" element={<ViewProgram />} />
           <Route path="view/building" element={<ViewBuilding />} />
           <Route path="view/constraint" element={<Constraint />} />
@@ -71,8 +82,25 @@ const App = () => {
           <Route path="management/program" element={<Programs />} />
         </Route>
 
+        {/* User */}
         <Route path="User" element={<Users />} >
           <Route path="generate" element={<GenerateUser />} />
+          <Route path="schedule" element={<Schedule />} />
+        </Route>
+
+
+        {/* kindly remove the routings if not needed */}
+        {/* Unauthorized */}
+        <Route path="Unauthorized" element={< Unauthorized />} >
+          <Route index element={ <Unauthorized />} />
+        </Route>
+        {/* Not found Page */}
+        <Route path="notfound" element={< Notfound/>} >
+          <Route index element={ <Notfound />} />
+        </Route>
+
+        {/* print Page */}
+        <Route path="print" element={< PrintSchedule />} >
         </Route>
       </Routes>
     </BrowserRouter>
