@@ -7,6 +7,8 @@ import generate from "../../../assets/generate.png";
 import parameters from "../../../assets/parameters.png";
 import menu from "../../../assets/menu.png";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGraduationCap, faSliders } from "@fortawesome/free-solid-svg-icons";
 
 const Sidenav = () => {
   const [isManagementOpen, setIsManagementOpen] = useState(false);
@@ -50,26 +52,13 @@ const Sidenav = () => {
             </Link>
           </li>
           <li className="w-full">
-            <button
-              type="button"
-              onClick={toggleUserDropdown}
+            <Link
+              to="user"
               className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
             >
-              <img src={user} alt="Users Icon" className="h-7 w-7" />
+              <img src={user} alt="Users Icon" className="h-8 w-8" />
               <span className="text-md ml-5">Users</span>
-            </button>
-            {isUserOpen && (
-              <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green">
-                <li className="w-full">
-                  <Link
-                    to="user"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 py-2 text-white"
-                  >
-                    <span className="ml-2 text-sm">Manage</span>
-                  </Link>
-                </li>
-              </ul>
-            )}
+            </Link>
           </li>
           <li className="w-full">
             <Link
@@ -94,6 +83,24 @@ const Sidenav = () => {
             </Link>
           </li>
           <li className="w-full">
+            <Link
+              to="view/college"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
+            >
+               <FontAwesomeIcon icon={faGraduationCap} size="2xl" />
+              <span className="ml-4 text-sm">College</span>
+            </Link>
+          </li>
+          <li className="w-full">
+            <Link
+              to="view/constraint"
+              className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-dark-green"
+            >
+             <FontAwesomeIcon icon={faSliders} size="2xl" />
+              <span className="ml-4 text-sm">Constraints</span>
+            </Link>
+          </li>
+          <li className="w-full">
             <button
               type="button"
               onClick={toggleManagementDropdown}
@@ -106,17 +113,8 @@ const Sidenav = () => {
               <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-dark-green">
                 <li className="w-full">
                   <Link
-                    to="view/constraint"
-                    className="hover:bg-green-700 mt-2 flex w-full items-center rounded-lg px-4 py-2 text-white"
-                  >
-                    <span className="ml-4 text-sm">Constraints</span>
-                  </Link>
-                </li>
-
-                <li className="w-full">
-                  <Link
                     to="view/professor"
-                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 text-white"
+                    className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 pt-2 text-white"
                   >
                     <span className="ml-4 text-sm">Professor</span>
                   </Link>
@@ -155,18 +153,10 @@ const Sidenav = () => {
                 </li>
                 <li className="w-full">
                   <Link
-                    to="view/department"
-                    className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
-                  >
-                    <span className="ml-4 text-sm">College</span>
-                  </Link>
-                </li>
-                <li className="w-full">
-                  <Link
                     to="view/program"
                     className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-white"
                   >
-                    <span className="ml-4 text-sm">Department</span>
+                    <span className="ml-4 text-sm">Program</span>
                   </Link>
                 </li>
               </ul>
