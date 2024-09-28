@@ -43,6 +43,14 @@ const Sidenav = () => {
                 <span className="ml-4 text-sm">Generate</span>
               </Link>
             </li>
+            <li className="w-full">
+              <Link
+                to="schedule"
+                className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 text-black"
+              >
+                <span className="ml-4 text-sm">My Schedule</span>
+              </Link>
+            </li>
         </ul>
       </nav>
       <Outlet />
