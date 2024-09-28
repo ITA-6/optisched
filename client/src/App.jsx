@@ -43,12 +43,12 @@ import PrintSchedule from "./components/Users/PrintSchedule";
 
 
 
-const App = () => {
+const App = () => { 
   return (
     <BrowserRouter>
       <Routes>
         {/* LOGIN */}
-        <Route path="/" element={<Login />} />
+        <Route index path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
 
         {/* ADMIN */}
@@ -95,7 +95,7 @@ const App = () => {
           <Route index element={ <Unauthorized />} />
         </Route>
         {/* Not found Page */}
-        <Route path="notfound" element={< Notfound/>} >
+        <Route path="*" element={< Notfound/>} >
           <Route index element={ <Notfound />} />
         </Route>
 
