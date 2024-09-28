@@ -56,8 +56,12 @@ export default {
         ],
         'generated-table-layout' : [
           ". .",
-          'generatedText printBtn',
-          'table table'
+          'interaction interaction',
+          'table table',
+          '. . '
+        ],
+        'generateInteraction' : [
+          "generatedText printBtn"
         ],
         'generated-table' : [
           'profName .',
