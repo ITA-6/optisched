@@ -1,7 +1,15 @@
 import React from 'react'
 import pncHeader from "../../../assets/pncHeader.png"
 import optisched from "../../../assets/optisched.png"
+import { useNavigate } from 'react-router-dom'
+
 const Notfound = () => {
+  const navigate = useNavigate()
+
+  const dashboardBtn = () => {
+    navigate("admin")
+  }
+
   return (
    <div className="w-screen h-screen flex justify-center">
       <div className="flex flex-col items-center mt-20">
@@ -32,6 +40,7 @@ const Notfound = () => {
         <div className="flex justify-center mt-[3rem]">
           <button 
           className="bg-green py-3 px-6 rounded-[2rem] text-white font-bold"
+          onClick={() => dashboardBtn()}
           >
             Back to Dashboard
           </button>
