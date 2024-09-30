@@ -96,10 +96,10 @@ const Form = () => {
           only!
         </p>
         {error && (
-          <p className="mt-1 font-inter text-xs text-red-500">{error}</p>
+          <p className="mt-1 font-inter text-md text-red-500 text-center">{error}</p>
         )}
         {success && (
-          <p className="text-green-500 mt-1 font-inter text-xs">{success}</p>
+          <p className="text-green-500 mt-1 font-inter text-xs text-center">{success}</p>
         )}
       </div>
 
