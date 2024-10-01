@@ -1,12 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
 import optisched from "../../../assets/optisched.png";
 import pncHeader from "../../../assets/pncHeader.png";
-import dash from "../../../assets/dash.svg";
-import user from "../../../assets/user.png";
-import generate from "../../../assets/generate.png";
-import parameters from "../../../assets/parameters.png";
-import menu from "../../../assets/menu.png";
 import { useState } from "react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBuilding, faBuildingUser, faUser} from "@fortawesome/free-solid-svg-icons";
 
 const Sidenav = () => {
   const [isManagementOpen, setIsManagementOpen] = useState(false);
@@ -45,6 +43,7 @@ const Sidenav = () => {
                 to="management/professor"
                 className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 text-black"
               >
+                <FontAwesomeIcon icon={faUser} />
                 <span className="ml-4 text-sm">Professor</span>
               </Link>
             </li>
@@ -61,6 +60,7 @@ const Sidenav = () => {
                 to="management/classroom"
                 className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-black"
               >
+                <FontAwesomeIcon icon={faBuildingUser} />
                 <span className="ml-4 text-sm">Classroom</span>
               </Link>
             </li>
@@ -77,6 +77,7 @@ const Sidenav = () => {
                 to="management/building"
                 className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-black"
               >
+                <FontAwesomeIcon icon={faBuilding} />
                 <span className="ml-4 text-sm">Building</span>
               </Link>
             </li>
