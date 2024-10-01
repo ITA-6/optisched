@@ -17,14 +17,14 @@ const ScheduleTable = () => {
     <table className="border border-collapse w-full">
       <thead>
         <tr className="bg-green text-white text-xs">
-          <th className="border border-white py-[0.6rem] w-40">TIME</th>
-          <th className="border border-white w-40">MONDAY</th>
-          <th className="border border-white w-40">TUESDAY</th>
-          <th className="border border-white w-40">WEDNESDAY</th>
-          <th className="border border-white w-40">THURSDAY</th>
-          <th className="border border-white w-40">FRIDAY</th>
-          <th className="border border-white w-40">SATURDAY</th>
-          <th className="border border-white w-40">SUNDAY</th>
+          <th className="border py-[0.6rem] w-40">TIME</th>
+          <th className="border w-40">MONDAY</th>
+          <th className="border w-40">TUESDAY</th>
+          <th className="border w-40">WEDNESDAY</th>
+          <th className="border w-40">THURSDAY</th>
+          <th className="border w-40">FRIDAY</th>
+          <th className="border w-40">SATURDAY</th>
+          <th className="border w-40">SUNDAY</th>
         </tr>
       </thead>
       <tbody className='text-xs text-center'>

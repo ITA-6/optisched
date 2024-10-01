@@ -2,6 +2,8 @@ import { Outlet, Link } from "react-router-dom";
 import optisched from "../../../assets/optisched.png";
 import pncHeader from "../../../assets/pncHeader.png";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGears,faBarsProgress } from "@fortawesome/free-solid-svg-icons";
 
 const Sidenav = () => {
   const [isManagementOpen, setIsManagementOpen] = useState(false);
@@ -40,6 +42,7 @@ const Sidenav = () => {
                 to="generate"
                 className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 text-black"
               >
+                <FontAwesomeIcon icon={faGears} size="xl" color="gray" />
                 <span className="ml-4 text-sm">Generate</span>
               </Link>
             </li>
@@ -48,7 +51,8 @@ const Sidenav = () => {
                 to="schedule"
                 className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 text-black"
               >
-                <span className="ml-4 text-sm">My Schedule</span>
+                 <FontAwesomeIcon icon={faBarsProgress} size="xl" color="gray"/>
+                <span className="ml-5 text-sm">My Schedule</span>
               </Link>
             </li>
         </ul>
