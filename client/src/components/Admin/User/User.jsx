@@ -30,11 +30,7 @@ const User = () => {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
-        <UserForm
-        closeModal = {closeModal} 
-        />
-      )}
+      {isModalOpen && <UserForm closeModal={closeModal} />}
     </div>
   );
 };

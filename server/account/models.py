@@ -39,6 +39,12 @@ class CustomUser(AbstractBaseUser):
     professor = models.OneToOneField(
         Professor, on_delete=models.CASCADE, null=True, blank=True
     )
+    first_name = models.CharField(max_length=255, default="John")
+    last_name = models.CharField(max_length=255, default="Doe")
+    middle_name = models.CharField(max_length=255, null=True, blank=True)
+    department = models.ForeignKey(
+        "department.Department", on_delete=models.CASCADE, blank=True, null=True
+    )
     is_active = models.BooleanField(default=True)
     user_type = models.CharField(
         max_length=5, choices=USER_TYPES_CHOICES, default=DEFAULT_USER[0]
