@@ -4,8 +4,8 @@ import BuildingForm from "./Files/BuildingForm";
 import BuildingTable from "./Files/BuildingTable";
 import SearchField from "./Files/SearchField";
 import api from "../../../../api";
-
-import add from "../../../../assets/add.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Buildings = () => {
   const [buildings, setBuildings] = useState([]);
@@ -72,7 +72,7 @@ const Buildings = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-white-grayish">
+    <div className="flex h-screen w-screen items-center justify-center bg-bg-light-green font-noto">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_7fr_4fr] grid-areas-user-layout">
         <div className="mr-5 grid grid-rows-[1fr_8fr] grid-areas-user-table-layout grid-in-userTable">
           <SearchField />
@@ -84,10 +84,10 @@ const Buildings = () => {
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
           <button
-            className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-black"
+            className="mr-5 flex h-[4rem] w-52 items-center justify-center space-x-2 rounded-3xl border-2 bg-light-green text-white font-medium"
             onClick={toggleModal}
           >
-            <img src={add} alt="" className="h-[30px] w-[30px]" />
+           <FontAwesomeIcon icon={faPlus}  color="white" size="xl"/>
             <span>Add New Building</span>
           </button>
         </div>
