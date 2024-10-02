@@ -9,7 +9,7 @@ import menu from "../../../assets/menu.png";
 import education from "../../../assets/education.png"
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders } from "@fortawesome/free-solid-svg-icons";
+import { faSliders, faAngleDown, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 const Sidenav = () => {
   const [isManagementOpen, setIsManagementOpen] = useState(false);
@@ -108,7 +108,8 @@ const Sidenav = () => {
               className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200"
             >
               <img src={menu} alt="Menu Icon" className="h-6 w-5" />
-              <span className="text-sidenavTextSize ml-3">View Modules</span>
+              <span className="text-sidenavTextSize ml-3 mr-[3.5rem]">View Modules</span>
+              <FontAwesomeIcon icon={isManagementOpen ? (faAngleDown) : (faAngleRight)} /> 
             </button>
             {isManagementOpen && (
               <ul className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-gray-100">
