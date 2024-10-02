@@ -17,29 +17,29 @@ const Admin = () => {
     switch (path) {
       case "/admin":
       case "/admin/dashboard":
-        return "Admin Dashboard";
+        return "ADMIN DASHBOARD";
       case "/admin/user/manage":
-        return "Manage Users";
+        return "MANAGE USERS";
       case "/admin/view/professor":
-        return "Manage Professors";
+        return "MANAGE PROFESSOR";
       case "/admin/view/section":
-        return "Manage Sections";
-      case "/admin/viewt/classroom":
-        return "Manage Classrooms";
+        return "MANAGE SECTIONS";
+      case "/admin/view/classroom":
+        return "MANAGE CLASSROOM";
       case "/admin/generate":
-        return "Generate";
+        return "GENERATE";
       case "/admin/curriculum":
-        return "Curriculum";
+        return "CURRICULUM";
       case "/admin/view/building":
-        return "Manage Building";
+        return "MANAGE BUILDING";
       case "/admin/view/department":
-        return "Manage College";
+        return "MANAGE COLLEGE";
       case "/admin/view/course":
-        return "Manage Courses";
+        return "MANAGE COURSES";
       case "/admin/view/program":
-        return "Manage Programs";
+        return "MANAGE PROGRAMS";
       case "/admin/generated/":
-        return "Generate Schedule";
+        return "Generate SCHEDULE";
       default:
         // Check if path matches dynamic route pattern
         if (generatedPattern.test(path)) {

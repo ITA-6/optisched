@@ -1,61 +1,34 @@
 import React from 'react'
-
+import { useState } from 'react';
+import ConstraintTable from './Files/ConstraintTable';
+import add from "../../../assets/add.png"
 const Constraint = () => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
   return (
-    <div className="h-screen w-screen bg-white-grayish flex  font-bold">
-        <div className="grid w-full ml-[17rem] mt-[5rem]">
-            <div className="flex-1">
-                <label 
-                htmlFor="time"
-                className=''
-                >
-                    Choose time : 
-                </label>
-                <select 
-                    name="time" 
-                    id="time"
-                    className="w-[90%] ml-5 "
-                    >
-                    <option value="7am-9pm">7:00 - 9 : 00</option>
-                    <option value="7am-9pm">7:00 - 9 : 00</option>
-                    <option value="7am-9pm">7:00 - 9 : 00</option>
-                </select>
-            </div>
-            <div className="flex-1 ">
-                <label 
-                htmlFor="day"
-                className='w-[20%]'
-                >
-                    Pairing Day : 
-                </label>
-                <select 
-                    name="day" 
-                    id="day"
-                    className=" w-[90%] ml-5"
-                    >
-                    <option value="mon-wed">Monday - Wed</option>
-                    <option value="tues-thurs">Tuesday - Thursday</option>
-                    <option value="mon-wed">Monday - Wed</option>
-                </select>
-            </div>  
-            <div className="flex-1">
-                <label 
-                htmlFor="vacant"
-                className='w-[20%]'
-                >
-                    Max Hours vacant : 
-                </label>
-                <select 
-                    name="vacant" 
-                    id="vacant"
-                    className="w-[87%] ml-5"
-                    >
-                    <option value="1hours">1hours</option>
-                    <option value="2hours">2hours</option>
-                    <option value="3hours">3hours</option>
-                </select>
-            </div>
+    <div className="h-screen w-screen bg-white">
+      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[6fr_3fr] grid-areas-constraint-layout">
+        <div className="mr-5 grid grid-rows-[1fr_4fr] grid-areas-constraint-table-layout grid-in-userTable">
+          <ConstraintTable /> 
         </div>
+        {/* add Constraint Table */}
+        <div className="mt-5 flex items-start justify-end grid-in-button">
+          <button
+            className="mr-5 flex h-14 w-48 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white"
+            onClick={openModal}
+          >
+            <img src={add} alt=""  className='w-7 h-7'/>
+            <span>Add New Constraint</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && closeModal}
     </div>
   )
 }

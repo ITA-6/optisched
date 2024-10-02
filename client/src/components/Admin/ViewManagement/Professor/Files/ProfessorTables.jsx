@@ -3,8 +3,8 @@ import ProfessorRow from "./ProfessorRow";
 const ProfessorTables = ({professors}) => {
   return (
     <>
-      <table className="w-full table-fixed bg-white text-center grid-in-table">
-        <thead className="bg-green">
+      <table className="w-full table-fixed bg-gray-200 text-center grid-in-table">
+        <thead className="bg-green text-white text-xs">
           <tr className="h-[30px]">
             <th scope="col" className="h-[30px] w-[100px]">
               ID

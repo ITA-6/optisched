@@ -2,8 +2,8 @@ import CourseRow from "./CourseRow";
 
 const CourseTable = ({courses}) => {
   return (
-    <table className="w-full table-fixed bg-white text-center grid-in-table">
-      <thead className="bg-green">
+    <table className="w-full table-fixed bg-gray-200 text-center grid-in-table">
+      <thead className="bg-green text-white text-xs">
         <tr className="h-[30px]">
           <th scope="col">Course Title</th>
           <th scope="col">Course Code</th>

@@ -60,7 +60,7 @@ const Generate = () => {
   );
 
   return (
-    <div className="h-screen bg-white-grayish">
+    <div className="h-screen bg-white">
       <div className="ml-[18rem] mr-[2rem] h-full">
         <div className="grid">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
