@@ -2,10 +2,10 @@ const ClassroomRow = ({toggleDialog, classroom, openUpdate}) => {
     return(
         <>
             <tr key={classroom.id} className="h-[30px]">
-                <td>{classroom.building}</td>
-                <td>{classroom.number}</td>
-                <td>{classroom.floor}</td>
-                <td>
+                <td className="border border-gray-100">{classroom.building}</td>
+                <td className="border border-gray-100">{classroom.number}</td>
+                <td className="border border-gray-100"> {classroom.floor}</td>
+                <td className="border border-gray-100">
                 <div className="flex items-center justify-center">
                     <div className="ml-5 flex gap-2">
                     <button

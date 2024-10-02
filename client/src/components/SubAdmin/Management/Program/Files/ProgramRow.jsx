@@ -1,9 +1,9 @@
 const ProgramRow = ({toggleDialog, program, openUpdate}) => {
   return (
     <tr>
-    <td>{program.name}</td>
-    <td>{program.department_name}</td>
-    <td>
+    <td className="border border-gray-100">{program.name}</td>
+    <td className="border border-gray-100">{program.department_name}</td>
+    <td className="border border-gray-100">
       <div className="flex items-center justify-center">
         <div className="ml-5 flex gap-2">
           <button

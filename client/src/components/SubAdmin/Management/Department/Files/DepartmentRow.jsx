@@ -2,9 +2,9 @@ const DepartmentRow = ({toggleDialog, department, openUpdate}) => {
   return (
    <>
      <tr>
-        <td>{department.name}</td>
-        <td>{department.acronym}</td>
-        <td>
+        <td className="border border-gray-100">{department.name}</td>
+        <td className="border border-gray-100">{department.acronym}</td>
+        <td className="border border-gray-100">
           <div className="flex items-center justify-center">
             <div className="ml-5 flex gap-2">
               <button

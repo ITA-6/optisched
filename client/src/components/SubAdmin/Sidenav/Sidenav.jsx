@@ -1,6 +1,8 @@
 import { Outlet, Link } from "react-router-dom";
 import optisched from "../../../assets/optisched.png";
 import pncHeader from "../../../assets/pncHeader.png";
+import section from "../../../assets/section.png"
+import education from "../../../assets/educationBlack.png"
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +28,7 @@ const Sidenav = () => {
   return (
     <>
       <nav
-        className={`z-3 absolute top-0 min-h-screen w-[16em] bg-white pt-8 text-black`}
+        className={`z-3 absolute top-0 min-h-screen w-[16em] bg-white pt-8 text-black shadow-outerShadow`}
       >
         <div className="flex justify-center">
           <img src={optisched} alt="OptiSched Logo" className="h-16 w-auto" />
@@ -35,66 +37,70 @@ const Sidenav = () => {
           <img src={pncHeader} alt="Pnc Header" className="h-10 w-auto" />
         </div>
         <div className="mb-4 flex justify-center bg-grayish">
-          <h1 className="m-2 text-xl">Scheduling System</h1>
+          <h1 className="m-2 text-md">Scheduling System</h1>
         </div>
-        <ul className="flex flex-col gap-4 px-4">
+        <ul className="flex flex-col gap-2 px-4">
             <li className="w-full">
               <Link
                 to="management/professor"
-                className="hover:bg-green-700 flex w-full items-center rounded-lg px-4 text-black"
+                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <FontAwesomeIcon icon={faUser} />
-                <span className="ml-4 text-sm">Professor</span>
+                <FontAwesomeIcon icon={faUser} size="lg" className="w-6 h-6" />
+                <span className="text-sidenavTextSize ml-3">Professor</span>
               </Link>
             </li>
             <li className="w-full">
               <Link
                 to="management/section"
-                className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 py-1 text-black"
+                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <span className="ml-4 text-sm">Section</span>
+                <img src={section} alt="" className="w-6 h-6" />
+                <span className="text-sidenavTextSize ml-3">Section</span>
               </Link>
             </li>
             <li className="w-full">
               <Link
                 to="management/classroom"
-                className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-black"
+                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <FontAwesomeIcon icon={faBuildingUser} />
-                <span className="ml-4 text-sm">Classroom</span>
+                <FontAwesomeIcon icon={faBuildingUser} size="lg" className="w-6 h-6"/>
+                <span className="text-sidenavTextSize ml-3">Classroom</span>
               </Link>
             </li>
             <li className="w-full">
               <Link
                 to="management/course"
-                className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-black"
+                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <span className="ml-4 text-sm">Course</span>
+                 <img src={section} alt="" className="w-6 h-6" />
+                <span className="text-sidenavTextSize ml-3">Course</span>
               </Link>
             </li>
             <li className="w-full">
               <Link
                 to="management/building"
-                className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-black"
+                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <FontAwesomeIcon icon={faBuilding} />
-                <span className="ml-4 text-sm">Building</span>
+                <FontAwesomeIcon icon={faBuilding} size="lg" className="w-6 h-6"/>
+                <span className="text-sidenavTextSize ml-3">Building</span>
               </Link>
             </li>
             <li className="w-full">
               <Link
                 to="management/department"
-                className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-black"
+                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <span className="ml-4 text-sm">College</span>
+                 <img src={education} alt="" className="w-6 h-6" />
+                <span className="text-sidenavTextSize ml-3">College</span>
               </Link>
             </li>
             <li className="w-full">
               <Link
                 to="management/program"
-                className="hover:bg-green-700 mb-2 flex w-full items-center rounded-lg px-4 text-black"
+                className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <span className="ml-4 text-sm">Department</span>
+                 <img src={section} alt="" className="w-6 h-6" />
+                <span className="text-sidenavTextSize ml-3">Department</span>
               </Link>
             </li>
         </ul>

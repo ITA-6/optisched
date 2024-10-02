@@ -5,7 +5,7 @@ import GenerateTable from "./Files/GenerateTable";
 const Generated = () => {
 
   return (
-    <div className="h-screen w-screen bg-white-grayish">
+    <div className="h-screen w-screen bg-gray-50">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_8fr] pb-10 grid-areas-generated-table-layout">
         <GeneratePrint />
         <div className="h-full bg-white px-5 pt-5 grid-in-table">
@@ -25,7 +25,7 @@ const Generated = () => {
             </div>
             <div className="flex items-center justify-between py-2 grid-in-units">
               <h1 className="text-xl font-medium">Total Units :</h1>
-              <button className="color-white rounded-lg bg-green px-10 py-3">
+              <button className="text-white rounded-lg bg-green px-10 py-3">
                 {" "}
                 Generate
               </button>

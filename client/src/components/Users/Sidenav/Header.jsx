@@ -15,8 +15,8 @@ const Header = ({ pageName }) => {
   };
 
   return (
-    <div className="sm: xl: z-1 absolute top-0 flex w-screen items-center justify-between bg-green">
-      <h1 className="xl: m-3 ml-[15.5em] text-lg font-bold text-white sm:hidden lg:inline xm:hidden">
+    <div className="sm: xl: z-1 absolute top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow">
+      <h1 className="xl: m-3 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden">
         {pageName}
       </h1>
       <button className="md:inline lg:hidden xl:hidden">Menu bar</button>

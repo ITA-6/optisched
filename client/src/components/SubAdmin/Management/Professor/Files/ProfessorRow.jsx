@@ -1,14 +1,14 @@
 const ProfessorRow = ({toggleDialog, professor, openUpdate}) => {
   return (
     <tr className="h-[30px]" key={professor.prof_id}>
-        <th scope="row">{professor.prof_id}</th>
-        <td>{`${professor.first_name} ${professor.last_name}`}</td>
-        <td>{professor.birth_date}</td>
-        <td>{professor.email}</td>
-        <td className="w-[100px]">{professor.department_name}</td>
-        <td>{professor.has_masteral === "Y" ? "Yes" : "No"}</td>
-        <td>{professor.employment_status}</td>
-        <td>
+        <th scope="row" className="border border-gray-100">{professor.prof_id}</th>
+        <td className="border border-gray-100">{`${professor.first_name} ${professor.last_name}`}</td>
+        <td className="border border-gray-100">{professor.birth_date}</td>
+        <td className="border border-gray-100">{professor.email}</td>
+        <td className="w-[100px] border border-gray-100">{professor.department_name}</td>
+        <td className="border border-gray-100">{professor.has_masteral === "Y" ? "Yes" : "No"}</td>
+        <td className="border border-gray-100">{professor.employment_status}</td>
+        <td className="border border-gray-100">
             <div className="flex items-center justify-center">
                 <div className="ml-5 flex gap-2">
                 <button
