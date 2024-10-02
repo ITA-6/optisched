@@ -10,6 +10,10 @@ export default {
         "lg": "976px",
         "xl": "1440px",
       },
+      fontSize : {
+        sidenavTextSize : "0.875rem",
+      },
+
       colors: {
         white: "#FFFFFF",
         "white-grayish": "#E9E9E9",
@@ -26,17 +30,16 @@ export default {
       },
       gridTemplateAreas : {
         'layout' : [
-          'admin .  profile',
-          'adminname . .',
+          '. . .',
           'box box box',
           'text text text',
           'history history history'
         ],
         'text-user' : [
-          '. userText search list .'
+          'userText search list .'
         ],
         'table ' : [
-          '. table .'
+          'table table table'
         ],
         'user-layout' : [
           'userText Profile',
@@ -69,8 +72,22 @@ export default {
           'appointmentStatus .',
           'table table',
           'units units'
-        ]
-      }
+        ],
+        'constraint-layout' : [
+          'userTable userTable',
+          '. button'
+        ],
+        'constraint-table-layout' : [
+          'div div div',
+          'table table table'
+        ],
+      },
+      boxShadow : {
+          'outerShadow' : '3px 5px 15px rgba(0, 0, 0, 0.3)'
+      },
+      iconResponsive : {
+          
+      },  
     },
   },
   plugins: [
