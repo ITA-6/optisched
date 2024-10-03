@@ -13,9 +13,10 @@ const User = () => {
 
   return (
     <div className="h-screen w-screen bg-white">
-      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
-        <div className="mr-5 grid grid-rows-[1fr_4fr] grid-areas-user-table-layout grid-in-userTable">
-          <UserSearchField />
+      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_6fr_6fr] grid-areas-user-layout">
+        <UserSearchField />
+        <div className="mr-5 grid grid-areas-user-table-layout grid-in-userTable">
+         
           <UserTable /> 
         </div>
         {/* add User Table */}
