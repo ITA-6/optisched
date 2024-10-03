@@ -1,21 +1,22 @@
 import BuildingRow from "./BuildingRow";
 
-const BuildingTable = ({ buildings, toggleDialog, openUpdate}) => {
+const BuildingTable = ({ buildings, totalRows}) => {
+  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
+    return buildings[index] || { name: '', total_rooms: '', available_rooms : ''};
+  });
+
   return (
-    <table className="w-full table-fixed bg-gray-200 text-center grid-in-table">
-      <thead className="bg-green text-white text-xs">
+    <table className="w-full h-[100%] table-fixed bg-white text-center">
+      <thead className="bg-green text-white text-xs border-separate border border-white sticky top-0">
         <tr className="h-[30px]">
-          <th scope="col">Building Name</th>
-          <th scope="col">Total Rooms</th>
-          <th scope="col">Available Rooms</th>
+          <th scope="col" className="border border-white">Building Name</th>
+          <th scope="col" className="border border-white">Total Rooms</th>
+          <th scope="col" className="border border-white">Available Rooms</th>
         </tr>
       </thead>
-      <tbody>
-        {buildings?.map((building) => (
-          <BuildingRow 
-            key={building.id}
-            building={building}     
-          />
+      <tbody className="mb-10 text-sm border-collapse border-y-2 border-gray-200">
+        {rowsToDisplay?.map((building, index) => (
+          <BuildingRow key={index} building={building} />
         ))}
       </tbody>
     </table>

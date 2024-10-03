@@ -1,29 +1,25 @@
 import SectionRow from "./SectionRow"
 
-const SectionTable = ({sections}) => {
+const SectionTable = ({sections, totalRows}) => {
+  console.log(sections)
+  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
+    return sections[index] || { label: '', year_level: '' };
+  });
 
-   // Define the number of columns you want to display
-   const totalColumns = Math.max(sections.length, 10); // Ensures at least 10 columns
-
-   // Create rows with the data or empty cells if necessary
-   const rows = [];
-   for (let i = 0; i < Math.ceil(sections.length / totalColumns); i++) {
-     rows.push(sections.slice(i * totalColumns, i * totalColumns + totalColumns));
-   }
 
   return (
-    <table className="w-full table-fixed bg-gray-200 text-center grid-in-table">
-        <thead className="bg-green text-white text-xs">
+    <table className="w-full h-[100%] table-fixed bg-white text-center">
+      <thead className="bg-green text-white text-xs border-separate border border-white sticky top-0">
             <tr className="h-[30px]">
-            <th scope="col">Label</th>
-            <th scope="col">Year Level</th>
-            <th scope="col">Adviser</th>
+            <th scope="col" className="border border-white">Label</th>
+            <th scope="col" className="border border-white">Year Level</th>
+            <th scope="col" className="border border-white">Adviser</th>
             </tr>
         </thead>
-        <tbody className="mb-10 h-full overflow-auto">
-           {sections?.map(section =>(
+        <tbody className="mb-10 text-sm border-collapse border-y-2 border-gray-200">
+           {rowsToDisplay.map((section, index) =>(
                 <SectionRow
-                    key={section.id}
+                    key={index}
                     section={section}
                 />
            ))}

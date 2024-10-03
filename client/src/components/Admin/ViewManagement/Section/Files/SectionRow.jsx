@@ -1,9 +1,9 @@
 const SectionRow = ({section}) => {
   return (
-    <tr key={section.id} className="h-[30px]">
-        <td>{section.label}</td>
-        <td>{section.year_level}</td>
-        <td>{section.adviser}</td>
+    <tr key={section.id} className="h-16">
+        <td className="border-y-2 border-gray-200">{section.label}</td>
+        <td className="border-y-2 border-gray-200">{section.year_level}</td>
+        <td className="border-y-2 border-gray-200">{section.adviser}</td>
     </tr>
   )
 }
