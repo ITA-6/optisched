@@ -43,7 +43,7 @@ export default {
         'user-layout' : [
           '. .',
           'searchList searchList',
-          'userTable userTable',
+          'userTable userTable',  
           '. button'
         ],
         'user-table-layout' : [

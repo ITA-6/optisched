@@ -1,9 +1,14 @@
 import CourseRow from "./CourseRow";
 
-const CourseTable = ({ toggleDialog, courses, openUpdate }) => {
+const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
+  
+  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
+    return courses[index] || { name: '', code: '', category : '' };
+  });
+
   return (
-    <table className="w-full table-fixed bg-white text-center grid-in-table">
-      <thead className="bg-green text-xs text-white">
+     <table className="w-full h-[100%] table-fixed bg-white text-center">
+      <thead className="bg-green text-white text-xs border-separate border border-white sticky top-0">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">Course Title</th>
           <th scope="col" className="border border-white">Course Code</th>
@@ -11,12 +16,12 @@ const CourseTable = ({ toggleDialog, courses, openUpdate }) => {
           <th scope="col" className="border border-white"></th>
         </tr>
       </thead>
-      <tbody className="mb-10 h-full overflow-auto border-collapse border border-gray-100">
-        {courses?.map((course) => (
+      <tbody className="mb-10 text-sm border-collapse border-y-2 border-gray-200">
+        {rowsToDisplay?.map((course, index) => (
           <CourseRow
-            key={course.id}
-            toggleDialog={toggleDialog}
+            key={index}
             course={course}
+            toggleDialog={toggleDialog}
             openUpdate={openUpdate}
           />
         ))}

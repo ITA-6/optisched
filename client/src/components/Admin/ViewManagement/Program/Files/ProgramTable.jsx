@@ -1,7 +1,6 @@
 import ProgramRow from "./ProgramRow";
 
 const ProgramTable = ({programs, totalRows}) => {
-  console.log(programs)
   const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
     return programs[index] || { name: '', department_name: '' };
   });

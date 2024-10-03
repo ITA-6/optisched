@@ -1,7 +1,6 @@
 import SectionRow from "./SectionRow"
 
 const SectionTable = ({sections, totalRows}) => {
-  console.log(sections)
   const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
     return sections[index] || { label: '', year_level: '' };
   });
