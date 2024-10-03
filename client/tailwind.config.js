@@ -13,7 +13,6 @@ export default {
       fontSize : {
         sidenavTextSize : "0.875rem",
       },
-
       colors: {
         white: "#FFFFFF",
         "white-grayish": "#E9E9E9",
@@ -42,12 +41,12 @@ export default {
           'table table table'
         ],
         'user-layout' : [
-          'userText Profile',
+          '. .',
+          'searchList searchList',
           'userTable userTable',
           '. button'
         ],
         'user-table-layout' : [
-          'div div div',
           'table table table'
         ],
         'user-filter' : [
