@@ -1,6 +1,6 @@
 const SearchField = () => {
   return (
-        <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
+        <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-searchList mr-5">
             <input
               type="text"
               placeholder="search"
