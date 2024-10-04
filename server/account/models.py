@@ -34,6 +34,14 @@ class CustomUser(AbstractBaseUser):
         ("VPAA", "Vice President for Academic Affairs"),
     ]
 
+    PRIVILEGE_LEVELS = {
+        "R": "admin",  # Registrar
+        "DC": "sub_admin",  # Department Chair
+        "D": "sub_admin",  # Dean
+        "P": "user",  # Professor
+        "VPAA": "user",  # Vice President for Academic Affairs
+    }
+
     username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     professor = models.OneToOneField(
@@ -59,6 +67,9 @@ class CustomUser(AbstractBaseUser):
     USERNAME_FIELD = "username"
 
     REQUIRED_FIELDS = ["email"]
+
+    def get_privilege(self):
+        return self.PRIVILEGE_LEVELS.get(self.user_type, "user")
 
     class Meta:
         db_table = "user"
