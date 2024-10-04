@@ -3,24 +3,26 @@ import ScheduleRow from './ScheduleRow';
 
 const ScheduleTable = () => {
   const timeSlots = Array.from({ length: 32 }).map((_, index) => {
-    // Calculate the hour and minute based on the index
-    const hour = 6 + Math.floor(index / 2);  // Start from 7 AM
-    const minute = index % 2 === 0 ? '00' : '30';  // Alternate between 00 and 30 for minutes
+    const hour = 6 + Math.floor(index / 2);
+    const minute = index % 2 === 0 ? '00' : '30';
+    const period = hour < 12 ? 'am' : 'pm';
+    const displayHour = hour > 12 ? hour - 12 : hour === 12 ? 12 : hour;
     
-    // Determine AM/PM for current hour
-    const period = hour >= 12 ? 'pm' : 'am';
-    const displayHour = hour > 12 ? hour - 12 : hour === 12 ? 12 : hour;  // Convert 24-hour to 12-hour format
-    
-    // Determine the next hour and the period for the next time slot
+    // Fix the calculation of the next hour and period
     let nextHour = hour;
-    let nextMinute = minute === '00' ? '30' : '00';
+    let nextPeriod = period;
+    
     if (minute === '30') {
       nextHour += 1;
+      if (nextHour === 12) {
+        nextPeriod = 'pm';
+      } else if (nextHour > 12) {
+        nextHour -= 12;
+        nextPeriod = 'pm';
+      }
     }
-    const nextPeriod = nextHour >= 12 ? 'pm' : 'am';
-    const displayNextHour = nextHour > 12 ? nextHour - 12 : nextHour === 12 ? 12 : nextHour;
-    
-    return `${displayHour}:${minute} ${period} - ${displayNextHour}:${nextMinute} ${nextPeriod}`;
+
+    return `${displayHour}:${minute} ${period} - ${nextHour}:${minute === '00' ? '30' : '00'} ${nextPeriod}`;
   });
 
   return (
