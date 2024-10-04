@@ -3,10 +3,11 @@ import optisched from "../../../assets/optisched.png";
 import pncHeader from "../../../assets/pncHeader.png";
 import section from "../../../assets/section.png"
 import education from "../../../assets/educationBlack.png"
+import educationalPrograms from "../../../assets/educationaPrograms.png"
 import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBuilding, faBuildingUser, faUser} from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faBuildingUser, faUser,faBookOpen} from "@fortawesome/free-solid-svg-icons";
 
 const Sidenav = () => {
   const [isManagementOpen, setIsManagementOpen] = useState(false);
@@ -72,7 +73,7 @@ const Sidenav = () => {
                 to="management/course"
                  className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                 <img src={section} alt="" className="w-6 h-6" />
+                 <FontAwesomeIcon icon={faBookOpen} style={{color: "#000000",}} />
                 <span className="text-sidenavTextSize ml-3">Course</span>
               </Link>
             </li>
@@ -87,7 +88,7 @@ const Sidenav = () => {
             </li>
             <li className="w-full">
               <Link
-                to="management/department"
+                to="management/college"
                  className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
                  <img src={education} alt="" className="w-6 h-6" />
@@ -99,8 +100,8 @@ const Sidenav = () => {
                 to="management/program"
                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                 <img src={section} alt="" className="w-6 h-6" />
-                <span className="text-sidenavTextSize ml-3">Department</span>
+                 <img src={educationalPrograms} alt="" className="w-6 h-6" />
+                <span className="text-sidenavTextSize ml-3">Program</span>
               </Link>
             </li>
         </ul>
