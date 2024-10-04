@@ -2,15 +2,25 @@ import React from 'react';
 import ScheduleRow from './ScheduleRow';
 
 const ScheduleTable = () => {
-    const timeSlots = Array.from({ length: 30 }).map((_, index) => {
-    const hour = 7 + Math.floor(index / 2);
-    const minute = index % 2 === 0 ? '00' : '30';
-    const period = hour < 12 ? 'am' : 'pm';
-    const displayHour = hour > 12 ? hour - 12 : hour;
-    const nextHour = hour === 10 && minute === '30' ? 10 : hour + (minute === '30' ? 1 : 0);
-    const displayNextHour = nextHour > 12 ? nextHour - 12 : nextHour;
-
-    return `${displayHour}:${minute} ${period} - ${displayNextHour}:00 ${nextHour >= 12 ? 'pm' : 'am'}`;
+  const timeSlots = Array.from({ length: 32 }).map((_, index) => {
+    // Calculate the hour and minute based on the index
+    const hour = 6 + Math.floor(index / 2);  // Start from 7 AM
+    const minute = index % 2 === 0 ? '00' : '30';  // Alternate between 00 and 30 for minutes
+    
+    // Determine AM/PM for current hour
+    const period = hour >= 12 ? 'pm' : 'am';
+    const displayHour = hour > 12 ? hour - 12 : hour === 12 ? 12 : hour;  // Convert 24-hour to 12-hour format
+    
+    // Determine the next hour and the period for the next time slot
+    let nextHour = hour;
+    let nextMinute = minute === '00' ? '30' : '00';
+    if (minute === '30') {
+      nextHour += 1;
+    }
+    const nextPeriod = nextHour >= 12 ? 'pm' : 'am';
+    const displayNextHour = nextHour > 12 ? nextHour - 12 : nextHour === 12 ? 12 : nextHour;
+    
+    return `${displayHour}:${minute} ${period} - ${displayNextHour}:${nextMinute} ${nextPeriod}`;
   });
 
   return (
@@ -27,9 +37,9 @@ const ScheduleTable = () => {
           <th className="border w-40">SUNDAY</th>
         </tr>
       </thead>
-      <tbody className='text-xs text-center'>
+      <tbody className="text-xs text-center">
         {timeSlots.map((timeSlot, index) => (
-            <ScheduleRow key={index} timeSlot={timeSlot} />
+          <ScheduleRow key={index} timeSlot={timeSlot} />
         ))}
       </tbody>
       <tfoot>
