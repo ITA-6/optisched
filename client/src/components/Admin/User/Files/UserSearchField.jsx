@@ -11,9 +11,11 @@ const UserSearchField = () => {
         <div className="text-center grid-in-list">
             <select className="w-full border rounded-md border-gray-200">
             <option value="">List: All users</option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <option value="option3">VPAA</option>
+            <option value="option1">Registrar</option>
+            <option value="option2">Dean</option>
+            <option value="option3">Department Chair</option>
+            <option value="option3">Professor</option>
             </select>
         </div>
     </div>
