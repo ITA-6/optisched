@@ -1,6 +1,6 @@
 import React from "react";
 import user from "../../../../assets/user.png";
-const UserForm = ({ closeModal }) => {
+const UserForm = ({ toggleModal}) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
@@ -155,7 +155,7 @@ const UserForm = ({ closeModal }) => {
           </form>
           <button
             className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
-            onClick={closeModal}
+            onClick={toggleModal}
           >
             &times;
           </button>
