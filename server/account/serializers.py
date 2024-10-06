@@ -20,9 +20,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    professor = ProfessorSerializer(
-        read_only=True
-    )  # Assuming a ProfessorSerializer exists
+    professor = ProfessorSerializer(read_only=True)
+    department_name = serializers.CharField(source="department.name", read_only=True)
 
     class Meta:
         model = CustomUser
@@ -31,6 +30,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             "email",
             "password",
             "professor",
+            "department_name",
+            "user_type",
             "last_login",
         ]
 
