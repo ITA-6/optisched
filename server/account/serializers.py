@@ -31,6 +31,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             "password",
             "professor",
             "department_name",
+            "department",
             "user_type",
             "last_login",
         ]
