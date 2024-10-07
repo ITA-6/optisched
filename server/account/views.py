@@ -6,26 +6,23 @@ from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 
 from account.serializers import (
-    RegisterSerializer,
+    AccountSerializer,
     LoginSerializer,
     CustomTokenObtainPairSerializer,
 )
+
+from account.models import CustomUser
 from professor.models import Professor
 from section.models import Section
 from room.models import Room
 from course.models import Course
 
 
-class Account(APIView):
-    pass
-
-
-class RegisterApiView(APIView):
-    serializer = RegisterSerializer
-    permission_classes = [AllowAny]
+class AccountApiView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
+        serializer = AccountSerializer(data=request.data)
         data = {}
 
         if serializer.is_valid(raise_exception=True):
@@ -38,6 +35,23 @@ class RegisterApiView(APIView):
             return Response(data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+        if pk:
+            try:
+                account = CustomUser.objects.get(pk=pk)
+                serializer = AccountSerializer(account)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except CustomUser.DoesNotExist:
+                return Response(
+                    {"error": "User not found."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+        else:
+            users = CustomUser.objects.all()
+            serializer = AccountSerializer(users, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class LoginApiView(APIView):

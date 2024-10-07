@@ -6,21 +6,21 @@ from rest_framework.exceptions import NotFound
 
 from professor.models import Professor
 from professor.serializers import ProfessorSerializer
-from account.serializers import RegisterSerializer
+from account.serializers import AccountSerializer
 from department.models import Department
 
 
 class ProfessorManager:
     @staticmethod
     def create_account(user_data):
-        user_serializer = RegisterSerializer(data=user_data)
+        user_serializer = AccountSerializer(data=user_data)
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.save()
         return user
-    
+
     @staticmethod
     def update_account(user_data):
-        user_serializer = RegisterSerializer(user_data, data=user_data)
+        user_serializer = AccountSerializer(user_data, data=user_data)
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.save()
         return user
@@ -87,7 +87,7 @@ class ProfessorAPIView(APIView):
         }
 
         return Response(data, status=status.HTTP_201_CREATED)
-    
+
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
 
@@ -97,7 +97,7 @@ class ProfessorAPIView(APIView):
             return Response(
                 {"message": "Professor not found."}, status=status.HTTP_404_NOT_FOUND
             )
-        
+
         professor_data = {
             "prof_id": request.data.get("prof_id"),
             "first_name": request.data.get("first_name"),
@@ -112,7 +112,7 @@ class ProfessorAPIView(APIView):
             "current_units": request.data.get("current_units"),
             "handled_schedule": [],
         }
-        
+
         professor_serializer = ProfessorSerializer(professor, data=professor_data)
         professor_serializer.is_valid(raise_exception=True)
         professor = professor_serializer.save()
@@ -132,7 +132,6 @@ class ProfessorAPIView(APIView):
         }
 
         return Response(data, status=status.HTTP_200_OK)
-
 
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get("pk")

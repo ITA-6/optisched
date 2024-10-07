@@ -1,6 +1,47 @@
-import React from "react";
 import user from "../../../../assets/user.png";
-const UserForm = ({ toggleModal}) => {
+
+import { useState, useEffect } from "react";
+
+const UserForm = ({ toggleModal, handler, initialData, departments }) => {
+  const [professorId, setProfessorId] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [role, setRole] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [department, setDepartment] = useState("");
+  const [email, setEmail] = useState("");
+
+  // Effect to populate form fields if initialData is provided
+  useEffect(() => {
+    if (initialData) {
+      setProfessorId(initialData.username || "");
+      setFirstName(initialData.first_name || "");
+      setMiddleName(initialData.middle_name || "");
+      setLastName(initialData.last_name || "");
+      setRole(initialData.user_type || "");
+      setBirthDate(initialData.birth_date || "");
+      setEmail(initialData.email || "");
+      setDepartment(initialData.department || "");
+    }
+  }, [initialData]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      professor_id: professorId,
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      middle_name: middleName,
+      user_type: role,
+      birth_date: birthDate,
+      department: department,
+    };
+    if (initialData) userData.id = initialData.id;
+    handler(userData);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
@@ -9,7 +50,7 @@ const UserForm = ({ toggleModal}) => {
           <h2 className="ml-2 text-3xl font-extrabold">Create New User</h2>
         </div>
         <div className="p-5">
-          <form className="mt-5 space-y-6">
+          <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
             {/* User ID */}
             <div className="flex flex-col">
               <label
@@ -22,6 +63,7 @@ const UserForm = ({ toggleModal}) => {
                 type="number"
                 id="professorID"
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                value={professorId}
                 required
               />
             </div>
@@ -37,12 +79,13 @@ const UserForm = ({ toggleModal}) => {
                 name="role"
                 id="role"
                 className="border border-gray-300 p-2"
+                value={role}
               >
-                <option value="casual">Registrar</option>
-                <option value="casual">Department Chair</option>
-                <option value="part-time">Dean</option>
-                <option value="permanent">Professor</option>
-                <option value="casual">
+                <option value="R">Registrar</option>
+                <option value="DC">Department Chair</option>
+                <option value="D">Dean</option>
+                <option value="P">Professor</option>
+                <option value="VPAA">
                   Vice President for Academic Affairs
                 </option>
               </select>
@@ -63,6 +106,7 @@ const UserForm = ({ toggleModal}) => {
                     type="text"
                     id="firstname"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    value={firstName}
                     required
                   />
                 </div>
@@ -77,6 +121,7 @@ const UserForm = ({ toggleModal}) => {
                     type="text"
                     id="middlename"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    value={middleName}
                   />
                 </div>
                 <div className="flex-1">
@@ -90,6 +135,7 @@ const UserForm = ({ toggleModal}) => {
                     type="text"
                     id="lastname"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    value={lastName}
                     required
                   />
                 </div>
@@ -108,6 +154,7 @@ const UserForm = ({ toggleModal}) => {
                 type="email"
                 id="mail"
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                value={email}
                 required
               />
             </div>
@@ -125,6 +172,7 @@ const UserForm = ({ toggleModal}) => {
                 type="date"
                 name="birthdate"
                 id="birthdate"
+                value={birthDate}
               />
             </div>
 
@@ -138,13 +186,21 @@ const UserForm = ({ toggleModal}) => {
               </label>
               <select
                 id="department"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                 required
               >
-                <option value="CCS">CCS</option>
-                <option value="BSeD">BSeD</option>
-                <option value="CoE">CoE</option>
-                <option value="BSBA">BSBA</option>
+                <option value="" disabled>
+                  Select Department
+                </option>
+                {departments?.map((department) => (
+                  <>
+                    <option key={department.id} value={department.id}>
+                      {department.name}
+                    </option>
+                  </>
+                ))}
               </select>
             </div>
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">

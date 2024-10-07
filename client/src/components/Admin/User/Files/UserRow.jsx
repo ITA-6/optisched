@@ -1,30 +1,30 @@
-import React from 'react'
+import React from "react";
 
-const UserRow = ({item, toggleModal}) => {
+const UserRow = ({ user, openUpdate }) => {
   return (
-    <tr className="h-[30px] text-center" key={item.id}>
-    <th scope="row" className='border-y-2 border-gray-200'>{item.id}</th>
-    <td className='border-y-2 border-gray-200'>{item.name}</td>
-    <td className='border-y-2 border-gray-200'>{item.gender}</td>
-    <td className='border-y-2 border-gray-200'>{item.email}</td>
-    <td className='border-y-2 border-gray-200'>{item.phone}</td>
-    <td className='border-y-2 border-gray-200'>{item.department}</td>
-    <td className='border-y-2 border-gray-200'>{item.role}</td>
-    <td className='border-y-2 border-gray-200'>{item.status}</td>
-    <td className='border-y-2 border-gray-200'>
-    <div className="flex items-center justify-center">
-        <div className="ml-5 flex gap-2">
-          <button
-          onClick={toggleModal}
-          className="-h4 w-16 bg-green text-white"
-          >
-            Edit</button>
-        <button className="-h5 w-16 bg-red-500 text-white">Delete</button>
+    <tr className="h-[30px] text-center">
+      <td className="border-y-2 border-gray-200">{user.username}</td>
+      <td className="border-y-2 border-gray-200">{user.first_name}</td>
+      <td className="border-y-2 border-gray-200">{user.middle_name}</td>
+      <td className="border-y-2 border-gray-200">{user.last_name}</td>
+      <td className="border-y-2 border-gray-200">{user.email}</td>
+      <td className="border-y-2 border-gray-200">{user.department}</td>
+      <td className="border-y-2 border-gray-200">{user.user_type_name}</td>
+      <td className="border-y-2 border-gray-200">
+        <div className="flex items-center justify-center">
+          <div className="ml-5 flex gap-2">
+            <button
+              onClick={() => openUpdate(user)}
+              className="-h4 w-16 bg-green text-white"
+            >
+              Edit
+            </button>
+            <button className="-h5 w-16 bg-red-500 text-white">Delete</button>
+          </div>
         </div>
-    </div>
-    </td>
-</tr>
-  )
-}
+      </td>
+    </tr>
+  );
+};
 
-export default UserRow
+export default UserRow;

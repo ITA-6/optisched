@@ -1,29 +1,49 @@
-import React from 'react'
-import UserRow from './UserRow'
+import React from "react";
+import UserRow from "./UserRow";
 
-const UserTable = ({data, toggleModal}) => {
+const UserTable = ({ users, toggleModal, openUpdate }) => {
+  console.log(users);
+
   return (
     <table className="table-fixed bg-white grid-in-table">
-        <thead className="bg-green text-white text-xs">
-            <tr>
-                <th scope="col" className=' p-2'>User ID</th>
-                <th scope="col" className=''>Name</th>
-                <th scope="col" className=''>Gender</th>
-                <th scope="col" className=''>Email Address</th>
-                <th scope="col" className=''>Phone Number</th>   
-                <th scope="col" className=''>Department</th>
-                <th scope="col" className=''>Type of User</th>
-                <th scope="col" className=''>Status</th>
-                <th scope="col" className=''></th>
-            </tr>
-        </thead>
-        <tbody className="mb-10 h-full overflow-auto border-collapse border-y-2 border-gray-200 text-sm">
-            {data.map((item) => (
-                <UserRow item={item} toggleModal={toggleModal} />
-                ))}
-        </tbody>
+      <thead className="bg-green text-xs text-white">
+        <tr>
+          <th scope="col" className="">
+            ID
+          </th>
+          <th scope="col" className="">
+            First Name
+          </th>
+          <th scope="col" className="">
+            Middle Name
+          </th>
+          <th scope="col" className="">
+            Last Name
+          </th>
+          <th scope="col" className="">
+            Email Address
+          </th>
+          <th scope="col" className="">
+            Department
+          </th>
+          <th scope="col" className="">
+            Type of User
+          </th>
+          <th scope="col" className=""></th>
+        </tr>
+      </thead>
+      <tbody className="mb-10 h-full border-collapse overflow-auto border-y-2 border-gray-200 text-sm">
+        {users?.map((user) => (
+          <UserRow
+            user={user}
+            key={user.username}
+            toggleModal={toggleModal}
+            openUpdate={openUpdate}
+          />
+        ))}
+      </tbody>
     </table>
-  )
-}
+  );
+};
 
-export default UserTable
+export default UserTable;

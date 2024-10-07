@@ -55,15 +55,19 @@ const refreshAccessToken = async () => {
 
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/refresh-token/",
+      "http://127.0.0.1:8000/api/account/refresh-token/",
       {
-        refresh_token: refreshToken,
+        refresh: refreshToken,
       },
     );
 
     // Store the new access token
-    const newAccessToken = response.data.access_token;
+    const newAccessToken = response.data.access;
     localStorage.setItem("access_token", newAccessToken);
+
+    // Store new refresh token
+    const newRefreshToken = response.data.refresh;
+    localStorage.setItem("refresh_token", newRefreshToken);
 
     return newAccessToken;
   } catch (error) {

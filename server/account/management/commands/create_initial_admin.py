@@ -9,8 +9,10 @@ class Command(BaseCommand):
         User = get_user_model()
         if not User.objects.filter(email="admin@example.com").exists():
             User.objects.create_admin(
-                username="admin",
-                password="admin",
+                username="0000000",
+                first_name="Fernando",
+                last_name="Pendon",
+                password="0000-00-00",
                 email="admin@example.com",
             )
             self.stdout.write(self.style.SUCCESS("Successfully created initial admin"))

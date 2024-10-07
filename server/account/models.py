@@ -50,6 +50,7 @@ class CustomUser(AbstractBaseUser):
     first_name = models.CharField(max_length=255, default="John")
     last_name = models.CharField(max_length=255, default="Doe")
     middle_name = models.CharField(max_length=255, null=True, blank=True)
+    birth_date = models.DateField(default=timezone.now)
     department = models.ForeignKey(
         "department.Department", on_delete=models.CASCADE, blank=True, null=True
     )

@@ -19,9 +19,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-class RegisterSerializer(serializers.ModelSerializer):
+class AccountSerializer(serializers.ModelSerializer):
     professor = ProfessorSerializer(read_only=True)
     department_name = serializers.CharField(source="department.name", read_only=True)
+    user_type_name = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
@@ -30,11 +31,20 @@ class RegisterSerializer(serializers.ModelSerializer):
             "email",
             "password",
             "professor",
+            "first_name",
+            "middle_name",
+            "last_name",
             "department_name",
+            "birth_date",
             "department",
             "user_type",
+            "user_type_name",
             "last_login",
         ]
+
+    def get_user_type_name(self, obj):
+        """Map the user_type code to its corresponding human-readable name."""
+        return dict(CustomUser.USER_TYPES_CHOICES).get(obj.user_type, "Unknown")
 
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data["password"])
