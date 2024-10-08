@@ -12,6 +12,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
 
+
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
     if (initialData) {
@@ -79,12 +80,13 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 name="role"
                 id="role"
                 className="border border-gray-300 p-2"
+                onChange={(e) => setRole(e.target.value)}
                 value={role}
               >
-                <option value="R">Registrar</option>
                 <option value="DC">Department Chair</option>
                 <option value="D">Dean</option>
                 <option value="P">Professor</option>
+                <option value="R">Registrar</option>
                 <option value="VPAA">
                   Vice President for Academic Affairs
                 </option>
@@ -176,33 +178,32 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
               />
             </div>
 
-            {/* Department Field */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="department"
-                className="text-lg font-medium text-gray-700"
-              >
-                Department
-              </label>
-              <select
-                id="department"
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                required
-              >
-                <option value="" disabled>
-                  Select Department
-                </option>
-                {departments?.map((department) => (
-                  <>
-                    <option key={department.id} value={department.id}>
-                      {department.name}
+            {role === "VPAA" || role === "R" ? null : (
+              <div className="flex-col flex">
+                <label
+                  htmlFor="department"
+                  className="text-lg font-medium text-gray-700"
+                >
+                  Department
+                </label>
+                <select
+                  id="department"
+                  value={department}
+                  onChange={(e) => setDepartment(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                  required
+                >
+                  <option value="" disabled>
+                    Select Department
+                  </option>
+                  {departments?.map((dept) => (
+                    <option key={dept.id} value={dept.id}>
+                      {dept.name}
                     </option>
-                  </>
-                ))}
-              </select>
-            </div>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
                 <span>Confirm</span>
