@@ -73,9 +73,15 @@ class ProfessorAPIView(APIView):
         professor = professor_serializer.save()
 
         user_data = {
+            "user_id": professor.prof_id,
             "username": professor.prof_id,
             "email": professor.email,
             "password": professor.birth_date.strftime("%Y-%m-%d"),
+            "first_name": professor.first_name,
+            "last_name": professor.last_name,
+            "middle_name": professor.middle_name,
+            "birth_date": professor.birth_date.strftime("%Y-%m-%d"),
+            "department": professor.department.id,
             "professor": professor.id,
         }
 
