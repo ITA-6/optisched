@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import userIcon from "../../../assets/userIcon.png";
 import { useNavigate } from "react-router-dom";
+
+import api from "../../../api";
 
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
   const toggleUser = () => setUserOpen(!isUserOpen);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await api.post("account/logout/", {
+        refresh: localStorage.getItem("refresh_token"),
+      });
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -44,7 +44,7 @@ const User = () => {
 
   const updateUser = async (user) => {
     try {
-      await api.put(`account/users/${user.prof_id}/`, user);
+      await api.put(`account/users/${user.professor_id}/`, user);
       const response = await api("account/users/");
       setUsers(response.data);
       setIsModalOpen(false);

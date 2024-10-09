@@ -12,7 +12,6 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
 
-
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
     if (initialData) {
@@ -39,6 +38,8 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
       birth_date: birthDate,
       department: department,
     };
+
+    console.log(userData);
     if (initialData) userData.id = initialData.id;
     handler(userData);
   };
@@ -65,6 +66,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 id="professorID"
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                 value={professorId}
+                onChange={(e) => setProfessorId(e.target.value)}
                 required
               />
             </div>
@@ -109,6 +111,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                     id="firstname"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                     value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                     required
                   />
                 </div>
@@ -123,6 +126,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                     type="text"
                     id="middlename"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    onChange={(e) => setMiddleName(e.target.value)}
                     value={middleName}
                   />
                 </div>
@@ -138,6 +142,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                     id="lastname"
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                     value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                     required
                   />
                 </div>
@@ -157,6 +162,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 id="mail"
                 className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                 value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -175,11 +181,12 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 name="birthdate"
                 id="birthdate"
                 value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
               />
             </div>
 
             {role === "VPAA" || role === "R" ? null : (
-              <div className="flex-col flex">
+              <div className="flex flex-col">
                 <label
                   htmlFor="department"
                   className="text-lg font-medium text-gray-700"
