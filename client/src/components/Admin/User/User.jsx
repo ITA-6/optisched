@@ -4,6 +4,7 @@ import add from "../../../assets/add.png";
 import UserSearchField from "./Files/UserSearchField";
 import UserTable from "./Files/UserTable";
 import UserForm from "./Files/UserForm";
+import loadingVideo from "../../../assets/loadingVideo.mp4";
 
 import api from "../../../api";
 
@@ -11,15 +12,22 @@ const User = () => {
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
+  const [loading, setLoading] = useState(true); // New loading state
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get("account/users/");
-      const department = await api.get("departments/");
-      setUsers(response.data);
-      setDepartments(department.data);
+      try {
+        const response = await api.get("account/users/");
+        const department = await api.get("departments/");
+        setUsers(response.data);
+        setDepartments(department.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        // Add a delay of 3 seconds after data is fetched before hiding loading screen
+        setTimeout(() => setLoading(false), 3000);
+      }
     };
     fetchData();
   }, []);
@@ -38,7 +46,7 @@ const User = () => {
     try {
       await api.put(`account/users/${user.prof_id}/`, user);
       const response = await api("account/users/");
-      setProfessor(response.data);
+      setUsers(response.data);
       setIsModalOpen(false);
     } catch (error) {
       console.error(error);
@@ -55,6 +63,23 @@ const User = () => {
       console.error(error);
     }
   };
+
+  if (loading) {
+    // Render the loading video while data is being fetched and during the delay
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <video
+          autoPlay
+          loop
+          muted
+          className="h-[35vh] w-[35vw] translate-x-20 transform"
+        >
+          <source src={loadingVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen w-screen bg-white">

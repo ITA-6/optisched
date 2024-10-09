@@ -1,20 +1,55 @@
+import React, { useState, useEffect } from "react";
 import BuildingRow from "./BuildingRow";
+import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const BuildingTable = ({ buildings, totalRows}) => {
+const BuildingTable = ({ buildings, totalRows }) => {
+  const [loading, setLoading] = useState(true); // Manage loading state
+
+  // Simulate data loading or replace with actual data fetching
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+      // Simulate a delay for data loading (replace with actual data fetching)
+      setTimeout(() => {
+        setLoading(false); // Data is loaded
+      }, 2000);
+    };
+
+    fetchData();
+  }, []); // Run only once when the component mounts
+
   const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return buildings[index] || { name: '', total_rooms: '', available_rooms : ''};
+    return (
+      buildings[index] || { name: "", total_rooms: "", available_rooms: "" }
+    );
   });
 
+  if (loading) {
+    // Show the loading video while data is being loaded
+    return (
+      <div className="flex h-full items-center justify-center">
+        <video src={loadingVideo} autoPlay loop className="h-[35vh] w-[35vw]" />
+      </div>
+    );
+  }
+
+  // Display the table when data is loaded
   return (
-    <table className="w-full h-[100%] table-fixed bg-white text-center">
-      <thead className="bg-green text-white text-xs border-separate border border-white sticky top-0">
+    <table className="h-[100%] w-full table-fixed bg-white text-center">
+      <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
-          <th scope="col" className="border border-white">Building Name</th>
-          <th scope="col" className="border border-white">Total Rooms</th>
-          <th scope="col" className="border border-white">Available Rooms</th>
+          <th scope="col" className="border border-white">
+            Building Name
+          </th>
+          <th scope="col" className="border border-white">
+            Total Rooms
+          </th>
+          <th scope="col" className="border border-white">
+            Available Rooms
+          </th>
         </tr>
       </thead>
-      <tbody className="mb-10 text-sm border-collapse border-y-2 border-gray-200">
+      <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
         {rowsToDisplay?.map((building, index) => (
           <BuildingRow key={index} building={building} />
         ))}
