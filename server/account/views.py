@@ -22,7 +22,20 @@ class AccountApiView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        serializer = AccountSerializer(data=request.data)
+        user_data = {
+            "user_id": request.data["professor_id"],
+            "username": request.data["professor_id"],
+            "password": request.data["birth_date"],
+            "email": request.data["email"],
+            "first_name": request.data["first_name"],
+            "last_name": request.data["last_name"],
+            "middle_name": request.data["middle_name"],
+            "user_type": request.data["user_type"],
+            "birth_date": request.data["birth_date"],
+            "department": request.data["department"],
+        }
+
+        serializer = AccountSerializer(data=user_data)
         data = {}
 
         if serializer.is_valid(raise_exception=True):
@@ -35,6 +48,40 @@ class AccountApiView(APIView):
             return Response(data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+
+        try:
+            user = CustomUser.objects.get(user_id=pk)
+        except CustomUser.DoesNotExist:
+            return Response(
+                {"message": "User not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        user_data = {
+            "user_id": request.data["professor_id"],
+            "username": request.data["professor_id"],
+            "password": request.data["birth_date"],
+            "email": request.data["email"],
+            "first_name": request.data["first_name"],
+            "last_name": request.data["last_name"],
+            "middle_name": request.data["middle_name"],
+            "user_type": request.data["user_type"],
+            "birth_date": request.data["birth_date"],
+            "department": request.data["department"],
+        }
+
+        account_serializer = AccountSerializer(user, data=user_data)
+        account_serializer.is_valid(raise_exception=True)
+        user = account_serializer.save()
+
+        data = {
+            "message": "User has been updated.",
+            "data": account_serializer.data,
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
@@ -52,6 +99,21 @@ class AccountApiView(APIView):
             users = CustomUser.objects.all()
             serializer = AccountSerializer(users, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk")
+
+        try:
+            instance = CustomUser.objects.get(user_id=pk)
+            instance.delete()
+            return Response(
+                {"message": "User has been deleted successfully."},
+                status=status.HTTP_204_NO_CONTENT,
+            )
+        except CustomUser.DoesNotExist:
+            return Response(
+                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
+            )
 
 
 class LoginApiView(APIView):
