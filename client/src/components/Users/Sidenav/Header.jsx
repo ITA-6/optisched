@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import User from "../../../assets/user.png";
+import userIcon from "../../../assets/userIcon.png";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-faUser
+
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
   const toggleUser = () => setUserOpen(!isUserOpen);
@@ -21,9 +19,9 @@ const Header = ({ pageName }) => {
       </h1>
       <button className="md:inline lg:hidden xl:hidden">Menu bar</button>
 
-      <div className="relative">
+      <div className="relative mr-5 mt-2">
         <button onClick={toggleUser}>
-          <FontAwesomeIcon icon= {faUser} size="xl" color="white" className="mr-4"/>
+          <img src={userIcon} alt="userIcon" />
         </button>
         <ul
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}

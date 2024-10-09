@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import User from "../../../assets/user.png";
+import userIcon from "../../../assets/userIcon.png";
 import api from "../../../api";
 
 const Header = ({ pageName }) => {
@@ -31,7 +31,7 @@ const Header = ({ pageName }) => {
 
       <div className="relative">
         <button onClick={toggleUser}>
-          <img src={User} className="m-4 h-6 w-6 md:inline" alt="User" />
+          <img src={userIcon} className="m-2 mr-5 md:inline" alt="User" />
         </button>
         <ul
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}

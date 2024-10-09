@@ -1,23 +1,56 @@
+import React, { useState, useEffect } from "react";
 import ProfessorRow from "./ProfessorRow";
+import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProfessorTables = ({ toggleDialog, professors, openUpdate, totalRows }) => {
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return professors[index] || {
-      prof_id: '',
-      first_name: '',
-      last_name: '',
-      birth_date: '',
-      email: '',
-      department_name: '',
-      has_masteral: '',
-      employment_status: '',
+const ProfessorTables = ({
+  toggleDialog,
+  professors,
+  openUpdate,
+  totalRows,
+}) => {
+  const [loading, setLoading] = useState(true); // Loading state
+
+  // Simulate data fetching or any asynchronous operation
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+      setTimeout(() => {
+        setLoading(false); // Simulate data load completion
+      }, 2000);
     };
+
+    fetchData();
+  }, []); // Empty dependency array to run this effect only once on component mount
+
+  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
+    return (
+      professors[index] || {
+        prof_id: "",
+        first_name: "",
+        last_name: "",
+        birth_date: "",
+        email: "",
+        department_name: "",
+        has_masteral: "",
+        employment_status: "",
+      }
+    );
   });
+
+  if (loading) {
+    // Show loading video while data is loading
+    return (
+      <div className="flex h-full items-center justify-center">
+        <video src={loadingVideo} autoPlay loop className="h-[30vh] w-[30vw]" />
+      </div>
+    );
+  }
+
   return (
     <>
-     <table className="w-full h-[100%] table-fixed bg-white text-center">
-     <thead className="bg-green text-white text-xs border-separate border border-white sticky -top-0.5">
-          <tr className="h-[30px] ">
+      <table className="h-[100%] w-full table-fixed bg-white text-center">
+        <thead className="sticky -top-0.5 border-separate border border-white bg-green text-xs text-white">
+          <tr className="h-[30px]">
             <th scope="col" className="h-[30px] w-[100px] border border-white">
               ID
             </th>
@@ -39,10 +72,13 @@ const ProfessorTables = ({ toggleDialog, professors, openUpdate, totalRows }) =>
             <th scope="col" className="h-[30px] w-[150px] border border-white">
               Employment Status
             </th>
-            <th scope="col" className="h-[30px] w-[200px] border border-white"></th>
+            <th
+              scope="col"
+              className="h-[30px] w-[200px] border border-white"
+            ></th>
           </tr>
         </thead>
-        <tbody className="mb-10 text-sm border-collapse border-y-2 border-gray-200">
+        <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
           {rowsToDisplay?.map((professor, index) => (
             <ProfessorRow
               key={index}
@@ -56,4 +92,5 @@ const ProfessorTables = ({ toggleDialog, professors, openUpdate, totalRows }) =>
     </>
   );
 };
+
 export default ProfessorTables;
