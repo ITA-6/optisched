@@ -43,13 +43,30 @@ class AccountSerializer(serializers.ModelSerializer):
             "last_login",
         ]
 
+        extra_kwargs = {
+            "password": {
+                "write_only": True
+            },  # Prevent password from being exposed in the serialized output
+            "last_login": {
+                "read_only": True
+            },  # Ensure last_login is not manually updated
+        }
+
     def get_user_type_name(self, obj):
         """Map the user_type code to its corresponding human-readable name."""
         return dict(CustomUser.USER_TYPES_CHOICES).get(obj.user_type, "Unknown")
 
     def create(self, validated_data):
+        # Securely hash the password before saving
         validated_data["password"] = make_password(validated_data["password"])
         return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        # If the password is being updated, hash it before saving
+        if "password" in validated_data:
+            validated_data["password"] = make_password(validated_data["password"])
+
+        return super().update(instance, validated_data)
 
 
 class LoginSerializer(serializers.Serializer):
