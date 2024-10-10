@@ -2,7 +2,6 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
-from rest_framework.exceptions import NotFound
 
 from professor.models import Professor
 from professor.serializers import ProfessorSerializer
