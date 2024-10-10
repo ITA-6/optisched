@@ -1,0 +1,52 @@
+// College of Computing Studies
+{ name: "Aaron Wagner", department: "College of Computing Studies", user_type: "admin" },
+{ name: "Taylor Simmons", department: "College of Computing Studies", user_type: "sub-admin" },
+{ name: "Angelica Knox", department: "College of Computing Studies", user_type: "user" },
+{ name: "Edward Mosley", department: "College of Computing Studies", user_type: "user" },
+{ name: "Christina Gonzalez", department: "College of Computing Studies", user_type: "user" },
+{ name: "Margaret Alexander", department: "College of Computing Studies", user_type: "user" },
+{ name: "Heather Doyle", department: "College of Computing Studies", user_type: "user" }
+
+// College of Engineering
+{ name: "Robert Franco", department: "College of Engineering", user_type: "admin" },
+{ name: "Heather Walker", department: "College of Engineering", user_type: "sub-admin" },
+{ name: "Robert Holt", department: "College of Engineering", user_type: "user" },
+{ name: "Mike Lucero", department: "College of Engineering", user_type: "user" },
+{ name: "Derek Wilson", department: "College of Engineering", user_type: "user" },
+{ name: "Leslie Cruz", department: "College of Engineering", user_type: "user" },
+{ name: "Christopher Bailey", department: "College of Engineering", user_type: "user" }
+
+// College of Business, Accountancy and Administration
+{ name: "Robin Bowers", department: "College of Business, Accountancy and Administration", user_type: "admin" },
+{ name: "Wendy Collins", department: "College of Business, Accountancy and Administration", user_type: "sub-admin" },
+{ name: "Yvonne Torres", department: "College of Business, Accountancy and Administration", user_type: "user" },
+{ name: "Matthew Perry", department: "College of Business, Accountancy and Administration", user_type: "user" },
+{ name: "Nichole Hunt", department: "College of Business, Accountancy and Administration", user_type: "user" },
+{ name: "Stephen Bass", department: "College of Business, Accountancy and Administration", user_type: "user" }
+
+// College of Arts and Sciences
+{ name: "Joe Roberts", department: "College of Arts and Sciences", user_type: "admin" },
+{ name: "Daniel Perez", department: "College of Arts and Sciences", user_type: "sub-admin" },
+{ name: "Linda Taylor", department: "College of Arts and Sciences", user_type: "user" },
+{ name: "Jason Johnson", department: "College of Arts and Sciences", user_type: "user" },
+{ name: "Madison Brooks", department: "College of Arts and Sciences", user_type: "user" },
+{ name: "Claire Armstrong", department: "College of Arts and Sciences", user_type: "user" },
+{ name: "Anne Sanchez", department: "College of Arts and Sciences", user_type: "user" }
+
+// College of Education
+{ name: "Leah Gomez", department: "College of Education", user_type: "admin" },
+{ name: "Misty Farrell", department: "College of Education", user_type: "sub-admin" },
+{ name: "Samantha Andrews", department: "College of Education", user_type: "user" },
+{ name: "Michael Martinez", department: "College of Education", user_type: "user" },
+{ name: "Gwendolyn Pearson", department: "College of Education", user_type: "user" },
+{ name: "Ryan Garrison", department: "College of Education", user_type: "user" },
+{ name: "Kimberly Hawkins", department: "College of Education", user_type: "user" }
+
+// College of Health and Allied Sciences
+{ name: "Jason Nelson", department: "College of Health and Allied Sciences", user_type: "admin" },
+{ name: "Andrew Swanson", department: "College of Health and Allied Sciences", user_type: "sub-admin" },
+{ name: "Lisa Kennedy", department: "College of Health and Allied Sciences", user_type: "user" },
+{ name: "David Williams", department: "College of Health and Allied Sciences", user_type: "user" },
+{ name: "Mark Johnson", department: "College of Health and Allied Sciences", user_type: "user" },
+{ name: "Charles Schneider", department: "College of Health and Allied Sciences", user_type: "user" },
+{ name: "Troy Williamson", department: "College of Health and Allied Sciences", user_type: "user" }
