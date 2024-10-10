@@ -82,7 +82,8 @@ const App = () => {
 
         {/* User */}
         <Route path="User" element={<Users />} >
-          <Route path="generate" element={<GenerateUser />} />
+          <Route index element={<GenerateUser />} />
+          <Route index path="generate" element={<GenerateUser />} />
           <Route path="schedule" element={<Schedule />} />
         </Route>
 
