@@ -1,7 +1,9 @@
 import React from "react";
 
-const UserRow = ({ user, openUpdate }) => {
+const UserRow = ({ user, openUpdate, DeleteUser }) => {
+  console.log(user)
   return (
+    
     <tr className="h-[30px] text-center">
       <td className="border-y-2 border-gray-200">{user.username}</td>
       <td className="border-y-2 border-gray-200">{user.first_name}</td>
@@ -19,7 +21,10 @@ const UserRow = ({ user, openUpdate }) => {
             >
               Edit
             </button>
-            <button className="-h5 w-16 bg-red-500 text-white">Delete</button>
+            <button 
+            onClick={() => DeleteUser(user.username)}
+            className="-h5 w-16 bg-red-500 text-white"
+            >Delete</button>
           </div>
         </div>
       </td>

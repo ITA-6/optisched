@@ -1,7 +1,7 @@
 import React from "react";
 import UserRow from "./UserRow";
 
-const UserTable = ({ users, toggleModal, openUpdate }) => {
+const UserTable = ({ users, toggleModal, openUpdate, DeleteUser }) => {
   console.log(users);
 
   return (
@@ -39,6 +39,7 @@ const UserTable = ({ users, toggleModal, openUpdate }) => {
             key={user.username}
             toggleModal={toggleModal}
             openUpdate={openUpdate}
+            DeleteUser={DeleteUser}
           />
         ))}
       </tbody>
