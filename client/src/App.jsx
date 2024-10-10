@@ -26,7 +26,6 @@ import Professors from "./components/SubAdmin/Management/Professor";
 import Sections from "./components/SubAdmin/Management/Section";
 import Classrooms from "./components/SubAdmin/Management/Classroom";
 import Courses from "./components/SubAdmin/Management/Course";
-import Departments from "./components/SubAdmin/Management/Department";
 import Programs from "./components/SubAdmin/Management/Program";
 
 // User
@@ -78,7 +77,6 @@ const App = () => {
           <Route path="management/section" element={<Sections />} />
           <Route path="management/classroom" element={<Classrooms />} />
           <Route path="management/course" element={<Courses />} />
-          <Route path="management/college" element={<Departments />} />
           <Route path="management/program" element={<Programs />} />
         </Route>
 
