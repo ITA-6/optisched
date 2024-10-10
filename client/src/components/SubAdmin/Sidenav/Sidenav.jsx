@@ -101,15 +101,6 @@ const Sidenav = () => {
           </li>
           <li className="w-full">
             <Link
-              to="management/college"
-              className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
-            >
-              <img src={education} alt="" className="h-6 w-6" />
-              <span className="ml-6 text-sidenavTextSize">College</span>
-            </Link>
-          </li>
-          <li className="w-full">
-            <Link
               to="management/program"
               className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
             >
