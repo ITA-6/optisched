@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from professor.models import Professor
 from professor.serializers import ProfessorSerializer
@@ -34,15 +34,54 @@ class ProfessorManager:
 
 
 class ProfessorAPIView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+
         if pk:
             return self.get_professor_detail(pk)
         else:
-            return self.get_all_professors()
+            return self.get_all_professors(request)
+
+    def get_all_professors(self, request):
+        user = request.user  # The currently authenticated user
+
+        # Check the user's role and department
+        if user.get_privilege() == "admin":
+            # Registrar sees all professors
+            professors = Professor.objects.all()
+        elif user.get_privilege() == "sub_admin":
+            # Dean or Department Chair sees only professors in their department
+            if not user.department:
+                return Response(
+                    {"error": "User does not have an assigned department."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            # Filter professors by the user's department
+            professors = Professor.objects.filter(department=user.department)
+        else:
+            # Default: no access to any professors
+            return Response(
+                {"error": "You do not have permission to view professors."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        # Serialize the filtered professor list
+        serializer = ProfessorSerializer(professors, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # Helper methods (same as before, no changes needed here)
+    def get_professor_detail(self, pk):
+        try:
+            professor = Professor.objects.get(pk=pk)
+            serializer = ProfessorSerializer(professor)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Professor.DoesNotExist:
+            return Response(
+                {"error": "Professor not found"}, status=status.HTTP_404_NOT_FOUND
+            )
 
     def post(self, request, *args, **kwargs):
         # Ensure department exists
@@ -128,22 +167,6 @@ class ProfessorAPIView(APIView):
             return Response(
                 {"error": "Professor not found"}, status=status.HTTP_404_NOT_FOUND
             )
-
-    # Helper methods
-    def get_professor_detail(self, pk):
-        try:
-            professor = Professor.objects.get(pk=pk)
-            serializer = ProfessorSerializer(professor)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except Professor.DoesNotExist:
-            return Response(
-                {"error": "Professor not found"}, status=status.HTTP_404_NOT_FOUND
-            )
-
-    def get_all_professors(self):
-        professors = Professor.objects.all()
-        serializer = ProfessorSerializer(professors, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def is_valid_department(self, department_id):
         return Department.objects.filter(id=department_id).exists()
