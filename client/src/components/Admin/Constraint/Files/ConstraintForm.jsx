@@ -13,11 +13,11 @@ const ConstraintForm = ({toggleModal}) => {
             <div className="">
                 <form 
                 action=""
-                className='flex flex-col gap-2 p-5'
+                className='flex flex-col gap-3 p-5'
                 >   
                      <div className="">
                         <div className="flex gap-5">
-                            <div className="flex-1 flex flex-col">
+                            <div className="flex-1 flex flex-col gap-2">
                                 <label 
                                 htmlFor="casual"
                                 className='mr-3'
@@ -30,7 +30,7 @@ const ConstraintForm = ({toggleModal}) => {
                                 className='border border-gray-300 rounded-md p-1'
                                 />
                             </div>
-                            <div className="flex-1 flex flex-col">
+                            <div className="flex-1 flex flex-col gap-2">
                                 <label 
                                 htmlFor="casual"
                                 className='mr-3'
@@ -43,7 +43,7 @@ const ConstraintForm = ({toggleModal}) => {
                                 className='border border-gray-300 rounded-md p-1'
                                 />
                             </div>
-                            <div className="flex-1 flex flex-col">
+                            <div className="flex-1 flex flex-col gap-2">
                                 <label
                                 htmlFor="casual"
                                 className='mr-3'
@@ -60,7 +60,7 @@ const ConstraintForm = ({toggleModal}) => {
                     </div>
 
                     <div className="flex flex-row justify-between gap-10">
-                       <div className="flex-1 flex flex-col">
+                       <div className="flex-1 flex flex-col gap-2">
                         <label 
                         htmlFor="time"
                         className='mr-2'
@@ -72,7 +72,7 @@ const ConstraintForm = ({toggleModal}) => {
                         className='border border-gray-300 rounded-md p-1'
                           />
                        </div>
-                       <div className="flex-1 flex flex-col">
+                       <div className="flex-1 flex flex-col gap-2">
                         <label 
                         htmlFor="time"
                         className='mr-2'
@@ -86,7 +86,7 @@ const ConstraintForm = ({toggleModal}) => {
                          />
                        </div>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col gap-2">
                         <label 
                         htmlFor="vacantHours"
                         className='mr-5'
@@ -100,14 +100,43 @@ const ConstraintForm = ({toggleModal}) => {
                         />
                     </div>
                    
-                    <div className="flex flex-col">
+                    <div className="flex flex-col gap-2">
                         <label htmlFor="pairing_day">Pairing Day</label>
-                        <input 
-                        type="text" 
-                        name="pairing_day" 
-                        id="pairing_day"
-                        className='border border-gray-300 p-1 rounded-md'
-                         />
+                        <div className="flex flex-row gap-10">
+                            <div 
+                            className="flex-1 flex flex-col"
+                            >
+                                <select 
+                                name="pairing_day" 
+                                id="pairing_day" 
+                                className='p-1 border border-gray-300 rounded-md'>
+                                    <option value="first_monday">Monday</option>
+                                    <option value="first_tuesday">Tuesday</option>
+                                    <option value="first_wednesday">Wednesday</option>
+                                    <option value="first_thursday">Thursday</option>
+                                    <option value="first_friday">Friday</option>
+                                    <option value="first_saturday">Saturday</option>
+                                    <option value="first_sunday">Sunday</option>
+                                </select>
+                            </div>
+                            <div 
+                            className="flex-1 flex flex-col"
+                            >
+                                <select 
+                                name="" 
+                                id=""
+                                className='p-1 border border-gray-300 rounded-md'
+                                >
+                                    <option value="second_monday">Monday</option>
+                                    <option value="second_tuesday">Tuesday</option>
+                                    <option value="second_wednesday">Wednesday</option>
+                                    <option value="second_thursday">Thursday</option>
+                                    <option value="second_friday">Friday</option>
+                                    <option value="second_saturday">Saturday</option>
+                                    <option value="second_sunday">Sunday</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
                         <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
