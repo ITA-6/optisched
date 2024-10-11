@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProfessorRow from "./ProfessorRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProfessorTables = ({ professors, totalRows = 10 }) => {
+const ProfessorTables = ({ professors, totalRows = 10, ViewProfessor }) => {
   const [loading, setLoading] = useState(true); // State to manage loading status
 
   // data loading
@@ -72,7 +72,7 @@ const ProfessorTables = ({ professors, totalRows = 10 }) => {
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
         {rowsToDisplay.map((professor, index) => (
-          <ProfessorRow key={index} professor={professor} />
+          <ProfessorRow key={index} professor={professor} ViewProfessor={ViewProfessor} />
         ))}
       </tbody>
     </table>
