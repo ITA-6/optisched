@@ -39,6 +39,7 @@ import Unauthorized from "./components/Error/Unauthorized/Unauthorized";
 // Not found
 import Notfound from "./components/Error/Notfound/Notfound";
 import PrintSchedule from "./components/Users/PrintSchedule";
+import CourseTable from "./components/Admin/Curriculum/Files/curriculumView";
 
 
 
@@ -67,6 +68,7 @@ const App = () => {
           <Route path="view/program" element={<ViewProgram />} />
           <Route path="view/building" element={<ViewBuilding />} />
           <Route path="view/constraint" element={<Constraint />} />
+          <Route path="curriculum/program" element={<CourseTable />} />
         </Route>
 
           {/* Sub Admin Routes */}
