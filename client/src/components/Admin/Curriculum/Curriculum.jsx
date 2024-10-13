@@ -1,12 +1,25 @@
-import React, { useState, useEffect } from "react";
+import  { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { programs } from "./curriculumData";
 
 const Curriculum = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("CSS");
-
+  const navigate = useNavigate();
   useEffect(() => {
     setSelectedDepartment("CSS");
   }, []);
+
+ const viewProgram = (event) => {
+
+  const selectedIndex = event.currentTarget.getAttribute("data-index");
+  
+  const selectedProgram = programs.find(program => program.acronym === selectedIndex)
+  
+  if(selectedProgram.acronym === "BSIT"){
+     navigate("/admin/curriculum/program")
+  }
+  
+ }  
 
   const handleButtonClick = (department) => {
     setSelectedDepartment(department);
@@ -47,7 +60,8 @@ const Curriculum = () => {
             {filteredPrograms.length > 0 ? (
               filteredPrograms.map((program, index) => (
                 <tr key={index} className="h-20 cursor-pointer">
-                  <td>{program.program}</td>
+                  <td 
+                  data-index={program.acronym} onClick={(e) => viewProgram(e)}>{program.program}</td>
                 </tr>
               ))
             ) : (

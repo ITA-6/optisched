@@ -1,6 +1,7 @@
 // curriculumData.js
 
 export const firstSemesterCourses = [
+  
   {
     code: "MAT101",
     title: "Mathematics in the Modern World",
