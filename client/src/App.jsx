@@ -18,10 +18,9 @@ import ViewProgram from "./components/Admin/ViewManagement/Program";
 import ViewBuilding from "./components/Admin/ViewManagement/Building";
 import Constraint from "./components/Admin/Constraint";
 
-
 // sub Admin Imports
-import SubAdmin from "./components/SubAdmin/index"
-import Buildings from "../src/components/SubAdmin/Management/Building/Building"
+import SubAdmin from "./components/SubAdmin/index";
+import Buildings from "../src/components/SubAdmin/Management/Building/Building";
 import Professors from "./components/SubAdmin/Management/Professor";
 import Sections from "./components/SubAdmin/Management/Section";
 import Classrooms from "./components/SubAdmin/Management/Classroom";
@@ -29,11 +28,11 @@ import Courses from "./components/SubAdmin/Management/Course";
 import Programs from "./components/SubAdmin/Management/Program";
 
 // User
-import Users from "./components/Users/"
-import GenerateUser from "./components/Users/Generate"
+import Users from "./components/Users/";
+import GenerateUser from "./components/Users/Generate";
 import Schedule from "./components/Users/MySchedule";
 
-// Unauthorized 
+// Unauthorized
 import Unauthorized from "./components/Error/Unauthorized/Unauthorized";
 
 // Not found
@@ -41,9 +40,7 @@ import Notfound from "./components/Error/Notfound/Notfound";
 import PrintSchedule from "./components/Users/PrintSchedule";
 import CourseTable from "./components/Admin/Curriculum/Files/curriculumView";
 
-
-
-const App = () => { 
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -71,10 +68,10 @@ const App = () => {
           <Route path="curriculum/program" element={<CourseTable />} />
         </Route>
 
-          {/* Sub Admin Routes */}
+        {/* Sub Admin Routes */}
         <Route path="sub-admin" element={<SubAdmin />}>
-          <Route index element={<Professors/>} />
-          <Route path="management/building" element={<Buildings/>} />
+          <Route index element={<Professors />} />
+          <Route path="management/building" element={<Buildings />} />
           <Route path="management/professor" element={<Professors />} />
           <Route path="management/section" element={<Sections />} />
           <Route path="management/classroom" element={<Classrooms />} />
@@ -83,26 +80,24 @@ const App = () => {
         </Route>
 
         {/* User */}
-        <Route path="User" element={<Users />} >
+        <Route path="User" element={<Users />}>
           <Route index element={<GenerateUser />} />
           <Route index path="generate" element={<GenerateUser />} />
           <Route path="schedule" element={<Schedule />} />
         </Route>
 
-
         {/* kindly remove the routings if not needed */}
         {/* Unauthorized */}
-        <Route path="Unauthorized" element={< Unauthorized />} >
-          <Route index element={ <Unauthorized />} />
+        <Route path="Unauthorized" element={<Unauthorized />}>
+          <Route index element={<Unauthorized />} />
         </Route>
         {/* Not found Page */}
-        <Route path="*" element={< Notfound/>} >
-          <Route index element={ <Notfound />} />
+        <Route path="*" element={<Notfound />}>
+          <Route index element={<Notfound />} />
         </Route>
 
         {/* print Page */}
-        <Route path="print" element={< PrintSchedule />} >
-        </Route>
+        <Route path="print" element={<PrintSchedule />}></Route>
       </Routes>
     </BrowserRouter>
   );

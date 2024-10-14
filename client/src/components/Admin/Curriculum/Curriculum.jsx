@@ -1,7 +1,7 @@
-import  { React, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { programs } from "./curriculumData";
-
+import CurriculumForm from "./Files/CurriculumForm";
 const Curriculum = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("CSS");
   const navigate = useNavigate();
@@ -9,17 +9,22 @@ const Curriculum = () => {
     setSelectedDepartment("CSS");
   }, []);
 
- const viewProgram = (event) => {
+  const [isFormOpen, setIsForm] = useState(false);
 
-  const selectedIndex = event.currentTarget.getAttribute("data-index");
-  
-  const selectedProgram = programs.find(program => program.acronym === selectedIndex)
-  
-  if(selectedProgram.acronym === "BSIT"){
-     navigate("/admin/curriculum/program")
-  }
-  
- }  
+  const toggleForm = () => {
+    setIsForm(!isFormOpen);
+  };
+  const viewProgram = (event) => {
+    const selectedIndex = event.currentTarget.getAttribute("data-index");
+
+    const selectedProgram = programs.find(
+      (program) => program.acronym === selectedIndex,
+    );
+
+    if (selectedProgram.acronym === "BSIT") {
+      navigate("/admin/curriculum/program");
+    }
+  };
 
   const handleButtonClick = (department) => {
     setSelectedDepartment(department);
@@ -60,8 +65,12 @@ const Curriculum = () => {
             {filteredPrograms.length > 0 ? (
               filteredPrograms.map((program, index) => (
                 <tr key={index} className="h-20 cursor-pointer">
-                  <td 
-                  data-index={program.acronym} onClick={(e) => viewProgram(e)}>{program.program}</td>
+                  <td
+                    data-index={program.acronym}
+                    onClick={(e) => viewProgram(e)}
+                  >
+                    {program.program}
+                  </td>
                 </tr>
               ))
             ) : (
@@ -73,7 +82,12 @@ const Curriculum = () => {
             )}
           </tbody>
         </table>
+        <button onClick={toggleForm} className="bg-green text-white">
+          Add new Curriculum
+        </button>
       </div>
+
+      {isFormOpen && <CurriculumForm />}
     </div>
   );
 };
