@@ -116,6 +116,9 @@ const CourseTable = () => {
               </tbody>
             </table>
           </div>
+          <div className="flex justify-end items-center mt-5">
+            <button type="button" className="bg-green text-white text-base px-5 py-2 rounded-md"> Add New Subject</button>
+          </div>
         </div>
       </div>
     </div>

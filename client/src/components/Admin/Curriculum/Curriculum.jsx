@@ -10,6 +10,11 @@ const Curriculum = () => {
   }, []);
 
   const [isFormOpen, setIsForm] = useState(false);
+  const [openCurriculumForm, setOpenCurriculumForm] = useState(false)
+
+  const toggleCurriculumForm = () => {
+    setOpenCurriculumForm(!openCurriculumForm)
+  }
 
   const toggleForm = () => {
     setIsForm(!isFormOpen);
@@ -82,12 +87,18 @@ const Curriculum = () => {
             )}
           </tbody>
         </table>
-        <button onClick={toggleForm} className="bg-green text-white">
-          Add new Curriculum
-        </button>
+        <div className="flex justify-end">
+          <button onClick={toggleCurriculumForm} className="bg-green text-white p-2 rounded-md mt-5">
+            Add new Curriculum
+          </button>
+        </div>
       </div>
 
-      {isFormOpen && <CurriculumForm />}
+      {openCurriculumForm && (
+        <CurriculumForm 
+          toggleCurriculumForm={toggleCurriculumForm}
+        />
+      )}
     </div>
   );
 };
