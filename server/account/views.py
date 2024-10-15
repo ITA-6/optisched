@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -9,9 +11,10 @@ from account.serializers import (
     AccountSerializer,
     LoginSerializer,
     CustomTokenObtainPairSerializer,
+    LoginHistorySerializer,
 )
 
-from account.models import CustomUser
+from account.models import CustomUser, LoginHistory
 from professor.models import Professor
 from section.models import Section
 from room.models import Room
@@ -106,18 +109,33 @@ class LoginApiView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
 
+    def get_client_ip(self, request):
+        """Get the client's IP address from the request headers."""
+        x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(",")[0]
+        else:
+            ip = request.META.get("REMOTE_ADDR")
+        return ip
+
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data)
 
         if serializer.is_valid():
             user = serializer.validated_data["user"]
 
+            # Log login history
+            ip_address = self.get_client_ip(request)
+            user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+            LoginHistory.objects.create(
+                user=user,
+                login_time=timezone.now(),
+                ip_address=ip_address,
+                user_agent=user_agent,
+            )
+
             refresh = CustomTokenObtainPairSerializer().get_token(user)
-
-            # If you need to add more custom claims dynamically, you can do so here
-            # For example:
-            # refresh['custom_claim'] = 'custom_value'
-
             access_token = refresh.access_token
 
             return Response(
@@ -147,7 +165,7 @@ class LogoutApiView(APIView):
             return Response(
                 {"success": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT
             )
-        except Exception as e:
+        except Exception:
             return Response(
                 {"error": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST
             )
@@ -173,3 +191,12 @@ class CountApiView(APIView):
                 "course_count": course_count,
             }
         )
+
+
+class LoginHistoryApiView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        login_history = LoginHistory.objects.all()
+        serializer = LoginHistorySerializer(login_history, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

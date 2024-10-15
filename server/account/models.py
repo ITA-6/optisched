@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
 )
 from django.utils import timezone
+from django.conf import settings
 
 
 class CustomUserManager(BaseUserManager):
@@ -78,3 +79,17 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.username
+
+
+class LoginHistory(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    login_time = models.DateTimeField(default=timezone.now)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.CharField(max_length=255, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Login History"
+        verbose_name_plural = "Login Histories"
+
+    def __str__(self):
+        return f"Login by {self.user.username} on {self.login_time}"

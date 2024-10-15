@@ -1,6 +1,7 @@
 from django.db import models
 
 from professor.models import Professor
+from program.models import Program
 
 
 class Section(models.Model):
@@ -8,6 +9,9 @@ class Section(models.Model):
     year_level = models.IntegerField()
     adviser = models.ForeignKey(
         Professor, on_delete=models.CASCADE, null=True, blank=True
+    )
+    program = models.ForeignKey(
+        Program, on_delete=models.CASCADE, null=True, blank=True
     )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

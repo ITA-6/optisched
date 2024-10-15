@@ -1,5 +1,11 @@
 from django.urls import path
-from account.views import AccountApiView, CountApiView, LoginApiView, LogoutApiView
+from account.views import (
+    AccountApiView,
+    CountApiView,
+    LoginApiView,
+    LogoutApiView,
+    LoginHistoryApiView,
+)
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -9,4 +15,5 @@ urlpatterns = [
     path("logout/", LogoutApiView.as_view(), name="logout"),
     path("count/", CountApiView.as_view(), name="count"),
     path("refresh-token/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("login-history/", LoginHistoryApiView.as_view(), name="login-history"),
 ]

@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 
+from ua_parser import user_agent_parser
+
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from account.models import CustomUser
+from account.models import CustomUser, LoginHistory
 from professor.serializers import ProfessorSerializer
 
 
@@ -91,3 +93,47 @@ class LoginSerializer(serializers.Serializer):
                 "Both username and password are required."
             )
         return attrs
+
+
+class LoginHistorySerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()  # Return the user's full name
+    login_time = serializers.DateTimeField(
+        format="%Y-%m-%d %H:%M:%S"
+    )  # Format login time
+    user_agent_readable = (
+        serializers.SerializerMethodField()
+    )  # Add readable user agent field
+
+    class Meta:
+        model = LoginHistory
+        fields = [
+            "name",
+            "login_time",
+            "ip_address",
+            "user_agent",
+            "user_agent_readable",
+        ]
+        extra_kwargs = {
+            "user_agent": {"write_only": True}  # Make user_agent write-only
+        }
+
+    def get_name(self, obj):
+        """Return the full name of the user."""
+        full_name = f"{obj.user.first_name} {obj.user.last_name}"
+        return full_name.strip()
+
+    def get_user_agent_readable(self, obj):
+        """Parse the user_agent string and return human-readable details using ua-parser."""
+        user_agent = user_agent_parser.Parse(obj.user_agent)
+
+        browser = user_agent["user_agent"]
+        os = user_agent["os"]
+        device = user_agent["device"]
+
+        return {
+            "browser": f"{browser['family']} {browser['major']}.{browser.get('minor', '')}",
+            "os": f"{os['family']} {os['major']}.{os.get('minor', '')}",
+            "device": device["family"]
+            if device["family"] != "Other"
+            else "Unknown Device",
+        }
