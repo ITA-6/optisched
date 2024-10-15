@@ -1,11 +1,11 @@
 import React from 'react'
 
-const CurriculumSubjectForm = ({toggleForm}) => {
+const CurriculumSubjectForm = ({toggleSubjectForm}) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-2/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-          <img src={parameters}  alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
+          <img src=""  alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
           <h2 className="ml-2 text-3xl font-extrabold text-white">
             Add New Subject
           </h2>
@@ -91,7 +91,7 @@ const CurriculumSubjectForm = ({toggleForm}) => {
         </form>
         <button
             className="absolute right-3 top-3 rounded-full bg-red-500 px-2 pb-1 text-white"
-            onClick={toggleForm}
+            onClick={toggleSubjectForm}
           >
             &times;
           </button>

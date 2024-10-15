@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { firstSemesterCourses, secondSemesterCourses } from "./ccsCurriculum";
-
+import CurriculumSubjectForm from "./CurriculumSubjectForm";
 const CourseTable = () => {
+  const [subjectFormOpen, setSubjectFormOpen] = useState(false)
+
+  const toggleSubjectForm = () =>{
+    setSubjectFormOpen(!subjectFormOpen)
+  }
   return (
     <div className="flex">
       <div className="w-64"></div>{" "}
@@ -12,7 +17,7 @@ const CourseTable = () => {
             CURRICULUM
           </h2>
           <h3 className="mb-2 text-lg font-semibold">First Semester</h3>
-          <div className="max-h-[300px] overflow-x-auto overflow-y-auto">
+          <div className=" overflow-x-auto overflow-y-auto xl:max-h-[18.75rem] lg:max-h-[16rem] md: max-h-[12rem] ">
             {" "}
             <table className="mb-6 w-full table-auto border-collapse border border-gray-400">
               <thead className="bg-green">
@@ -65,7 +70,7 @@ const CourseTable = () => {
           </div>
           {/* Second Semester */}
           <h3 className="mb-2 mt-8 text-lg font-semibold">Second Semester</h3>
-          <div className="max-h-[300px] overflow-x-auto overflow-y-auto">
+          <div className="overflow-x-auto overflow-y-auto xl:max-h-[18.75rem] lg:max-h-[16rem] md: max-h-[12rem]">
             {" "}
             <table className="w-full table-auto border-collapse border border-gray-400">
               <thead className="bg-green">
@@ -117,9 +122,12 @@ const CourseTable = () => {
             </table>
           </div>
           <div className="flex justify-end items-center mt-5">
-            <button type="button" className="bg-green text-white text-base px-5 py-2 rounded-md"> Add New Subject</button>
+            <button type="button" className=" text-white text-base bg-green py-2 px-5 rounded-md"  onClick={toggleSubjectForm}>Add new Subject</button>
           </div>
         </div>
+        {subjectFormOpen && (
+            <CurriculumSubjectForm toggleSubjectForm={toggleSubjectForm} />
+        )}
       </div>
     </div>
   );
