@@ -2,4 +2,7 @@ create_initial_admin
 create_initial_department
 create_initial_professors_and_users
 create_initial_buildings
+create_initial_program
+create_initial_room
+create_initial_section
 run_all_initial -- Run this command to run all commands on top.

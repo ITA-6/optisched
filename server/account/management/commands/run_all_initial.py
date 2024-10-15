@@ -11,6 +11,9 @@ class Command(BaseCommand):
             "create_initial_department",
             "create_initial_professors_and_users",
             "create_initial_buildings",
+            "create_initial_program",
+            "create_initial_room",
+            "create_initial_section",
         ]
 
         for command in commands_to_run:
