@@ -1,89 +1,21 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import DashboardRow from "./DashboardRow";
 
+import api from "../../../../api";
+
 const DashboardTable = () => {
-  const data = [
-    {
-      name: "John Doe",
-      lastSeen: "2024-10-09",
-      firstSeen: "2023-03-01",
-      department: "CCS",
-      count: "5",
-      lastSession: "2024-10-09",
-    },
-    {
-      name: "Jane Smith",
-      lastSeen: "2024-10-08",
-      firstSeen: "2023-02-10",
-      department: "COE",
-      count: "4",
-      lastSession: "2024-10-08",
-    },
-    {
-      name: "Alice Johnson",
-      lastSeen: "2024-10-09",
-      firstSeen: "2023-01-05",
-      department: "CBAA",
-      count: "3",
-      lastSession: "2024-10-09",
-    },
-    {
-      name: "Michael Brown",
-      lastSeen: "2024-10-07",
-      firstSeen: "2023-05-12",
-      department: "COED",
-      count: "6",
-      lastSession: "2024-10-07",
-    },
-    {
-      name: "Emily Davis",
-      lastSeen: "2024-10-06",
-      firstSeen: "2023-04-15",
-      department: "CHAS",
-      count: "8",
-      lastSession: "2024-10-06",
-    },
-    {
-      name: "David Wilson",
-      lastSeen: "2024-10-05",
-      firstSeen: "2023-06-20",
-      department: "CAS",
-      count: "2",
-      lastSession: "2024-10-05",
-    },
-    {
-      name: "Sarah Taylor",
-      lastSeen: "2024-10-04",
-      firstSeen: "2023-07-25",
-      department: "CCS",
-      count: "7",
-      lastSession: "2024-10-04",
-    },
-    {
-      name: "James Anderson",
-      lastSeen: "2024-10-03",
-      firstSeen: "2023-08-30",
-      department: "COE",
-      count: "3",
-      lastSession: "2024-10-03",
-    },
-    {
-      name: "Sophia Martinez",
-      lastSeen: "2024-10-02",
-      firstSeen: "2023-09-05",
-      department: "CBAA",
-      count: "5",
-      lastSession: "2024-10-02",
-    },
-    {
-      name: "Daniel Lee",
-      lastSeen: "2024-10-01",
-      firstSeen: "2023-10-10",
-      department: "COED",
-      count: "9",
-      lastSession: "2024-10-01",
-    },
-  ];
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get(
+        "account/login-history/",
+      );
+      setDatas(...[response.data]);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="grid h-full grid-cols-[1fr_8fr_1fr] text-center grid-areas-table grid-in-history">
@@ -94,25 +26,25 @@ const DashboardTable = () => {
               Name
             </th>
             <th scope="col" className="border border-white">
-              Last Seen
+              Login Time
             </th>
             <th scope="col" className="border border-white">
-              First Seen
+              IP Address
             </th>
             <th scope="col" className="border border-white">
-              Department
+              Browser
             </th>
             <th scope="col" className="border border-white">
-              Count of Sessions
+              OS
             </th>
             <th scope="col" className="border border-white">
-              Last Session
+              Device
             </th>
           </tr>
         </thead>
         <tbody className="text-sm">
-          {data.map((row, index) => (
-            <DashboardRow key={index} data={row} />
+          {datas?.map((data, index) => (
+            <DashboardRow key={index} data={data} />
           ))}
         </tbody>
       </table>

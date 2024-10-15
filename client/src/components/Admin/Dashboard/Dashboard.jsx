@@ -13,9 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get(
-        "http://127.0.0.1:8000/api/account/count/",
-      );
+      const response = await api.get("account/count/");
       setData(...[response.data]);
     };
 
@@ -64,7 +62,7 @@ const Dashboard = () => {
           </div>
         </div>
         <DashboardSearchField />
-        <DashboardTable /> 
+        <DashboardTable />
       </div>
     </div>
   );

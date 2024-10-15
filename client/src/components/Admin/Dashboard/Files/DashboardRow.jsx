@@ -1,16 +1,19 @@
-import React from 'react'
+const DashboardRow = ({ data }) => {
+  const { name, login_time, ip_address, user_agent_readable } = data;
+  const { browser, os, device } = user_agent_readable;
 
-const DashboardRow = ({data}) => {
   return (
     <tr className="h-10 max-h-10">
-      <th scope="row" className="border border-gray-200">{data?.name || ''}</th>
-      <td className="border border-gray-200">{data?.lastSeen || ''}</td>
-      <td className="border border-gray-200">{data?.firstSeen || ''}</td>
-      <td className="border border-gray-200">{data?.department || ''}</td>
-      <td className="border border-gray-200">{data?.count || ''}</td>
-      <td className="border border-gray-200">{data?.lastSession || ''}</td>
-  </tr>
-  )
-}
+      <th scope="row" className="border border-gray-200">
+        {name}
+      </th>
+      <td className="border border-gray-200">{login_time}</td>
+      <td className="border border-gray-200">{ip_address}</td>
+      <td className="border border-gray-200">{browser}</td>
+      <td className="border border-gray-200">{os}</td>
+      <td className="border border-gray-200">{device}</td>
+    </tr>
+  );
+};
 
-export default DashboardRow
+export default DashboardRow;
