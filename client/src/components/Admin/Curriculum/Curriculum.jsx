@@ -21,14 +21,7 @@ const Curriculum = () => {
   };
   const viewProgram = (event) => {
     const selectedIndex = event.currentTarget.getAttribute("data-index");
-
-    const selectedProgram = programs.find(
-      (program) => program.acronym === selectedIndex,
-    );
-
-    if (selectedProgram.acronym === "BSIT") {
-      navigate("/admin/curriculum/program");
-    }
+    navigate("/admin/curriculum/program", {state : {acronym : selectedIndex}});
   };
 
   const handleButtonClick = (department) => {
@@ -97,6 +90,7 @@ const Curriculum = () => {
       {openCurriculumForm && (
         <CurriculumForm 
           toggleCurriculumForm={toggleCurriculumForm}
+          data={data}
         />
       )}
     </div>
