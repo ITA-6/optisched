@@ -101,9 +101,9 @@ const User = () => {
 
   return (
     <div className="h-screen w-screen bg-white">
-      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_6fr_6fr] grid-areas-user-layout">
+      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_9fr_3fr] grid-areas-user-layout">
         <UserSearchField />
-        <div className="mr-5 grid grid-areas-user-table-layout grid-in-userTable">
+        <div className="mr-5 grid grid-areas-user-table-layout grid-in-userTable overflow-y-auto">
           <UserTable
             users={users}
             openUpdate={openUpdate}
