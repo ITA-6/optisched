@@ -60,8 +60,8 @@ const GeneratePrint = () => {
                   <th class="h-[1.5rem] border border-black font-medium">Life and Works of Rizal</th>
                   <th class="h-[1.5rem] border border-black font-medium">3</th>
                   <th class="h-[1.5rem] border border-black font-medium">0</th>
-                  <th class="h-[1.5rem] border border-black font-medium">MWF</th>
-                  <th class="h-[1.5rem] border border-black font-medium">9:00-10:00 AM</th>
+                  <th class="h-[1.5rem] border border-black font-medium">M/WF</th>
+                  <th class="h-[1.5rem] border border-black font-medium">9:00-10:00 AM/ 9:00-10:00 AM</th>
                   <th class="h-[1.5rem] border border-black font-medium">Room 101</th>
                   <th class="h-[1.5rem] border border-black font-medium">A1</th>
                 </tr>
@@ -70,8 +70,8 @@ const GeneratePrint = () => {
                   <th class="h-[1.5rem] border border-black font-medium">Introduction to Computer Science</th>
                   <th class="h-[1.5rem] border border-black font-medium">3</th>
                   <th class="h-[1.5rem] border border-black font-medium">1</th>
-                  <th class="h-[1.5rem] border border-black font-medium">TTh</th>
-                  <th class="h-[1.5rem] border border-black font-medium">10:00-11:30 AM</th>
+                  <th class="h-[1.5rem] border border-black font-medium">T/Th</th>
+                  <th class="h-[1.5rem] border border-black font-medium">10:00-11:30 AM/ 9:00-10:00 AM</th>
                   <th class="h-[1.5rem] border border-black font-medium">Room 202</th>
                   <th class="h-[1.5rem] border border-black font-medium">B2</th>
                 </tr>
@@ -80,8 +80,8 @@ const GeneratePrint = () => {
                   <th class="h-[1.5rem] border border-black font-medium">Calculus I</th>
                   <th class="h-[1.5rem] border border-black font-medium">4</th>
                   <th class="h-[1.5rem] border border-black font-medium">0</th>
-                  <th class="h-[1.5rem] border border-black font-medium">MWF</th>
-                  <th class="h-[1.5rem] border border-black font-medium">1:00-2:30 PM</th>
+                  <th class="h-[1.5rem] border border-black font-medium">M/WF</th>
+                  <th class="h-[1.5rem] border border-black font-medium">1:00-2:30 PM / 10:00-11:30 AM</th>
                   <th class="h-[1.5rem] border border-black font-medium">Room 105</th>
                   <th class="h-[1.5rem] border border-black font-medium">C3</th>
                 </tr>
@@ -90,7 +90,7 @@ const GeneratePrint = () => {
                   <th class="h-[1.5rem] border border-black font-medium">Physics I</th>
                   <th class="h-[1.5rem] border border-black font-medium">3</th>
                   <th class="h-[1.5rem] border border-black font-medium">1</th>
-                  <th class="h-[1.5rem] border border-black font-medium">TTh</th>
+                  <th class="h-[1.5rem] border border-black font-medium">T/Th</th>
                   <th class="h-[1.5rem] border border-black font-medium">3:00-4:30 PM</th>
                   <th class="h-[1.5rem] border border-black font-medium">Room 303</th>
                   <th class="h-[1.5rem] border border-black font-medium">D4</th>
@@ -101,7 +101,7 @@ const GeneratePrint = () => {
                   <th class="h-[1.5rem] border border-black font-medium">3</th>
                   <th class="h-[1.5rem] border border-black font-medium">0</th>
                   <th class="h-[1.5rem] border border-black font-medium">MWF</th>
-                  <th class="h-[1.5rem] border border-black font-medium">2:00-3:00 PM</th>
+                  <th class="h-[1.5rem] border border-black font-medium">2:00-3:00 PM / 1:00-2:30 PM </th>
                   <th class="h-[1.5rem] border border-black font-medium">Room 204</th>
                   <th class="h-[1.5rem] border border-black font-medium">E5</th>
                 </tr>
@@ -123,9 +123,6 @@ const GeneratePrint = () => {
       .then((pdf) => {
         const pdfBlob = pdf.output('blob');
         const pdfUrl = URL.createObjectURL(pdfBlob);
-
-        // Set the browser URL (this is purely for aesthetics)
-        window.history.pushState({}, '', '/user/generate/print');
 
         // Open the customized PDF in a new tab
         const newWindow = window.open(pdfUrl);
