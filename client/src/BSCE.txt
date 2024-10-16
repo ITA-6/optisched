@@ -1,0 +1,23 @@
+[
+    {title: "Science Development Reading"},
+    {title: "Living in the IT Era"},
+    {title: "PnCians Holistic Development"},
+    {title: "Understanding the Self"},
+    {title: "Mathematics in the Modern World"},
+    {title: "Computer Engineering as a Discipline"},
+    {title: "Programming Logic and Design"},
+    {title: "Calculus 1"},
+    {title: "Chemistry for Engineers"},
+    {title: "National Service Training Program 1"},
+    {title: "Physical Education 1"},
+    {title: "Gender and Development"},
+    {title: "Readings in Philippine History"},
+    {title: "PnCians Holistic Development 2"},
+    {title: "Purposive Communication"},
+    {title: "Object-Oriented Programming"},
+    {title: "Calculus 2"},
+    {title: "Calculus-Based Physics"},
+    {title: "Art Appreciation"},
+    {title: "National Service Training Program 2"},
+    {title: "Physical Education 2"}
+]
