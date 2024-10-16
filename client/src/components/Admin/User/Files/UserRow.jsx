@@ -2,7 +2,7 @@ import React from "react";
 
 const UserRow = ({ user, openUpdate, DeleteUser }) => {
   return (
-    <tr className="h-[30px] text-center">
+    <tr className="h-[4rem] text-center">
       <td className="border-y-2 border-gray-200">{user.username}</td>
       <td className="border-y-2 border-gray-200">{user.first_name}</td>
       <td className="border-y-2 border-gray-200">{user.middle_name}</td>
