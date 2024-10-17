@@ -1,6 +1,6 @@
 const CourseRow = ({ toggleDialog, course, openUpdate }) => {
 
-  console.log(course)
+  console.log(course.need_masteral)
   const hasData = course.name && course.code;
   return (
     <>
@@ -12,7 +12,7 @@ const CourseRow = ({ toggleDialog, course, openUpdate }) => {
         <td className="border-y-2 border-gray-200">{course.laboratory}</td>
         <td className="border-y-2 border-gray-200">{course.total_units}</td>
         <td className="border-y-2 border-gray-200">{course.total_hours}</td>
-        <td className="border-y-2 border-gray-200">{course.need_masteral}</td>
+        <td className="border-y-2 border-gray-200">{course.need_masteral === true  ? "Yes" : "No"}</td>
         <td className="border-y-2 border-gray-200">
          {hasData && (
              <div className="flex items-center justify-center">
