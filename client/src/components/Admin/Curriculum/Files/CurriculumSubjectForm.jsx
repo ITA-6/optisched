@@ -17,7 +17,6 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
   }, []);
 
  
-  console.log(year)
   const submitBtn = (e) => {
     e.preventDefault();
     const selectedProgram = data.findIndex( data => data.acronym === acronym)

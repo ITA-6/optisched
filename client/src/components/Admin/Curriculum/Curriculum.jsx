@@ -1,24 +1,29 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { programs } from "./curriculumData";
-import CurriculumForm from "./Files/CurriculumForm";
+import api from "../../../api";
+
 const Curriculum = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState("CSS");
+  const [selectedDepartment, setSelectedDepartment] = useState(1);
+  const [department, setDepartment] = useState([]);
+  const [programs, setPrograms] = useState([]);
+
+  console.log(programs)
+
   const navigate = useNavigate();
   useEffect(() => {
-    setSelectedDepartment("CSS");
+    setSelectedDepartment(1);
+  }, []);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get("departments/");
+      const program = await api("programs/");
+      setDepartment(response.data);
+      setPrograms(program.data)
+    };
+    fetchData();
   }, []);
 
-  const [isFormOpen, setIsForm] = useState(false);
-  const [openCurriculumForm, setOpenCurriculumForm] = useState(false)
-
-  const toggleCurriculumForm = () => {
-    setOpenCurriculumForm(!openCurriculumForm)
-  }
-
-  const toggleForm = () => {
-    setIsForm(!isFormOpen);
-  };
   const viewProgram = (event) => {
     const selectedIndex = event.currentTarget.getAttribute("data-index");
     navigate("/admin/curriculum/program", {state : {acronym : selectedIndex}});
@@ -29,7 +34,7 @@ const Curriculum = () => {
   };
 
   const filteredPrograms = programs.filter(
-    (program) => program.department === selectedDepartment,
+    (program) => program.department === +selectedDepartment,
   );
 
   return (
@@ -38,17 +43,17 @@ const Curriculum = () => {
         <div className="grid">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}
-            {["CSS", "COE", "CBAA", "COED", "CHAS", "CAS"].map((department) => (
+            {department.map((college,index) => (
               <button
-                key={department}
+                key={index}
                 className={`h-10 w-20 flex-1 rounded-t-lg ${
-                  selectedDepartment === department
+                  selectedDepartment === college.id
                     ? "bg-gray-700"
                     : "bg-gray-300 hover:bg-gray-700"
                 }`}
-                onClick={() => handleButtonClick(department)}
+                onClick={() => handleButtonClick(college.id)}
               >
-                {department}
+                {college.acronym}
               </button>
             ))}
           </div>
@@ -64,10 +69,10 @@ const Curriculum = () => {
               filteredPrograms.map((program, index) => (
                 <tr key={index} className="h-20 cursor-pointer">
                   <td
-                    data-index={program.acronym}
+                    data-index={program.department}
                     onClick={(e) => viewProgram(e)}
                   >
-                    {program.program}
+                    {program.name}
                   </td>
                 </tr>
               ))
@@ -80,19 +85,7 @@ const Curriculum = () => {
             )}
           </tbody>
         </table>
-        <div className="flex justify-end">
-          <button onClick={toggleCurriculumForm} className="bg-green text-white p-2 rounded-md mt-5">
-            Add new Curriculum
-          </button>
-        </div>
       </div>
-
-      {openCurriculumForm && (
-        <CurriculumForm 
-          toggleCurriculumForm={toggleCurriculumForm}
-          data={data}
-        />
-      )}
     </div>
   );
 };
