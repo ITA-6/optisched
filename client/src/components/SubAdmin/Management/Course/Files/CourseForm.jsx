@@ -7,7 +7,11 @@ const CourseForm = ({ toggleModal, handler, initialData }) => {
   const [category, setCategory] = useState("");
   const [totalUnits, setTotalUnits] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
-  const [needMasteral, setNeedMasteral] = useState(false);
+  const [needMasteral, setNeedMasteral] = useState(false); 
+  const [isLecture, setIsLecture] = useState(false)
+  const [isTotal, setIsTotal] = useState(false)
+
+  
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
     if (initialData) {
@@ -80,55 +84,6 @@ const CourseForm = ({ toggleModal, handler, initialData }) => {
               />
             </div>
             <div className="flex flex-1 flex-col">
-              <label htmlFor="totalUnits" className="text-lg font-medium">
-                Total Units
-              </label>
-              <input
-                type="number"
-                name="totalUnits"
-                id="totalUnits"
-                placeholder="Total Units"
-                value={totalUnits}
-                onChange={(e) => setTotalUnits(Number(e.target.value))}
-                className="rounded-md border border-gray-300 p-2"
-                required
-              />
-            </div>
-            <div className="flex flex-1 flex-col">
-              <label htmlFor="totalHours" className="text-lg font-medium">
-                Total Hours
-              </label>
-              <input
-                type="number"
-                name="totalHours"
-                id="totalHours"
-                placeholder="Total Hours"
-                value={totalHours}
-                onChange={(e) => setTotalHours(Number(e.target.value))}
-                className="rounded-md border border-gray-300 p-2"
-                required
-              />
-            </div>
-            <div className="flex flex-1 flex-col">
-              <label htmlFor="needMasteral" className="text-lg font-medium">
-                Need Masteral
-              </label>
-              <select
-                name="needMasteral"
-                id="needMasteral"
-                value={needMasteral}
-                onChange={(e) => setNeedMasteral(e.target.value === "true")}
-                className="rounded-md border border-gray-300 p-2"
-                required
-              >
-                <option disabled value="">
-                  Select If Need Masteral
-                </option>
-                <option value={true}>Yes</option>
-                <option value={false}>No</option>
-              </select>
-            </div>
-            <div className="flex flex-1 flex-col">
               <label htmlFor="courseType" className="text-lg font-medium">
                 Course Type
               </label>
@@ -146,6 +101,90 @@ const CourseForm = ({ toggleModal, handler, initialData }) => {
                 <option value="LECTURE">Lecture</option>
                 <option value="LABORATORY">Laboratory</option>
                 <option value="BOTH">Laboratory & Lecture</option>
+              </select>
+            </div>
+            <div className="flex gap-10">
+              <div className={`flex flex-1 flex-col`}>
+                <label htmlFor="lecUnits" className="text-lg font-medium">
+                  Lecture Units
+                </label>
+                <input
+                  type="number"
+                  name="lecUnits"
+                  id="lecUnits"
+                  placeholder="Lecture Units"
+                  value={totalUnits}
+                  onChange={(e) => setTotalUnits(Number(e.target.value))}
+                  className="rounded-md border border-gray-300 p-2"
+                  required
+                />
+              </div>
+              <div className={`flex flex-1 flex-col  ${(category === "LECTURE" || category === "BOTH" ? "flex" : "hidden")}`}>
+                <label htmlFor="Lecture Hours" className="text-lg font-medium">
+                  Lecture Hours
+                </label>
+                <input
+                  type="number"
+                  name="lecHours"
+                  id="lecHours"
+                  placeholder="Lecture Hours"
+                  value={totalHours}
+                  onChange={(e) => setTotalHours(Number(e.target.value))}
+                  className="rounded-md border border-gray-300 p-2"
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex flex-row gap-10">
+              <div className={`flex-1 flex-col ${(category === "LABORATORY" || category === "BOTH" ? "flex" : "hidden")}`}>
+                <label htmlFor="labUnits" className="text-lg font-medium">
+                  Laboratory Units
+                </label>
+                <input
+                  type="number"
+                  name="labUnits"
+                  id="labUnits"
+                  placeholder="Laboratory Units"
+                  value={totalUnits}
+                  onChange={(e) => setTotalUnits(Number(e.target.value))}
+                  className="rounded-md border border-gray-300 p-2"
+                  required
+                />
+              </div>
+              <div className={`flex flex-1 flex-col  ${(category === "LABORATORY" || category === "BOTH" ? "flex" : "hidden")}`}>
+                <label htmlFor="Lecture Hours" className="text-lg font-medium">
+                  Laboratory Hours
+                </label>
+                <input
+                  type="number"
+                  name="labHours"
+                  id="labHours"
+                  placeholder="Laboratory Hours"
+                  value={totalHours}
+                  onChange={(e) => setTotalHours(Number(e.target.value))}
+                  className="rounded-md border border-gray-300 p-2"
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="flex flex-1 flex-col">
+              <label htmlFor="needMasteral" className="text-lg font-medium">
+                Need Masteral
+              </label>
+              <select
+                name="needMasteral"
+                id="needMasteral"
+                value={needMasteral}
+                onChange={(e) => setNeedMasteral(e.target.value === "true")}
+                className="rounded-md border border-gray-300 p-2"
+                required
+              >
+                <option disabled value="">
+                  Select If Need Masteral
+                </option>
+                <option value={true}>Yes</option>
+                <option value={false}>No</option>
               </select>
             </div>
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">

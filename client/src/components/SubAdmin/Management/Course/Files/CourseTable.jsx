@@ -30,7 +30,7 @@ const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
   }
 
   return (
-    <table className="h-[100%] w-full table-fixed bg-white text-center">
+    <table className="h-[100%] w-full table-auto bg-white text-center">
       <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">
@@ -41,6 +41,22 @@ const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
           </th>
           <th scope="col" className="border border-white">
             Course type
+          </th>
+          <th scope="col" className="border border-white">
+            Lec Unit
+          </th>
+          <th scope="col" className="border border-white">
+            Lab Unit
+          </th>
+          <th scope="col" className="border border-white">
+            Total Units
+          </th>
+
+          <th scope="col" className="border border-white">
+            Total Hours
+          </th>
+          <th scope="col" className="border border-white">
+            Masteral
           </th>
           <th scope="col" className="border border-white"></th>
         </tr>
