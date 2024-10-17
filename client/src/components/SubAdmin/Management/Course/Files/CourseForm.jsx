@@ -8,9 +8,6 @@ const CourseForm = ({ toggleModal, handler, initialData }) => {
   const [totalUnits, setTotalUnits] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
   const [needMasteral, setNeedMasteral] = useState(false); 
-  const [isLecture, setIsLecture] = useState(false)
-  const [isTotal, setIsTotal] = useState(false)
-
   
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
