@@ -22,7 +22,7 @@ const Dashboard = () => {
 
   return (
     <div className="h-screen w-screen bg-white">
-      <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[1fr_4fr_1fr] grid-rows-[1.2fr_10.6rem_1fr_8fr] justify-between grid-areas-layout">
+      <div className="ml-[18rem] mr-[2rem] mb grid h-screen grid-cols-[1fr_4fr_1fr] grid-rows-[1.2fr_10.6rem_1fr_8fr] justify-between grid-areas-layout">
         <div className="flex items-center justify-between gap-10 bg-light-green grid-in-box">
           <div className="ml-10 flex h-2/3 flex-1 items-center rounded-3xl bg-white">
             <img src={user} alt="" className="w-1/3 p-8" />
@@ -61,8 +61,12 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <DashboardSearchField />
-        <DashboardTable />
+        <div className="grid-in-text">
+          <DashboardSearchField />
+        </div>
+        <div className="grid-in-history overflow-y-scroll mb-20">
+          <DashboardTable />
+        </div>
       </div>
     </div>
   );
