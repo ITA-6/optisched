@@ -31,7 +31,7 @@ const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
 
   return (
     <table className="h-[100%] w-full table-auto bg-white text-center">
-      <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
+      <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white mb-10">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">
             Course Title
@@ -54,6 +54,9 @@ const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
 
           <th scope="col" className="border border-white">
             Total Hours
+          </th>
+          <th scope="col" className="border border-white">
+            Pre/Co-Requisite
           </th>
           <th scope="col" className="border border-white">
             Masteral

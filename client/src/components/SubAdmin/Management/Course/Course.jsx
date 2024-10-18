@@ -99,6 +99,7 @@ const Course = () => {
           toggleModal={toggleModal}
           handler={initialData ? updateCourse : submitCourse}
           initialData={initialData}
+          courses={courses}
         />
       )}
 

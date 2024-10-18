@@ -84,6 +84,9 @@ export default {
       boxShadow : {
           'outerShadow' : '3px 5px 15px rgba(0, 0, 0, 0.3)'
       },
+      gridTemplateRows : {
+        'auto-fill' : 'repeat(auto-fill, 1fr)'
+      },
       iconResponsive : {
           
       },  
