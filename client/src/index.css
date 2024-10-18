@@ -6,3 +6,6 @@
   @apply bg-cover bg-center;
   background-image: url("./assets/pnc-banner.jpg");
 }
+
+
+@layer base { img { display: initial; } }

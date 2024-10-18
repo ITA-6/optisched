@@ -18,7 +18,7 @@ const ViewSection = () => {
   }, []);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-white">
+    <div className="h-screen w-screen bg-white">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout">
         <SearchField />
         <div className={`mr-5 h-full grid-in-userTable ${(sections.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>

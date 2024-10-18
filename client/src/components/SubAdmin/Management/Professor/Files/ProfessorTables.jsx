@@ -48,33 +48,33 @@ const ProfessorTables = ({
 
   return (
     <>
-      <table className="h-[100%] w-full table-fixed bg-white text-center">
+      <table className="h-[100%] w-full table-auto bg-white text-center">
         <thead className="sticky -top-0.5 border-separate border border-white bg-green text-xs text-white">
           <tr className="h-[30px]">
-            <th scope="col" className="h-[30px] w-[100px] border border-white">
+            <th scope="col" className="  border border-white">
               ID
             </th>
-            <th scope="col" className="h-[30px] w-[150px] border border-white">
+            <th scope="col" className="   border border-white">
               Name
             </th>
-            <th scope="col" className="h-[30px] w-[150px] border border-white">
+            <th scope="col" className="   border border-white">
               Birthdate
             </th>
-            <th scope="col" className="h-[30px] w-[200px] border border-white">
+            <th scope="col" className="   border border-white">
               Email Address
             </th>
-            <th scope="col" className="h-[30px] w-[150px] border border-white">
+            <th scope="col" className="   border border-white">
               Department
             </th>
-            <th scope="col" className="h-[30px] w-[100px] border border-white">
+            <th scope="col" className=" ] border border-white">
               Masteral
             </th>
-            <th scope="col" className="h-[30px] w-[150px] border border-white">
+            <th scope="col" className="   border border-white">
               Employment Status
             </th>
             <th
               scope="col"
-              className="h-[30px] w-[200px] border border-white"
+              className="   border border-white"
             ></th>
           </tr>
         </thead>

@@ -16,18 +16,15 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
     fetchData();
   }, []);
 
-
-
+ 
   const submitBtn = (e) => {
     e.preventDefault();
     const selectedProgram = data.findIndex( data => data.acronym === acronym)
     const selectedSubject = course.filter(subject => subject.code === subjects)
 
-    if(semester === "firstSemester"){
-      data[selectedProgram].firstSemester.subject.push({code : selectedSubject[0].code, title : selectedSubject[0].name, total : selectedSubject[0].total_hours, lab : (selectedSubject[0].category === "LABORATORY") ? 0 : 3, lec : (selectedSubject[0].category === "LECTURE") ? 0 : 3, pre : "None" })
-    }else {
-      data[selectedProgram].secondSemester.subject.push({code : selectedSubject[0].code, title : selectedSubject[0].name, total : selectedSubject[0].total_hours, lab : (selectedSubject[0].category === "LABORATORY") ? 0 : 3, lec : (selectedSubject[0].category === "LECTURE") ? 0 : 3, pre : "None" })
-    }
+
+    data[selectedProgram][year][semester].subject.push({code : selectedSubject[0].code, title : selectedSubject[0].name, total : selectedSubject[0].total_hours, lab : (selectedSubject[0].category === "LABORATORY") ? 0 : 3, lec : (selectedSubject[0].category === "LECTURE") ? 0 : 3, pre : "None" })
+   
     toggleSubjectForm();
   }
   return (
@@ -50,10 +47,11 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
                 className='border border-gray-300 p-1 rounded-md'
                 onChange={(e) => setYear(e.target.value)}
                >
-                <option value="">First Year</option>
-                <option value="">Second Year</option>
-                <option value="">Third Year</option>
-                <option value="">Fourth Year</option>
+                <option value="">Select Year</option>
+                <option value="firstYear">First Year</option>
+                <option value="secondYear">Second Year</option>
+                <option value="thirdYear">Third Year</option>
+                <option value="fourthYear">Fourth Year</option>
               </select>
             </div>
             <div className="flex flex-col flex-1 gap-2">

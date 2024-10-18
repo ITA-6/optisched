@@ -25,6 +25,7 @@ const CourseTable = () => {
   const location = useLocation();
   const { acronym } = location.state || {}; // Get the acronym from state
   const selectedDepartment = data.filter(data => data.acronym === acronym )
+
   return (
     <div className="flex h-screen">
       <div className="w-64"></div>{" "}
