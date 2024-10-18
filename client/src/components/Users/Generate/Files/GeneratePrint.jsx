@@ -1,9 +1,8 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
 
-import  pncHeader from "../../../../assets/pncHeader.png"
-
+import pncHeader from "../../../../assets/pncHeader.png";
 
 const GeneratePrint = () => {
   const printPage = () => {
@@ -112,16 +111,16 @@ const GeneratePrint = () => {
     `;
 
     // Create a new element to contain the dynamically created content
-    const element = document.createElement('div');
+    const element = document.createElement("div");
     element.innerHTML = contentToPrint;
 
     // Use html2pdf to convert the dynamically generated content to PDF
     html2pdf()
       .from(element)
       .toPdf()
-      .get('pdf')
+      .get("pdf")
       .then((pdf) => {
-        const pdfBlob = pdf.output('blob');
+        const pdfBlob = pdf.output("blob");
         const pdfUrl = URL.createObjectURL(pdfBlob);
 
         // Open the customized PDF in a new tab
@@ -129,19 +128,19 @@ const GeneratePrint = () => {
         if (newWindow) {
           newWindow.focus();
         } else {
-          alert('Please allow popups for this website');
+          alert("Please allow popups for this website");
         }
       });
   };
 
   return (
     <>
-      <div className='grid grid-in-interaction grid-areas-generateInteraction mx-5'>
+      <div className="mx-5 grid grid-areas-generateInteraction grid-in-interaction">
         <div className="flex items-center justify-start gap-5 grid-in-generatedText">
           <h1 className="text-xl font-medium">Generated Schedule</h1>
         </div>
         <div className="flex items-center justify-end pr-5 grid-in-printBtn">
-          <FontAwesomeIcon 
+          <FontAwesomeIcon
             icon={faPrint}
             size="xl"
             onClick={printPage} // Generate PDF and open in new tab
