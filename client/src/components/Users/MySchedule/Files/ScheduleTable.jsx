@@ -2,29 +2,7 @@ import React from 'react';
 import ScheduleRow from './ScheduleRow';
 
 const ScheduleTable = () => {
-  const timeSlots = Array.from({ length: 32 }).map((_, index) => {
-    const hour = 6 + Math.floor(index / 2);
-    const minute = index % 2 === 0 ? '00' : '30';
-    const period = hour < 12 ? 'am' : 'pm';
-    const displayHour = hour > 12 ? hour - 12 : hour === 12 ? 12 : hour;
-    
-    // Fix the calculation of the next hour and period
-    let nextHour = hour;
-    let nextPeriod = period;
-    
-    if (minute === '30') {
-      nextHour += 1;
-      if (nextHour === 12) {
-        nextPeriod = 'pm';
-      } else if (nextHour > 12) {
-        nextHour -= 12;
-        nextPeriod = 'pm';
-      }
-    }
-
-    return `${displayHour}:${minute} ${period} - ${nextHour}:${minute === '00' ? '30' : '00'} ${nextPeriod}`;
-  });
-
+  
   return (
     <table className="border border-collapse w-full">
       <thead>
@@ -40,9 +18,7 @@ const ScheduleTable = () => {
         </tr>
       </thead>
       <tbody className="text-xs text-center">
-        {timeSlots.map((timeSlot, index) => (
-          <ScheduleRow key={index} timeSlot={timeSlot} />
-        ))}
+          <ScheduleRow/>
       </tbody>
       <tfoot>
         <tr className="bg-green text-white text-xs">
