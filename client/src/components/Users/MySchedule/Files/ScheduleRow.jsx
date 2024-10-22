@@ -203,7 +203,18 @@ const ScheduleRow = () => {
         <td className="border ">2:00 pm  - 2:30 pm</td>
         <td className="border"></td>
         <td className="border "></td>
-        <td className="border "></td>
+        <td className="border bg-blue-500 text-white" rowSpan="6">
+           <div className="flex flex-col mb-2">
+            <p className='text-[0.7rem] font-light'>Class #1352</p>
+            <p className='text-base font-bold'>CS101</p>
+           </div>
+           <div className="flex flex-col text-sm">
+             <p> M. Dela Cruz</p>
+             <p className='text-[0.7rem]'>(LABORATORY)</p>
+             <p className='font-light text-[0.8rem]'>COMLAB 4</p>
+           </div>
+
+        </td>
         <td className="border bg-red-400 text-white" rowSpan="4">
            <div className="flex flex-col mb-2">
             <p className='text-[0.7rem] font-light'>Class #1444</p>
@@ -223,18 +234,6 @@ const ScheduleRow = () => {
         <td className="border ">2:30 pm  - 3:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
-        <td className="border bg-blue-500 text-white" rowSpan="5">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #1352</p>
-            <p className='text-base font-bold'>CS101</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>COMLAB 4</p>
-           </div>
-
-        </td>
         <td className="border "></td>
         <td className="border "></td>
       </tr>
