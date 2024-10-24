@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "room",
     "program",
     "constraint",
+    "curriculum",
 ]
 
 MIDDLEWARE = [
