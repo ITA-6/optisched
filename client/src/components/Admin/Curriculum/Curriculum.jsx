@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import api from "../../../api";
 
 const Curriculum = () => {
@@ -7,26 +8,26 @@ const Curriculum = () => {
   const [department, setDepartment] = useState([]);
   const [programs, setPrograms] = useState([]);
 
-  console.log(programs)
-
   const navigate = useNavigate();
   useEffect(() => {
     setSelectedDepartment(1);
   }, []);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("departments/");
       const program = await api("programs/");
       setDepartment(response.data);
-      setPrograms(program.data)
+      setPrograms(program.data);
     };
     fetchData();
   }, []);
 
   const viewProgram = (event) => {
     const selectedIndex = event.currentTarget.getAttribute("data-index");
-    navigate("/admin/curriculum/program", {state : {acronym : selectedIndex}});
+    navigate(`/admin/curriculum/program`, {
+      state: { acronym: selectedIndex },
+    });
   };
 
   const handleButtonClick = (department) => {
@@ -43,7 +44,7 @@ const Curriculum = () => {
         <div className="grid">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}
-            {department.map((college,index) => (
+            {department.map((college, index) => (
               <button
                 key={index}
                 className={`h-10 w-20 flex-1 rounded-t-lg ${
