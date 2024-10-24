@@ -38,7 +38,7 @@ import Unauthorized from "./components/Error/Unauthorized/Unauthorized";
 // Not found
 import Notfound from "./components/Error/Notfound/Notfound";
 import PrintSchedule from "./components/Users/PrintSchedule";
-import CourseTable from "./components/Admin/Curriculum/Files/curriculumView";
+import CurriculumView from "./components/Admin/Curriculum/Files/CurriculumView";
 
 const App = () => {
   return (
@@ -65,7 +65,7 @@ const App = () => {
           <Route path="view/program" element={<ViewProgram />} />
           <Route path="view/building" element={<ViewBuilding />} />
           <Route path="view/constraint" element={<Constraint />} />
-          <Route path="curriculum/program" element={<CourseTable />} />
+          <Route path="curriculum/program" element={<CurriculumView />} />
         </Route>
 
         {/* Sub Admin Routes */}
