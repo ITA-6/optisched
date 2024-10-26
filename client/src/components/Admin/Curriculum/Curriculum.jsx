@@ -23,10 +23,9 @@ const Curriculum = () => {
     fetchData();
   }, []);
 
-  const viewProgram = (event) => {
-    const selectedIndex = event.currentTarget.getAttribute("data-index");
+  const viewProgram = (id) => {
     navigate(`/admin/curriculum/program`, {
-      state: { acronym: selectedIndex },
+      state: { id },
     });
   };
 
@@ -69,10 +68,7 @@ const Curriculum = () => {
             {filteredPrograms.length > 0 ? (
               filteredPrograms.map((program, index) => (
                 <tr key={index} className="h-20 cursor-pointer">
-                  <td
-                    data-index={program.department}
-                    onClick={(e) => viewProgram(e)}
-                  >
+                  <td onClick={() => viewProgram(program.id)}>
                     {program.name}
                   </td>
                 </tr>

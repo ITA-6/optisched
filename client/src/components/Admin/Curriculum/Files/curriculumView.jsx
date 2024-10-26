@@ -11,7 +11,7 @@ const CurriculumView = () => {
 
   useEffect(() => {
     const fetchCurriculums = async () => {
-      const response = await api(`curriculum/?department_id${location.state}`);
+      const response = await api(`curriculum/?program_id=${location.state.id}`);
       setCurriculums(response.data);
     };
 
