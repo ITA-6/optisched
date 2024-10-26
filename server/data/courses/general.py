@@ -230,4 +230,17 @@ GENERAL_COURSES = [
         "created_at": "2022-09-10 14:32:45",
         "updated_at": "2021-07-02 11:15:12",
     },
+    {
+        "name": "Programming Languages",
+        "code": "CPS101",
+        "category": "LECTURE",
+        "lab_unit": 0,
+        "lecture_unit": 6,
+        "total_units": 6,
+        "total_hours": 6,
+        "need_masteral": False,
+        "is_active": True,
+        "created_at": "2022-06-27 10:42:57",
+        "updated_at": "2021-05-18 08:41:22",
+    },
 ]
