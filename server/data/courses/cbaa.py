@@ -2,8 +2,12 @@ CBAA_COURSES = [
     {
         "name": "Introduction to Psychology",
         "code": "PSM101",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d CAS ATA TO??👇👇👇👇
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -14,8 +18,12 @@ CBAA_COURSES = [
     {
         "name": "Psychological Statistics",
         "code": "PSM102",
-        "category": "BOTH",
-        "department_id": 4,
+        "category": "BOTH", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":2,
+        "lab_hours": 6,
         "total_units": 5,
         "total_hours": 9,
         "need_masteral": True,
@@ -26,8 +34,12 @@ CBAA_COURSES = [
     {
         "name": "Developmental Psychology",
         "code": "PSM103",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -38,8 +50,12 @@ CBAA_COURSES = [
     {
         "name": "Theories of Personality",
         "code": "PSM104",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -50,8 +66,12 @@ CBAA_COURSES = [
     {
         "name": "Cognitive Psychology",
         "code": "PSM105",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -62,8 +82,12 @@ CBAA_COURSES = [
     {
         "name": "Professional Ethics in Psychology",
         "code": "PSE101",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -74,8 +98,12 @@ CBAA_COURSES = [
     {
         "name": "Abnormal Psychology",
         "code": "PSM106",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -86,8 +114,12 @@ CBAA_COURSES = [
     {
         "name": "Experimental Psychology",
         "code": "PSM107",
-        "category": "BOTH",
-        "department_id": 4,
+        "category": "BOTH", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":2,
+        "lab_hours": 6,
         "total_units": 5,
         "total_hours": 9,
         "need_masteral": False,
@@ -98,8 +130,12 @@ CBAA_COURSES = [
     {
         "name": "Psychological Assessment",
         "code": "PSM108",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -110,8 +146,12 @@ CBAA_COURSES = [
     {
         "name": "Sikolohiyang Filipino",
         "code": "PSM109",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -122,8 +162,12 @@ CBAA_COURSES = [
     {
         "name": "Industrial/Organizational Psychology",
         "code": "PSM110",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -134,8 +178,12 @@ CBAA_COURSES = [
     {
         "name": "Field Methods in Psychology",
         "code": "PSM111",
-        "category": "BOTH",
-        "department_id": 4,
+        "category": "BOTH", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":2,
+        "lab_hours": 6,
         "total_units": 5,
         "total_hours": 9,
         "need_masteral": True,
@@ -146,8 +194,12 @@ CBAA_COURSES = [
     {
         "name": "Introduction to Clinical Psychology",
         "code": "PSE102",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -158,8 +210,12 @@ CBAA_COURSES = [
     {
         "name": "Physiological Psychology",
         "code": "PSM112",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -170,8 +226,12 @@ CBAA_COURSES = [
     {
         "name": "Introduction to Counseling",
         "code": "PSE103",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -182,8 +242,12 @@ CBAA_COURSES = [
     {
         "name": "Research in Psychology 1",
         "code": "PSM113",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -194,8 +258,12 @@ CBAA_COURSES = [
     {
         "name": "Social Psychology",
         "code": "PSM114",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -206,8 +274,12 @@ CBAA_COURSES = [
     {
         "name": "Strategic Human Resource Management",
         "code": "PSE104",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -218,8 +290,12 @@ CBAA_COURSES = [
     {
         "name": "Research in Psychology 2",
         "code": "PSM115",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -230,8 +306,12 @@ CBAA_COURSES = [
     {
         "name": "Competency Appraisal 1 (Abnormal Psychology and Theories of Personality)",
         "code": "PSE105",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -242,8 +322,12 @@ CBAA_COURSES = [
     {
         "name": "Entrepreneurial Psychology",
         "code": "PSE106",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -254,8 +338,12 @@ CBAA_COURSES = [
     {
         "name": "Practicum in Psychology 1",
         "code": "PSE107",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -266,8 +354,12 @@ CBAA_COURSES = [
     {
         "name": "Competency Appraisal 2 (Psychological Assessment and Industrial Psychology)",
         "code": "PSE108",
-        "category": "LECTURE",
-        "department_id": 4,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -278,11 +370,15 @@ CBAA_COURSES = [
     {
         "name": "Practicum in Psychology 2",
         "code": "PSE109",
-        "category": "LECTURE",
-        "department_id": 4,
-        "total_units": 3,
-        "total_hours": 3,
-        "need_masteral": False,
+        "category": "LECTURE", #d CAS ATA TO?? 👆👆👆👆👆
+       "department_id": 2,     #👆👆👆👆👆
+        "lec_units": 3,        #👆👆👆👆👆
+        "lec_hours": 3,        #👆👆👆👆👆
+        "lab_units":0,         #👆👆👆👆👆
+        "lab_hours": 0,        #👆👆👆👆👆
+        "total_units": 3,      #👆👆👆👆👆
+        "total_hours": 3,         #👆👆👆👆👆
+        "need_masteral": False,     #👆👆👆👆👆
         "is_active": True,
         "created_at": "2021-11-13 07:06:29",
         "updated_at": "2021-10-11 12:36:30",
@@ -290,8 +386,12 @@ CBAA_COURSES = [
     {
         "name": "Financial Accounting and Reporting, Part 1",
         "code": "ACC101",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -302,8 +402,12 @@ CBAA_COURSES = [
     {
         "name": "Operations Management and Total Quality",
         "code": "OMTOM",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -314,8 +418,12 @@ CBAA_COURSES = [
     {
         "name": "Financial Accounting and Reporting, Part 2",
         "code": "ACC103",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -326,8 +434,12 @@ CBAA_COURSES = [
     {
         "name": "Managerial Economics",
         "code": "ACC102",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -338,8 +450,12 @@ CBAA_COURSES = [
     {
         "name": "Management Science",
         "code": "ACC104",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -350,8 +466,12 @@ CBAA_COURSES = [
     {
         "name": "Economic Development",
         "code": "ACC105",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -362,8 +482,12 @@ CBAA_COURSES = [
     {
         "name": "Law on Obligations and Contracts",
         "code": "ACC106",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -374,8 +498,12 @@ CBAA_COURSES = [
     {
         "name": "Intermediate Accounting, Part 1",
         "code": "ACC109",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -386,8 +514,12 @@ CBAA_COURSES = [
     {
         "name": "Income Taxation",
         "code": "ACC110",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -398,8 +530,12 @@ CBAA_COURSES = [
     {
         "name": "Cost Accounting and Control",
         "code": "ACC111",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -410,8 +546,12 @@ CBAA_COURSES = [
     {
         "name": "IT Application Tools in Business (With Lab)",
         "code": "ACC112",
-        "category": "BOTH",
-        "department_id": 3,
+        "category": "BOTH", #d
+        "department_id": 2, 
+        "lec_units": 2,
+        "lec_hours": 2,
+        "lab_units":1,
+        "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
         "need_masteral": True,
@@ -422,8 +562,12 @@ CBAA_COURSES = [
     {
         "name": "Statistical Analytics with Software Application (With Lab)",
         "code": "ACC113",
-        "category": "BOTH",
-        "department_id": 3,
+        "category": "BOTH", #d
+        "department_id": 2, 
+        "lec_units": 2,
+        "lec_hours": 2,
+        "lab_units":1,
+        "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
         "need_masteral": False,
@@ -434,8 +578,12 @@ CBAA_COURSES = [
     {
         "name": "Governance, Risk Management, and Internal Control",
         "code": "ACC114",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -446,8 +594,12 @@ CBAA_COURSES = [
     {
         "name": "Intermediate Accounting, Part 2",
         "code": "ACC115",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -458,8 +610,12 @@ CBAA_COURSES = [
     {
         "name": "Regulatory Frameworks and Legal Issues in Business",
         "code": "ACC118",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -470,8 +626,12 @@ CBAA_COURSES = [
     {
         "name": "Human Behavior in Organization",
         "code": "ACE101",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -482,8 +642,12 @@ CBAA_COURSES = [
     {
         "name": "Financial Management, Part 1",
         "code": "ACC117",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -494,8 +658,12 @@ CBAA_COURSES = [
     {
         "name": "International Business and Trade",
         "code": "IBT",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -506,8 +674,12 @@ CBAA_COURSES = [
     {
         "name": "Accounting Information System (With Lab)",
         "code": "ACC119",
-        "category": "BOTH",
-        "department_id": 3,
+        "category": "BOTH", #d
+        "department_id": 2, 
+        "lec_units": 2,
+        "lec_hours": 2,
+        "lab_units":1,
+        "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
         "need_masteral": True,
@@ -518,8 +690,12 @@ CBAA_COURSES = [
     {
         "name": "Intermediate Accounting, Part 3",
         "code": "ACC120",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -530,8 +706,12 @@ CBAA_COURSES = [
     {
         "name": "Financial Management, Part 2",
         "code": "ACC121",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -542,8 +722,12 @@ CBAA_COURSES = [
     {
         "name": "Strategic Cost Management",
         "code": "ACC122",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -554,8 +738,12 @@ CBAA_COURSES = [
     {
         "name": "Accounting for Special Transactions",
         "code": "ACP101",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -566,8 +754,12 @@ CBAA_COURSES = [
     {
         "name": "Auditing and Assurance Principles",
         "code": "ACP102",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": False,
@@ -578,8 +770,12 @@ CBAA_COURSES = [
     {
         "name": "Strategic Business Analysis",
         "code": "ACC125",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
         "need_masteral": True,
@@ -590,8 +786,12 @@ CBAA_COURSES = [
     {
         "name": "Accounting Internship",
         "code": "ACC126",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 6,
+        "lec_hours": 6,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 6,
         "total_hours": 6,
         "need_masteral": False,
@@ -602,8 +802,12 @@ CBAA_COURSES = [
     {
         "name": "Competency Appraisal 1",
         "code": "ACA101",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 4.5,
+        "lec_hours": 4.5,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 4.5,
         "total_hours": 4.5,
         "need_masteral": True,
@@ -614,8 +818,12 @@ CBAA_COURSES = [
     {
         "name": "Competency Appraisal 2",
         "code": "ACA102",
-        "category": "LECTURE",
-        "department_id": 3,
+        "category": "LECTURE", #d
+        "department_id": 2,
+        "lec_units": 4.5,
+        "lec_hours": 4.5,
+        "lab_units":0,
+        "lab_hours": 0,
         "total_units": 4.5,
         "total_hours": 4.5,
         "need_masteral": True,
