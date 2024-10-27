@@ -43,6 +43,12 @@ const SectionTable = ({ sections, totalRows }) => {
             Year Level
           </th>
           <th scope="col" className="border border-white">
+            College
+          </th>
+          <th scope="col" className="border border-white">
+            Program
+          </th>
+          <th scope="col" className="border border-white">
             Adviser
           </th>
         </tr>
