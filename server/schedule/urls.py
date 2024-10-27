@@ -1,10 +1,8 @@
 # schedule/urls.py
 
 from django.urls import path
-from .views import GenerateScheduleView, ConfirmScheduleView, ScheduleView
+from .views import SectionScheduleView
 
 urlpatterns = [
-    path("generate/", GenerateScheduleView.as_view(), name="generate-schedule"),
-    path("confirm/", ConfirmScheduleView.as_view(), name="confirm-schedule"),
-    path("list/", ScheduleView.as_view(), name="list"),
+    path("sections/<int:section_id>/", SectionScheduleView.as_view(), name="list"),
 ]

@@ -1,68 +1,91 @@
+# section/management/commands/create_sections.py
+
 from django.core.management.base import BaseCommand
-
-import random
-
-from department.models import Department
-from program.models import Program
 from section.models import Section
+from program.models import Program
+from department.models import Department
+
+# Import multiple datasets
+from data.sections.ccs.bsit import BSIT_SECTIONS
+from data.sections.ccs.bscs import BSCS_SECTIONS
 
 
 class Command(BaseCommand):
     help = (
-        "Create 3 sections for each year level and department, adviser is set to null"
+        "Create sections based on predefined data for BSIT, BSCS, and other programs."
     )
 
     def handle(self, *args, **kwargs):
-        NUM_SECTIONS = 3  # Number of sections to create per year level per department
-        YEAR_LEVELS = [1, 2, 3, 4]  # Year levels
+        # Define the datasets to be processed
+        section_datasets = [
+            {"name": "BSIT", "data": BSIT_SECTIONS},
+            {"name": "BSCS", "data": BSCS_SECTIONS},
+            # Add more datasets here as needed
+        ]
 
-        # Fetch all active departments
-        departments = Department.objects.filter(is_active=True)
+        # Process each dataset
+        for dataset in section_datasets:
+            self.create_sections_from_data(dataset["name"], dataset["data"])
 
-        if not departments.exists():
-            self.stdout.write(
-                self.style.ERROR(
-                    "No active departments found. Please create departments first."
-                )
-            )
-            return
+        self.stdout.write(
+            self.style.SUCCESS("Completed section creation for all programs.")
+        )
 
-        for department in departments:
-            # Fetch programs under each department
-            programs = Program.objects.filter(department=department, is_active=True)
-            if not programs.exists():
+    def create_sections_from_data(self, program_name, section_data_list):
+        """Create or update sections based on provided data."""
+        self.stdout.write(
+            self.style.NOTICE(f"Processing sections for {program_name}...")
+        )
+
+        for section_data in section_data_list:
+            label = section_data["label"]
+            year_level = section_data["year_level"]
+            department_id = section_data["department"]
+            program_id = section_data["program"]
+
+            # Fetch the related Department and Program objects
+            department = Department.objects.filter(
+                id=department_id, is_active=True
+            ).first()
+            program = Program.objects.filter(id=program_id, is_active=True).first()
+
+            if not department or not program:
                 self.stdout.write(
-                    self.style.WARNING(
-                        f"No active programs found for department {department.name}. Skipping department."
+                    self.style.ERROR(
+                        f"Department or program not found or inactive for Section {label}, Year {year_level}. Skipping."
                     )
                 )
                 continue
 
-            for year_level in YEAR_LEVELS:
-                for section_num in range(1, NUM_SECTIONS + 1):
-                    # Create a label for the section, e.g., "1-A", "2-B", etc.
-                    section_label = f"{year_level}-{chr(64 + section_num)}"  # A, B, C
-                    program = random.choice(programs)  # Randomly select a program
+            # Check if a section with the same label, year level, department, and program already exists
+            section, created = Section.objects.get_or_create(
+                label=label,
+                year_level=year_level,
+                department=department,
+                program=program,
+                defaults={
+                    "is_active": True,
+                },
+            )
 
-                    section, created = Section.objects.get_or_create(
-                        label=section_label,
-                        year_level=year_level,
-                        program=program,
-                        defaults={
-                            "adviser": None,  # Adviser is set to null
-                            "is_active": True,
-                        },
+            # Handle the case where the section exists but is inactive
+            if not created and not section.is_active:
+                section.is_active = True
+                section.save()
+                self.stdout.write(
+                    self.style.SUCCESS(
+                        f"Reactivated Section {label}, Year Level {year_level} in Program {program.name}."
                     )
-
-                    if created:
-                        self.stdout.write(
-                            self.style.SUCCESS(
-                                f"Created Section {section_label} for {department.name}, Year Level {year_level}, Program {program.name}"
-                            )
-                        )
-                    else:
-                        self.stdout.write(
-                            self.style.WARNING(
-                                f"Section {section_label} already exists for {department.name}, Year Level {year_level}"
-                            )
-                        )
+                )
+            elif created:
+                self.stdout.write(
+                    self.style.SUCCESS(
+                        f"Created Section {label}, Year Level {year_level} in Program {program.name}."
+                    )
+                )
+            else:
+                self.stdout.write(
+                    self.style.WARNING(
+                        f"Section {label}, Year Level {year_level} already exists and is active."
+                    )
+                )

@@ -243,4 +243,17 @@ GENERAL_COURSES = [
         "created_at": "2022-06-27 10:42:57",
         "updated_at": "2021-05-18 08:41:22",
     },
+    {
+        "name": "Number Theory",
+        "code": "CNT101",
+        "category": "LECTURE",
+        "lab_unit": 0,
+        "lecture_unit": 6,
+        "total_units": 6,
+        "total_hours": 6,
+        "need_masteral": False,
+        "is_active": True,
+        "created_at": "2022-06-27 10:42:57",
+        "updated_at": "2021-05-18 08:41:22",
+    },
 ]

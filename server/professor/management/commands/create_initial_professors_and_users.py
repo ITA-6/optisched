@@ -1,3 +1,5 @@
+# professor/management/commands/create_professors.py
+
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
@@ -5,16 +7,48 @@ from django.contrib.auth.hashers import make_password
 from department.models import Department
 from professor.models import Professor
 from account.models import CustomUser
-from data.professors import professors_data
+
+# Import datasets
+from data.professors.ccs import CCS_PROFESSORS
+from data.professors.coe import COE_PROFESSORS
 
 
 class Command(BaseCommand):
     help = "Create dummy professor data and corresponding user accounts"
 
     def handle(self, *args, **kwargs):
+        # Define datasets to process
+        professor_datasets = [
+            {"name": "CCS", "data": CCS_PROFESSORS},
+            # {"name": "COE", "data": COE_PROFESSORS},
+            # Add additional datasets here as needed
+        ]
+
+        # Process each dataset
+        for dataset in professor_datasets:
+            self.create_professors_from_data(dataset["name"], dataset["data"])
+
+        self.stdout.write(
+            self.style.SUCCESS("Completed professor and user account creation.")
+        )
+
+    def create_professors_from_data(self, department_name, professors_data):
+        """Create or update professors and corresponding user accounts."""
+        self.stdout.write(
+            self.style.NOTICE(f"Processing professors for {department_name}...")
+        )
+
         for prof_data in professors_data:
-            # Fetch or create department
-            department = Department.objects.get(id=prof_data["department_id"])
+            try:
+                # Fetch or raise an error if department does not exist
+                department = Department.objects.get(id=prof_data["department_id"])
+            except Department.DoesNotExist:
+                self.stdout.write(
+                    self.style.ERROR(
+                        f"Department with ID {prof_data['department_id']} not found for professor {prof_data['first_name']} {prof_data['last_name']}. Skipping."
+                    )
+                )
+                continue
 
             # Create or reactivate professor
             professor, created = Professor.objects.get_or_create(
@@ -32,15 +66,17 @@ class Command(BaseCommand):
                     "email": prof_data["email"],
                     "gender": prof_data["gender"],
                     "is_active": prof_data["is_active"],
-                    "created_at": prof_data["created_at"],
-                    "updated_at": prof_data["updated_at"],
+                    "created_at": prof_data.get("created_at", timezone.now()),
+                    "updated_at": prof_data.get("updated_at", timezone.now()),
                 },
             )
 
+            # Reactivate professor if they already existed but were inactive
             if not created and not professor.is_active:
                 professor.is_active = True
                 professor.save()
 
+            # Create or reactivate corresponding user account
             user, user_created = CustomUser.objects.get_or_create(
                 email=prof_data["email"],
                 defaults={
@@ -60,6 +96,7 @@ class Command(BaseCommand):
                 },
             )
 
+            # Reactivate user if they already existed but were inactive
             if not user_created and not user.is_active:
                 user.is_active = True
                 user.save()

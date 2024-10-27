@@ -1,17 +1,21 @@
 from django.db import models
 
-from professor.models import Professor
-from program.models import Program
-
 
 class Section(models.Model):
-    label = models.CharField(max_length=255)
-    year_level = models.IntegerField()
-    adviser = models.ForeignKey(
-        Professor, on_delete=models.CASCADE, null=True, blank=True
+    YEAR_LEVEL_CHOICES = (
+        (1, "FIRST YEAR"),
+        (2, "SECOND YEAR"),
+        (3, "THIRD YEAR"),
+        (4, "FOURTH YEAR"),
     )
+
+    label = models.CharField(max_length=255)
+    year_level = models.IntegerField(choices=YEAR_LEVEL_CHOICES, default=1)
     program = models.ForeignKey(
-        Program, on_delete=models.CASCADE, null=True, blank=True
+        "program.Program", null=True, blank=True, on_delete=models.SET_NULL
+    )
+    department = models.ForeignKey(
+        "department.Department", null=True, blank=True, on_delete=models.SET_NULL
     )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -20,11 +24,15 @@ class Section(models.Model):
     class Meta:
         db_table = "section"
 
+    def __str__(self):
+        return f"{self.label} (Year {self.year_level}) - {self.department.name if self.department else 'No Department'}"
+
     def soft_delete(self):
         self.is_active = False
         self.save()
 
     def save(self, *args, **kwargs):
+        # Reactivate an existing section with matching label if inactive
         if self.pk is None:
             existing_section = Section.objects.filter(
                 label=self.label, is_active=False

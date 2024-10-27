@@ -3,9 +3,29 @@ from django.utils import timezone
 
 
 class Schedule(models.Model):
-    course = models.ForeignKey(
-        "course.Course", on_delete=models.CASCADE, null=True, blank=True
+    SEMESTER_CHOICES = (
+        ("FIRST_SEMESTER", "FIRST SEMESTER"),
+        ("SECOND_SEMESTER", "SECOND SEMESTER"),
     )
+
+    YEAR_LEVEL_CHOICES = (
+        (1, "FIRST YEAR"),
+        (2, "SECOND YEAR"),
+        (3, "THIRD YEAR"),
+        (4, "FOURTH YEAR"),
+    )
+
+    year_level = models.IntegerField(choices=YEAR_LEVEL_CHOICES, default=1)
+    semester = models.CharField(
+        max_length=25, choices=SEMESTER_CHOICES, default="FIRST_SEMESTER"
+    )
+    program = models.ForeignKey(
+        "program.Program", null=True, blank=True, on_delete=models.SET_NULL
+    )
+    department = models.ForeignKey(
+        "department.Department", null=True, blank=True, on_delete=models.SET_NULL
+    )
+    courses = models.ManyToManyField("course.Course", blank=True)
     professor = models.ForeignKey(
         "professor.Professor", on_delete=models.CASCADE, null=True, blank=True
     )

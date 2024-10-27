@@ -1,46 +1,30 @@
-from rest_framework.views import APIView
+# schedule/views.py
+
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
-from .management.commands.generate_schedule import generate_schedule
-
-
-from .serializers import ScheduleSerializer
 from schedule.models import Schedule
+from schedule.serializers import ScheduleSerializer
+from rest_framework.permissions import AllowAny
 
 
-class GenerateScheduleView(APIView):
-    authentication_classes = []
+class SectionScheduleView(generics.ListAPIView):
+    serializer_class = ScheduleSerializer
     permission_classes = [AllowAny]
 
-    def get(self, request):
-        schedules = generate_schedule()  # Directly call the function
-        # Serialize the generated schedule
-        serializer = ScheduleSerializer(schedules, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        # Fetch the section ID from the URL parameters
+        section_id = self.kwargs.get("section_id")
+        return Schedule.objects.filter(section_id=section_id, is_active=True)
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
 
-class ScheduleView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
-
-    def get(self, request):
-        schedules = Schedule.objects.all()  # Directly call the function
-        # Serialize the generated schedule
-        serializer = ScheduleSerializer(schedules, many=True)
-        return Response(serializer.data)
-
-
-class ConfirmScheduleView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        serializer = ScheduleSerializer(data=request.data, many=True)
-        if serializer.is_valid():
-            serializer.save()
+        if not queryset.exists():
             return Response(
-                {"status": "Schedule confirmed and saved!"},
-                status=status.HTTP_201_CREATED,
+                {"message": "No schedules found for this section."},
+                status=status.HTTP_404_NOT_FOUND,
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
