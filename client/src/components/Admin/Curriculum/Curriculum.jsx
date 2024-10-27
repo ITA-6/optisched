@@ -1,19 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { programs } from "./curriculumData";
+import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import api from "../../../api";
 
 const Curriculum = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState("CSS");
+  const [selectedDepartment, setSelectedDepartment] = useState(1);
+  const [department, setDepartment] = useState([]);
+  const [programs, setPrograms] = useState([]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    setSelectedDepartment(1);
+  }, []);
 
   useEffect(() => {
-    setSelectedDepartment("CSS");
+    const fetchData = async () => {
+      const response = await api.get("departments/");
+      const program = await api("programs/");
+      setDepartment(response.data);
+      setPrograms(program.data);
+    };
+    fetchData();
   }, []);
+
+  const viewProgram = (id) => {
+    navigate(`/admin/curriculum/program`, {
+      state: { id },
+    });
+  };
 
   const handleButtonClick = (department) => {
     setSelectedDepartment(department);
   };
 
   const filteredPrograms = programs.filter(
-    (program) => program.department === selectedDepartment,
+    (program) => program.department === +selectedDepartment,
   );
 
   return (
@@ -22,17 +43,17 @@ const Curriculum = () => {
         <div className="grid">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}
-            {["CSS", "COE", "CBAA", "COED", "CHAS", "CAS"].map((department) => (
+            {department.map((college, index) => (
               <button
-                key={department}
+                key={index}
                 className={`h-10 w-20 flex-1 rounded-t-lg ${
-                  selectedDepartment === department
+                  selectedDepartment === college.id
                     ? "bg-gray-700"
                     : "bg-gray-300 hover:bg-gray-700"
                 }`}
-                onClick={() => handleButtonClick(department)}
+                onClick={() => handleButtonClick(college.id)}
               >
-                {department}
+                {college.acronym}
               </button>
             ))}
           </div>
@@ -47,7 +68,9 @@ const Curriculum = () => {
             {filteredPrograms.length > 0 ? (
               filteredPrograms.map((program, index) => (
                 <tr key={index} className="h-20 cursor-pointer">
-                  <td>{program.program}</td>
+                  <td onClick={() => viewProgram(program.id)}>
+                    {program.name}
+                  </td>
                 </tr>
               ))
             ) : (

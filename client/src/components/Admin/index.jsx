@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
-import Sidenav from "./Sidenav";
+import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
 
 const Admin = () => {
@@ -17,29 +17,29 @@ const Admin = () => {
     switch (path) {
       case "/admin":
       case "/admin/dashboard":
-        return "Admin Dashboard";
+        return "ADMIN DASHBOARD";
       case "/admin/user/manage":
-        return "Manage Users";
-      case "/admin/management/professor":
-        return "Manage Professors";
-      case "/admin/management/section":
-        return "Manage Sections";
-      case "/admin/management/classroom":
-        return "Manage Classrooms";
+        return "MANAGE USERS";
+      case "/admin/view/professor":
+        return "MANAGE PROFESSOR";
+      case "/admin/view/section":
+        return "MANAGE SECTIONS";
+      case "/admin/view/classroom":
+        return "MANAGE CLASSROOM";
       case "/admin/generate":
-        return "Generate";
+        return "GENERATE";
       case "/admin/curriculum":
-        return "Curriculum";
-      case "/admin/management/building":
-        return "Manage Building";
-      case "/admin/management/department":
-        return "Manage Department";
-      case "/admin/management/course":
-        return "Manage Courses";
-      case "/admin/management/program":
-        return "Manage Programs";
+        return "CURRICULUM";
+      case "/admin/view/building":
+        return "MANAGE BUILDING";
+      case "/admin/view/department":
+        return "MANAGE COLLEGE";
+      case "/admin/view/course":
+        return "MANAGE COURSES";
+      case "/admin/view/program":
+        return "MANAGE PROGRAMS";
       case "/admin/generated/":
-        return "Generate Schedule";
+        return "Generate SCHEDULE";
       default:
         // Check if path matches dynamic route pattern
         if (generatedPattern.test(path)) {

@@ -10,7 +10,11 @@ class CourseSerializer(serializers.ModelSerializer):
             "name",
             "code",
             "category",
-            "total_units",
-            "total_hours",
+            "lab_unit",
+            "lecture_unit",
+            "lab_hours",
+            "lecture_hours",
             "need_masteral",
+            "pre_requisites",
+            "co_requisites",
         ]

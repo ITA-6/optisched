@@ -20,7 +20,7 @@ class Professor(models.Model):
 
     HAS_MASTERAL_CHOICES = [("Y", "Yes"), ("N", "No")]
 
-    prof_id = models.BigIntegerField(default=0000000)
+    prof_id = models.BigIntegerField(default=0)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255)
@@ -30,15 +30,22 @@ class Professor(models.Model):
     has_masteral = models.CharField(
         max_length=3, choices=HAS_MASTERAL_CHOICES, default="Y"
     )
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey("department.Department", on_delete=models.CASCADE)
     required_units = models.IntegerField(default=0, null=True)
     current_units = models.IntegerField(default=0, null=True)
     handled_schedule = models.ManyToManyField(
-        Schedule, blank=True, related_name="professors"
+        "schedule.Schedule", blank=True, related_name="professors"
     )
     birth_date = models.DateField(default=timezone.now)
     email = models.EmailField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="O")
+    advisee = models.OneToOneField(
+        "section.Section",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="adviser",
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -51,6 +58,7 @@ class Professor(models.Model):
         self.save()
 
     def save(self, *args, **kwargs):
+        # Reactivate an existing professor with matching name if inactive
         if self.pk is None:
             existing_professor = Professor.objects.filter(
                 first_name=self.first_name, last_name=self.last_name, is_active=False

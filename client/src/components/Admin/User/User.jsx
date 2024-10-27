@@ -1,176 +1,123 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import user from "../../../assets/user.png";
 import add from "../../../assets/add.png";
+import UserSearchField from "./Files/UserSearchField";
+import UserTable from "./Files/UserTable";
+import UserForm from "./Files/UserForm";
+import loadingVideo from "../../../assets/loadingVideo.mp4";
+
+import api from "../../../api";
 
 const User = () => {
+  const [users, setUsers] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [initialData, setInitialData] = useState(null);
+  const [loading, setLoading] = useState(true); // New loading state
+  const [selectedUser, setSelectedUser] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const toggleDialog = (id) => {
+    setIsDialogOpen(!isDialogOpen);
+    setSelectedUser(id);
+  };
+
+  const DeleteUser= async (id) => {
+    try {
+      await api.delete(`account/users/${id}`);
+      const response = await api.get("account/users/");
+      setUsers(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+    toggleDialog(id);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("account/users/");
+        const department = await api.get("departments/");
+        setUsers(response.data);
+        setDepartments(department.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        // Add a delay of 3 seconds after data is fetched before hiding loading screen
+        setTimeout(() => setLoading(false), 3000);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    if (isModalOpen) setInitialData(null);
+  };
+
+  const openUpdate = (initialData) => {
+    setInitialData(initialData);
+    toggleModal();
+  };
+
+  const updateUser = async (user) => {
+    try {
+      await api.put(`account/users/${user.professor_id}/`, user);
+      const response = await api("account/users/");
+      setUsers(response.data);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const submitUser = async (user) => {
+    try {
+      await api.post("account/users/", user);
+      const response = await api("account/users/");
+      setUsers(response.data);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (loading) {
+    // Render the loading video while data is being fetched and during the delay
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <video
+          autoPlay
+          loop
+          muted
+          className="h-[35vh] w-[35vw] translate-x-20 transform"
+        >
+          <source src={loadingVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    );
+  }
 
   return (
-    <div className="h-screen w-screen bg-white-grayish">
-      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_6fr_6fr] grid-areas-user-layout">
-        <div className="mr-5 grid grid-rows-[1fr_4fr] grid-areas-user-table-layout grid-in-userTable">
-          <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-div">
-            <input
-              type="text"
-              placeholder="search"
-              className="rounded-md border pl-7 grid-in-search"
-            />
-            <div className="text-center grid-in-list">
-              <select className="w-full">
-                <option value="">List: All users</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </select>
-            </div>
-          </div>
-          <table className="table-fixed bg-white grid-in-table">
-            <thead className="bg-green">
-              <tr>
-                <th scope="col">User ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Email Address</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Department</th>
-                <th scope="col">Type of User</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody className="mb-10 h-full overflow-auto">
-              <tr className="h-[30px] text-center">
-                <th scope="row">1</th>
-                <td>John Doe</td>
-                <td>Male</td>
-                <td>johndoe2922@gmail.com</td>
-                <td>21312323213</td>
-                <td>CCS</td>
-                <td>Dean</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr className="h-[30px] text-center">
-                <th scope="row">2</th>
-                <td>Jane Smith</td>
-                <td>Female</td>
-                <td>janesmith1234@gmail.com</td>
-                <td>31231231231</td>
-                <td>BSeD</td>
-                <td>Professor</td>
-                <td>Inactive</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr className="h-[30px] text-center">
-                <th scope="row">3</th>
-                <td>Michael Johnson</td>
-                <td>Male</td>
-                <td>michaeljohnson5678@gmail.com</td>
-                <td>42342342342</td>
-                <td>CoE</td>
-                <td>Registrar</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr className="h-[30px] text-center">
-                <th scope="row">4</th>
-                <td>Emily Davis</td>
-                <td>Female</td>
-                <td>emilydavis9012@gmail.com</td>
-                <td>53453453453</td>
-                <td>BSBA</td>
-                <td>Department Chair</td>
-                <td>Inactive</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr className="h-[30px] text-center">
-                <th scope="row">5</th>
-                <td>Daniel Brown</td>
-                <td>Male</td>
-                <td>danielbrown3456@gmail.com</td>
-                <td>64564564564</td>
-                <td>CCS</td>
-                <td>Dean</td>
-                <td>Active</td>
-                <td>
-                  <div className="flex items-center justify-center">
-                    <div className="ml-5 flex gap-2">
-                      <button className="-h5 w-16 bg-green text-white">
-                        {" "}
-                        Edit
-                      </button>
-                      <button className="-h5 w-16 bg-red-500 text-white">
-                        {" "}
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+    <div className="h-screen w-screen bg-white">
+      <div className="ml-[20rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_9fr_3fr] grid-areas-user-layout">
+        <UserSearchField />
+        <div className="mr-5 grid grid-areas-user-table-layout grid-in-userTable overflow-y-auto">
+          <UserTable
+            users={users}
+            openUpdate={openUpdate}
+            toggleModal={toggleModal}
+            DeleteUser={DeleteUser}
+          />
         </div>
+        {/* add User Table */}
         <div className="mt-5 flex items-start justify-end grid-in-button">
           <button
-            className="mr-5 flex h-20 w-52 items-center justify-center space-x-2 rounded-3xl border-2 border-black bg-light-green text-white"
-            onClick={openModal}
+            className="mr-5 flex h-14 w-40 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white"
+            onClick={toggleModal}
           >
-            <img src={add} alt="" className="h-[30px] w-[30px]" />
+            <img src={add} alt="" className="h-[20px] w-[20px]" />
             <span>Add New User</span>
           </button>
         </div>
@@ -178,167 +125,46 @@ const User = () => {
 
       {/* Modal */}
       {isModalOpen && (
+        <UserForm
+          users={users}
+          departments={departments}
+          toggleModal={toggleModal}
+          handler={initialData ? updateUser : submitUser}
+          initialData={initialData}
+        />
+      )}
+
+      {isDialogOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
-            <div className="flex h-1/5 items-center justify-center bg-green">
-              <img src={user} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
-              <h2 className="ml-2 text-3xl font-extrabold">Create New User</h2>
-            </div>
-            <div className="p-5">
-              <form className="mt-5 space-y-6">
-                {/* User ID */}
-                <div className="flex items-center">
-                  <div className="flex flex-1">
-                    <label htmlFor="userId" className="text-lg font-medium">
-                      User ID :
-                    </label>
-                    <p
-                      id="userId"
-                      name="userId"
-                      className="inlin text-lg font-medium"
-                    >
-                      1
-                    </p>
-                  </div>
-                </div>
-                {/* Role Field */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="role"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Role
-                  </label>
-                  <select 
-                    name="role"
-                    id="role"
-                    className="border border-gray-300 p-2"
-                    >
-                      <option value="casual">Casual</option>
-                      <option value="part-time">Part-time</option>
-                      <option value="permanent">Permanent</option>
-                  </select>
-                </div>
-
-                {/* Name Fields */}
-                <div className="flex flex-col">
-                  <label className="text-lg font-medium text-gray-700">
-                    Name
-                  </label>
-                  <div className="mt-2 flex space-x-4">
-                    <div className="flex-1">
-                      <label
-                        htmlFor="firstname"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Firstname
-                      </label>
-                      <input
-                        type="text"
-                        id="firstname"
-                        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                        required
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label
-                        htmlFor="middlename"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Middlename
-                      </label>
-                      <input
-                        type="text"
-                        id="middlename"
-                        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                        option
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label
-                        htmlFor="lastname"
-                        className="block text-sm font-medium text-gray-600"
-                      >
-                        Lastname
-                      </label>
-                      <input
-                        type="text"
-                        id="lastname"
-                        className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Email Address Field */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="mail"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="mail"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                {/* Phone Number Field */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="phone"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                    placeholder="+63"
-                    required
-                  />
-                </div>
-
-                {/* Department Field */}
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="department"
-                    className="text-lg font-medium text-gray-700"
-                  >
-                    Department
-                  </label>
-                  <select
-                    id="department"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                    required
-                  >
-                    <option value="CCS">CCS</option>
-                    <option value="BSeD">BSeD</option>
-                    <option value="CoE">CoE</option>
-                    <option value="BSBA">BSBA</option>
-                  </select>
-                </div>
-                <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
-                  <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
-                    <span>Confirm</span>
-                  </button>
-                </div>
-              </form>
+          <div className="flex h-[10rem] w-[20rem] flex-col items-center justify-center rounded-md bg-white">
+            <div className="flex w-full justify-end">
               <button
-                className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
-                onClick={closeModal}
+                className="mr-5 rounded-xl bg-red-500 px-2 pb-0.5 text-center text-white"
+                onClick={() => toggleDialog()}
               >
-                &times;
+                x
+              </button>
+            </div>
+            <div className="text-md mb-3 flex h-1/3 items-center px-10 text-center font-medium">
+              <h1>Are you sure? you want to delete this item?</h1>
+            </div>
+            <div className="flex gap-4">
+              <button
+                className="bg-green px-10 py-2 text-center text-white"
+                onClick={() => DeleteUser(selectedUser)}
+              >
+                Yes
+              </button>
+              <button
+                className="bg-red-500 px-10 py-2 text-white"
+                onClick={() => toggleDialog()}
+              >
+                No
               </button>
             </div>
           </div>
         </div>
-      )}
+        )}
     </div>
   );
 };

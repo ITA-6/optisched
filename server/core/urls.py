@@ -1,5 +1,4 @@
 from django.urls import path, include
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from department.views import DepartmentAPIView
 from professor.views import ProfessorAPIView
@@ -13,15 +12,6 @@ from program.views import ProgramAPIView
 api_base_url = "api/"
 
 urlpatterns = [
-    # JWT Token Endpoints
-    path(
-        f"{api_base_url}token/", TokenObtainPairView.as_view(), name="token_obtain_pair"
-    ),
-    path(
-        f"{api_base_url}token/refresh/",
-        TokenRefreshView.as_view(),
-        name="token_refresh",
-    ),
     # Account related URLs
     path(f"{api_base_url}account/", include("account.urls"), name="account"),
     # Professor Endpoints
@@ -79,4 +69,8 @@ urlpatterns = [
         ProgramAPIView.as_view(),
         name="program-detail",
     ),
+    # Schedule Endpoints
+    path(f"{api_base_url}schedule/", include("schedule.urls")),
+    # Curriculum Endpoints
+    path(f"{api_base_url}curriculum/", include("curriculum.urls"), name="curriculum"),
 ]
