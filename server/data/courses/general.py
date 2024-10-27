@@ -3,6 +3,7 @@ GENERAL_COURSES = [
         "name": "Mathematics in the Modern World",
         "code": "MAT101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -18,6 +19,7 @@ GENERAL_COURSES = [
         "name": "Understanding the Self",
         "code": "PSY100",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -33,6 +35,7 @@ GENERAL_COURSES = [
         "name": "Science and Development of Reading",
         "code": "READ100",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -48,6 +51,7 @@ GENERAL_COURSES = [
         "name": "PnCians Holistic Development",
         "code": "PHD101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 1,
         "lec_hours": 1,
         "lab_units":0,
@@ -63,6 +67,7 @@ GENERAL_COURSES = [
         "name": "PnCians Holistic Development",
         "code": "PHD102",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 1,
         "lec_hours": 1,
         "lab_units":0,
@@ -78,6 +83,7 @@ GENERAL_COURSES = [
         "name": "National Service Training Program 1",
         "code": "NSTP1",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -93,6 +99,7 @@ GENERAL_COURSES = [
         "name": "Physical Activities Toward Health and Fitness 1",
         "code": "PED101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units":0,
@@ -108,6 +115,7 @@ GENERAL_COURSES = [
         "name": "Purposive Communication",
         "code": "COM101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -123,6 +131,7 @@ GENERAL_COURSES = [
         "name": "Gender and Development",
         "code": "GAD101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -138,6 +147,7 @@ GENERAL_COURSES = [
         "name": "National Service Training Program 2",
         "code": "NSTP2",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -153,6 +163,7 @@ GENERAL_COURSES = [
         "name": "Physical Activities Toward Health and Fitness 2",
         "code": "PED102",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units":0,
@@ -168,6 +179,7 @@ GENERAL_COURSES = [
         "name": "Art Appreciation",
         "code": "HMN101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -183,6 +195,7 @@ GENERAL_COURSES = [
         "name": "Readings in Philippine History",
         "code": "HIS101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -198,6 +211,7 @@ GENERAL_COURSES = [
         "name": "Ethics",
         "code": "ETH101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -213,6 +227,7 @@ GENERAL_COURSES = [
         "name": "Science Technology and Society",
         "code": "STS101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -228,6 +243,7 @@ GENERAL_COURSES = [
         "name": "The Contemporary World",
         "code": "SOC101",
         "category": "LECTURE",  # Converted to "LECTURE"
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -243,6 +259,7 @@ GENERAL_COURSES = [
         "name": "The Entrepreneurial Mind",
         "code": "ENT101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -258,6 +275,7 @@ GENERAL_COURSES = [
         "name": "Life and Works of Rizal",
         "code": "RIZ101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -273,6 +291,7 @@ GENERAL_COURSES = [
         "name": "Physical Activities Toward Health and Fitness 3",
         "code": "PED103",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units":0,
@@ -288,6 +307,7 @@ GENERAL_COURSES = [
         "name": "Physical Activities Toward Health and Fitness 3",
         "code": "PED104",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units":0,
@@ -303,6 +323,7 @@ GENERAL_COURSES = [
         "name": "Environmental Science",
         "code": "ENV101",
         "category": "LECTURE",  # d
+        "department_id": 1,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -318,6 +339,7 @@ GENERAL_COURSES = [
         "name": "Programming Languages",
         "code": "CPS101",
         "category": "LECTURE", # ????
+        "department_id": 1,
         "lec_units": 6,
         "lec_hours": 6,
         "lab_units":0,
@@ -333,6 +355,7 @@ GENERAL_COURSES = [
         "name": "Number Theory",
         "code": "CNT101",
         "category": "LECTURE", #????
+        "department_id": 1,
         "lec_units": 6,
         "lec_hours": 6,
         "lab_units":0,
