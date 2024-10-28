@@ -3,7 +3,7 @@ CAS_COURSES = [
         "name": "Introduction to Psychology",
         "code": "PSM101",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -19,7 +19,7 @@ CAS_COURSES = [
         "name": "Psychological Statistics",
         "code": "PSM102",
         "category": "BOTH", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":2,
@@ -35,7 +35,7 @@ CAS_COURSES = [
         "name": "Developmental Psychology",
         "code": "PSM103",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -51,7 +51,7 @@ CAS_COURSES = [
         "name": "Theories of Personality",
         "code": "PSM104",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -67,7 +67,7 @@ CAS_COURSES = [
         "name": "Cognitive Psychology",
         "code": "PSM105",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -83,7 +83,7 @@ CAS_COURSES = [
         "name": "Professional Ethics in Psychology",
         "code": "PSE101",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -99,7 +99,7 @@ CAS_COURSES = [
         "name": "Abnormal Psychology",
         "code": "PSM106",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -115,7 +115,7 @@ CAS_COURSES = [
         "name": "Experimental Psychology",
         "code": "PSM107",
         "category": "BOTH", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":2,
@@ -131,7 +131,7 @@ CAS_COURSES = [
         "name": "Psychological Assessment",
         "code": "PSM108",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -147,7 +147,7 @@ CAS_COURSES = [
         "name": "Sikolohiyang Filipino",
         "code": "PSM109",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -163,7 +163,7 @@ CAS_COURSES = [
         "name": "Industrial/Organizational Psychology",
         "code": "PSM110",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -179,7 +179,7 @@ CAS_COURSES = [
         "name": "Field Methods in Psychology",
         "code": "PSM111",
         "category": "BOTH", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":2,
@@ -195,7 +195,7 @@ CAS_COURSES = [
         "name": "Introduction to Clinical Psychology",
         "code": "PSE102",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -211,7 +211,7 @@ CAS_COURSES = [
         "name": "Physiological Psychology",
         "code": "PSM112",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -227,7 +227,7 @@ CAS_COURSES = [
         "name": "Introduction to Counseling",
         "code": "PSE103",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -243,7 +243,7 @@ CAS_COURSES = [
         "name": "Research in Psychology 1",
         "code": "PSM113",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -259,7 +259,7 @@ CAS_COURSES = [
         "name": "Social Psychology",
         "code": "PSM114",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -275,7 +275,7 @@ CAS_COURSES = [
         "name": "Strategic Human Resource Management",
         "code": "PSE104",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -291,7 +291,7 @@ CAS_COURSES = [
         "name": "Research in Psychology 2",
         "code": "PSM115",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -307,7 +307,7 @@ CAS_COURSES = [
         "name": "Competency Appraisal 1 (Abnormal Psychology and Theories of Personality)",
         "code": "PSE105",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -323,7 +323,7 @@ CAS_COURSES = [
         "name": "Entrepreneurial Psychology",
         "code": "PSE106",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -339,7 +339,7 @@ CAS_COURSES = [
         "name": "Practicum in Psychology 1",
         "code": "PSE107",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -355,7 +355,7 @@ CAS_COURSES = [
         "name": "Competency Appraisal 2 (Psychological Assessment and Industrial Psychology)",
         "code": "PSE108",
         "category": "LECTURE", #d
-        "department_id": 2,
+        "department_id": 6,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units":0,
@@ -371,7 +371,7 @@ CAS_COURSES = [
         "name": "Practicum in Psychology 2",
         "code": "PSE109",
         "category": "LECTURE", #d
-        "department_id": 2,     
+        "department_id": 6,     
         "lec_units": 3,        
         "lec_hours": 3,       
         "lab_units":0,       
