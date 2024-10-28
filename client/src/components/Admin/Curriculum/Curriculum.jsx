@@ -48,8 +48,8 @@ const Curriculum = () => {
                 key={index}
                 className={`h-10 w-20 flex-1 rounded-t-lg ${
                   selectedDepartment === college.id
-                    ? "bg-gray-700"
-                    : "bg-gray-300 hover:bg-gray-700"
+                    ? "bg-green text-white"
+                    : "bg-gray-300 hover:bg-green hover:text-white"
                 }`}
                 onClick={() => handleButtonClick(college.id)}
               >
@@ -67,7 +67,7 @@ const Curriculum = () => {
           <tbody className="mb-10 h-full overflow-auto">
             {filteredPrograms.length > 0 ? (
               filteredPrograms.map((program, index) => (
-                <tr key={index} className="h-20 cursor-pointer">
+                <tr key={index} className="h-20 cursor-pointer hover:bg-gray-100 hover:text-black">
                   <td onClick={() => viewProgram(program.id)}>
                     {program.name}
                   </td>
