@@ -1,11 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import api from "../../../../api";
-const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
-  const [subjects, setSubject] = useState([]);
-  const [year, setYear] = useState("");
-  const [semester, setSemester] = useState("");
-  const [course, setCourses] = useState([]);
+const CurriculumSubjectForm = ({toggleSubjectForm}) => {
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,18 +11,6 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
     };
     fetchData();
   }, []);
-
- 
-  const submitBtn = (e) => {
-    e.preventDefault();
-    const selectedProgram = data.findIndex( data => data.acronym === acronym)
-    const selectedSubject = course.filter(subject => subject.code === subjects)
-
-
-    data[selectedProgram][year][semester].subject.push({code : selectedSubject[0].code, title : selectedSubject[0].name, total : selectedSubject[0].total_hours, lab : (selectedSubject[0].category === "LABORATORY") ? 0 : 3, lec : (selectedSubject[0].category === "LECTURE") ? 0 : 3, pre : "None" })
-   
-    toggleSubjectForm();
-  }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-1/3 rounded-lg bg-white shadow-lg">
@@ -45,7 +29,7 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
                 name="year"
                 id="year"
                 className='border border-gray-300 p-1 rounded-md'
-                onChange={(e) => setYear(e.target.value)}
+                // onChange={(e) => setYear(e.target.value)}
                >
                 <option value="">Select Year</option>
                 <option value="firstYear">First Year</option>
@@ -60,14 +44,14 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
                   name="subject"
                   id="subject"
                   className='border border-gray-300 p-1 rounded-md'
-                  onChange={(e) => setSubject(e.target.value)}
+                  // onChange={(e) => setSubject(e.target.value)}
                  >
                   <option value="">
                       Select Subject
                   </option>
-                {course.map(courses => (
+                {/* {course.map(courses => (
                    <option value={courses.code} key={courses.id}>{courses.code}</option>
-                ))}
+                ))} */}
                  </select>
                
             </div>
@@ -77,7 +61,7 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
                 name="semester"
                 id="semester"
                 className='border border-gray-300 p-1 rounded-md'
-                onChange={(e) => setSemester(e.target.value)}
+                // onChange={(e) => setSemester(e.target.value)}
                 >
                 <option value="">Select Semester</option>
                 <option value="firstSemester">First Semester</option>
@@ -90,7 +74,7 @@ const CurriculumSubjectForm = ({toggleSubjectForm, data, acronym}) => {
             <button 
               type="submit"
               className="bg-green text-white px-5 py-2 rounded-md"
-              onClick={submitBtn}
+              // onClick={submitBtn}
             >
               Confirm
             </button>
