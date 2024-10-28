@@ -1,40 +1,63 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../../../api"; // Import Axios for API requests
-import { departments } from "./data";
 import loadingVideo from "../../../assets/loadingVideo.mp4";
-
+import GeneratedTable from "./Files/GeneratedTable";
+import GenerateTableHeaders from "./Files/GenerateTableHeaders";
+import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
 const Generate = () => {
-  const [selectedDepartment, setSelectedDepartment] = useState("CSS");
   const [scheduleData, setScheduleData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Hook to handle navigation
+
+  const [selectedDepartment, setSelectedDepartment] = useState(1);
+  const [department, setDepartment] = useState([]);
+  const [programs, setPrograms] = useState([]);
+  const [activeDepartment , setActiveDepartment] = useState(false)
 
   useEffect(() => {
-    setSelectedDepartment("CSS");
     const fetchData = async () => {
-      setLoading(true); // Show loading screen
-      try {
-        const response = await api.get("schedule/list/");
-        setScheduleData(response.data);
-      } catch (err) {
-        setError("Error fetching schedule");
-      } finally {
-        setLoading(false); // Hide loading screen when data is fetched
-      }
+      const response = await api.get("departments/");
+      const program = await api("programs/");
+      setDepartment(response.data);
+      setPrograms(program.data);
     };
-
     fetchData();
   }, []);
+
+  const viewProgram = (id) => {
+    setActiveDepartment(!activeDepartment)
+  };
+
+  const filteredPrograms = programs.filter(
+    (program) => program.department === +selectedDepartment,
+  );
+
+  const handleButtonClickDepartment = (department) => {
+    setSelectedDepartment(department);
+    setActiveDepartment(false)
+  };
+
+
+  // useEffect(() => {
+  //   setSelectedDepartment("CSS");
+  //   const fetchData = async () => {
+  //     setLoading(true); // Show loading screen
+  //     try {
+  //       const response = await api.get("schedule/list/");
+  //       setScheduleData(response.data);
+  //     } catch (err) {
+  //       setError("Error fetching schedule");
+  //     } finally {
+  //       setLoading(false); // Hide loading screen when data is fetched
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   const handleButtonClick = (department) => {
     setSelectedDepartment(department);
     setScheduleData([]); // Clear the schedule data when switching departments
-  };
-
-  const handleRowClick = (name) => {
-    navigate(`/admin/generated/${encodeURIComponent(name)}`); // Navigate to details page with the name
   };
 
   const handleGenerateSchedule = async () => {
@@ -63,12 +86,8 @@ const Generate = () => {
     }
   };
 
-  const filteredData = departments.filter(
-    (item) => item.department === selectedDepartment,
-  );
-
   return (
-    <div className="h-screen bg-white">
+    <div className="h-screen bg-white overflow-auto">
       {loading ? (
         <div className="flex h-full items-center justify-center">
           <video
@@ -80,7 +99,7 @@ const Generate = () => {
         </div>
       ) : (
         // Main content is displayed when not loading
-        <div className="ml-[18rem] mr-[2rem] h-full">
+        <div className="ml-[18rem] mr-[1rem] h-full">
           <div className="grid">
             <div className="text-md mt-20 flex gap-x-1 font-bold">
               {/* Department selection buttons */}
@@ -90,7 +109,7 @@ const Generate = () => {
           <div className="mb-4 flex justify-between">
             <button
               onClick={handleGenerateSchedule}
-              className="hover:bg-dakr-green rounded bg-green px-4 py-2 text-white"
+              className="hover:bg-dark-green rounded bg-green px-4 py-2 text-white"
             >
               Generate Schedule
             </button>
@@ -106,37 +125,22 @@ const Generate = () => {
 
           {error && <p className="text-red-500">{error}</p>}
 
-          {scheduleData.length > 0 && (
-            <div className="mt-4">
-              <h2 className="mb-2 text-xl font-semibold">Generated Schedule</h2>
-              <table className="min-w-full bg-white">
-                <thead>
-                  <tr>
-                    <th className="py-2">Course</th>
-                    <th className="py-2">Professor</th>
-                    <th className="py-2">Room</th>
-                    <th className="py-2">Section</th>
-                    <th className="py-2">Day of Week</th>
-                    <th className="py-2">Start Time</th>
-                    <th className="py-2">End Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {scheduleData.map((schedule, index) => (
-                    <tr key={index} className="border-t text-center">
-                      <td className="py-2">{schedule.course_name}</td>
-                      <td className="py-2">{`${schedule.professor_first_name} ${schedule.professor_last_name}`}</td>
-                      <td className="py-2">{schedule.room_number}</td>
-                      <td className="py-2">{schedule.section_label}</td>
-                      <td className="py-2">{schedule.day_of_week}</td>
-                      <td className="py-2">{schedule.start_time}</td>
-                      <td className="py-2">{schedule.end_time}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div className="flex h-[80%] gap-x-2">
+            <div className="flex flex-col flex-1">
+              <GenerateTableHeaders department={department} selectedDepartment={selectedDepartment} handleButtonClickDepartment={handleButtonClickDepartment} />
+              {activeDepartment  ? (
+               <ViewTableSchedule />
+              ) :
+              (
+                <GeneratedTable filteredPrograms={filteredPrograms} viewProgram={viewProgram}/>
+              )}
             </div>
-          )}
+            <div className={`gap-2 flex-col justify-center items-center ${activeDepartment ? "flex " : "hidden" }`}>
+              <button className="bg-green p-3"></button>
+              <button className="bg-green p-3"></button>
+              <button className="bg-green p-3"></button>
+            </div>
+          </div>
         </div>
       )}
     </div>

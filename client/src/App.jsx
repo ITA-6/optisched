@@ -7,7 +7,6 @@ import Admin from "./components/Admin";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import User from "./components/Admin/User/User";
 import Generate from "./components/Admin/Generate/Generate";
-import Generated from "./components/Admin/Generate/generatedForms/Generated";
 import Curriculum from "./components/Admin/Curriculum/Curriculum";
 import ViewProfessor from "./components/Admin/ViewManagement/Professor";
 import ViewSection from "./components/Admin/ViewManagement/Section";
@@ -55,7 +54,6 @@ const App = () => {
           <Route index path="user/manage" element={<User />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="generate" element={<Generate />} />
-          <Route path="generated/:name" element={<Generated />} />
           <Route path="curriculum" element={<Curriculum />} />
           <Route path="view/professor" element={<ViewProfessor />} />
           <Route path="view/section" element={<ViewSection />} />
