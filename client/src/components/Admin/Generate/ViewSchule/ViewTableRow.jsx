@@ -1,16 +1,16 @@
 import React from 'react'
 
-const ViewTableRow = ({course, program}) => {
+const ViewTableRow = ({subject, sectionTable}) => {
   return (
-    <tr  className='text-center'>
-        <td>{course.professor_name ? course.professor_name : "TBA"}</td>
-        <td>{course.course_code}</td>
-        <td>{course.course_description}</td>
-        <td>{course.lecture_units}</td>
-        <td>{course.lab_units}</td>
-        <td>{course.time}</td>
-        <td>TBA</td>
-        <td>{program.year_level}{program.section_label}</td>
+    <tr className="text-center">
+      <td>{subject.professor_name ? subject.professor_name : "TBA"}</td>
+      <td>{subject.course_code}</td>
+      <td>{subject.course_description}</td>
+      <td>{subject.lecture_units}</td>
+      <td>{subject.lab_units}</td>
+      <td>{subject.time}</td>
+      <td>TBA</td>
+      <td>{sectionTable.year_level}{sectionTable.section_label}</td>
     </tr>
   )
 }

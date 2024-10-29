@@ -5,6 +5,7 @@ import GeneratedTable from "./Files/GeneratedTable";
 import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
 import {ScheduleData} from "./ViewSchule/ScheduleData";
+import { noData } from "./ViewSchule/ScheduleData";
 const Generate = () => {
   const [scheduleData, setScheduleData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,9 @@ const Generate = () => {
   const [programs, setPrograms] = useState([]);
   const [activeDepartment , setActiveDepartment] = useState(false)
   const [selectedProgram, setSelectedProgram] = useState("");
+
+
+  const getAllSection = [...new Set(ScheduleData.map(section => section.section_label))];
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("departments/");
@@ -28,11 +32,13 @@ const Generate = () => {
   const viewProgram = (programName) => {
     setSelectedProgram(programName);
     setActiveDepartment(!activeDepartment)
-    console.log(selectedProgram)
   };
 
   const filteredScheduleProgram = ScheduleData.filter((program) => program.program_name === selectedProgram)
-
+  const filterScheduleSections = getAllSection.map(sectionLabel => {
+    return filteredScheduleProgram.filter(subject => subject.section_label === sectionLabel)
+  })
+ 
   const filteredPrograms = programs.filter(
     (program) => program.department === +selectedDepartment,
   );
@@ -133,10 +139,18 @@ const Generate = () => {
 
           <div className="flex h-[80%] gap-x-2">
             <div className="flex flex-col flex-1">
-              <GenerateTableHeaders department={department} selectedDepartment={selectedDepartment} handleButtonClickDepartment={handleButtonClickDepartment} />
+              <GenerateTableHeaders 
+                department={department}
+                selectedDepartment={selectedDepartment} 
+                handleButtonClickDepartment={handleButtonClickDepartment} 
+              />
               {activeDepartment  ? (
-                <div className="overflow-y-scroll">
-                   <ViewTableSchedule filteredScheduleProgram={filteredScheduleProgram}/>
+                <div className="overflow-y-scroll flex flex-col gap-5 p-5">
+                  {filterScheduleSections.map(sectionArray =>(
+                    <ViewTableSchedule 
+                      sectionArray={sectionArray}
+                    />
+                  ))}
                 </div>
               ) :
               (

@@ -1,9 +1,9 @@
 import React from 'react'
 import ViewTableRow from "./ViewTableRow"
-const ViewTableSchedule = ({filteredScheduleProgram}) => {
+const ViewTableSchedule = ({sectionArray}) => {
   return (
     <table className="h-full table-auto w-full">
-        <thead className='sticky top-0'>
+        <thead>
           <tr>
               <th className='bg-green text-white p-1'>Professor Name</th>
               <th className='bg-green text-white'>Course Code</th>
@@ -16,19 +16,11 @@ const ViewTableSchedule = ({filteredScheduleProgram}) => {
           </tr>
         </thead>
         <tbody className='border border-gray-300 '>
-          {filteredScheduleProgram && filteredScheduleProgram.length > 0 ? (
-            filteredScheduleProgram?.map((program) => 
-              program.courses?.map((course, index )=> (
-                <ViewTableRow course={course} key={index} program={program} />
+           {sectionArray.map(sectionTable => (
+              sectionTable.courses.map(subject =>(
+                <ViewTableRow subject={subject} sectionTable={sectionTable} />
               ))
-            )
-          ) : (
-            <tr>
-              <td  colSpan="8" className="p-4 text-gray-500 text-center">
-                No data available
-              </td>
-            </tr>
-          )}
+           ))}
         </tbody>
     </table>
   )
