@@ -16,8 +16,6 @@ const Generate = () => {
   const [activeDepartment , setActiveDepartment] = useState(false)
   const [selectedProgram, setSelectedProgram] = useState("");
 
-
-  const getAllSection = [...new Set(ScheduleData.map(section => section.section_label))];
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("departments/");
@@ -32,8 +30,14 @@ const Generate = () => {
     setSelectedProgram(programName);
     setActiveDepartment(!activeDepartment)
   };
-
+  
+  // filter the data by selecting a program
   const filteredScheduleProgram = ScheduleData.filter((program) => program.program_name === selectedProgram)
+
+  // get all the section available
+  const getAllSection = [...new Set(filteredScheduleProgram.map(section => section.section_label))];
+  
+  // filter the subjects by section
   const filterScheduleSections = getAllSection.map(sectionLabel => {
     return filteredScheduleProgram.filter(subject => subject.section_label === sectionLabel)
   })
@@ -144,12 +148,20 @@ const Generate = () => {
                 handleButtonClickDepartment={handleButtonClickDepartment} 
               />
               {activeDepartment  ? (
-                <div className="overflow-y-scroll flex flex-col gap-5 p-5">
-                  {filterScheduleSections.map(sectionArray =>(
-                    <ViewTableSchedule 
-                      sectionArray={sectionArray}
-                    />
-                  ))}
+                <div className={`${filterScheduleSections.length > 0 ? "overflow-y-scroll" : "overflow-hidden"} flex flex-col gap-5 p-5 h-full`}>
+                  {filterScheduleSections.length > 0 ? (
+                     filterScheduleSections.map((sectionArray, index) =>(
+                      <ViewTableSchedule 
+                        key={index}
+                        sectionArray={sectionArray}
+                      />
+                    ))
+                  ) :
+                  (
+                   <div className="h-full w-full flex justify-center items-center">
+                      <p className="text-gray-500">No Data Available</p>
+                   </div>
+                  )}
                 </div>
               ) :
               (

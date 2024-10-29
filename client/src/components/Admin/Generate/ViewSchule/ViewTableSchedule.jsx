@@ -17,8 +17,8 @@ const ViewTableSchedule = ({sectionArray}) => {
         </thead>
         <tbody className='border border-gray-300 '>
            {sectionArray.map(sectionTable => (
-              sectionTable.courses.map(subject =>(
-                <ViewTableRow subject={subject} sectionTable={sectionTable} />
+              sectionTable.courses.map((subject, index) =>(
+                <ViewTableRow subject={subject} sectionTable={sectionTable} key={index} />
               ))
            ))}
         </tbody>
