@@ -5,6 +5,8 @@ import GeneratedTable from "./Files/GeneratedTable";
 import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
 import {ScheduleData} from "./ViewSchule/ScheduleData";
+import PrintModal from "./ViewSchule/PrintModal";
+
 const Generate = () => {
   const [scheduleData, setScheduleData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,6 +17,12 @@ const Generate = () => {
   const [programs, setPrograms] = useState([]);
   const [activeDepartment , setActiveDepartment] = useState(false)
   const [selectedProgram, setSelectedProgram] = useState("");
+  const [printModalOpen, setPrintModalOpen] = useState(false);
+
+  const togglePrintModal = () => {
+    setPrintModalOpen(!printModalOpen)
+  }
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +38,7 @@ const Generate = () => {
     setSelectedProgram(programName);
     setActiveDepartment(!activeDepartment)
   };
-  
+
   // filter the data by selecting a program
   const filteredScheduleProgram = ScheduleData.filter((program) => program.program_name === selectedProgram)
 
@@ -49,7 +57,6 @@ const Generate = () => {
   const handleButtonClickDepartment = (department) => {
     setSelectedDepartment(department);
     setActiveDepartment(false)
-    
   };
 
 
@@ -150,12 +157,24 @@ const Generate = () => {
               {activeDepartment  ? (
                 <div className={`${filterScheduleSections.length > 0 ? "overflow-y-scroll" : "overflow-hidden"} flex flex-col gap-5 p-5 h-full`}>
                   {filterScheduleSections.length > 0 ? (
-                     filterScheduleSections.map((sectionArray, index) =>(
-                      <ViewTableSchedule 
-                        key={index}
-                        sectionArray={sectionArray}
-                      />
-                    ))
+                    <div className="flex flex-col">
+                       <div className="flex flex-col">
+                        {filterScheduleSections.map((sectionArray, index) =>(
+                          <ViewTableSchedule 
+                            key={index}
+                            sectionArray={sectionArray}
+                          />
+                        ))}
+                      </div>
+                      <div className="flex justify-end items-center py-10 ">
+                        <button 
+                          className="bg-green text-white py-2 px-10 rounded-md font-bold text-base"
+                          onClick={togglePrintModal}
+                        >
+                          Print Schedule
+                        </button>
+                      </div>
+                    </div>
                   ) :
                   (
                    <div className="h-full w-full flex justify-center items-center">
@@ -174,6 +193,9 @@ const Generate = () => {
               <button className="bg-green p-3"></button>
             </div>
           </div>
+          {printModalOpen && (
+            <PrintModal togglePrintModal={togglePrintModal}/>
+          )}
         </div>
       )}
     </div>
