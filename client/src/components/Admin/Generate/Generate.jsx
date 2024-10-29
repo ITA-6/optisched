@@ -5,7 +5,6 @@ import GeneratedTable from "./Files/GeneratedTable";
 import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
 import {ScheduleData} from "./ViewSchule/ScheduleData";
-import { noData } from "./ViewSchule/ScheduleData";
 const Generate = () => {
   const [scheduleData, setScheduleData] = useState([]);
   const [loading, setLoading] = useState(false);
