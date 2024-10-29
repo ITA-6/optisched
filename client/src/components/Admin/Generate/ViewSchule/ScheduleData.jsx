@@ -1416,5 +1416,3 @@ export const ScheduleData = [
       ]
     }
   ]
-
-  export  const noData = [];
