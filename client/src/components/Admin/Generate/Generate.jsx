@@ -158,7 +158,7 @@ const Generate = () => {
                 <div className={`${filterScheduleSections.length > 0 ? "overflow-y-scroll" : "overflow-hidden"} flex flex-col gap-5 p-5 h-full`}>
                   {filterScheduleSections.length > 0 ? (
                     <div className="flex flex-col">
-                       <div className="flex flex-col">
+                       <div className="flex flex-col gap-10">
                         {filterScheduleSections.map((sectionArray, index) =>(
                           <ViewTableSchedule 
                             key={index}
