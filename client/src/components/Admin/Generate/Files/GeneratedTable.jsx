@@ -12,7 +12,7 @@ const GeneratedTable = ({filteredPrograms, viewProgram}) => {
         {filteredPrograms.length > 0 ? (
           filteredPrograms.map((program, index) => (
             <tr key={index} className="h-20 cursor-pointer">
-              <td onClick={() => viewProgram(program.name)}>
+              <td className='hover:bg-gray-100' onClick={() => viewProgram(program.name)}>
                 {program.name}
               </td>
             </tr>
