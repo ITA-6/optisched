@@ -9,7 +9,7 @@ const CurriculumView = () => {
   const location = useLocation();
   const [curriculums, setCurriculums] = useState([]);
   const [subjectForm, setSubjectForm] = useState(false)
-
+  
   useEffect(() => {
     const fetchCurriculums = async () => {
       const response = await api(`curriculum/?program_id=${location.state.id}`);
