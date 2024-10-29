@@ -4,6 +4,7 @@ import loadingVideo from "../../../assets/loadingVideo.mp4";
 import GeneratedTable from "./Files/GeneratedTable";
 import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
+import {ScheduleData} from "./ViewSchule/ScheduleData";
 const Generate = () => {
   const [scheduleData, setScheduleData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,7 @@ const Generate = () => {
   const [department, setDepartment] = useState([]);
   const [programs, setPrograms] = useState([]);
   const [activeDepartment , setActiveDepartment] = useState(false)
-
+  const [selectedProgram, setSelectedProgram] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("departments/");
@@ -24,9 +25,13 @@ const Generate = () => {
     fetchData();
   }, []);
 
-  const viewProgram = (id) => {
+  const viewProgram = (programName) => {
+    setSelectedProgram(programName);
     setActiveDepartment(!activeDepartment)
+    console.log(selectedProgram)
   };
+
+  const filteredScheduleProgram = ScheduleData.filter((program) => program.program_name === selectedProgram)
 
   const filteredPrograms = programs.filter(
     (program) => program.department === +selectedDepartment,
@@ -35,6 +40,7 @@ const Generate = () => {
   const handleButtonClickDepartment = (department) => {
     setSelectedDepartment(department);
     setActiveDepartment(false)
+    
   };
 
 
@@ -129,7 +135,9 @@ const Generate = () => {
             <div className="flex flex-col flex-1">
               <GenerateTableHeaders department={department} selectedDepartment={selectedDepartment} handleButtonClickDepartment={handleButtonClickDepartment} />
               {activeDepartment  ? (
-               <ViewTableSchedule />
+                <div className="overflow-y-scroll">
+                   <ViewTableSchedule filteredScheduleProgram={filteredScheduleProgram}/>
+                </div>
               ) :
               (
                 <GeneratedTable filteredPrograms={filteredPrograms} viewProgram={viewProgram}/>
