@@ -194,7 +194,7 @@ const Generate = () => {
             </div>
           </div>
           {printModalOpen && (
-            <PrintModal togglePrintModal={togglePrintModal}/>
+            <PrintModal togglePrintModal={togglePrintModal} filterScheduleSections={filterScheduleSections}/>
           )}
         </div>
       )}

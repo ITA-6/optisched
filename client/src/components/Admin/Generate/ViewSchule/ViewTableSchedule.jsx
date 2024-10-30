@@ -1,6 +1,7 @@
 import React from 'react'
 import ViewTableRow from "./ViewTableRow"
 const ViewTableSchedule = ({sectionArray}) => {
+  console.log(sectionArray)
   return (
     <table className="h-full table-auto w-full">
         <thead>
@@ -18,7 +19,7 @@ const ViewTableSchedule = ({sectionArray}) => {
         <tbody className='border border-gray-300 '>
            {sectionArray.map(sectionTable => (
               sectionTable.courses.map((subject, index) =>(
-                <ViewTableRow subject={subject} sectionTable={sectionTable} key={index} />
+                <ViewTableRow subject={subject} sectionTable={sectionTable} key={index} index={index} />
               ))
            ))}
         </tbody>
