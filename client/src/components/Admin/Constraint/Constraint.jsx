@@ -187,7 +187,7 @@ const Constraint = () => {
 
         {/* Update Button */}
         <div className="flex justify-end">
-          <button className="bg-green-600 hover:bg-green-700 rounded-lg px-6 py-2 text-white shadow-md">
+          <button className="bg-green hover:bg-green rounded-lg px-6 py-2 text-white shadow-md">
             Update
           </button>
         </div>
