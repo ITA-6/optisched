@@ -1,12 +1,14 @@
 import { useState } from "react";
 import userIcon from "../../../assets/userIcon.png";
 import { useNavigate } from "react-router-dom";
-
 import api from "../../../api";
+import { useSidebar } from "./SidenavContext/SidenavContext"; // Import useSidebar
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
-  const toggleUser = () => setUserOpen(!isUserOpen);
+  const { toggleSidebar, isSidebarOpen } = useSidebar(); // Get toggleSidebar from context
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -23,22 +25,30 @@ const Header = ({ pageName }) => {
   };
 
   return (
-    <div className="sm: xl: z-1 absolute top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow">
-      <h1 className="xl: m-3 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden">
+    <div className="sm: p-2 xl: z-1 p-0 absolute top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow">
+      <button 
+        className="xm:block text-2xl sm:block ml-5 lg:hidden xl:hidden"
+        onClick={toggleSidebar}
+        >
+          <FontAwesomeIcon 
+          icon={faBars} 
+          color="white" />
+        </button>
+      <h1 
+      className={`ease-in-out duration-300 xl: m-3 text-base font-bold text-white sm:hidden lg:inline xm:hidden ${isSidebarOpen ? "ml-[18.5em]" : "lg:ml-20"}`}
+      >
         {pageName}
       </h1>
-      <button className="md:inline lg:hidden xl:hidden">Menu bar</button>
 
-      <div className="relative mr-5 mt-2">
-        <button onClick={toggleUser}>
-          <img src={userIcon} alt="userIcon" />
-        </button>
-        <ul
-          className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
+      <div className="relative flex justify-center items-center px-4">
+        <button 
+        className=" xm:w-10 sm:w-10  xl:w-8 "
+        onClick={() => setUserOpen(!isUserOpen)}
         >
-          <li>
-            <a href="">Change Password</a>
-          </li>
+          <img src={userIcon} alt="userIcon" className="w-full" />
+        </button>
+        <ul className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}>
+          <li><a href="">Change Password</a></li>
           <button onClick={handleLogout}>Logout</button>
         </ul>
       </div>

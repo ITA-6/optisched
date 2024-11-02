@@ -4,17 +4,17 @@ import ScheduleRow from './ScheduleRow';
 const ScheduleTable = () => {
   
   return (
-    <table className="border border-collapse w-full">
+    <table className="border border-collapse  xm:table-fixed w-full sm:table-fixed ">
       <thead>
         <tr className="bg-green text-white text-xs">
-          <th className="border py-[0.6rem] w-40">TIME</th>
-          <th className="border w-40">MONDAY</th>
-          <th className="border w-40">TUESDAY</th>
-          <th className="border w-40">WEDNESDAY</th>
-          <th className="border w-40">THURSDAY</th>
-          <th className="border w-40">FRIDAY</th>
-          <th className="border w-40">SATURDAY</th>
-          <th className="border w-40">SUNDAY</th>
+          <th className="border py-[0.6rem] xm:w-40 sm:w-40">TIME</th>
+          <th className="border xm:w-40 sm:w-40">MONDAY</th>
+          <th className="border xm:w-40 sm:w-40">TUESDAY</th>
+          <th className="border xm:w-40 sm:w-40">WEDNESDAY</th>
+          <th className="border xm:w-40 sm:w-40">THURSDAY</th>
+          <th className="border xm:w-40 sm:w-40">FRIDAY</th>
+          <th className="border xm:w-40 sm:w-40">SATURDAY</th>
+          <th className="border xm:w-40 sm:w-40">SUNDAY</th>
         </tr>
       </thead>
       <tbody className="text-xs text-center">

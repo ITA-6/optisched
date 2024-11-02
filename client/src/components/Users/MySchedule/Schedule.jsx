@@ -2,22 +2,26 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBarsProgress } from '@fortawesome/free-solid-svg-icons'
 import ScheduleTable from './Files/ScheduleTable'
+import { useSidebar } from "../Sidenav/SidenavContext/SidenavContext";
 
 const Schedule = () => {
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
   return (
-    <div className="flex h-screen  w-full bg-gray-50 overflow-auto">
-      <div className="flex flex-col mt-[7rem] ml-[18rem] mr-[2rem] h-[170vh] w-screen text-black text-2xl mb-[10rem]">
-         <div className="flex mb-5">
+    <div className="h-screen  w-screen bg-gray-50 xl:overflow-auto mr-10  ">
+      <div className={`flex flex-col  text-black text-2xl  xm:min-h-[165vh] sm:h-[185vh] md:h-[195vh] ease-in duration-300  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-20"}`}>
+         <div className="flex mb-5 mx-4 mt-20">
             <FontAwesomeIcon 
-              icon={faBarsProgress} 
-              size='xl'
+              icon={faBarsProgress}
+              color='white'
               className='p-2 bg-light-green rounded-xl'
             />
             <h1 className="font-bold text-lg text-center ml-2 mt-2">My Schedule</h1>
          </div>
-         
-         {/* table */}
-          <ScheduleTable />
+      
+         <div className="overflow-x-scroll ml-4 mr-4 xm:max-h-[160.5vh] sm:max-h-[160.5vh] md:max-h-[190vh] xl:overflow-hidden">
+            <ScheduleTable />
+         </div>
+         <div className="flex justify-center items-center xm:h-14 sm:h-20">Footer @PNC</div>
       </div>
     </div>
   )

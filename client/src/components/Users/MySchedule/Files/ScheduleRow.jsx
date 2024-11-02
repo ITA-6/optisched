@@ -3,7 +3,7 @@ import React from 'react'
 const ScheduleRow = () => {
   return (
    <>
-     <tr className="bg-white h-[3rem] border-b">
+     <tr className="bg-white border-b xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">6:00 am  - 6:30 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -13,7 +13,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">6:30 am  - 7:00 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -23,7 +23,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">7:00 am  - 7:30 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -33,7 +33,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">7:30 am  - 8:00 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -43,7 +43,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">8:00 am  - 8:30 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -53,7 +53,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">8:30 am  - 9:00 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -63,7 +63,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td  className="border ">9:00 am  - 9:30 am</td>
         <td className="border bg-green text-white" rowSpan="4">
            <div className="flex flex-col mb-2">
@@ -95,7 +95,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">9:30 am  - 10:00 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -103,7 +103,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">10:00 am  - 10:30 am</td>
         <td className="border bg-blue-500 text-white" rowSpan="3">
            <div className="flex flex-col mb-2">
@@ -123,14 +123,14 @@ const ScheduleRow = () => {
         <td className="border "></td>
       </tr>
 
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">10:30 am  - 11:00 am</td>
         <td className="border "></td>
         <td className="border "></td>
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">11:00 am  - 11:30 am</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -139,7 +139,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">11:30 am  - 12:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -149,7 +149,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">12:00 pm  - 12:30 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -159,7 +159,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">12:30 pm  - 1:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -169,7 +169,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">1:00 pm  - 1:30 pm</td>
         <td className="border bg-red-400 text-white" rowSpan="4">
            <div className="flex flex-col mb-2">
@@ -190,7 +190,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">1:30 pm  - 2:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -199,7 +199,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">2:00 pm  - 2:30 pm</td>
         <td className="border"></td>
         <td className="border "></td>
@@ -230,14 +230,14 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">2:30 pm  - 3:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">3:00 pm  - 3:30 pm</td>
         <td className="border "></td>
         <td className="border bg-slate-600 text-white" rowSpan="3">
@@ -256,14 +256,14 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">3:30 pm  - 4:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">4:00 pm  - 4:30 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -272,7 +272,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
 
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">4:30 pm  - 5:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -281,7 +281,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">5:00 pm  - 5:30 pm</td>
         <td className="border bg-orange-300 text-white" rowSpan="3">
            <div className="flex flex-col mb-2">
@@ -313,7 +313,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border"></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">5:30 pm  - 6:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -321,7 +321,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">6:00 pm  - 6:30 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -339,7 +339,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">6:30 pm  - 7:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -347,7 +347,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border"></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">7:00 pm  - 7:30 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -356,7 +356,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">7:30 pm  - 8:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -366,7 +366,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">8:00 pm  - 8:30 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -376,7 +376,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">8:30 pm  - 9:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -386,7 +386,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">9:00 pm  - 9:30 pm</td>
         <td className="border "></td>
         <td className="border "></td>
@@ -396,7 +396,7 @@ const ScheduleRow = () => {
         <td className="border "></td>
         <td className="border "></td>
       </tr>
-      <tr className="bg-white h-[3rem] border-b">
+      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
         <td className="border ">9:30 pm  - 10:00 pm</td>
         <td className="border "></td>
         <td className="border "></td>
