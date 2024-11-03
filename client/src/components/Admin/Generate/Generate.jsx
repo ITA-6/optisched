@@ -18,6 +18,7 @@ const Generate = () => {
   const [activeDepartment , setActiveDepartment] = useState(false)
   const [selectedProgram, setSelectedProgram] = useState("");
   const [printModalOpen, setPrintModalOpen] = useState(false);
+  const [schedules, setSchedules] = useState([]);
 
   const togglePrintModal = () => {
     setPrintModalOpen(!printModalOpen)
@@ -40,7 +41,8 @@ const Generate = () => {
   };
 
   // filter the data by selecting a program
-  const filteredScheduleProgram = ScheduleData.filter((program) => program.program_name === selectedProgram)
+  const filteredScheduleProgram = schedules.filter((program) => program.program_name === selectedProgram)
+
 
   // get all the section available
   const getAllSection = [...new Set(filteredScheduleProgram.map(section => section.section_label))];
@@ -86,10 +88,12 @@ const Generate = () => {
     setLoading(true); // Show loading screen
     setError(null);
     try {
-      const response = await api.get("schedule/generate/"); // API request to generate schedule
-      setScheduleData(response.data); // Set the generated schedule data
+      const response = await api.get("schedule/"); // Fetch schedule data from the API
+      setSchedules(response.data); // Set the fetched schedule data to `schedules` array
+      setScheduleData(response.data); // Optionally, set `scheduleData` as well if you need it
     } catch (err) {
       setError("Error generating schedule");
+      console.error("Error generating schedule:", err);
     } finally {
       setLoading(false); // Hide loading screen after operation
     }
