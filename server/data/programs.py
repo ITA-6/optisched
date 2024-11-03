@@ -4,7 +4,7 @@ programs_data = [
         "acronym": "BAM",
         "department_id": 3,
     },
-    {"name": "Psychology", "acronym": "PSY", "department_id": 6},
+    {"name": "Psychology", "acronym": "PSY", "department_id": 4},
     {"name": "Computer Science", "acronym": "CS", "department_id": 1},
     {"name": "Information Technology", "acronym": "IT", "department_id": 1},
     {

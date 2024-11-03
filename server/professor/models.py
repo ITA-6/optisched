@@ -1,9 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from department.models import Department
-from schedule.models import Schedule
-
 
 class Professor(models.Model):
     EMPLOYMENT_STATUS_CHOICES = (

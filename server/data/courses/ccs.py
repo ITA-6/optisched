@@ -2,11 +2,11 @@ CCS_COURSES = [
     {
         "name": "Web Technologies",
         "code": "CCS114",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -18,11 +18,11 @@ CCS_COURSES = [
     {
         "name": "Computer Programming 2",
         "code": "CCS103",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -34,11 +34,11 @@ CCS_COURSES = [
     {
         "name": "Human-Computer Interaction 1",
         "code": "CCS105",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -50,11 +50,11 @@ CCS_COURSES = [
     {
         "name": "Introduction to Computing",
         "code": "CCS101",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -66,11 +66,11 @@ CCS_COURSES = [
     {
         "name": "Computer Programming 1",
         "code": "CCS102",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -82,12 +82,11 @@ CCS_COURSES = [
     {
         "name": "Computer Programming 2",
         "code": "CCS103",
-        "category": "LECTURE",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -99,11 +98,11 @@ CCS_COURSES = [
     {
         "name": "Data Structures and Algorithms",
         "code": "CCS107",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -115,11 +114,11 @@ CCS_COURSES = [
     {
         "name": "IT Elective 1",
         "code": "IT Elective 1",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -131,11 +130,11 @@ CCS_COURSES = [
     {
         "name": "Discrete Structures",
         "code": "CCS104",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -147,11 +146,11 @@ CCS_COURSES = [
     {
         "name": "Social and Professional Issues",
         "code": "CCS106",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -163,11 +162,11 @@ CCS_COURSES = [
     {
         "name": "Object-Oriented Programming",
         "code": "CCS108",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -179,11 +178,11 @@ CCS_COURSES = [
     {
         "name": "Information Management 1",
         "code": "CCS110",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -195,11 +194,11 @@ CCS_COURSES = [
     {
         "name": "Integrative Programming & Technologies",
         "code": "ITP102",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -211,11 +210,11 @@ CCS_COURSES = [
     {
         "name": "Human Computer Interaction 2",
         "code": "ITP106",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -227,11 +226,11 @@ CCS_COURSES = [
     {
         "name": "IT Elective 2",
         "code": "IT Elective 2",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -243,11 +242,11 @@ CCS_COURSES = [
     {
         "name": "System Analysis and Design",
         "code": "CCS109",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -259,11 +258,11 @@ CCS_COURSES = [
     {
         "name": "Networking and Communication 1",
         "code": "CCS111",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -275,11 +274,11 @@ CCS_COURSES = [
     {
         "name": "System Integration and Architecture",
         "code": "ITP103",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -291,11 +290,11 @@ CCS_COURSES = [
     {
         "name": "Information Management 2",
         "code": "ITP104",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -307,11 +306,11 @@ CCS_COURSES = [
     {
         "name": "Mobile Application Development",
         "code": "ITP107",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -323,11 +322,11 @@ CCS_COURSES = [
     {
         "name": "IT Elective 3",
         "code": "IT Elective 3",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -339,11 +338,11 @@ CCS_COURSES = [
     {
         "name": "Applications Development & Emerging Technologies",
         "code": "CCS112",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -355,11 +354,11 @@ CCS_COURSES = [
     {
         "name": "Information Assurance and Security",
         "code": "CCS113",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -371,11 +370,11 @@ CCS_COURSES = [
     {
         "name": "Capstone Project 1",
         "code": "ITP108",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -387,11 +386,11 @@ CCS_COURSES = [
     {
         "name": "Platform Technologies",
         "code": "ITP109",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -403,11 +402,11 @@ CCS_COURSES = [
     {
         "name": "IT Elective 4",
         "code": "IT Elective 4",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -419,11 +418,11 @@ CCS_COURSES = [
     {
         "name": "Technopreneurship",
         "code": "TEC101",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -435,11 +434,11 @@ CCS_COURSES = [
     {
         "name": "System Administration and Maintenance",
         "code": "ITP111",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -451,11 +450,11 @@ CCS_COURSES = [
     {
         "name": "Capstone Project 2",
         "code": "ITP112",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -467,11 +466,11 @@ CCS_COURSES = [
     {
         "name": "IT Practicum (500 hours)",
         "code": "ITP113",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 6,
         "lec_hours": 6,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 6,
         "total_hours": 6,
@@ -483,11 +482,11 @@ CCS_COURSES = [
     {
         "name": "Differential Calculus With Analytical Geometry",
         "code": "CSP101",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -499,11 +498,11 @@ CCS_COURSES = [
     {
         "name": "Discrete Structure 2",
         "code": "CSP102",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -515,11 +514,11 @@ CCS_COURSES = [
     {
         "name": "Integral Calculus with Differential Equation",
         "code": "CSP104",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -531,11 +530,11 @@ CCS_COURSES = [
     {
         "name": "Computer Organization and Assembly Language Programming",
         "code": "CSP107",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -547,11 +546,11 @@ CCS_COURSES = [
     {
         "name": "Algorithms and Complexity",
         "code": "CSP105",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -563,11 +562,11 @@ CCS_COURSES = [
     {
         "name": "Programming Languages",
         "code": "CSP108",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -579,11 +578,11 @@ CCS_COURSES = [
     {
         "name": "CS Elective 1",
         "code": "CS Elective 1",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -595,11 +594,11 @@ CCS_COURSES = [
     {
         "name": "CS Elective 2",
         "code": "CS Elective 2",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -611,11 +610,11 @@ CCS_COURSES = [
     {
         "name": "CS Elective 3",
         "code": "CS Elective 3",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -627,11 +626,11 @@ CCS_COURSES = [
     {
         "name": "Software Engineering 1",
         "code": "CSP109",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -643,11 +642,11 @@ CCS_COURSES = [
     {
         "name": "Thesis 1",
         "code": "CSP111",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -659,11 +658,11 @@ CCS_COURSES = [
     {
         "name": "Automata Theory and Formal Language",
         "code": "CSP106",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -675,11 +674,11 @@ CCS_COURSES = [
     {
         "name": "Operating Systems",
         "code": "CSP112",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -691,11 +690,11 @@ CCS_COURSES = [
     {
         "name": "Numerical Analysis",
         "code": "CSP110",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -707,11 +706,11 @@ CCS_COURSES = [
     {
         "name": "Software Engineering 2",
         "code": "CSP113",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -723,11 +722,11 @@ CCS_COURSES = [
     {
         "name": "Thesis 2",
         "code": "CSP114",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 3,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -739,11 +738,11 @@ CCS_COURSES = [
     {
         "name": "CS Practicum",
         "code": "CSP115",
-        "category": "LECTURE", #d
+        "category": "LECTURE",  # d
         "department_id": 3,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,

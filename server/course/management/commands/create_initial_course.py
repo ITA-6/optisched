@@ -1,9 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils.dateparse import parse_datetime
-
 from course.models import Course
 from department.models import Department
-
 
 from data.courses.ccs import CCS_COURSES
 from data.courses.cbaa import CBAA_COURSES
@@ -37,12 +35,11 @@ class Command(BaseCommand):
                 created_at = parse_datetime(course_data.get("created_at"))
                 updated_at = parse_datetime(course_data.get("updated_at"))
 
-                # Calculate lecture units and hours separately from lab units and hours
-                lecture_units = course_data.get("lecture_unit", 0)
-                lab_units = course_data.get("lab_unit", 0)
-
-                lecture_hours = course_data.get("total_hours", 0)
-                lab_hours = 0  # Default to 0 for courses that only have lecture
+                # Calculate lecture and lab units/hours
+                lecture_units = course_data.get("lec_units", 0)
+                lab_units = course_data.get("lab_units", 0)
+                lecture_hours = course_data.get("lec_hours", 0)
+                lab_hours = course_data.get("lab_hours", 0)
 
                 # Create or get the course
                 course, created = Course.objects.get_or_create(
@@ -89,10 +86,10 @@ class Command(BaseCommand):
 
             # Handle pre-requisites
             if (
-                "pre/co-requisite" in course_data
-                and course_data["pre/co-requisite"] != "None"
+                "pre_requisites" in course_data
+                and course_data["pre_requisites"] != "None"
             ):
-                pre_requisite_codes = course_data["pre/co-requisite"].split(", ")
+                pre_requisite_codes = course_data["pre_requisites"].split(", ")
                 for code in pre_requisite_codes:
                     pre_requisite = course_mapping.get(code)
                     if pre_requisite:
@@ -105,7 +102,21 @@ class Command(BaseCommand):
                         )
 
             # Handle co-requisites
-            # If you also have co-requisite data, handle it similarly to pre-requisites
+            if (
+                "co_requisites" in course_data
+                and course_data["co_requisites"] != "None"
+            ):
+                co_requisite_codes = course_data["co_requisites"].split(", ")
+                for code in co_requisite_codes:
+                    co_requisite = course_mapping.get(code)
+                    if co_requisite:
+                        course.co_requisites.add(co_requisite)
+                    else:
+                        self.stdout.write(
+                            self.style.ERROR(
+                                f"Co-requisite course with code {code} not found."
+                            )
+                        )
 
             course.save()  # Save changes to the course
 
