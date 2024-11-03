@@ -6,7 +6,7 @@ const UserTable = ({ users, toggleModal, openUpdate, DeleteUser }) => {
 
   return (
     <table className="table-fixed bg-white grid-in-table">
-      <thead className="bg-green text-xs text-white sticky top-0">
+      <thead className="z-0 bg-green text-xs text-white sticky top-0">
         <tr>
           <th scope="col" className="p-2">
             ID
