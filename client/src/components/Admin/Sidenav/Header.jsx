@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import userIcon from "../../../assets/userIcon.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars} from "@fortawesome/free-solid-svg-icons";
 import api from "../../../api";
+import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
+
 
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
   const toggleUser = () => setUserOpen(!isUserOpen);
   const navigate = useNavigate();
+
+  const {isSidebarOpen, toggleSidebar} = useSidebar();
 
   const handleLogout = async () => {
     try {
@@ -27,7 +33,12 @@ const Header = ({ pageName }) => {
       <h1 className="xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden">
         {pageName}
       </h1>
-      <button className="md:inline lg:hidden xl:hidden">Menu bar</button>
+      <button 
+          className="xm:block text-2xl sm:block ml-5 lg:hidden xl:hidden"
+        onClick={toggleSidebar}
+      >
+        <FontAwesomeIcon icon={faBars} color="white"/>
+      </button>
 
       <div className="relative">
         <button onClick={toggleUser}>
