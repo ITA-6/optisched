@@ -10,7 +10,7 @@ const Sidenav = () => {
   return (
     <>
       <nav
-        className={`${isSidebarOpen ? "w-[16em] " : "xm:w-0 sm:w-0 lg:w-14"} z-3 block fixed top-0  bg-white  pt-8 text-black shadow-outerShadow ease-out duration-300 min-h-screen`}
+        className={`${isSidebarOpen ? "w-[16em] md:w-[14em] " : "xm:w-0 sm:w-0 lg:w-14"} z-3 block fixed top-0  bg-white  pt-8 text-black shadow-outerShadow ease-out duration-300 min-h-screen`}
       >
         <div className="bg-green text-white xm: hidden sm:hidden md:hidden lg:flex"
           onClick={toggleSidebar}
