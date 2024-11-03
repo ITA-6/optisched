@@ -24,6 +24,7 @@ const Generate = () => {
     setPrintModalOpen(!printModalOpen)
   }
 
+  console.log(schedules)
 
   useEffect(() => {
     const fetchData = async () => {

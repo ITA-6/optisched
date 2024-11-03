@@ -8,8 +8,8 @@ const ViewTableRow = ({subject, sectionTable}) => {
       <td>{subject.course_description}</td>
       <td>{subject.lecture_units}</td>
       <td>{subject.lab_units}</td>
-      <td>{subject.time}</td>
-      <td>TBA</td>
+      <td>{subject.lecture_time_range}</td>
+      <td>{subject.lecture_room_number}</td>
       <td>{sectionTable.year_level}{sectionTable.section_label}</td>
     </tr>
   )
