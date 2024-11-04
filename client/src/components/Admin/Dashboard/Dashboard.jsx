@@ -22,7 +22,7 @@ const Dashboard = () => {
   }, []);
   console.log(isSidebarOpen)
   return (
-    <div className="h-screen w-screen bg-white">
+    <div className="h-screen w-screen bg-white font-noto">
       <div className={`mr-[2rem] mb grid h-screen grid-cols-[1fr_4fr_1fr] grid-rows-[1.2fr_10.6rem_1fr_8fr] justify-between grid-areas-layout  ${isSidebarOpen ? "lg:ml-[18rem]" : "ml-32"} ease-out duration-300`}>
         <div className="flex items-center justify-between gap-10 bg-light-green grid-in-box">
           <div className="ml-10 flex h-2/3 flex-1 items-center rounded-3xl bg-white">

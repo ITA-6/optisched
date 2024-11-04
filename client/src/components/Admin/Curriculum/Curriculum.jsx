@@ -40,7 +40,7 @@ const Curriculum = () => {
 
   return (
     <div className="h-screen bg-white-grayish">
-      <div className={`mr-[2rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300`}>
+      <div className={`mr-[2rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300 font-noto`}>
         <div className="grid">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}

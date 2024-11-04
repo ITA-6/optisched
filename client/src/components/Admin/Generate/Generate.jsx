@@ -131,7 +131,7 @@ const Generate = () => {
         </div>
       ) : (
         // Main content is displayed when not loading
-        <div className={`mr-[1rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300`}>
+        <div className={`mr-[1rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300 font-noto`}>
           <div className="grid">
             <div className="text-md mt-20 flex gap-x-1 font-bold">
               {/* Department selection buttons */}
