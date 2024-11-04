@@ -3,7 +3,7 @@ import axios from "axios";
 /**
  * Axios instance configured to interact with the API backend.
  * - Base URL: `http://127.0.0.1:8000/api/`
- * - Timeout: 5000ms
+ * - Timeout: 30000ms
  * - Content-Type: `application/json`
  *
  * @constant {AxiosInstance} api
