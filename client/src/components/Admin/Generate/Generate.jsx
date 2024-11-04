@@ -24,8 +24,6 @@ const Generate = () => {
     setPrintModalOpen(!printModalOpen)
   }
 
-  console.log(schedules)
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("departments/");
@@ -47,12 +45,18 @@ const Generate = () => {
 
   // get all the section available
   const getAllSection = [...new Set(filteredScheduleProgram.map(section => section.section_label))];
+
+  // get all year
+  const getAllYear= [...new Set(filteredScheduleProgram.map(section => section.year_level))];
   
-  // filter the subjects by section
-  const filterScheduleSections = getAllSection.map(sectionLabel => {
-    return filteredScheduleProgram.filter(subject => subject.section_label === sectionLabel)
+  // filter the subjects by year
+  const filterScheduleSections = getAllYear.map(year => {
+    return filteredScheduleProgram.filter(subject => subject.year_level === year)
   })
- 
+
+  // filter the array by section
+  const data = filterScheduleSections.map(section => section.filter(sec => sec.section_label));
+
   const filteredPrograms = programs.filter(
     (program) => program.department === +selectedDepartment,
   );
@@ -160,15 +164,17 @@ const Generate = () => {
                 handleButtonClickDepartment={handleButtonClickDepartment} 
               />
               {activeDepartment  ? (
-                <div className={`${filterScheduleSections.length > 0 ? "overflow-y-scroll" : "overflow-hidden"} flex flex-col gap-5 p-5 h-full`}>
-                  {filterScheduleSections.length > 0 ? (
+                <div className={`${data.length > 0 ? "overflow-y-scroll" : "overflow-hidden"} flex flex-col gap-5 p-5 h-full`}>
+                  {data.length > 0 ? (
                     <div className="flex flex-col">
                        <div className="flex flex-col gap-10">
-                        {filterScheduleSections.map((sectionArray, index) =>(
-                          <ViewTableSchedule 
+                        {data.map((section) =>(
+                          section.map((sectionArray, index) => (
+                            <ViewTableSchedule 
                             key={index}
                             sectionArray={sectionArray}
                           />
+                          ))
                         ))}
                       </div>
                       <div className="flex justify-end items-center py-10 ">
