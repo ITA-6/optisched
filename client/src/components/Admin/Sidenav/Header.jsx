@@ -29,8 +29,8 @@ const Header = ({ pageName }) => {
   };
 
   return (
-    <div className="sm: xl: z-1 absolute top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow">
-      <h1 className="xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden">
+    <div className={`sm: xl: z-1 absolute top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow`}>
+      <h1 className={`xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-linear duration-200`}>
         {pageName}
       </h1>
       <button 

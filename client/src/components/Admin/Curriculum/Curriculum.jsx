@@ -1,12 +1,13 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {useSidebar} from "../../Users/Sidenav/SidenavContext/SidenavContext"
 import api from "../../../api";
 
 const Curriculum = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(1);
   const [department, setDepartment] = useState([]);
   const [programs, setPrograms] = useState([]);
+  const {isSidebarOpen} = useSidebar();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -39,7 +40,7 @@ const Curriculum = () => {
 
   return (
     <div className="h-screen bg-white-grayish">
-      <div className="ml-[18rem] mr-[2rem] h-full">
+      <div className={`mr-[2rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300`}>
         <div className="grid">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}

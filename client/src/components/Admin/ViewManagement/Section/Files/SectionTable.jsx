@@ -48,9 +48,6 @@ const SectionTable = ({ sections, totalRows }) => {
           <th scope="col" className="border border-white">
             Program
           </th>
-          <th scope="col" className="border border-white">
-            Adviser
-          </th>
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">

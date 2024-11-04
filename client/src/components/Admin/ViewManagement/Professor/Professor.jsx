@@ -3,12 +3,15 @@ import api from "../../../../api";
 import SearchField from "./Files/SearchField";
 import ProfessorTable from "./Files/ProfessorTables";
 import ProfessorViewModal from "./Files/ProfessorViewModal";
+import {useSidebar} from "../../../Users/Sidenav/SidenavContext/SidenavContext"
 
 const ViewProfessor = () => {
   const [professors, setProfessor] = useState([]);
   const totalRows = (professors.length < 10) ? 10 : professors.length;
   const [isViewProfessorOpen, setIsViewProfessorOpen] = useState(false);
   const [selectedProf, setSelectedProf] = useState([]);
+  const {isSidebarOpen} = useSidebar();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +35,7 @@ const ViewProfessor = () => {
 
   return (
     <div className="h-screen w-screen bg-white">
-      <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout">
+      <div className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]": "lg:ml-32"} ease-linear duration-200`}>
         <SearchField />
         <div className={`mr-5 h-full grid-in-userTable ${(professors.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
           <ProfessorTable

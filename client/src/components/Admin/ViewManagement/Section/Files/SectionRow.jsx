@@ -5,7 +5,6 @@ const SectionRow = ({ section }) => {
       <td className="border-y-2 border-gray-200">{section.year_level}</td>
       <td className="border-y-2 border-gray-200">{section.department_name}</td>
       <td className="border-y-2 border-gray-200">{section.program_name}</td>
-      <td className="border-y-2 border-gray-200">{section.adviser_name}</td>
     </tr>
   );
 };

@@ -6,11 +6,12 @@ import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
 import {ScheduleData} from "./ViewSchule/ScheduleData";
 import PrintModal from "./ViewSchule/PrintModal";
-
+import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
 const Generate = () => {
   const [scheduleData, setScheduleData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const {isSidebarOpen} = useSidebar();
 
   const [selectedDepartment, setSelectedDepartment] = useState(1);
   const [department, setDepartment] = useState([]);
@@ -130,7 +131,7 @@ const Generate = () => {
         </div>
       ) : (
         // Main content is displayed when not loading
-        <div className="ml-[18rem] mr-[1rem] h-full">
+        <div className={`mr-[1rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300`}>
           <div className="grid">
             <div className="text-md mt-20 flex gap-x-1 font-bold">
               {/* Department selection buttons */}
