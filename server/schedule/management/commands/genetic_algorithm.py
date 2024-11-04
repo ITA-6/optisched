@@ -48,6 +48,9 @@ class GeneticAlgorithmRunner:
             course_schedule = {}
             professor_units = {prof: 0 for prof in self.professors}
             assigned_courses = set()  # Track assigned courses to prevent duplicates
+            daily_units = {
+                day: 0 for day in range(6)
+            }  # Track units per day (Monday to Saturday)
 
             # Extract schedule
             for i in range(0, len(solution), 5):
@@ -66,6 +69,20 @@ class GeneticAlgorithmRunner:
                 timeslot = int(solution[i + 4]) % self.TIME_SLOTS
                 day_pair = self.DAY_PAIRS[day_pair_idx]
                 lecture_day, lab_day = day_pair
+
+                course_units = course.lecture_unit + course.lab_unit
+
+                # Check daily units limit for lecture and lab days
+                if daily_units[lecture_day] + course.lecture_unit > 6:
+                    fitness -= 10  # Penalize exceeding lecture units per day
+                    continue
+                daily_units[lecture_day] += course.lecture_unit
+
+                if course.lab_unit > 0:
+                    if daily_units[lab_day] + course.lab_unit > 6:
+                        fitness -= 10  # Penalize exceeding lab units per day
+                        continue
+                    daily_units[lab_day] += course.lab_unit
 
                 # Assign lecture to the first day in the pair, and lab (if applicable) to the second day
                 if course.lab_unit > 0:
@@ -109,7 +126,6 @@ class GeneticAlgorithmRunner:
                 else:
                     fitness += 1
 
-                course_units = course.lecture_unit + course.lab_unit
                 professor_units[professor] += course_units
                 if professor_units[professor] > (professor.required_units or 0):
                     fitness -= 10
