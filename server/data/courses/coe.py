@@ -2,8 +2,8 @@ COE_COURSES = [
     {
         "name": "Computer Engineering as a Discipline",
         "code": "CPE101",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 1,
         "lec_hours": 1,
         "lab_units": 0,
@@ -18,8 +18,8 @@ COE_COURSES = [
     {
         "name": "Programming Logic and Design",
         "code": "CPP102",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 2,
@@ -34,8 +34,8 @@ COE_COURSES = [
     {
         "name": "Calculus 1",
         "code": "COE101",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -50,8 +50,8 @@ COE_COURSES = [
     {
         "name": "Chemistry for Engineers",
         "code": "COE102",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -66,8 +66,8 @@ COE_COURSES = [
     {
         "name": "Object Oriented Programming",
         "code": "CPP103",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 2,
@@ -82,8 +82,8 @@ COE_COURSES = [
     {
         "name": "Calculus 2",
         "code": "COE104",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -98,8 +98,8 @@ COE_COURSES = [
     {
         "name": "Calculus-Based Physics",
         "code": "COE105",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -114,8 +114,8 @@ COE_COURSES = [
     {
         "name": "Software Design",
         "code": "CPP106",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -130,8 +130,8 @@ COE_COURSES = [
     {
         "name": "Fundamentals of Electrical Circuits",
         "code": "CPA101",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -146,8 +146,8 @@ COE_COURSES = [
     {
         "name": "Differential Equations",
         "code": "COE108",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -162,8 +162,8 @@ COE_COURSES = [
     {
         "name": "Emerging Technologies in CPE",
         "code": "CPP123",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -178,8 +178,8 @@ COE_COURSES = [
     {
         "name": "Numerical Methods",
         "code": "CPP105",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -194,8 +194,8 @@ COE_COURSES = [
     {
         "name": "Discrete Mathematics",
         "code": "DCM101",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -210,8 +210,8 @@ COE_COURSES = [
     {
         "name": "Fundamentals of Electronics Circuits",
         "code": "CPA102",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -226,9 +226,8 @@ COE_COURSES = [
     {
         "name": "Computer-Aided Drafting",
         "code": "COE110",
-        "category": "LECTURE",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -244,8 +243,7 @@ COE_COURSES = [
         "name": "Feedback and Control Systems",
         "code": "CPP111",
         "category": "LECTURE",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -260,8 +258,8 @@ COE_COURSES = [
     {
         "name": "Operating Systems",
         "code": "CPP108",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -276,8 +274,8 @@ COE_COURSES = [
     {
         "name": "Technopreneurship",
         "code": "TEC101",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -292,8 +290,8 @@ COE_COURSES = [
     {
         "name": "Fundamentals of Mixed Signals and Sensors",
         "code": "CPP121",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -308,8 +306,8 @@ COE_COURSES = [
     {
         "name": "Logic Circuits and Design",
         "code": "CPP107",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -324,8 +322,8 @@ COE_COURSES = [
     {
         "name": "Data and Digital Communications",
         "code": "CPP109",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -340,9 +338,8 @@ COE_COURSES = [
     {
         "name": "Computer Engineering Drafting and Design",
         "code": "CPP113",
-        "category": "LECTURE",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -357,8 +354,8 @@ COE_COURSES = [
     {
         "name": "Introduction to HDL",
         "code": "CPP110",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -373,8 +370,8 @@ COE_COURSES = [
     {
         "name": "Computer Network and Security",
         "code": "CPP114",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -389,8 +386,8 @@ COE_COURSES = [
     {
         "name": "Microprocessors",
         "code": "CPP115",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -405,8 +402,8 @@ COE_COURSES = [
     {
         "name": "Methods of Research",
         "code": "CPP116",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 0,
@@ -421,8 +418,8 @@ COE_COURSES = [
     {
         "name": "CPE Elective 1",
         "code": "CPE101",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -437,8 +434,8 @@ COE_COURSES = [
     {
         "name": "Embedded Systems",
         "code": "CPP117",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -453,8 +450,8 @@ COE_COURSES = [
     {
         "name": "Computer Architecture and Organization",
         "code": "CPP118",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -469,8 +466,8 @@ COE_COURSES = [
     {
         "name": "CPE Practice and Design 1",
         "code": "CPP120",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -485,8 +482,8 @@ COE_COURSES = [
     {
         "name": "CPE Laws and Professional Practice",
         "code": "CPP112",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 2,
@@ -501,8 +498,8 @@ COE_COURSES = [
     {
         "name": "CPE Elective 2",
         "code": "CPE102",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -517,8 +514,8 @@ COE_COURSES = [
     {
         "name": "CPE Practice and Design 2",
         "code": "CPP122",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 2,
@@ -533,8 +530,8 @@ COE_COURSES = [
     {
         "name": "Basic Occupational Health and Safety",
         "code": "COE111",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -549,8 +546,8 @@ COE_COURSES = [
     {
         "name": "Seminars, Colloquium and Field Trips",
         "code": "COE116",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -565,8 +562,8 @@ COE_COURSES = [
     {
         "name": "CPE Elective 3",
         "code": "CPE103",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -581,8 +578,8 @@ COE_COURSES = [
     {
         "name": "Computer Programming",
         "code": "COE103",
-        "category": "LABORATORY",# d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 2,
@@ -597,8 +594,8 @@ COE_COURSES = [
     {
         "name": "Living in the IT Era",
         "code": "ITE101",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -613,8 +610,8 @@ COE_COURSES = [
     {
         "name": "Calculus-Based Physics 2",
         "code": "ECA102",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -629,8 +626,8 @@ COE_COURSES = [
     {
         "name": "Circuit 1",
         "code": "ECA103",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -645,8 +642,8 @@ COE_COURSES = [
     {
         "name": "Environmental Science and Engineering",
         "code": "COE113",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -661,8 +658,8 @@ COE_COURSES = [
     {
         "name": "Engineering Economics",
         "code": "COE109",
-        "category": "LECTURE",# d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -677,8 +674,8 @@ COE_COURSES = [
     {
         "name": "Advanced Engineering Mathematics for ECE",
         "code": "ECP102",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -693,8 +690,8 @@ COE_COURSES = [
     {
         "name": "ELECTRONICS 1: Electronic Devices and Circuits",
         "code": "ECP101",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -709,8 +706,8 @@ COE_COURSES = [
     {
         "name": "Circuit 2",
         "code": "ECA104",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -725,8 +722,8 @@ COE_COURSES = [
     {
         "name": "ECE Elective 1",
         "code": "ECE101",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -741,8 +738,8 @@ COE_COURSES = [
     {
         "name": "Signals, Spectra, Signal Processing",
         "code": "ECP105",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -757,8 +754,8 @@ COE_COURSES = [
     {
         "name": "ELECTRONICS 2: Electronic Circuit Analysis and Design",
         "code": "ECP103",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -773,8 +770,8 @@ COE_COURSES = [
     {
         "name": "COMMUNICATIONS 1: Principles of Communication System",
         "code": "ECP104",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -789,8 +786,8 @@ COE_COURSES = [
     {
         "name": "DIGITAL ELECTRONICS 2: Microprocessor, Microcontroller System and Design",
         "code": "ECP110",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -805,8 +802,8 @@ COE_COURSES = [
     {
         "name": "ECE Elective 2",
         "code": "ECE102",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -821,8 +818,8 @@ COE_COURSES = [
     {
         "name": "Electromagnetics",
         "code": "ECP107",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 4,
         "lec_hours": 4,
         "lab_units": 0,
@@ -837,8 +834,8 @@ COE_COURSES = [
     {
         "name": "ELECTRONICS 3: Electronic System and Design",
         "code": "ECP108",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -853,8 +850,8 @@ COE_COURSES = [
     {
         "name": "COMMUNICATIONS 2: Modulation and Coding Techniques",
         "code": "ECP109",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -869,8 +866,8 @@ COE_COURSES = [
     {
         "name": "Engineering Management",
         "code": "COE115",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 0,
@@ -885,8 +882,8 @@ COE_COURSES = [
     {
         "name": "Methods of Research",
         "code": "ECP111",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -901,8 +898,8 @@ COE_COURSES = [
     {
         "name": "COMMUNICATIONS 4: Transmission Media, Antenna System and Design",
         "code": "ECP112",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -917,8 +914,8 @@ COE_COURSES = [
     {
         "name": "COMMUNICATIONS 3: Data Communications",
         "code": "ECP113",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -933,8 +930,8 @@ COE_COURSES = [
     {
         "name": "Design Project 1",
         "code": "ECP114",
-        "category": "LABORATORY", #d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -949,8 +946,8 @@ COE_COURSES = [
     {
         "name": "Competency Appraisal 1",
         "code": "ECP115",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -965,8 +962,8 @@ COE_COURSES = [
     {
         "name": "ECE Laws, Contracts, Ethics, Standards and Safety",
         "code": "ECP118",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -981,8 +978,8 @@ COE_COURSES = [
     {
         "name": "Feedback and Control Systems",
         "code": "ECP116",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -997,8 +994,8 @@ COE_COURSES = [
     {
         "name": "Design Project 2",
         "code": "ECP117",
-        "category": "LABORATORY", #d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -1013,8 +1010,8 @@ COE_COURSES = [
     {
         "name": "Seminars, Colloquium and Fieldtrips",
         "code": "COE116",
-        "category": "LABORATORY", #d
-        "department_id": 5, 
+        "category": "LABORATORY",  # d
+        "department_id": 5,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 1,
@@ -1029,8 +1026,8 @@ COE_COURSES = [
     {
         "name": "Competency Appraisal 2",
         "code": "ECP119",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1045,8 +1042,8 @@ COE_COURSES = [
     {
         "name": "Foundations of Industrial Engineering",
         "code": "IE101",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 1,
         "lec_hours": 1,
         "lab_units": 0,
@@ -1061,8 +1058,8 @@ COE_COURSES = [
     {
         "name": "Statistical Analysis for IE 2",
         "code": "IEP104",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1077,8 +1074,8 @@ COE_COURSES = [
     {
         "name": "Financial Accounting",
         "code": "IEA102",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1093,8 +1090,8 @@ COE_COURSES = [
     {
         "name": "Industrial Organization and Management",
         "code": "IEP105",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1109,8 +1106,8 @@ COE_COURSES = [
     {
         "name": "Advanced Mathematics for IE",
         "code": "IEP107",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1125,8 +1122,8 @@ COE_COURSES = [
     {
         "name": "Ergonomics 1: Physical and Cognitive Ergonomics",
         "code": "IEP108",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -1141,8 +1138,8 @@ COE_COURSES = [
     {
         "name": "Elementary Electrical Engineering",
         "code": "IEA104",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1157,8 +1154,8 @@ COE_COURSES = [
     {
         "name": "Industrial Materials and Processes",
         "code": "IEP106",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -1173,8 +1170,8 @@ COE_COURSES = [
     {
         "name": "Ergonomics 2: Organizational Ergonomics",
         "code": "IEP110",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -1189,8 +1186,8 @@ COE_COURSES = [
     {
         "name": "Operations Research 1",
         "code": "IEP111",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1205,8 +1202,8 @@ COE_COURSES = [
     {
         "name": "Quality Management Systems",
         "code": "IEP112",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1221,8 +1218,8 @@ COE_COURSES = [
     {
         "name": "Work Study and Measurement",
         "code": "IEP113",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -1237,8 +1234,8 @@ COE_COURSES = [
     {
         "name": "Managerial Accounting",
         "code": "IEA103",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1253,8 +1250,8 @@ COE_COURSES = [
     {
         "name": "IE Elective 1",
         "code": "IEE101",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -1269,8 +1266,8 @@ COE_COURSES = [
     {
         "name": "Operations Research 2",
         "code": "IEP114",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1285,8 +1282,8 @@ COE_COURSES = [
     {
         "name": "Operations Management",
         "code": "IEP115",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -1301,8 +1298,8 @@ COE_COURSES = [
     {
         "name": "Information Systems",
         "code": "IEP116",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -1317,8 +1314,8 @@ COE_COURSES = [
     {
         "name": "Methods of Research",
         "code": "IEP117",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 0,
@@ -1333,8 +1330,8 @@ COE_COURSES = [
     {
         "name": "Thermodynamics",
         "code": "IEA105",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1349,8 +1346,8 @@ COE_COURSES = [
     {
         "name": "IE Elective 2",
         "code": "IEE102",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -1365,8 +1362,8 @@ COE_COURSES = [
     {
         "name": "IE Practice and Design 1 (Feasib 1)",
         "code": "IEP118",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 1,
         "lec_hours": 1,
         "lab_units": 2,
@@ -1381,8 +1378,8 @@ COE_COURSES = [
     {
         "name": "Supply Chain Management",
         "code": "IEP119",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -1397,8 +1394,8 @@ COE_COURSES = [
     {
         "name": "IE Elective 3",
         "code": "IEE103",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -1413,8 +1410,8 @@ COE_COURSES = [
     {
         "name": "IE Practice and Design 2",
         "code": "IEP120",
-        "category": "BOTH", #d
-        "department_id": 5, 
+        "category": "BOTH",  # d
+        "department_id": 5,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -1429,8 +1426,8 @@ COE_COURSES = [
     {
         "name": "Systems Engineering",
         "code": "IEP121",
-        "category": "LECTURE", #d
-        "department_id": 5, 
+        "category": "LECTURE",  # d
+        "department_id": 5,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,

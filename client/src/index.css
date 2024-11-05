@@ -7,5 +7,11 @@
   background-image: url("./assets/pnc-banner.jpg");
 }
 
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 
 @layer base { img { display: initial; } }

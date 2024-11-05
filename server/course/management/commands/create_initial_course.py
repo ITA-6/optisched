@@ -6,7 +6,7 @@ from department.models import Department
 from data.courses.ccs import CCS_COURSES
 from data.courses.cbaa import CBAA_COURSES
 from data.courses.chas import CHAS_COURSES
-from data.courses.general import GENERAL_COURSES
+from data.courses.coed import COED_COURSES
 from data.courses.coe import COE_COURSES
 
 
@@ -16,8 +16,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # Combine all course lists into one
         courses_data = (
-            GENERAL_COURSES + CCS_COURSES
-            # + CBAA_COURSES + CHAS_COURSES + COE_COURSES
+            COED_COURSES + CCS_COURSES + CBAA_COURSES + CHAS_COURSES + COE_COURSES
         )
 
         # Store references to created courses

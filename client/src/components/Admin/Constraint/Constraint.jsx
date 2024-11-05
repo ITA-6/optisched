@@ -64,7 +64,7 @@ const Constraint = () => {
   );
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 font-noto">
       <div className="w-full max-w-4xl space-y-8 p-8">
         {/* Student Constraints */}
         <div className="ml-20 mt-10 rounded-lg bg-white p-6 shadow-lg">

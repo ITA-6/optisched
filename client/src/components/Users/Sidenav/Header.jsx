@@ -27,7 +27,7 @@ const Header = ({ pageName }) => {
   return (
     <div className="sm:p-2 md:p-1 xl:z-1 p-0 absolute top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow">
       <button 
-        className="xm:block text-2xl sm:block ml-5 lg:hidden xl:hidden"
+        className="xm:block xm:text-xs sm:block ml-5 lg:hidden xl:hidden"
         onClick={toggleSidebar}
         >
           <FontAwesomeIcon 
@@ -40,9 +40,9 @@ const Header = ({ pageName }) => {
         {pageName}
       </h1>
 
-      <div className="relative flex justify-center items-center px-4">
+      <div className="relative flex xm:mb-[2px] xm:px-4">
         <button 
-        className=" xm:w-10 sm:w-10 xl:w-8 "
+        className=" xm:w-5 sm:w-10 xl:w-8 "
         onClick={() => setUserOpen(!isUserOpen)}
         >
           <img src={userIcon} alt="userIcon" className="w-full" />
