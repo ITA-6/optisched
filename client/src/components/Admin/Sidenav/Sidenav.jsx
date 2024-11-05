@@ -30,7 +30,7 @@ const Sidenav = () => {
   return (
     <>
       <nav
-        className={` font-noto ${((!isHoverOn && isSidebarOpen) || isHoverOn )? "lg:hover:w-[16em]" : "w-20 xm:w-0 sm:w-0"} z-50 fixed top-0 h-screen font-noto bg-white pt-4 text-black shadow-outerShadow ${isSidebarOpen ? "w-[16em]": "lg:w-20"} ${isManagementOpen ? "xm:overflow-auto" : "overflow-hidden"} ease-linear duration-200 `}
+        className={` font-noto ${((!isHoverOn && isSidebarOpen) || isHoverOn )? "lg:hover:w-[16em]" : "lg:w-20 xm:w-0 sm:w-0"} z-50 fixed top-0 h-screen font-noto bg-white pt-4 text-black shadow-outerShadow ${isSidebarOpen ? "w-[16em]": "lg:w-20"} ${isManagementOpen ? "xm:overflow-auto" : "overflow-hidden"} ease-linear duration-200 `}
         onMouseEnter={hoverOn}
         onMouseLeave={hoverOff}
       >
@@ -108,7 +108,7 @@ const Sidenav = () => {
                 to="view/constraint"
                 className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200"
               >
-              <FontAwesomeIcon icon={faSliders} size="lg" />
+                {/* <FontAwesomeIcon icon={faSliders} size="lg" /> */}
                 <span className={`ml-4 text-sidenavTextSize  ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Constraints</span>
               </Link>
             </li>

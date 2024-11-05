@@ -6,11 +6,11 @@ const UserSearchField = ({setFiltered}) => {
         <input
             type="text"
             placeholder="search"
-            className="rounded-md border  grid-in-search xm:pl-4 p-1 w-full sm:pl-7 xl:pl-7"
+            className="rounded-md border  grid-in-search xm:pl-4 xm:w-2/3 xm:py-[0.2rem] xm:text-xs sm:text-sm sm:w-full sm:pl-7 sm:p-1 xl:pl-7"
         />
-        <div className="text-center grid-in-list xm:hidden">
+        <div className="text-center grid-in-list xm:hidden sm:text-xs md:text-sm">
             <select 
-              className="w-full border rounded-md border-gray-200"
+              className="w-full border rounded-md border-gray-200 sm:p-1"
               onChange={(e) => setFiltered(e.target.value)}
             >
             <option value="">List: All users</option>

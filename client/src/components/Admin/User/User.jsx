@@ -111,7 +111,7 @@ const User = () => {
     <div className="h-screen m-w-screen bg-white font-noto">
       <div className={`w-full grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_9fr_3fr] grid-areas-user-layout`}>
         <UserSearchField setFiltered={setFiltered}/>
-        <div className={`grid grid-areas-user-table-layout grid-in-userTable overflow-y-auto xm:mx-4 sm:mx-8 xl:mr-5  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-24"} ease-out duration-300`}>
+        <div className={`grid grid-areas-user-table-layout grid-in-userTable overflow-y-auto xm:mx-4 sm:mx-8 xl:mr-5 xm:overflow-auto  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-24"} ease-out duration-300`}>
           <UserTable
             user={user}
             openUpdate={openUpdate}
@@ -120,13 +120,13 @@ const User = () => {
           />
         </div>
        
-        <div className="mt-5 flex items-start justify-end grid-in-button">
+        <div className="mt-5 flex items-start justify-end grid-in-button md:mt-10">
           <button
-            className="mr-5 flex h-14 w-40 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white sm:w-36 "
+            className="mr-5 flex h-14 w-40 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white xm:w-32 xm:h-10 sm:w-36 md:w-40 "
             onClick={toggleModal}
           >
-            <img src={add} alt="" className="h-[1.2rem] w-[1.2rem] sm:h-[1rem]" />
-            <span className="sm:text-sm">Add New User</span>
+            <img src={add} alt="" className="h-[1.2rem] w-[1.2rem] xm:w-[0.7em] xm:h-[0.7em] sm:h-[1rem] md:h-[1.2em] md:w-[1.2em]" />
+            <span className="xm:text-[0.7em] sm:text-sm md:text-base">Add New User</span>
           </button>
         </div>
       </div>
