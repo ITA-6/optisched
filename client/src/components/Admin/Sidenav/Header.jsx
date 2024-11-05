@@ -29,12 +29,12 @@ const Header = ({ pageName }) => {
   };
 
   return (
-    <div className={`sm: xl: z-1 absolute top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow font-noto`}>
+    <div className={`sm: xl: z-10 fixed top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow font-noto`}>
       <h1 className={`xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-linear duration-200`}>
         {pageName}
       </h1>
       <button 
-          className="xm:block text-2xl sm:block ml-5 lg:hidden xl:hidden"
+          className="xm:block xm:text-lg text-2xl sm:block ml-5 lg:hidden xl:hidden"
         onClick={toggleSidebar}
       >
         <FontAwesomeIcon icon={faBars} color="white"/>
@@ -42,7 +42,7 @@ const Header = ({ pageName }) => {
 
       <div className="relative">
         <button onClick={toggleUser}>
-          <img src={userIcon} className="m-2 mr-5 md:inline" alt="User" />
+          <img src={userIcon} className="m-2 mr-5 xm:h-10 md:mx-6 md:w-10  md:inline" alt="User" />
         </button>
         <ul
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}

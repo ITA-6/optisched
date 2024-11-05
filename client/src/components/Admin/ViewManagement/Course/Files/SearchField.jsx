@@ -1,4 +1,4 @@
-const SearchField = () => {
+const SearchField = ({setFiltered, getAllCourseType}) => {
   return (
     <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-searchList">
       <input
@@ -7,11 +7,15 @@ const SearchField = () => {
         className="rounded-md border pl-7 grid-in-search"
       />
       <div className="text-center grid-in-list">
-        <select className="w-full rounded-md border">
-          <option value="">List: All users</option>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+        <select 
+          className="w-full rounded-md border text-sm"
+          onChange={(e) => setFiltered(e.target.value)}
+        >
+          <option value="">List: Course</option>
+          {getAllCourseType.map(type => (
+            <option value={type}>{type}</option>
+           
+          ))}
         </select>
       </div>
     </div>

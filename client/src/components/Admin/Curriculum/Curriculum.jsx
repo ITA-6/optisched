@@ -39,9 +39,9 @@ const Curriculum = () => {
   );
 
   return (
-    <div className="h-screen bg-white-grayish">
+    <div className="min-h-screen bg-white">
       <div className={`mr-[2rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300 font-noto`}>
-        <div className="grid">
+        <div className="grid mt-10">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
             {/* Button elements */}
             {department.map((college, index) => (
@@ -65,7 +65,7 @@ const Curriculum = () => {
               <th scope="col">Program</th>
             </tr>
           </thead>
-          <tbody className="mb-10 h-full overflow-auto">
+          <tbody className="mb-10 h-full">
             {filteredPrograms.length > 0 ? (
               filteredPrograms.map((program, index) => (
                 <tr key={index} className="h-20 cursor-pointer hover:bg-gray-100 hover:text-black">

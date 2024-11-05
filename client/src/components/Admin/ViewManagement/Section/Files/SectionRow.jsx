@@ -1,4 +1,4 @@
-const SectionRow = ({ section }) => {
+const SectionRow = ({ section  }) => {
   return (
     <tr key={section.id} className="h-16">
       <td className="border-y-2 border-gray-200">{section.label}</td>

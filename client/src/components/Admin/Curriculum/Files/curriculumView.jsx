@@ -24,10 +24,9 @@ const CurriculumView = () => {
   }
 
   return (
-    <div className="flex flex-row h-screen overflow-auto-scroll overflow-x-hidden">
-      <div className="w-64"></div>{" "}
-        <div className="container mx-auto px-4 pt-6 pb-16">
-          <h2 className="mb-4 mt-8 text-center text-xl font-bold">CURRICULUM</h2>
+    <div className="flex flex-row min-h-screen md:px-4">
+        <div className="flex flex-col  pt-6 pb-16 xm:pt-10 sm:px-0 sm:pt-20 lg:px-4">
+          <h2 className="mb-4 mt-8 text-center text-xl font-bold xm:text-xs xm:px-20 sm:text-sm">CURRICULUM</h2>
           {curriculums?.map((curriculum, index) => (
             <CurriculumTable key={index} curriculum={curriculum} />
           ))}

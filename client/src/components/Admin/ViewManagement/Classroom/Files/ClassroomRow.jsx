@@ -1,4 +1,4 @@
-const ClassroomRow = ({ classroom }) => {
+const ClassroomRow = ({ classroom}) => {
   return (
     <>
       <tr key={classroom.id} className="h-16">
