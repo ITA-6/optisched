@@ -1,8 +1,7 @@
 import React from "react";
 import UserRow from "./UserRow";
 
-const UserTable = ({ users, toggleModal, openUpdate, DeleteUser }) => {
-  console.log(users);
+const UserTable = ({ user, toggleModal, openUpdate, DeleteUser }) => {
 
   return (
     <table className="table-fixed bg-white grid-in-table">
@@ -33,15 +32,23 @@ const UserTable = ({ users, toggleModal, openUpdate, DeleteUser }) => {
         </tr>
       </thead>
       <tbody className="mb-10 h-full border-collapse overflow-auto border-y-2 border-gray-200 text-sm">
-        {users?.map((user) => (
-          <UserRow
-            user={user}
-            key={user.username}
-            toggleModal={toggleModal}
-            openUpdate={openUpdate}
-            DeleteUser={DeleteUser}
-          />
-        ))}
+          {user.length > 0 ? (
+            user.map( user => (
+              <UserRow
+              user={user}
+              key={user.username}
+              toggleModal={toggleModal}
+              openUpdate={openUpdate}
+              DeleteUser={DeleteUser}
+              />
+            ))
+          ) : (
+            <tr className="">
+              <td colSpan="7" className="text-center text-gray-300">
+                No Data Yet
+              </td>
+            </tr>
+          )}
       </tbody>
     </table>
   );

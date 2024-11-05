@@ -6,9 +6,17 @@ import {useSidebar} from "../../../Users/Sidenav/SidenavContext/SidenavContext"
 
 const ViewCourse = () => {
   const [courses, setCourses] = useState([]);
-  const totalRows = (courses.length < 10) ? 10 : courses.length;
   const {isSidebarOpen} = useSidebar();
 
+  const [filtered, setFiltered] = useState("");
+
+  const course  = courses.filter(
+    (course) => filtered === "" || course.category === filtered
+  );
+
+  const getAllCourseType= [
+    ...new Set(courses.map((course) => course.category)),
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,11 +28,10 @@ const ViewCourse = () => {
   return (
     <div className="h-screen w-screen bg-white font-noto">
     <div className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]": "lg:ml-32"} ease-linear duration-200`}>
-      <SearchField />
+      <SearchField  setFiltered={setFiltered} getAllCourseType={getAllCourseType}/>
       <div className={`mr-5 h-full grid-in-userTable ${(courses.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
           <CourseTable
-            courses={courses}
-            totalRows={totalRows}
+           course={course}
           />
         </div>
       </div>

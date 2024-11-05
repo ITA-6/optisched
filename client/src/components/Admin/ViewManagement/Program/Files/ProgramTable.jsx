@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProgramRow from "./ProgramRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProgramTable = ({ programs, totalRows }) => {
+const ProgramTable = ({ program}) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data fetching or replace with actual fetching logic
@@ -18,8 +18,8 @@ const ProgramTable = ({ programs, totalRows }) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return programs[index] || { name: "", department_name: "" };
+  const rowsToDisplay = Array.from({ length: program.length}, (_, index) => {
+    return program[index] || { name: "", department_name: "" };
   });
 
   if (loading) {

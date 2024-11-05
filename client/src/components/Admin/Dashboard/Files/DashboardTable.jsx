@@ -17,28 +17,28 @@ const DashboardTable = () => {
 
   return (
     <div className="grid h-full grid-cols-[1fr_8fr_1fr] text-center grid-areas-table grid-in-history">
-      <table className="relative mb-16 table-fixed bg-white grid-in-table">
-        <thead className="sticky top-0 border-separate border border-gray-100 bg-green text-xs text-white">
+      <table className="relative mb-16 table-fixed bg-white grid-in-table xm:w-full">
+        <thead className="sticky top-0 border-separate border border-gray-100 bg-green text-xs text-white xm:text-[0.5em]">
           <tr>
-            <th scope="col" className="border border-white p-2">
+            <th scope="col" className="border border-white p-2 xm:p-[0.2rem] xm:w-20 ">
               Name
             </th>
-            <th scope="col" className="border border-white">
+            <th scope="col" className="border border-white xm:w-20">
               Session
             </th>
-            <th scope="col" className="border border-white">
+            <th scope="col" className="border border-white xm:w-20">
               Time
             </th>
-            <th scope="col" className="border border-white">
+            <th scope="col" className="border border-white xm:w-20">
               IP Address
             </th>
-            <th scope="col" className="border border-white">
+            <th scope="col" className="border border-white xm:w-20">
               Browser
             </th>
-            <th scope="col" className="border border-white">
+            <th scope="col" className="border border-white xm:w-20">
               OS
             </th>
-            <th scope="col" className="border border-white">
+            <th scope="col" className="border border-white xm:w-20">
               Device
             </th>
           </tr>

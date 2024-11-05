@@ -20,9 +20,9 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
-  console.log(isSidebarOpen)
+  
   return (
-    <div className="xm:h-[120vh] w-full overflow-hidden bg-white font-noto ">
+    <div className="xm:h-[140vh] w-full overflow-hidden bg-white font-noto ">
       <div className={`xm:mx-10 sm:mx-4 xm:mt-20 sm:mt-20 ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300`}>
         <div className="flex items-center justify-between gap-2 bg-light-green grid-in-box overflow-auto xm:h-[30rem] sm:h-[22rem] flex-col md:flex-row md:h-40 lg:h-44">
 
@@ -84,10 +84,10 @@ const Dashboard = () => {
         </div>
 
 
-        <div className="grid-in-text xm:hidden">
+        <div className="grid-in-text xm:mb-5">
           <DashboardSearchField />
         </div>
-        <div className="grid-in-history overflow-y-scroll">
+        <div className="grid-in-history overflow-y-scroll xm:h-[30em]">
           <DashboardTable />
         </div>
       </div>

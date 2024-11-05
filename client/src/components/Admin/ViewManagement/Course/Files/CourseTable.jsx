@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CourseRow from "./CourseRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const CourseTable = ({ courses, totalRows }) => {
+const CourseTable = ({course}) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data loading or replace with actual data fetching
@@ -18,8 +18,8 @@ const CourseTable = ({ courses, totalRows }) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return courses[index] || { name: "", code: "", category: "" };
+  const rowsToDisplay = Array.from({ length: course.length }, (_, index) => {
+    return course[index] || { name: "", code: "", category: "" };
   });
 
   if (loading) {

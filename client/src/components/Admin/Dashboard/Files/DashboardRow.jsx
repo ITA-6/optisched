@@ -3,16 +3,16 @@ const DashboardRow = ({ data }) => {
   const { browser, os, device } = user_agent_readable;
 
   return (
-    <tr className="h-10 max-h-10">
-      <th scope="row" className="border border-gray-200">
+    <tr className="">
+      <th scope="row" className="border border-gray-200 xm:text-[0.7em]">
         {name}
       </th>
-      <td className="border border-gray-200">{session_display}</td>
-      <td className="border border-gray-200">{time}</td>
-      <td className="border border-gray-200">{ip_address}</td>
-      <td className="border border-gray-200">{browser}</td>
-      <td className="border border-gray-200">{os}</td>
-      <td className="border border-gray-200">{device}</td>
+      <td className="border border-gray-200 xm:text-[0.7em]">{session_display}</td>
+      <td className="border border-gray-200 xm:text-[0.7em]">{time}</td>
+      <td className="border border-gray-200 xm:text-[0.7em]">{ip_address}</td>
+      <td className="border border-gray-200 xm:text-[0.7em]">{browser}</td>
+      <td className="border border-gray-200 xm:text-[0.7em]">{os}</td>
+      <td className="border border-gray-200 xm:text-[0.7em]">{device}</td>
     </tr>
   );
 };

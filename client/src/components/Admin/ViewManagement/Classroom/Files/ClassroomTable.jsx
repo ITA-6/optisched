@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ClassroomRow from "./ClassroomRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ClassroomTable = ({ classrooms, totalRows }) => {
+const ClassroomTable = ({classroom}) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data loading
@@ -18,8 +18,8 @@ const ClassroomTable = ({ classrooms, totalRows }) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return classrooms[index] || { number: "", floor: "", building: "" };
+  const rowsToDisplay = Array.from({ length: classroom.length }, (_, index) => {
+    return classroom[index] || { number: "", floor: "", building: "" };
   });
 
   if (loading) {

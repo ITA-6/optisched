@@ -22,6 +22,13 @@ const User = () => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedUser(id);
   };
+  console.log(users)
+
+  const [filtered, setFiltered] = useState("");
+
+  const user = users.filter(
+    (user) => filtered === "" || user.user_type === filtered
+  );
 
   const DeleteUser= async (id) => {
     try {
@@ -103,10 +110,10 @@ const User = () => {
   return (
     <div className="h-screen m-w-screen bg-white font-noto">
       <div className={`w-full grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_9fr_3fr] grid-areas-user-layout`}>
-        <UserSearchField />
+        <UserSearchField setFiltered={setFiltered}/>
         <div className={`grid grid-areas-user-table-layout grid-in-userTable overflow-y-auto xm:mx-4 sm:mx-8 xl:mr-5  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-24"} ease-out duration-300`}>
           <UserTable
-            users={users}
+            user={user}
             openUpdate={openUpdate}
             toggleModal={toggleModal}
             DeleteUser={DeleteUser}
