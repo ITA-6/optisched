@@ -4,11 +4,9 @@ import loadingVideo from "../../../assets/loadingVideo.mp4";
 import GeneratedTable from "./Files/GeneratedTable";
 import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
-import { ScheduleData } from "./ViewSchule/ScheduleData";
 import PrintModal from "./ViewSchule/PrintModal";
 import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
 const Generate = () => {
-  const [scheduleData, setScheduleData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { isSidebarOpen } = useSidebar();
@@ -20,6 +18,7 @@ const Generate = () => {
   const [selectedProgram, setSelectedProgram] = useState("");
   const [printModalOpen, setPrintModalOpen] = useState(false);
   const [schedules, setSchedules] = useState([]);
+  const [isGenerateClicked, setIsGenerateClicked] = useState();
 
   const togglePrintModal = () => {
     setPrintModalOpen(!printModalOpen);
@@ -82,7 +81,6 @@ const Generate = () => {
         const response = await api.get("schedule/");
         setSchedules(response.data); // Set the fetched schedule data to `schedules` array
         setScheduleData(response.data); // Optionally, set `scheduleData` as well if you need it
-        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -103,6 +101,7 @@ const Generate = () => {
       const response = await api.get("schedule/generate/"); // Fetch schedule data from the API
       setSchedules(response.data); // Set the fetched schedule data to `schedules` array
       setScheduleData(response.data); // Optionally, set `scheduleData` as well if you need it
+      setIsGenerateClicked(true);
     } catch (err) {
       setError("Error generating schedule");
       console.error("Error generating schedule:", err);
@@ -117,6 +116,7 @@ const Generate = () => {
     try {
       await api.post("schedule/generate/", { schedule_data: scheduleData }); // API request to confirm and save schedule
       alert("Schedule confirmed and saved!");
+      setIsSaved(true);
     } catch (err) {
       setError("Error confirming schedule");
     } finally {
@@ -138,7 +138,7 @@ const Generate = () => {
       ) : (
         // Main content is displayed when not loading
         <div
-          className={`mr-[1rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} font-noto duration-300 ease-out`}
+          className={`mr-[1rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} font-noto duration-300 ease-out sm:mx-4`}
         >
           <div className="grid">
             <div className="text-md mt-20 flex gap-x-1 font-bold">
@@ -146,39 +146,36 @@ const Generate = () => {
             </div>
           </div>
 
-          <div className="mb-4 flex justify-between">
+          <div className="mb-4 flex justify-between sm:text-sm sm:mb-2 md:text-md">
             <button
               onClick={handleGenerateSchedule}
               className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
             >
               Generate Schedule
             </button>
-            {scheduleData.length > 0 && (
+            {isGenerateClicked && (
               <button
                 onClick={handleConfirmSchedule}
                 className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
               >
-                Confirm and Save Schedule
+                Save Schedule
               </button>
             )}
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
 
-          <div className="flex h-[80%] gap-x-2">
-            <div className="flex flex-1 flex-col">
+          <div className="flex h-[80%] gap-x-2 sm:w-full md:text-base lg:text-lg xl:text-xl">
+            <div className="flex flex-1 flex-col overflow-x-auto">
               <GenerateTableHeaders
                 department={department}
                 selectedDepartment={selectedDepartment}
                 handleButtonClickDepartment={handleButtonClickDepartment}
               />
               {activeDepartment ? (
-                <div
-                  className={`${data.length > 0 ? "overflow-y-scroll" : "overflow-hidden"} flex h-full flex-col gap-5 p-5`}
-                >
-                  {data.length > 0 ? (
-                    <div className="flex flex-col">
-                      <div className="flex flex-col gap-10">
+                  data.length > 0 ? (
+                    <div className="flex flex-col mt-10 overflow-auto ">
+                      <div className="flex flex-col overflow-auto">
                         {data.map((section) =>
                           section.map((sectionArray, index) => (
                             <ViewTableSchedule
@@ -201,13 +198,14 @@ const Generate = () => {
                     <div className="flex h-full w-full items-center justify-center">
                       <p className="text-gray-500">No Data Available</p>
                     </div>
-                  )}
-                </div>
+                  )
               ) : (
-                <GeneratedTable
+                <div className="m-h-screen sm:text-sm md:text-base lg:text-lg">
+                  <GeneratedTable
                   filteredPrograms={filteredPrograms}
                   viewProgram={viewProgram}
                 />
+                </div>
               )}
             </div>
             <div

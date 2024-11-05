@@ -7,7 +7,7 @@ const GenerateTableHeaders = ({department, selectedDepartment, handleButtonClick
     {department.map((college, index) => (
       <button
         key={index}
-        className={`h-10 w-20 flex-1 rounded-t-lg ${
+        className={`h-10 w-20 flex-1 rounded-t-lg sm:text-sm sm:h-8 sm:w-10 ${
           selectedDepartment === college.id
             ? "bg-green text-white"
             : "bg-gray-300 hover:bg-green hover:text-white"

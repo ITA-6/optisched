@@ -1,8 +1,7 @@
 import React from 'react'
 
 const ViewTableRow = ({course, sectionArray}) => {
-
-  console.log(course)
+  
   return (
     <tr className="text-center">
       <td className='w-96'>{course.professor_name ? course.professor_name : "TBA"}</td>

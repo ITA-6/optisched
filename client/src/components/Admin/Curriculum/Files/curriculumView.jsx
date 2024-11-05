@@ -24,7 +24,7 @@ const CurriculumView = () => {
   }
 
   return (
-    <div className="flex flex-row h-screen overflow-auto-scroll overflow-x-hidden">
+    <div className="flex flex-row min-h-screen">
       <div className="w-64"></div>{" "}
         <div className="container mx-auto px-4 pt-6 pb-16">
           <h2 className="mb-4 mt-8 text-center text-xl font-bold">CURRICULUM</h2>
