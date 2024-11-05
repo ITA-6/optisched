@@ -19,9 +19,9 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         curriculum_data_groups = {
             "ccs": BSIT_CURRICULUM + BSCS_CURRICULUM,
+            # "coe": BSCPE_CURRICULUM + BSECE_CURRICULUM + BSIE_CURRICULUM,
             # "cbaa": BSA_CURRICULUM,
             # "chas": BSN_CURRICULUM,
-            # "coe": BSCPE_CURRICULUM + BSECE_CURRICULUM + BSIE_CURRICULUM,
             # "coed": [],
             # "bsp": [],
         }

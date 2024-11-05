@@ -1,0 +1,1534 @@
+{
+    "1": {
+        "year_level": 1,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 1,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 2,
+                "professor_id": 20,
+                "lecture_room_id": 8,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "14:30",
+                    "end_time": "17:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 6,
+                "professor_id": 8,
+                "lecture_room_id": 66,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "09:00",
+                    "end_time": "12:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 1,
+                "professor_id": 49,
+                "lecture_room_id": 74,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "11:30",
+                    "end_time": "14:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 27,
+                "professor_id": 38,
+                "lecture_room_id": 27,
+                "lab_room_id": 27,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "17:30",
+                    "end_time": "19:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "19:30",
+                    "end_time": "20:30"
+                }
+            },
+            {
+                "course_id": 4,
+                "professor_id": 25,
+                "lecture_room_id": 158,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "17:30",
+                    "end_time": "18:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 3,
+                "professor_id": 8,
+                "lecture_room_id": 158,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "14:30",
+                    "end_time": "17:30"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "2": {
+        "year_level": 1,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 2,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 7,
+                "professor_id": 33,
+                "lecture_room_id": 36,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "16:00",
+                    "end_time": "18:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 3,
+                "professor_id": 49,
+                "lecture_room_id": 43,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "10:30",
+                    "end_time": "13:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 1,
+                "professor_id": 25,
+                "lecture_room_id": 114,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "19:30",
+                    "end_time": "22:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 4,
+                "professor_id": 25,
+                "lecture_room_id": 144,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "14:00",
+                    "end_time": "15:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 2,
+                "professor_id": 20,
+                "lecture_room_id": 51,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "07:30",
+                    "end_time": "10:30"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "3": {
+        "year_level": 1,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 3,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 7,
+                "professor_id": 29,
+                "lecture_room_id": 129,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "09:30",
+                    "end_time": "11:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 2,
+                "professor_id": 14,
+                "lecture_room_id": 133,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "18:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 6,
+                "professor_id": 32,
+                "lecture_room_id": 151,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "18:30",
+                    "end_time": "21:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 27,
+                "professor_id": 66,
+                "lecture_room_id": 172,
+                "lab_room_id": 172,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "12:30",
+                    "end_time": "14:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "14:30",
+                    "end_time": "15:30"
+                }
+            }
+        ]
+    },
+    "4": {
+        "year_level": 2,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 4,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 15,
+                "professor_id": 14,
+                "lecture_room_id": 21,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "07:00",
+                    "end_time": "10:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 26,
+                "professor_id": 52,
+                "lecture_room_id": 53,
+                "lab_room_id": 53,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "12:30",
+                    "end_time": "14:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "14:30",
+                    "end_time": "15:30"
+                }
+            },
+            {
+                "course_id": 16,
+                "professor_id": 24,
+                "lecture_room_id": 161,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "12:30",
+                    "end_time": "15:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 17,
+                "professor_id": 10,
+                "lecture_room_id": 105,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "16:00",
+                    "end_time": "19:00"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "5": {
+        "year_level": 2,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 5,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 19,
+                "professor_id": 9,
+                "lecture_room_id": 10,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "10:30",
+                    "end_time": "12:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 16,
+                "professor_id": 37,
+                "lecture_room_id": 7,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "11:00",
+                    "end_time": "14:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 15,
+                "professor_id": 29,
+                "lecture_room_id": 6,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "09:30",
+                    "end_time": "12:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 14,
+                "professor_id": 28,
+                "lecture_room_id": 98,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "15:00",
+                    "end_time": "18:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 17,
+                "professor_id": 7,
+                "lecture_room_id": 10,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "18:30",
+                    "end_time": "21:30"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "6": {
+        "year_level": 2,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 6,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 16,
+                "professor_id": 42,
+                "lecture_room_id": 73,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "13:30",
+                    "end_time": "16:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 26,
+                "professor_id": 28,
+                "lecture_room_id": 59,
+                "lab_room_id": 59,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "17:30",
+                    "end_time": "19:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "19:30",
+                    "end_time": "20:30"
+                }
+            },
+            {
+                "course_id": 15,
+                "professor_id": 35,
+                "lecture_room_id": 141,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "10:30",
+                    "end_time": "13:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 29,
+                "professor_id": 67,
+                "lecture_room_id": 44,
+                "lab_room_id": 44,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "13:00",
+                    "end_time": "15:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "15:00",
+                    "end_time": "16:00"
+                }
+            },
+            {
+                "course_id": 19,
+                "professor_id": 24,
+                "lecture_room_id": 147,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "11:30",
+                    "end_time": "13:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 17,
+                "professor_id": 18,
+                "lecture_room_id": 14,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "20:00",
+                    "end_time": "23:00"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "7": {
+        "year_level": 3,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 7,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 41,
+                "professor_id": 11,
+                "lecture_room_id": 136,
+                "lab_room_id": 136,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "18:00",
+                    "end_time": "20:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "20:00",
+                    "end_time": "21:00"
+                }
+            },
+            {
+                "course_id": 42,
+                "professor_id": 24,
+                "lecture_room_id": 144,
+                "lab_room_id": 144,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "07:30",
+                    "end_time": "09:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "09:30",
+                    "end_time": "10:30"
+                }
+            },
+            {
+                "course_id": 40,
+                "professor_id": 10,
+                "lecture_room_id": 123,
+                "lab_room_id": 123,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "11:30",
+                    "end_time": "13:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "13:30",
+                    "end_time": "14:30"
+                }
+            },
+            {
+                "course_id": 39,
+                "professor_id": 68,
+                "lecture_room_id": 78,
+                "lab_room_id": 78,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "16:30",
+                    "end_time": "18:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "18:30",
+                    "end_time": "19:30"
+                }
+            }
+        ]
+    },
+    "8": {
+        "year_level": 3,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 8,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 39,
+                "professor_id": 45,
+                "lecture_room_id": 141,
+                "lab_room_id": 141,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "12:30",
+                    "end_time": "14:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "14:30",
+                    "end_time": "15:30"
+                }
+            },
+            {
+                "course_id": 41,
+                "professor_id": 46,
+                "lecture_room_id": 75,
+                "lab_room_id": 75,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "19:30",
+                    "end_time": "21:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "07:30",
+                    "end_time": "08:30"
+                }
+            },
+            {
+                "course_id": 42,
+                "professor_id": 3,
+                "lecture_room_id": 113,
+                "lab_room_id": 113,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "15:30",
+                    "end_time": "17:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "17:30",
+                    "end_time": "18:30"
+                }
+            }
+        ]
+    },
+    "9": {
+        "year_level": 3,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 9,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 41,
+                "professor_id": 1,
+                "lecture_room_id": 79,
+                "lab_room_id": 79,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "17:30",
+                    "end_time": "19:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "19:30",
+                    "end_time": "20:30"
+                }
+            },
+            {
+                "course_id": 39,
+                "professor_id": 33,
+                "lecture_room_id": 177,
+                "lab_room_id": 177,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "07:00",
+                    "end_time": "09:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "09:00",
+                    "end_time": "10:00"
+                }
+            },
+            {
+                "course_id": 38,
+                "professor_id": 22,
+                "lecture_room_id": 59,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "17:30",
+                    "end_time": "20:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 40,
+                "professor_id": 39,
+                "lecture_room_id": 30,
+                "lab_room_id": 30,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "08:30",
+                    "end_time": "10:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "10:30",
+                    "end_time": "11:30"
+                }
+            }
+        ]
+    },
+    "10": {
+        "year_level": 4,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 10,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 50,
+                "professor_id": 6,
+                "lecture_room_id": 163,
+                "lab_room_id": 163,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "17:00",
+                    "end_time": "19:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "19:00",
+                    "end_time": "20:00"
+                }
+            }
+        ]
+    },
+    "11": {
+        "year_level": 4,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 11,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 50,
+                "professor_id": 32,
+                "lecture_room_id": 93,
+                "lab_room_id": 93,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "09:00",
+                    "end_time": "11:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "11:00",
+                    "end_time": "12:00"
+                }
+            }
+        ]
+    },
+    "12": {
+        "year_level": 4,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 4,
+        "department_id": 1,
+        "section_id": 12,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 50,
+                "professor_id": 51,
+                "lecture_room_id": 176,
+                "lab_room_id": 176,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "19:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "07:00",
+                    "end_time": "08:00"
+                }
+            }
+        ]
+    },
+    "13": {
+        "year_level": 1,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 13,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 27,
+                "professor_id": 34,
+                "lecture_room_id": 88,
+                "lab_room_id": 88,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "15:30",
+                    "end_time": "17:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "17:30",
+                    "end_time": "18:30"
+                }
+            },
+            {
+                "course_id": 3,
+                "professor_id": 20,
+                "lecture_room_id": 56,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "14:30",
+                    "end_time": "17:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 2,
+                "professor_id": 46,
+                "lecture_room_id": 40,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "09:00",
+                    "end_time": "12:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 1,
+                "professor_id": 15,
+                "lecture_room_id": 32,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "17:30",
+                    "end_time": "20:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 6,
+                "professor_id": 46,
+                "lecture_room_id": 25,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "15:30",
+                    "end_time": "18:30"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "14": {
+        "year_level": 1,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 14,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 27,
+                "professor_id": 32,
+                "lecture_room_id": 163,
+                "lab_room_id": 163,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "16:30",
+                    "end_time": "18:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "18:30",
+                    "end_time": "19:30"
+                }
+            },
+            {
+                "course_id": 3,
+                "professor_id": 35,
+                "lecture_room_id": 93,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "16:00",
+                    "end_time": "19:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 4,
+                "professor_id": 40,
+                "lecture_room_id": 9,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "16:00",
+                    "end_time": "17:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 6,
+                "professor_id": 20,
+                "lecture_room_id": 148,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "14:00",
+                    "end_time": "17:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 1,
+                "professor_id": 11,
+                "lecture_room_id": 26,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "10:30",
+                    "end_time": "13:30"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "15": {
+        "year_level": 1,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 15,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 3,
+                "professor_id": 32,
+                "lecture_room_id": 153,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "18:30",
+                    "end_time": "21:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 7,
+                "professor_id": 39,
+                "lecture_room_id": 91,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "19:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 6,
+                "professor_id": 35,
+                "lecture_room_id": 76,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "10:00",
+                    "end_time": "13:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 4,
+                "professor_id": 11,
+                "lecture_room_id": 66,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "13:30",
+                    "end_time": "14:30"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "16": {
+        "year_level": 2,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 16,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 16,
+                "professor_id": 33,
+                "lecture_room_id": 33,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "13:30",
+                    "end_time": "16:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 17,
+                "professor_id": 31,
+                "lecture_room_id": 66,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "16:30",
+                    "end_time": "19:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 19,
+                "professor_id": 48,
+                "lecture_room_id": 172,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "14:30",
+                    "end_time": "16:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 15,
+                "professor_id": 42,
+                "lecture_room_id": 51,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "15:30",
+                    "end_time": "18:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 29,
+                "professor_id": 56,
+                "lecture_room_id": 143,
+                "lab_room_id": 143,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "14:00",
+                    "end_time": "16:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "16:00",
+                    "end_time": "17:00"
+                }
+            }
+        ]
+    },
+    "17": {
+        "year_level": 2,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 17,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 14,
+                "professor_id": 35,
+                "lecture_room_id": 113,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "08:30",
+                    "end_time": "11:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 31,
+                "professor_id": 9,
+                "lecture_room_id": 132,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "08:00",
+                    "end_time": "11:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 16,
+                "professor_id": 37,
+                "lecture_room_id": 55,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "08:00",
+                    "end_time": "11:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 19,
+                "professor_id": 38,
+                "lecture_room_id": 152,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "09:00",
+                    "end_time": "11:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 15,
+                "professor_id": 11,
+                "lecture_room_id": 3,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "11:00",
+                    "end_time": "14:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 29,
+                "professor_id": 17,
+                "lecture_room_id": 138,
+                "lab_room_id": 138,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "19:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "07:00",
+                    "end_time": "08:00"
+                }
+            }
+        ]
+    },
+    "18": {
+        "year_level": 2,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 18,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 19,
+                "professor_id": 47,
+                "lecture_room_id": 94,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "11:30",
+                    "end_time": "13:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 15,
+                "professor_id": 13,
+                "lecture_room_id": 112,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "08:00",
+                    "end_time": "11:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 31,
+                "professor_id": 19,
+                "lecture_room_id": 135,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "15:30",
+                    "end_time": "18:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 16,
+                "professor_id": 6,
+                "lecture_room_id": 113,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "13:00",
+                    "end_time": "16:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 14,
+                "professor_id": 28,
+                "lecture_room_id": 26,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "17:00",
+                    "end_time": "20:00"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "19": {
+        "year_level": 3,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 19,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 32,
+                "professor_id": 37,
+                "lecture_room_id": 75,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "07:00",
+                    "end_time": "10:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 21,
+                "professor_id": 22,
+                "lecture_room_id": 53,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "07:30",
+                    "end_time": "10:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 44,
+                "professor_id": 42,
+                "lecture_room_id": 93,
+                "lab_room_id": 93,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "13:00",
+                    "end_time": "15:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "15:00",
+                    "end_time": "16:00"
+                }
+            },
+            {
+                "course_id": 58,
+                "professor_id": 65,
+                "lecture_room_id": 161,
+                "lab_room_id": 161,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "15:30",
+                    "end_time": "17:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "17:30",
+                    "end_time": "18:30"
+                }
+            }
+        ]
+    },
+    "20": {
+        "year_level": 3,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 20,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 44,
+                "professor_id": 70,
+                "lecture_room_id": 43,
+                "lab_room_id": 43,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "19:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "07:00",
+                    "end_time": "08:00"
+                }
+            },
+            {
+                "course_id": 58,
+                "professor_id": 70,
+                "lecture_room_id": 174,
+                "lab_room_id": 174,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "11:30",
+                    "end_time": "13:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "13:30",
+                    "end_time": "14:30"
+                }
+            },
+            {
+                "course_id": 38,
+                "professor_id": 23,
+                "lecture_room_id": 114,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "20:00",
+                    "end_time": "23:00"
+                },
+                "lab_time_range": null
+            }
+        ]
+    },
+    "21": {
+        "year_level": 3,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 21,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 38,
+                "professor_id": 46,
+                "lecture_room_id": 111,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "14:00",
+                    "end_time": "17:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 32,
+                "professor_id": 46,
+                "lecture_room_id": 173,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "07:30",
+                    "end_time": "10:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 44,
+                "professor_id": 12,
+                "lecture_room_id": 134,
+                "lab_room_id": 134,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "19:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "07:00",
+                    "end_time": "08:00"
+                }
+            },
+            {
+                "course_id": 58,
+                "professor_id": 66,
+                "lecture_room_id": 174,
+                "lab_room_id": 174,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "14:00",
+                    "end_time": "16:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "16:00",
+                    "end_time": "17:00"
+                }
+            }
+        ]
+    },
+    "22": {
+        "year_level": 4,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 22,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 66,
+                "professor_id": 11,
+                "lecture_room_id": 118,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "07:30",
+                    "end_time": "10:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 39,
+                "professor_id": 45,
+                "lecture_room_id": 105,
+                "lab_room_id": 105,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "07:30",
+                    "end_time": "09:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "09:30",
+                    "end_time": "10:30"
+                }
+            },
+            {
+                "course_id": 22,
+                "professor_id": 28,
+                "lecture_room_id": 120,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "08:00",
+                    "end_time": "14:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 67,
+                "professor_id": 11,
+                "lecture_room_id": 27,
+                "lab_room_id": 27,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "08:30",
+                    "end_time": "10:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "10:30",
+                    "end_time": "11:30"
+                }
+            }
+        ]
+    },
+    "23": {
+        "year_level": 4,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 23,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 39,
+                "professor_id": 5,
+                "lecture_room_id": 106,
+                "lab_room_id": 106,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "07:00",
+                    "end_time": "09:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "09:00",
+                    "end_time": "10:00"
+                }
+            },
+            {
+                "course_id": 22,
+                "professor_id": 45,
+                "lecture_room_id": 166,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "15:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 66,
+                "professor_id": 16,
+                "lecture_room_id": 64,
+                "lab_room_id": null,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "08:30",
+                    "end_time": "11:30"
+                },
+                "lab_time_range": null
+            },
+            {
+                "course_id": 61,
+                "professor_id": 60,
+                "lecture_room_id": 154,
+                "lab_room_id": 154,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "09:30",
+                    "end_time": "11:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "11:30",
+                    "end_time": "12:30"
+                }
+            }
+        ]
+    },
+    "24": {
+        "year_level": 4,
+        "semester": "FIRST_SEMESTER",
+        "program_id": 3,
+        "department_id": 1,
+        "section_id": 24,
+        "is_active": true,
+        "courses": [
+            {
+                "course_id": 67,
+                "professor_id": 18,
+                "lecture_room_id": 74,
+                "lab_room_id": 74,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "19:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "07:00",
+                    "end_time": "08:00"
+                }
+            },
+            {
+                "course_id": 39,
+                "professor_id": 2,
+                "lecture_room_id": 17,
+                "lab_room_id": 17,
+                "lecture_time_range": {
+                    "day_of_week": 0,
+                    "start_time": "19:00",
+                    "end_time": "21:00"
+                },
+                "lab_time_range": {
+                    "day_of_week": 3,
+                    "start_time": "07:00",
+                    "end_time": "08:00"
+                }
+            },
+            {
+                "course_id": 61,
+                "professor_id": 8,
+                "lecture_room_id": 171,
+                "lab_room_id": 171,
+                "lecture_time_range": {
+                    "day_of_week": 1,
+                    "start_time": "10:30",
+                    "end_time": "12:30"
+                },
+                "lab_time_range": {
+                    "day_of_week": 4,
+                    "start_time": "12:30",
+                    "end_time": "13:30"
+                }
+            }
+        ]
+    }
+}

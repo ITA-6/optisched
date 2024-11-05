@@ -4,6 +4,12 @@ from room.models import Room
 from professor.models import Professor
 from curriculum.models import Curriculum
 from section.models import Section
+import json
+from pathlib import Path
+from django.core.serializers.json import (
+    DjangoJSONEncoder,
+)
+from django.core.cache import cache
 
 
 class GeneticAlgorithmRunner:
@@ -72,6 +78,11 @@ class GeneticAlgorithmRunner:
 
                 course_units = course.lecture_unit + course.lab_unit
 
+                # Check department match
+                if course.department != professor.department:
+                    fitness -= 10
+                    continue
+
                 # Check daily units limit for lecture and lab days
                 if daily_units[lecture_day] + course.lecture_unit > 6:
                     fitness -= 10  # Penalize exceeding lecture units per day
@@ -131,6 +142,15 @@ class GeneticAlgorithmRunner:
                     fitness -= 10
                 else:
                     fitness += 1
+
+                # Ensure the number of unique courses matches curriculum requirements
+                if len(assigned_courses) != len(curriculum_courses):
+                    fitness -= 20
+                else:
+                    print(
+                        f"assign_courses:{len(assigned_courses)} curriculum_courses: {len(curriculum_courses)} "
+                    )
+                    print(" ")
 
             return fitness
 
@@ -255,8 +275,79 @@ class GeneticAlgorithmRunner:
             "courses": formatted_courses,
         }
 
+    def serialize_schedule(self, schedule, section, semester):
+        """Convert generated schedule data into a JSON-serializable format that aligns with the model structure."""
+        serialized_schedule = {
+            "year_level": section.year_level,
+            "semester": semester,
+            "program_id": section.program.id if section.program else None,
+            "department_id": section.department.id if section.department else None,
+            "section_id": section.id,
+            "is_active": True,
+            "courses": [],
+        }
+
+        for entry in schedule:
+            course, professor, room, day_pair, timeslot = entry
+
+            # Convert day_pair and timeslot information to align with TimeSlot
+            lecture_day, lab_day = day_pair
+            lecture_start_hour = 7 + (timeslot // 2)
+            lecture_start_minute = 30 if timeslot % 2 else 0
+            lecture_end_hour = lecture_start_hour + course.lecture_unit
+
+            # Construct lecture time slot details
+            lecture_time_slot = {
+                "day_of_week": lecture_day,
+                "start_time": f"{lecture_start_hour:02}:{lecture_start_minute:02}",
+                "end_time": f"{lecture_end_hour:02}:{lecture_start_minute:02}",
+            }
+
+            lab_time_slot = None
+            if course.lab_unit > 0:
+                # Calculate lab timeslot if applicable
+                lab_timeslot = (timeslot + course.lecture_unit * 2) % self.TIME_SLOTS
+                lab_start_hour = 7 + (lab_timeslot // 2)
+                lab_start_minute = 30 if lab_timeslot % 2 else 0
+                lab_end_hour = lab_start_hour + course.lab_unit
+
+                lab_time_slot = {
+                    "day_of_week": lab_day,
+                    "start_time": f"{lab_start_hour:02}:{lab_start_minute:02}",
+                    "end_time": f"{lab_end_hour:02}:{lab_start_minute:02}",
+                }
+
+            serialized_course = {
+                "course_id": course.id,
+                "professor_id": professor.id if professor else None,
+                "lecture_room_id": room.id if room else None,
+                "lab_room_id": room.id if course.lab_unit > 0 and room else None,
+                "lecture_time_range": lecture_time_slot,
+                "lab_time_range": lab_time_slot,
+            }
+
+            serialized_schedule["courses"].append(serialized_course)
+
+        return serialized_schedule
+
+    def save_all_schedules_to_json(self, all_schedules):
+        """Save all generated schedules to a JSON file and cache the data."""
+        # Define the file path for saving the JSON data
+        file_path = Path("generated_schedules.json")
+
+        # Write the schedule data to a JSON file
+        with file_path.open("w") as file:
+            json.dump(all_schedules, file, cls=DjangoJSONEncoder, indent=4)
+
+        # Cache the JSON content itself
+        cache.set(
+            "all_generated_schedules", all_schedules, timeout=60 * 60 * 24
+        )  # 24-hour cache
+
     def run(self):
+        all_schedules = {}  # Dictionary to accumulate schedules for all sections
         output = []
+
         for section in self.sections:
             # Filter curriculum based on year_level, program, and specified semester
             curriculum = Curriculum.objects.filter(
@@ -269,10 +360,25 @@ class GeneticAlgorithmRunner:
                 continue  # Skip if no matching curriculum is found
 
             curriculum_courses = list(curriculum.courses.all())
-            schedule = self.generate_schedule_for_section(section, curriculum_courses)
-            formatted_section_schedule = self.format_schedule_output(
-                section, curriculum, schedule
+            # Generate the raw schedule for the section
+            raw_schedule = self.generate_schedule_for_section(
+                section, curriculum_courses
             )
+
+            # Serialize the raw schedule for JSON storage
+            serialized_schedule = self.serialize_schedule(
+                raw_schedule, section, self.semester
+            )
+            all_schedules[section.id] = serialized_schedule
+
+            # Format the schedule for output
+            formatted_section_schedule = self.format_schedule_output(
+                section, curriculum, raw_schedule
+            )
+
             output.append(formatted_section_schedule)
+
+        # Save all raw schedules to a single JSON file and cache the result
+        self.save_all_schedules_to_json(all_schedules)
 
         return output

@@ -1,9 +1,9 @@
 # schedule/urls.py
 
 from django.urls import path
-from .views import GenerateScheduleView
+from .views import GenerateScheduleView, ScheduleView
 
 urlpatterns = [
-    # path("", ScheduleAPIView.as_view(), name="schedule"),
-    path("", GenerateScheduleView.as_view(), name="schedule"),
+    path("", ScheduleView.as_view(), name="schedule"),
+    path("generate/", GenerateScheduleView.as_view(), name="generate_schedule"),
 ]
