@@ -8,9 +8,7 @@ const DashboardTable = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get(
-        "account/login-history/",
-      );
+      const response = await api.get("account/login-history/");
       setDatas(...[response.data]);
     };
 
@@ -19,14 +17,17 @@ const DashboardTable = () => {
 
   return (
     <div className="grid h-full grid-cols-[1fr_8fr_1fr] text-center grid-areas-table grid-in-history">
-      <table className="mb-16 table-fixed bg-white grid-in-table relative">
-        <thead className="border-separate border border-gray-100 bg-green text-xs text-white sticky top-0">
+      <table className="relative mb-16 table-fixed bg-white grid-in-table">
+        <thead className="sticky top-0 border-separate border border-gray-100 bg-green text-xs text-white">
           <tr>
             <th scope="col" className="border border-white p-2">
               Name
             </th>
             <th scope="col" className="border border-white">
-              Login Time
+              Session
+            </th>
+            <th scope="col" className="border border-white">
+              Time
             </th>
             <th scope="col" className="border border-white">
               IP Address

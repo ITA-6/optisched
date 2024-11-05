@@ -11,10 +11,10 @@ from account.serializers import (
     AccountSerializer,
     LoginSerializer,
     CustomTokenObtainPairSerializer,
-    LoginHistorySerializer,
+    AuthenticationHistorySerializer,
 )
 
-from account.models import CustomUser, LoginHistory
+from account.models import CustomUser, AuthenticationHistory
 from professor.models import Professor
 from section.models import Section
 from room.models import Room
@@ -128,9 +128,10 @@ class LoginApiView(APIView):
             ip_address = self.get_client_ip(request)
             user_agent = request.META.get("HTTP_USER_AGENT", "")
 
-            LoginHistory.objects.create(
+            AuthenticationHistory.objects.create(
                 user=user,
-                login_time=timezone.now(),
+                time=timezone.now(),
+                session="LOGIN",  # Assuming "session" is meant to describe the action
                 ip_address=ip_address,
                 user_agent=user_agent,
             )
@@ -158,13 +159,36 @@ class LogoutApiView(APIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            refresh_token = request.data["refresh"]
+            # Get the refresh token from the request data
+            refresh_token = request.data.get("refresh")
+            if not refresh_token:
+                return Response(
+                    {"error": "Refresh token is required."},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            # Blacklist the refresh token
             token = RefreshToken(refresh_token)
             token.blacklist()
+
+            # Get the user, IP address, and user agent
+            user = request.user
+            ip_address = request.META.get("REMOTE_ADDR")
+            user_agent = request.META.get("HTTP_USER_AGENT")
+
+            # Log the logout event in AuthenticationHistory
+            AuthenticationHistory.objects.create(
+                user=user,
+                time=timezone.now(),
+                session="LOGOUT",  # Assuming "session" is meant to describe the action
+                ip_address=ip_address,
+                user_agent=user_agent,
+            )
 
             return Response(
                 {"success": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT
             )
+
         except Exception:
             return Response(
                 {"error": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST
@@ -197,6 +221,6 @@ class LoginHistoryApiView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        login_history = LoginHistory.objects.all()
-        serializer = LoginHistorySerializer(login_history, many=True)
+        login_history = AuthenticationHistory.objects.all().order_by("-time")
+        serializer = AuthenticationHistorySerializer(login_history, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

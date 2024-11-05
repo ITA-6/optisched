@@ -6,8 +6,9 @@ from ua_parser import user_agent_parser
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from account.models import CustomUser, LoginHistory
+from account.models import CustomUser, AuthenticationHistory
 from professor.serializers import ProfessorSerializer
+from django.template.defaultfilters import date
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -95,20 +96,22 @@ class LoginSerializer(serializers.Serializer):
         return attrs
 
 
-class LoginHistorySerializer(serializers.ModelSerializer):
+class AuthenticationHistorySerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()  # Return the user's full name
-    login_time = serializers.DateTimeField(
-        format="%Y-%m-%d %H:%M:%S"
-    )  # Format login time
     user_agent_readable = (
         serializers.SerializerMethodField()
     )  # Add readable user agent field
+    session_display = (
+        serializers.SerializerMethodField()
+    )  # Human-readable session field
+    time = serializers.SerializerMethodField()  # Human-readable time field
 
     class Meta:
-        model = LoginHistory
+        model = AuthenticationHistory
         fields = [
             "name",
-            "login_time",
+            "time",
+            "session_display",
             "ip_address",
             "user_agent",
             "user_agent_readable",
@@ -137,3 +140,11 @@ class LoginHistorySerializer(serializers.ModelSerializer):
             if device["family"] != "Other"
             else "Unknown Device",
         }
+
+    def get_session_display(self, obj):
+        """Return the human-readable display value for the session field."""
+        return obj.get_session_display()
+
+    def get_time(self, obj):
+        """Return the time in a formatted style: Day, Month, Year - Time."""
+        return date(obj.time, "D, M d, Y - H:i")

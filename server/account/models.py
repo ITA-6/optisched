@@ -81,9 +81,14 @@ class CustomUser(AbstractBaseUser):
         return self.username
 
 
-class LoginHistory(models.Model):
+class AuthenticationHistory(models.Model):
+    ACCOUNT_SESSIONS = [("LOGIN", "Login"), ("LOGOUT", "Logout")]
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    login_time = models.DateTimeField(default=timezone.now)
+    time = models.DateTimeField(default=timezone.now)
+    session = models.CharField(
+        max_length=25, choices=ACCOUNT_SESSIONS, blank=True, null=True
+    )
     ip_address = models.GenericIPAddressField(null=True, blank=True)
     user_agent = models.CharField(max_length=255, null=True, blank=True)
 
