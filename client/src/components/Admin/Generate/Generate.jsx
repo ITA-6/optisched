@@ -10,6 +10,7 @@ const Generate = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { isSidebarOpen } = useSidebar();
+  const [scheduleData, setScheduleData] = useState([]);
 
   const [selectedDepartment, setSelectedDepartment] = useState(1);
   const [department, setDepartment] = useState([]);
@@ -116,7 +117,6 @@ const Generate = () => {
     try {
       await api.post("schedule/generate/", { schedule_data: scheduleData }); // API request to confirm and save schedule
       alert("Schedule confirmed and saved!");
-      setIsSaved(true);
     } catch (err) {
       setError("Error confirming schedule");
     } finally {
@@ -175,7 +175,7 @@ const Generate = () => {
               {activeDepartment ? (
                   data.length > 0 ? (
                     <div className="flex flex-col mt-10 overflow-auto ">
-                      <div className="flex flex-col overflow-auto">
+                      <div className="flex flex-col overflow-auto lg:mx-4">
                         {data.map((section) =>
                           section.map((sectionArray, index) => (
                             <ViewTableSchedule

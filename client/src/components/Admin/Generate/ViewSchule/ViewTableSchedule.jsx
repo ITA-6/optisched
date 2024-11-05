@@ -4,9 +4,9 @@ const ViewTableSchedule = ({sectionArray}) => {
 
   console.log(sectionArray)
   return (
-    <table className="h-full w-full table-fixed mb-10">
+    <table className="h-full w-full table-fixed mb-10 lg:table-auto">
         <thead>
-          <tr className='sm:text-sm md:text-base'>
+          <tr className='sm:text-sm md:text-sm'>
               <th className='bg-green text-white p-1 sm:w-44'>Professor Name</th>
               <th className='bg-green text-white sm:w-44'>Course Code</th>
               <th className='bg-green text-white sm:w-44'>Course Description</th>
