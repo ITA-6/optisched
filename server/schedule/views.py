@@ -71,6 +71,7 @@ class ProfessorScheduleView(APIView):
             transformed_data = []
             for schedule in schedules:
                 section_label = schedule.section.label if schedule.section else None
+                year_level = schedule.section.year_level if schedule.section else None
                 total_units = sum(
                     course.course.lecture_unit + course.course.lab_unit
                     for course in schedule.courses.filter(professor=professor)
@@ -122,9 +123,10 @@ class ProfessorScheduleView(APIView):
                     {
                         "professor": {
                             "first_name": professor.first_name,
+                            "last_name": professor.last_name,
                             "department_name": professor.department.name,
                         },
-                        "section_label": section_label,
+                        "section_label": f"{year_level}{section_label}",
                         "courses": courses,
                         "total_units": total_units,
                     }
