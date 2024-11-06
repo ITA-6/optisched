@@ -12,7 +12,7 @@ const Sidenav = () => {
   return (
     <>
       <nav
-        className={` font-noto ${((!isHoverOn && isSidebarOpen) || isHoverOn )? "lg:hover:w-[16em]" : "lg:w-20 xm:w-0 sm:w-0"} z-50 fixed top-0 h-screen font-noto bg-white pt-4 text-black shadow-outerShadow ${isSidebarOpen ? "w-[16em]": "lg:w-20"} ease-linear duration-200 `}
+        className={` font-noto ${((!isHoverOn && isSidebarOpen) || isHoverOn )? "lg:hover:w-[16em]" : "lg:w-20 xm:w-0 sm:w-0"} z-50 fixed top-0 h-screen font-noto bg-white pt-4 text-black shadow-outerShadow ${isSidebarOpen ? "w-[16em]": "lg:w-20"} ease-linear duration-200 overflow-auto `}
         onMouseEnter={hoverOn}
         onMouseLeave={hoverOff}
       >
