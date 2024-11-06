@@ -16,16 +16,10 @@ const Sidenav = () => {
 
   const { isSidebarOpen, toggleSidebar, isHoverOn, hoverOn, hoverOff} = useSidebar();
   const [isManagementOpen, setIsManagementOpen] = useState(false);
-  const [isUserOpen, setIsUserOpen] = useState(false);
 
   const toggleManagementDropdown = () => {
     setIsManagementOpen(!isManagementOpen);
   };
-
-  const toggleUserDropdown = () => {
-    setIsUserOpen(!isUserOpen);
-  };
-
 
   return (
     <>

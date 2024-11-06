@@ -2,30 +2,38 @@ import { Outlet, Link } from "react-router-dom";
 import optisched from "../../../assets/optisched.png";
 import pncHeader from "../../../assets/pncHeader.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGears, faBarsProgress } from "@fortawesome/free-solid-svg-icons";
+import { faGears, faBarsProgress, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useSidebar } from "./SidenavContext/SidenavContext";
 const Sidenav = () => {
-  const { isSidebarOpen, toggleSidebar } = useSidebar();
 
+  const { isSidebarOpen, toggleSidebar, isHoverOn, hoverOn, hoverOff} = useSidebar();
+  console.log(isHoverOn + " hover is on")
+  console.log(isSidebarOpen + "side is on")
   return (
     <>
       <nav
-        className={`h-screen ${isSidebarOpen ? "w-[16em] md:w-[14em] " : "xm:w-0 sm:w-0 lg:w-14"} z-3 fixed top-0   bg-white  text-black shadow-outerShadow ease-out duration-300`}
+        className={` font-noto ${((!isHoverOn && isSidebarOpen) || isHoverOn )? "lg:hover:w-[16em]" : "lg:w-20 xm:w-0 sm:w-0"} z-50 fixed top-0 h-screen font-noto bg-white pt-4 text-black shadow-outerShadow ${isSidebarOpen ? "w-[16em]": "lg:w-20"} ease-linear duration-200 `}
+        onMouseEnter={hoverOn}
+        onMouseLeave={hoverOff}
       >
-        <div className="bg-green text-white xm: hidden sm:hidden md:hidden lg:flex"
+        <div className={`justify-end  items-center text-block  ${isHoverOn || isSidebarOpen ? "flex" : "hidden"}`}
           onClick={toggleSidebar}
         >
-          toggle
+          <FontAwesomeIcon 
+          icon={faXmark}
+          className="xm:text-xl pr-3" />
         </div>
-        <div className={`flex-col delay-400 ${isSidebarOpen ? "flex" : "hidden"}`}>
-          <div className="flex justify-center">
-            <img src={optisched} alt="OptiSched Logo" className="h-16 w-auto" />
+        <div 
+         className={`flex-col ${!isSidebarOpen && !isHoverOn ? "mt-20" : "mt-0"} ease-linear duration-300`}
+        >
+          <div className={`flex justify-center ease-linear duration-500`}>
+            <img src={optisched} alt="OptiSched Logo" className={`h-16 w-auto ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`} />
           </div>
-          <div className="mb-8 mt-0 flex justify-center">
+          <div className={`mb-8 mt-0 flex justify-center ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>
             <img src={pncHeader} alt="Pnc Header" className="h-10 w-auto" />
           </div>
-          <div className="mb-4 flex justify-center bg-grayish">
-            <h1 className="m-2 text-base">Scheduling System</h1>
+          <div className={`mb-4 flex justify-center bg-grayish ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>
+            <h1 className="m-2 text-md">Scheduling System</h1>
           </div>
           <ul className="flex flex-col gap-2 px-4">
             <li className="w-full">
@@ -33,21 +41,20 @@ const Sidenav = () => {
                 to="generate"
                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
-                <FontAwesomeIcon icon={faGears} size="xl" color="gray" className="w-5 h-6"/>
-                <span className="ml-4 text-sidenavTextSize">Generate</span>
+                 <FontAwesomeIcon icon={faGears} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
+                <span className={`text-sidenavTextSize ml-3  ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Generate</span>
               </Link>
             </li>
             <li className="w-full">
               <Link
                 to="schedule"
-                className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
+                className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200"
               >
-                <FontAwesomeIcon icon={faBarsProgress} size="xl" color="gray" className="w-5 h-6"/>
-                <span className="ml-5 text-sidenavTextSize">My Schedule</span>
+                <FontAwesomeIcon icon={faBarsProgress} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
+                <span className={`text-sidenavTextSize ml-5 ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Schedule</span>
               </Link>
             </li>
           </ul>
-          <button onClick={toggleSidebar} className="m-4 p-2 bg-gray-200 rounded">Toggle Sidebar</button>
         </div>
       </nav>
       <Outlet />

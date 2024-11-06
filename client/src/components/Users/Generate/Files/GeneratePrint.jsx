@@ -21,103 +21,6 @@ const GeneratePrint = () => {
           <p class="text-base font-bold">SCHEDULE FORM</p>
           <p class="text-sm">First Semester, Academic Year 2024-2025</p>
         </div>
-
-        <div class="grid grid-cols-[1fr] mt-10">
-          <div class="flex flex-col">
-            <div class="flex justify-between w-56">
-              <p class="text-sm">Professor Name :</p>
-              <p class="font-medium text-sm">Miro dela cruz</p>
-            </div>
-            <div class="flex gap-4 justify-between w-40">
-              <p class="text-sm">Department : </p>
-              <p class=" text-sm font-medium">CCS</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex flex-col mt-4 mb-4">
-          <p class="font-bold text-sm text-start">
-            Enlisted Schedules
-          </p>
-
-          <table class="mt-2 table-auto">
-            <thead class="text-[12px]">
-              <tr class="h-[2.5rem] text-center -pt-[20px] text-black border-[0.5px] border-collapse border-black">
-                <th class="border-[0.5px] text-xs border-black">Course Code</th>
-                <th class="border-[0.5px] text-xs border-black">Course Description</th>
-                <th class="border-[0.5px] text-xs border-black w-[50px]">Lec Units</th>
-                <th class="border-[0.5px] text-xs border-black w-[50px]">Lab Units</th>
-                <th class="border-[0.5px] text-xs border-black">Day</th>
-                <th class="border-[0.5px] text-xs border-black w-[130px]">Time</th>
-                <th class="border-[0.5px] text-xs border-black">Room</th>
-                <th class="border-[0.5px] text-xs border-black">Section</th>
-              </tr>
-            </thead>
-              <tbody class="text-xs font-medium">
-                <tr class="border border-black border-collapse">
-                  <th class="  border border-black font-medium">RIZ101</th>
-                  <th class="text-start px-2  border border-black font-medium">Life and Works of Rizal</th>
-                  <th class="  border-[0.5px] border-black font-medium">3</th>
-                  <th class="  border-[0.5px] border-black font-medium">0</th>
-                  <th class="  border-[0.5px] border-black font-medium px-2">M/WF</th>
-                  <th class="  border-[0.5px] border-black font-medium px-1">9:00-10:00 AM/ 9:00-10:00 AM</th>
-                  <th class="  border-[0.5px] border-black font-medium">Room 101</th>
-                  <th class="  border-[0.5px] border-black font-medium px-5">A1</th>
-                </tr>
-                <tr class="border border-black border-collapse">
-                  <th class="  border-[0.5px] border-black font-medium">CS101</th>
-                  <th class="text-start px-2  border-[0.5px] border-black font-medium">Introduction to Computer Science</th>
-                  <th class="  border-[0.5px] border-black font-medium">3</th>
-                  <th class="  border-[0.5px] border-black font-medium">1</th>
-                  <th class="  border-[0.5px] border-black font-medium">T/Th</th>
-                  <th class="  border-[0.5px] border-black font-medium text-center px-1">10:00-11:30 AM/ 9:00-10:00 AM</th>
-                  <th class="  border-[0.5px] border-black font-medium px-5">Room 202</th>
-                  <th class="  border-[0.5px] border-black font-medium">B2</th>
-                </tr>
-                <tr class="border border-black border-collapse">
-                  <th class="  border-[0.5px] border-black font-medium">MATH201</th>
-                  <th class="text-start px-2  border-[0.5px] border-black font-medium">Calculus I</th>
-                  <th class="  border-[0.5px] border-black font-medium">4</th>
-                  <th class="  border-[0.5px] border-black font-medium">0</th>
-                  <th class="  border-[0.5px] border-black font-medium">M/WF</th>
-                  <th class="  border-[0.5px] border-black font-medium px-1">1:00-2:30 PM / 10:00-11:30 AM</th>
-                  <th class="  border-[0.5px] border-black font-medium">Room 105</th>
-                  <th class="  border-[0.5px] border-black font-medium">C3</th>
-                </tr>
-                <tr class="border-[0.5px] border-black border-collapse">
-                  <th class=" border-[0.5px] border-black font-medium">PHY301</th>
-                  <th class="text-start px-2  border-[0.5px] border-black font-medium">Physics I</th>
-                  <th class="  border-[0.5px] border-black font-medium">3</th>
-                  <th class="  border-[0.5px] border-black font-medium">1</th>
-                  <th class="  border-[0.5px] border-black font-medium">T/Th</th>
-                  <th class="  border-[0.5px] border-black font-medium px-1">3:00-4:30 PM</th>
-                  <th class="  border-[0.5px] border-black font-medium">Room 303</th>
-                  <th class="  border-[0.5px] border-black font-medium">D4</th>
-                </tr>
-                <tr class="border-[0.5px] border-black border-collapse">
-                  <th class="  border-[0.5px] border-black font-medium">ENG102</th>
-                  <th class="text-start px-2  border-[0.5px] border-black font-medium">English Communication Skills</th>
-                  <th class="  border-[0.5px] border-black font-medium">3</th>
-                  <th class="  border-[0.5px] border-black font-medium">0</th>
-                  <th class="  border-[0.5px] border-black font-medium">MWF</th>
-                  <th class="  border-[0.5px] border-black font-medium px-1">2:00-3:00 PM / 1:00-2:30 PM </th>
-                  <th class="  border-[0.5px] border-black font-medium">Room 204</th>
-                  <th class="  border-[0.5px] border-black font-medium">E5</th>
-                </tr>
-              </tbody>
-          </table>
-          <div class="flex justify-center items center text-xs mt-2 gap-5">
-              <p class="">
-                Total Units : <span class="ml2"> 18</span>
-              </p>
-              <p class=""> 
-                Lecture : <span class="ml-2"> 16 </span>
-              </p>
-              <p class="">
-                 Laboratory : <span class="ml-2"> 2</span>
-              </p>
-          </div>
-        </div>
       </div>
     `;
 
@@ -155,14 +58,14 @@ const GeneratePrint = () => {
 
   return (
     <>
-      <div className="mx-5 grid grid-areas-generateInteraction grid-in-interaction">
+      <div className="mx-5 grid grid-areas-generateInteraction grid-in-interaction xm:mt-0">
         <div className="flex items-center justify-start gap-5 grid-in-generatedText">
-          <h1 className="text-xl font-medium">Generated Schedule</h1>
+          <h1 className="font-medium xm:text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">Generated Schedule</h1>
         </div>
-        <div className="flex items-center justify-end pr-5 grid-in-printBtn">
+        <div className="flex items-center justify-end pr-5 xm:pr-0 grid-in-printBtn">
           <FontAwesomeIcon
             icon={faPrint}
-            size="xl"
+            className='sm:text-lg md:text-2xl'
             onClick={printPage} // Generate PDF and open in new tab
           />
         </div>
