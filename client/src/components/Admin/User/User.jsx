@@ -111,7 +111,7 @@ const User = () => {
     <div className="h-screen m-w-screen bg-white font-noto">
       <div className={`w-full grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_9fr_3fr] grid-areas-user-layout`}>
         <UserSearchField setFiltered={setFiltered}/>
-        <div className={`grid grid-areas-user-table-layout grid-in-userTable overflow-y-auto xm:mx-4 sm:mx-8 xl:mr-5 xm:overflow-auto  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-24"} ease-out duration-300`}>
+        <div className={`grid grid-areas-user-table-layout  grid-in-userTable overflow-y-auto xm:mx-4 sm:mx-8 xl:mr-5 xm:overflow-auto  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-24"} ease-out duration-300`}>
           <UserTable
             user={user}
             openUpdate={openUpdate}
