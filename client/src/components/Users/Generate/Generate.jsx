@@ -7,7 +7,7 @@ const Generated = () => {
   const schedules = []
   return (
     <div className="bg-gray-50 min-h-screen">
-      <div className={`h-full ${isSidebarOpen ? " xl:ml-[18rem]" : "lg:ml-32"} mr-[2em] grid grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_8fr] pb-10 grid-areas-generated-table-layout xm:mr-0 ease-out duration-200`}>
+      <div className={`h-full ${isSidebarOpen ? " xl:ml-[18rem]" : "lg:ml-32"} grid grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_8fr] pb-10 grid-areas-generated-table-layout xm:mr-0 sm:mr-0 lg:mr-[2rem]ease-out duration-200`}>
         <GeneratePrint />
         <div className="bg-white px-5 pt-5 grid-in-table">
           <div className="grid grid-cols-[1fr-1fr] grid-rows-[0.5fr_0.5fr_0.5fr_8fr_1fr] grid-areas-generated-table xm:mt-5">

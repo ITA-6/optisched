@@ -37,13 +37,13 @@ const Header = ({ pageName }) => {
       >
         <FontAwesomeIcon icon={faBars} 
         color="white"
-        className="xm:text-xs"
+        className="xm:text-xs sm:text-sm md:text-base"
         />
       </button>
 
       <div className="relative">
         <button onClick={toggleUser}>
-          <img src={userIcon} className="mr-5 xm:w-4 md:mx-6 md:w-10  md:inline" alt="User" />
+          <img src={userIcon} className="mr-5 xm:w-4 sm:w-6 md:mx-6 md:w-7 lg:w-10  md:inline" alt="User" />
         </button>
         <ul
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
