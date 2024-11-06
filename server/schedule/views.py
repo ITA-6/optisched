@@ -3,10 +3,16 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 
+from professor.models import Professor
 from schedule.models import Schedule, CourseSchedule, TimeSlot
-from schedule.serializers import SectionScheduleSerializer, ScheduleSerializer
+from schedule.serializers import (
+    SectionScheduleSerializer,
+    ScheduleSerializer,
+    ProfessorScheduleSerializer,
+)
 from section.models import Section
 from .management.commands.genetic_algorithm import GeneticAlgorithmRunner
 from django.core.cache import cache
@@ -34,39 +40,101 @@ class ScheduleView(APIView):
         serializer = ScheduleSerializer(schedules, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def put(self, request, section_id):
-        """
-        Updates an existing schedule based on section_id. Supports partial updates.
-        """
-        schedule = get_object_or_404(Schedule, section_id=section_id, is_active=True)
-        serializer = ScheduleSerializer(schedule, data=request.data, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+class ProfessorScheduleView(APIView):
+    def get(self, request):
+        try:
+            professor = request.user.professor
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            # Retrieve all schedules associated with the given professor and prefetch related courses
+            schedules = (
+                Schedule.objects.filter(courses__professor=professor)
+                .distinct()
+                .prefetch_related(
+                    "courses__course",
+                    "courses__professor",
+                    "courses__lecture_time_range",
+                    "courses__lab_time_range",
+                    "courses__lecture_room",
+                    "courses__lab_room",
+                )
+            )
 
-    def delete(self, request, section_id):
-        """
-        Soft deletes a schedule, setting it as inactive.
-        """
-        schedule = get_object_or_404(Schedule, section_id=section_id)
-        schedule.soft_delete()  # Calls the model's soft_delete method to mark inactive
-        return Response(
-            {"message": "Schedule archived successfully."},
-            status=status.HTTP_204_NO_CONTENT,
-        )
+            if not schedules.exists():
+                return Response(
+                    {"error": "No schedule found for this professor."},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
 
-    def post(self, request):
-        """
-        Creates a new schedule. This is triggered after generating and confirming the schedule.
-        """
-        serializer = ScheduleSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            # Manually build the response structure
+            transformed_data = []
+            for schedule in schedules:
+                section_label = schedule.section.label if schedule.section else None
+                total_units = sum(
+                    course.course.lecture_unit + course.course.lab_unit
+                    for course in schedule.courses.filter(professor=professor)
+                )
+
+                # Build course data in the desired format
+                courses = []
+                for course_schedule in schedule.courses.filter(professor=professor):
+                    course_data = {
+                        "course": {
+                            "code": course_schedule.course.code,
+                            "description": course_schedule.course.name,
+                            "lecture_units": course_schedule.course.lecture_unit,
+                            "lab_units": course_schedule.course.lab_unit,
+                        },
+                        "lecture_time_range": {
+                            "day_of_week": course_schedule.lecture_time_range.get_day_of_week_display(),
+                            "start_time": course_schedule.lecture_time_range.start_time.strftime(
+                                "%I:%M %p"
+                            ),
+                            "end_time": course_schedule.lecture_time_range.end_time.strftime(
+                                "%I:%M %p"
+                            ),
+                        }
+                        if course_schedule.lecture_time_range
+                        else None,
+                        "lab_time_range": {
+                            "day_of_week": course_schedule.lab_time_range.get_day_of_week_display(),
+                            "start_time": course_schedule.lab_time_range.start_time.strftime(
+                                "%I:%M %p"
+                            ),
+                            "end_time": course_schedule.lab_time_range.end_time.strftime(
+                                "%I:%M %p"
+                            ),
+                        }
+                        if course_schedule.lab_time_range
+                        else None,
+                        "lecture_room": {"number": course_schedule.lecture_room.number}
+                        if course_schedule.lecture_room
+                        else None,
+                        "lab_room": {"number": course_schedule.lab_room.number}
+                        if course_schedule.lab_room
+                        else None,
+                    }
+                    courses.append(course_data)
+
+                # Append each schedule with the structured format
+                transformed_data.append(
+                    {
+                        "professor": {
+                            "first_name": professor.first_name,
+                            "department_name": professor.department.name,
+                        },
+                        "section_label": section_label,
+                        "courses": courses,
+                        "total_units": total_units,
+                    }
+                )
+
+            return Response(transformed_data, status=status.HTTP_200_OK)
+
+        except Professor.DoesNotExist:
+            return Response(
+                {"error": "Professor not found"}, status=status.HTTP_404_NOT_FOUND
+            )
 
 
 class GenerateScheduleView(APIView):

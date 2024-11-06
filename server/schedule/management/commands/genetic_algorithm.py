@@ -234,7 +234,7 @@ class GeneticAlgorithmRunner:
                 )
 
                 course_entry = {
-                    "professor_name": professor.first_name,
+                    "professor_name": professor.first_name + professor.last_name,
                     "course_code": course.code,
                     "course_description": course.name,
                     "lecture_units": course.lecture_unit,
@@ -248,7 +248,7 @@ class GeneticAlgorithmRunner:
                 }
             else:
                 course_entry = {
-                    "professor_name": professor.first_name,
+                    "professor_name": professor.first_name + professor.last_name,
                     "course_code": course.code,
                     "course_description": course.name,
                     "lecture_units": course.lecture_unit,

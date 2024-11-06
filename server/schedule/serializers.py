@@ -1,5 +1,7 @@
 # schedule/serializers.py
 from rest_framework import serializers
+from professor.models import Professor
+from room.models import Room
 from .models import Schedule, CourseSchedule, TimeSlot
 
 
@@ -112,3 +114,81 @@ class ScheduleSerializer(serializers.ModelSerializer):
             "section_label",
             "courses",
         ]
+
+
+class ProfessorSerializer(serializers.ModelSerializer):
+    department_name = serializers.CharField(source="department.name")
+
+    class Meta:
+        model = Professor
+        fields = ["first_name", "department_name"]
+
+
+class ProfessorTimeSlotSerializer(serializers.ModelSerializer):
+    day_of_week = serializers.CharField(source="get_day_of_week_display")
+
+    class Meta:
+        model = TimeSlot
+        fields = ["day_of_week", "start_time", "end_time"]
+
+
+class ProfessorRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ["number"]
+
+
+class ProfessorCourseSerializer(serializers.ModelSerializer):
+    professor = ProfessorSerializer()
+    course_details = serializers.SerializerMethodField()
+    lecture_time_range = TimeSlotSerializer()
+    lab_time_range = TimeSlotSerializer(allow_null=True)
+    lecture_room = ProfessorRoomSerializer()
+    lab_room = ProfessorRoomSerializer(allow_null=True)
+
+    class Meta:
+        model = CourseSchedule
+        fields = [
+            "course_details",
+            "professor",
+            "lecture_time_range",
+            "lab_time_range",
+            "lecture_room",
+            "lab_room",
+        ]
+
+    def get_course_details(self, obj):
+        return {
+            "code": obj.course.code,
+            "description": obj.course.name,
+            "lecture_units": obj.course.lecture_unit,
+            "lab_units": obj.course.lab_unit,
+        }
+
+
+class ProfessorScheduleSerializer(serializers.ModelSerializer):
+    section_label = serializers.CharField(source="section.label")
+    courses = serializers.SerializerMethodField()
+    total_units = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Schedule
+        fields = [
+            "section_label",
+            "courses",
+            "total_units",
+        ]
+
+    def get_courses(self, obj):
+        # Only retrieve courses assigned to the specific professor
+        professor = self.context.get("professor")
+        courses = obj.courses.filter(professor=professor)
+        return ProfessorCourseSerializer(courses, many=True).data
+
+    def get_total_units(self, obj):
+        professor = self.context.get("professor")
+        # Sum lecture and lab units only for the courses assigned to this professor
+        return sum(
+            course.course.lecture_unit + course.course.lab_unit
+            for course in obj.courses.filter(professor=professor)
+        )
