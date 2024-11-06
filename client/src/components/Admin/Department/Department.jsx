@@ -82,9 +82,9 @@ const Department = () => {
 
   return (
     <div className={`${isLoading ? "h-screen" : "min-h-screen"}w-screen bg-white`}>
-      <div className={`font-noto mr-[2rem] ${isLoading ? "h-screen" : ""} grid grid-cols-[2fr_1fr] grid-rows-[0fr_0fr_0fr_0fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]": "lg:ml-32"} ease-linear duration-200 `}>
+      <div className={`font-noto mr-[2rem] ${isLoading ? "h-screen" : ""} grid grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]": "lg:ml-32"} ease-linear duration-200 `}>
         <SearchField />
-        <div className={`sm:ml-10 lg:ml-0 sm:mr-3 mr-5 h-full grid-in-userTable ${(departments.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
+        <div className={`xm:ml-5 xm:-mr-2 sm:ml-10 lg:ml-0 sm:mr-3 mr-5 h-full grid-in-userTable ${(departments.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
           <DepartmentTable
             departments={departments}
             toggleDialog={toggleDialog}
@@ -94,11 +94,11 @@ const Department = () => {
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
           <button
-            className="mr-5 flex h-14 w-52 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white"
+            className="mr-5 flex h-14 w-52 xm:h-10 xm:w-36 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white"
             onClick={toggleModal}
           >
-            <img src={add} alt="" className="h-[20px] w-[20px]" />
-            <span>Add New College</span>
+            <img src={add} alt="" className="h-[20px] w-[20px] xm:w-[0.8em] xm:h-[0.8em] "/>
+            <span className="xm:text-xs sm:text-sm md:text-base lg:text-xl">Add New College</span>
           </button>
         </div>
       </div>
