@@ -146,7 +146,7 @@ const Generate = () => {
             </div>
           </div>
 
-          <div className="mb-4 flex justify-between sm:text-sm sm:mb-2 md:text-md">
+          <div className="mb-4 flex justify-between xm:text-xs xm:ml-4 sm:text-sm sm:mb-2 md:text-md">
             <button
               onClick={handleGenerateSchedule}
               className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
@@ -165,7 +165,7 @@ const Generate = () => {
 
           {error && <p className="text-red-500">{error}</p>}
 
-          <div className="flex h-[80%] gap-x-2 sm:w-full md:text-base lg:text-lg xl:text-xl">
+          <div className="flex min-h-screen gap-x-2 sm:w-full  xm:text-xs xm:ml-4  md:text-base lg:text-lg xl:text-xl">
             <div className="flex flex-1 flex-col overflow-x-auto">
               <GenerateTableHeaders
                 department={department}

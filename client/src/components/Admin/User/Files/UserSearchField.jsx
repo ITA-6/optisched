@@ -2,7 +2,7 @@ import React from 'react'
 
 const UserSearchField = ({setFiltered}) => {
   return (
-    <div className="grid sm:grid-cols-[0fr_0fr_0.5fr] sm:justify-end sm:mr-8 md:grid-cols-[3fr_2fr_2fr]  h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-searchList ">
+    <div className="grid sm:grid-cols-[0fr_0fr_0.5fr] sm:justify-end sm:mr-8 md:grid-cols-[3fr_2fr_2fr]  h-full lg:grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-searchList ">
         <input
             type="text"
             placeholder="search"
