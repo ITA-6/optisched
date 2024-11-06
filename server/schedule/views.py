@@ -11,7 +11,6 @@ from schedule.models import Schedule, CourseSchedule, TimeSlot
 from schedule.serializers import (
     SectionScheduleSerializer,
     ScheduleSerializer,
-    ProfessorScheduleSerializer,
 )
 from section.models import Section
 from .management.commands.genetic_algorithm import GeneticAlgorithmRunner
@@ -42,6 +41,8 @@ class ScheduleView(APIView):
 
 
 class ProfessorScheduleView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         try:
             professor = request.user.professor
