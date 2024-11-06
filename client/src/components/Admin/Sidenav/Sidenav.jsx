@@ -108,7 +108,7 @@ const Sidenav = () => {
                 to="view/constraint"
                 className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200"
               >
-                {/* <FontAwesomeIcon icon={faSliders} size="lg" /> */}
+                <FontAwesomeIcon icon={faSliders} size="lg" />
                 <span className={`ml-4 text-sidenavTextSize  ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Constraints</span>
               </Link>
             </li>
