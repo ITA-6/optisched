@@ -1,9 +1,11 @@
 import React from 'react'
 import GenerateTableRow from './GenerateTableRow'
 
-const GenerateTable = ({schedules}) => {
+const GenerateTable = ({data}) => {
+
+  console.log(data)
   return (
-    <table className=" h-full w-full xm:table-fixed sm:table-fixed lg:table-auto">
+    <table className="min-w-full xm:table-fixed sm:table-fixed lg:table-auto">
       <thead className="bg-green">
         <tr className='text-white xm:text-[0.6em] sm:text-[0.7em] '>
           <th className='p-1 xm:w-20 sm:w-32'>Course Code</th>
@@ -16,17 +18,10 @@ const GenerateTable = ({schedules}) => {
           <th className='xm:w-20 sm:w-20'>Section</th>
         </tr>
       </thead>
-      <tbody className='xm:text-xs sm:text-sm'>
-        {schedules.length > 0 ? (
-            schedules.map(schedule => (
-                <GenerateTableRow schedule={schedule} />
-            ))
-        ) : (
-          <tr>
-            <td colSpan="8" className='text-center '> No Data</td>
-          </tr>
-        )}
-       
+      <tbody className='xm:text-xs sm:text-sm text-center'>
+        {data.map(sched => sched.courses.map((course, index) =>
+          <GenerateTableRow course={course} key={index} sched={sched}/>
+        ))}
       </tbody>
     </table>
   )
