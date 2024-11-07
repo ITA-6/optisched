@@ -17,7 +17,7 @@ class Professor(models.Model):
 
     HAS_MASTERAL_CHOICES = [("Y", "Yes"), ("N", "No")]
 
-    prof_id = models.BigIntegerField(default=0)
+    prof_id = models.BigIntegerField(default=0, unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255)

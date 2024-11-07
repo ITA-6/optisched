@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Program(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     department = models.ForeignKey("department.Department", on_delete=models.CASCADE)
-    acronym = models.CharField(max_length=10, null=True, blank=True)
+    acronym = models.CharField(max_length=10, null=True, blank=True, unique=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

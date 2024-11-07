@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Building(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     total_rooms = models.IntegerField(default=0)
     available_rooms = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
