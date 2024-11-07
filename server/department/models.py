@@ -3,8 +3,8 @@ from django.core.exceptions import ValidationError
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=255)
-    acronym = models.CharField(max_length=10)
+    name = models.CharField(max_length=255, unique=True)
+    acronym = models.CharField(max_length=10, unique=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -8,8 +8,8 @@ class Course(models.Model):
         ("BOTH", "Lecture & Category"),
     )
 
-    name = models.CharField(max_length=255)
-    code = models.CharField(max_length=50)
+    name = models.CharField(max_length=255, unique=True)
+    code = models.CharField(max_length=50, unique=True)
     category = models.CharField(max_length=25, choices=COURSE_CATEGORY)
     department = models.ForeignKey(
         "department.Department", on_delete=models.CASCADE, null=True, blank=True
