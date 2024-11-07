@@ -1,75 +1,90 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import html2pdf from 'html2pdf.js';
-import HeaderSchedule from './PrintableSchedule/HeaderSchedule';
-import ScheduleTable from './PrintableSchedule/ScheduleTable';
-
-const ROWS_PER_PAGE = 13; // Set the number of rows per page
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const PrintModal = ({ togglePrintModal, filterScheduleSections }) => {
+    
     const printPage = () => {
-        // Flatten all chunks across all sections to ensure page-break is only applied on non-last chunks
-        const allChunks = filterScheduleSections?.flatMap((sectionArray, sectionIndex) => {
-            const chunks = [];
-            for (let i = 0; i < sectionArray.length; i += ROWS_PER_PAGE) {
-                chunks.push({ data: sectionArray.slice(i, i + ROWS_PER_PAGE), sectionIndex });
-            }
-            return chunks;
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'letter',
         });
 
-        // Generate content with Header and rows for each chunk
-        const TableContent = allChunks?.map((chunk, chunkIndex) => {
-            const isLastChunk = chunkIndex === allChunks.length - 1;
-            const pageBreakStyle = isLastChunk ? '' : 'page-break-after: always;';
+        doc.setFontSize(12);
+        doc.text('Schedule Report', 105, 10, { align: 'center' });
+        doc.setFontSize(10);
+        doc.text('First Semester, Academic Year 2024-2025', 105, 16, { align: 'center' });
 
-            return `
-                <div key="${chunk.sectionIndex}-${chunkIndex}" style="${pageBreakStyle} margin: 0; padding: 0;">
-                    <div style="margin: 0; padding: 0;">
-                        ${ReactDOMServer.renderToStaticMarkup(
-                            <HeaderSchedule style={{ margin: 0, padding: 0 }} />
-                        )}
-                    </div>
-                    ${ReactDOMServer.renderToStaticMarkup(<ScheduleTable sectionArray={chunk.data} />)}
-                </div>
-            `;
-        }).join('');
+         // Render section header (adapted from HeaderSchedule)
+         doc.setFontSize(10);
 
-        const contentToPrint = `
-            <div style="margin: 0; padding: 0; box-sizing: border-box;" class="flex flex-col justify-center px-7 text-center">
-                ${TableContent}
-            </div>
-        `;
+         // Table headers
+         const headers = [["Professor Name", "Course Code", "Course Description", "Lec", "Lab", "Day", "Time", "Room", "Section"]];
+         
+       // Flattened rows by extracting courses directly
+       const rows = filterScheduleSections.flatMap(section =>
+        section.flatMap(sched =>
+            sched.courses.map(course => [
+                course.professor_name || "TBA",
+                course.course_code,
+                course.course_description || "N/A",
+                course.lecture_units || "N/A",
+                course.lab_units || 0,
+                `${course.lecture_day_of_week || ''}${course.lecture_units !== 3 && course.lab_day_of_week !== "Day Not Assigned" ? `/${course.lab_day_of_week}` : ""}`,
+                `${course.lecture_time_range || ''}${course.lecture_units !== 3 && course.lab_time_range !== "Time Not Assigned" ? `/${course.lab_time_range}` : ""}`,
+                course.lecture_room_number || "N/A",
+                `${sched.year_level || ''}${sched.section_label || ''}`
+            ])
+        )
+    );
 
-        const options = {
-            margin: 10, // Set left-right and bottom margins for the PDF
-            filename: 'generated-pdf.pdf', // PDF filename
-            image: { type: 'jpeg', quality: 1.0 }, // Image quality
-            html2canvas: { scale: 2, useCORS: true }, // Higher scale for clarity
-            jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' } // PDF format
-        };
+    // Render the table
+    doc.autoTable({
+        startY: 40,
+        head: headers,
+        body: rows,
+        theme: 'grid',
+        styles: {
+            fontSize: 8,
+            cellPadding: 2,
+            lineColor: [0, 0, 0],
+            lineWidth: 0.1,
+        },
+        headStyles: {
+            fillColor: [255, 255, 255], // White background for header
+            textColor: [0, 0, 0],       // Black text for header
+            halign: 'center',
+            lineColor: [0, 0, 0],
+        },
+        bodyStyles: {
+            halign: 'center',
+            lineColor: [0, 0, 0],
+        },
+        columnStyles: {
+            0: { cellWidth: 25 },  // Professor Name
+            1: { cellWidth: 20 },  // Course Code
+            2: { cellWidth: 50 },  // Course Description
+            3: { cellWidth: 10 },  // Lec
+            4: { cellWidth: 10 },  // Lab
+            5: { cellWidth: 15 },  // Day
+            6: { cellWidth: 32 },  // Time
+            7: { cellWidth: 15 },  // Room
+            8: { cellWidth: 15 },  // Section
+        },
+        margin: { top: 10 },
+        tableWidth: 'wrap',
+    });
 
-        // Create a new element to contain the content
-        const element = document.createElement('div');
-        element.innerHTML = contentToPrint;
-
-        // Use html2pdf to convert content to PDF
-        html2pdf()
-            .from(element)
-            .set(options)
-            .toPdf()
-            .get('pdf')
-            .then((pdf) => {
-                const pdfBlob = pdf.output('blob');
-                const pdfUrl = URL.createObjectURL(pdfBlob);
-
-                // Open PDF in a new tab
-                const newWindow = window.open(pdfUrl);
-                if (newWindow) {
-                    newWindow.focus();
-                } else {
-                    alert('Please allow popups for this website');
-                }
-            });
+        // Open the PDF in a new tab
+        const pdfBlob = doc.output('blob');
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        const newWindow = window.open(pdfUrl);
+        if (newWindow) {
+            newWindow.focus();
+        } else {
+            alert('Please allow popups for this website');
+        }
     };
 
     return (
