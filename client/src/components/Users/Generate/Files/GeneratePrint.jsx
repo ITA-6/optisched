@@ -1,59 +1,122 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPrint } from '@fortawesome/free-solid-svg-icons';
-import  pncHeader from "../../../../assets/pncHeader.png"
-import html2pdf from "html2pdf.js"
+import pncHeader from "../../../../assets/pncHeader.png";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import api from "../../../../api";
 
 const GeneratePrint = () => {
-  const printPage = () => {
-    // Dynamically create the content that you want to print
-    const contentToPrint = `
-      <div class="flex flex-col justify-center px-7 text-center">
-        <div class="flex flex-col items-center mt-5">
-          <p class="text-sm">Republic of the Philippines</p>
-          <img src="${pncHeader}" alt="PNC Header" style="width:23rem;" />
-          <p class="font-bold text-sm">Academic Affairs Division</p>
-          <p class="font-bold text-sm" >Office of the University Registrar</p>
-          <p class="text-xs">Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna 4025</p>
-        </div>
+  const [data, setData] = useState([]);
 
-        <div class="flex flex-col justify-center items-center mt-5">
-          <p class="text-base font-bold">SCHEDULE FORM</p>
-          <p class="text-sm">First Semester, Academic Year 2024-2025</p>
-        </div>
-      </div>
-    `;
-
-    const options = {
-      margin:       0, // Set margins (in mm)
-      filename:     'generated-pdf.pdf', // Name of the output PDF file
-      image:        { type: 'jpeg', quality: 1.0 }, // Set image quality to 100%
-      html2canvas:  { scale: 2 }, // Scale the canvas for higher quality
-      jsPDF:        { unit: 'mm', format: 'letter', orientation: 'portrait' } // A4 format
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("schedule/professor/");
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
+
+    fetchData();
+  }, []);
+
+  const openPdfInNewTab = () => {
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'letter',
+    });
+
+    // Add header content
+    doc.setFontSize(10);
+    doc.text('Republic of the Philippines', 105, 10, { align: 'center' });
+    doc.addImage(pncHeader, 'JPEG', 50, 15, 110, 15);
+    doc.text('Academic Affairs Division', 105, 35, { align: 'center' });
+    doc.text('Office of the University Registrar', 105, 40, { align: 'center' });
+    doc.text('Katapatan Mutual Homes, Brgy. Banay-banay, City of Cabuyao, Laguna 4025', 105, 45, { align: 'center' });
+    doc.setFontSize(14);
+    doc.text('SCHEDULE FORM', 105, 55, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('First Semester, Academic Year 2024-2025', 105, 60, { align: 'center' });
+
+    // Prepare table data and headers
+    const tableData = data.map((sched) => {
+      return sched.courses.map((course) => [
+        course.course.code,
+        course.course.description,
+        course.course.lecture_units,
+        course.course.lab_units,
+        `${course.lecture_time_range.day_of_week} ${course.course.lab_units === 1 ? "/ " + course.lab_time_range.day_of_week : ""}`,
+        `${course.lecture_time_range.start_time} - ${course.lecture_time_range.end_time}  ${course.course.lab_units > 0 ? "/" + course.lab_time_range.start_time + "-" + course.lab_time_range.end_time : ""}`,
+        `${course.lecture_room.number} ${course.course.lab_units > 0 && !course.lecture_room.number ? course.lab_room.number : ""}`,
+        sched.section_label
+      ]);
+    }).flat();
+
+    const headers = [
+      ["Course Code", "Course Description", "Lec Units", "Lab Units", "Day", "Time", "Room", "Section"]
+    ];
+
+    // Generate table with custom header and body styles
+    doc.autoTable({
+      head: headers,
+      body: tableData,
+      startY: 70,
+      theme: 'grid',
+      styles: {
+        fontSize: 7,
+        cellPadding : 1,
+        lineColor: [0, 0, 0], // Black border color for both header and body
+        lineWidth: 0.1, // Single thin border
+      },
+      headStyles: {
+        fillColor: [255, 255, 255], // White background color
+        textColor: [0, 0, 0], // Black text color
+        halign: 'center', // Center-align header text
+        lineColor: [0, 0, 0], // Ensure consistent black border
+        lineWidth: 0.1, // Match line width to avoid double borders
+        cellPadding : 2,
+      },
+      bodyStyles: {
+        halign: 'center', // Center-align body text
+        minCellHeight:  0,
+        lineColor: [0, 0, 0], // Black border color for body cells
+        lineWidth: 0.1, // Single thin border
+      },
+      columnStyles: {
+        0: { cellWidth: 20 },
+        1: { cellWidth: 50 },
+        2: { cellWidth: 15 },
+        3: { cellWidth: 15 },
+        4: { cellWidth: 25 },
+        5: { cellWidth: 30 },
+        6: { cellWidth: 15 },
+        7: { cellWidth: 15 },
+      },
+      margin: { left: 15, right: 15 }, // Padding on each side
+      tableWidth: 'wrap', // Wrap content within the page width
+      rowPageBreak: 'avoid', // Avoid page breaks within rows
+    });
     
-    // Create a new element to contain the dynamically created content
-    const element = document.createElement("div");
-    element.innerHTML = contentToPrint;
-    
-    // Use html2pdf to convert the dynamically generated content to PDF
-    html2pdf()
-      .from(element)
-      .set(options) // Apply the defined options
-      .toPdf()
-      .get("pdf")
-      .then((pdf) => {
-        const pdfBlob = pdf.output("blob");
-        const pdfUrl = URL.createObjectURL(pdfBlob);
-    
-        // Open the customized PDF in a new tab
-        const newWindow = window.open(pdfUrl);
-        if (newWindow) {
-          newWindow.focus();
-        } else {
-          alert("Please allow popups for this website");
-        }
-      });
+
+    // Generate the PDF as a Blob
+    const pdfBlob = doc.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    // Open the PDF in a new tab without forcing download
+    const newTab = window.open(pdfUrl, '_blank');
+    if (newTab) {
+      newTab.focus();
+    } else {
+      alert("Please allow pop-ups for this website to view the PDF.");
+    }
+
+    // Revoke the Blob URL after a short delay (to allow it to be loaded in the new tab)
+    setTimeout(() => {
+      URL.revokeObjectURL(pdfUrl);
+    }, 1000);
   };
 
   return (
@@ -66,7 +129,7 @@ const GeneratePrint = () => {
           <FontAwesomeIcon
             icon={faPrint}
             className='sm:text-lg md:text-2xl'
-            onClick={printPage} // Generate PDF and open in new tab
+            onClick={openPdfInNewTab} // Generates PDF and opens in a new tab
           />
         </div>
       </div>
