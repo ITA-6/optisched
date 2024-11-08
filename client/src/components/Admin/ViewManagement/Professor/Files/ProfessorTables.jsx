@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProfessorRow from "./ProfessorRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProfessorTables = ({ dynamicFiltered , totalRows = 10, ViewProfessor }) => {
+const ProfessorTables = ({ filteredUsers , totalRows = 10, ViewProfessor }) => {
   const [loading, setLoading] = useState(true); // State to manage loading status
 
   // data loading
@@ -18,9 +18,9 @@ const ProfessorTables = ({ dynamicFiltered , totalRows = 10, ViewProfessor }) =>
     fetchData();
   }, []); // Run only once on component mount
 
-  const rowsToDisplay = Array.from({ length: dynamicFiltered.length }, (_, index) => {
+  const rowsToDisplay = Array.from({ length: filteredUsers.length }, (_, index) => {
     return (
-      dynamicFiltered[index] || {
+      filteredUsers[index] || {
         prof_id: "",
         first_name: "",
         last_name: "",
@@ -71,8 +71,8 @@ const ProfessorTables = ({ dynamicFiltered , totalRows = 10, ViewProfessor }) =>
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay.map((dynamicFiltered, index) => (
-          <ProfessorRow key={index} dynamicFiltered={dynamicFiltered} ViewProfessor={ViewProfessor} />
+        {rowsToDisplay.map((filteredUsers, index) => (
+          <ProfessorRow key={index} filteredUsers={filteredUsers} ViewProfessor={ViewProfessor} />
         ))}
       </tbody>
     </table>

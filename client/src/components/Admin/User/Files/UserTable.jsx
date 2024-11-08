@@ -1,7 +1,7 @@
 import React from "react";
 import UserRow from "./UserRow";
 
-const UserTable = ({ user, toggleModal, openUpdate, DeleteUser }) => {
+const UserTable = ({ filteredUsers, toggleModal, openUpdate, DeleteUser }) => {
 
   return (
     <table className="table-fixed bg-white grid-in-table w-full ">
@@ -32,8 +32,8 @@ const UserTable = ({ user, toggleModal, openUpdate, DeleteUser }) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse overflow-auto border-y-2 border-gray-200 text-sm">
-          {user.length > 0 ? (
-            user.map( user => (
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map( user => (
               <UserRow
               user={user}
               key={user.username}
