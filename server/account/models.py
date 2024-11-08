@@ -43,7 +43,7 @@ class CustomUser(AbstractBaseUser):
         "VPAA": "user",  # Vice President for Academic Affairs
     }
 
-    user_id = models.BigIntegerField(default=0000000, unique=True)
+    user_id = models.BigIntegerField(unique=True)
     username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     professor = models.OneToOneField(

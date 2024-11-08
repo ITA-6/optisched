@@ -56,6 +56,7 @@ class AccountApiView(APIView):
 
     def put(self, request, **kwargs):
         pk = kwargs.get("pk")
+        print(CustomUser.objects.get(user_id=2101264))
         try:
             user = CustomUser.objects.get(user_id=pk)
         except CustomUser.DoesNotExist:

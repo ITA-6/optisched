@@ -8,8 +8,8 @@ class Course(models.Model):
         ("BOTH", "Lecture & Category"),
     )
 
-    name = models.CharField(max_length=255, unique=True)
-    code = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=50)
     category = models.CharField(max_length=25, choices=COURSE_CATEGORY)
     department = models.ForeignKey(
         "department.Department", on_delete=models.CASCADE, null=True, blank=True
@@ -32,6 +32,7 @@ class Course(models.Model):
 
     class Meta:
         db_table = "course"
+        unique_together = ("name", "code")
 
     def soft_delete(self):
         self.is_active = False

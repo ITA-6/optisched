@@ -1,5 +1,3 @@
-# professor/management/commands/create_professors.py
-
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
@@ -82,6 +80,9 @@ class Command(BaseCommand):
                 email=prof_data["email"],
                 defaults={
                     "username": prof_data["prof_id"],
+                    "user_id": prof_data[
+                        "prof_id"
+                    ],  # Assigning the unique user_id here
                     "password": make_password(str(prof_data["birth_date"])),
                     "professor": professor,
                     "first_name": prof_data["first_name"],
