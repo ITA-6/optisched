@@ -1,6 +1,6 @@
 import user from "../../../../../assets/user.png";
 import { useState, useEffect } from "react";
-const ProfessorForm = ({ toggleModal, handler, departments, initialData }) => {
+const ProfessorForm = ({ toggleModal, handler, departments, initialData, errors }) => {
   const [professorId, setProfessorId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -11,6 +11,8 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData }) => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
+
+  console.log(errors)
 
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
@@ -64,13 +66,14 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData }) => {
                 className="text-lg font-medium text-gray-700"
               >
                 Professor ID
+                <span className={`${errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Professor ID is Taken</span>
               </label>
               <input
                 type="number"
                 id="professorID"
                 value={professorId}
                 onChange={(e) => setProfessorId(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                className={` mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errors ? "outline-none border-red-500" : ""}`}
                 required
               />
             </div>
@@ -204,13 +207,14 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData }) => {
                 className="text-lg font-medium text-gray-700"
               >
                 Email Address
+                <span className={`${errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Email is Taken</span>
               </label>
               <input
                 type="email"
                 id="mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errors ? "outline-none border-red-500" : ""}`}
                 required
               />
             </div>

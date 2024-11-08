@@ -11,6 +11,8 @@ const Professor = () => {
   const [departments, setDepartments] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
+  const [errors, setError] = useState();
+
 
   const [SelectedProfessor, setSelectedProfessor] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -36,14 +38,36 @@ const Professor = () => {
 
   const submitProfessor = async (professor) => {
     try {
-      await api.post("professors/", professor);
-      const response = await api.get("professors/");
-      setProfessor(response.data);
-      setIsModalOpen(false);
+        await api.post("professors/", professor);
+        
+        // Fetch the updated list of professors after successfully adding
+        const response = await api.get("professors/");
+        setProfessor(response.data);
+        setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+        if (error.response && error.response.status === 400) {
+            const errorData = error.response.data;
+            
+            // Check for specific errors in prof_id and email
+            if (errorData.prof_id && errorData.prof_id.length > 0) {
+                setError(`Professor ID error: ${errorData.prof_id.join(', ')}`);
+            } else if (errorData.email && errorData.email.length > 0) {
+                setError(`Email error: ${errorData.email.join(', ')}`);
+            } else {
+                setError("Invalid input. Please check your data.");
+            }
+        } else {
+            // General error handling for other status codes
+            setError("An error occurred while adding the professor.");
+        }
+
+        // Show the error message for 5 seconds
+        setTimeout(() => {
+            setError(false);
+        }, 5000);
     }
-  };
+};
+
 
   const updateProfessor = async (professor) => {
     try {
@@ -95,6 +119,7 @@ const Professor = () => {
         </div>
         {isModalOpen && (
           <ProfessorForm
+            errors={errors}
             departments={departments}
             toggleModal={toggleModal}
             handler={initialData ? updateProfessor : submitProfessor}
