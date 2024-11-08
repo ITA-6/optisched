@@ -15,38 +15,23 @@ const SubAdmin = () => {
 
   const getPageName = (path) => {
     switch (path) {
-      case "/admin":
-      case "/admin/dashboard":
-        return "Admin Dashboard";
-      case "/admin/user/manage":
-        return "Manage Users";
-      case "/admin/management/professor":
-        return "Manage Professors";
+      case "/sub-admin":
+      case "/sub-admin/management/professor":
+        return "MANAGE PROFESSOR";
+      case "/sub-admin/management/section":
+        return "MANAGE SECTION";
+      case "/sub-admin/management/classroom":
+        return "MANAGE CLASSROOM";
       case "/admin/management/section":
         return "Manage Sections";
-      case "/admin/management/classroom":
-        return "Manage Classrooms";
-      case "/admin/generate":
-        return "Generate";
+      case "/sub-admin/management/course":
+        return "MANAGE COURSE";
+      case "/sub-admin/management/building":
+        return "MANAGE BUILDING";
       case "/admin/curriculum":
         return "Curriculum";
-      case "/admin/management/building":
-        return "Manage Building";
-      case "/admin/management/department":
-        return "Manage College";
-      case "/admin/management/course":
-        return "Manage Courses";
-      case "/admin/management/program":
-        return "Manage Programs";
-      case "/admin/generated/":
-        return "Generate Schedule";
-      default:
-        // Check if path matches dynamic route pattern
-        if (generatedPattern.test(path)) {
-          return "Generate Schedule";
-        }
-        // Fallback for unknown paths
-        return "Admin Dashboard";
+      case "/sub-admin/management/program":
+        return "MANAGE PROGRAM";
     }
   };
 
