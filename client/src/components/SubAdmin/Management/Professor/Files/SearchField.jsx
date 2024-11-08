@@ -1,9 +1,10 @@
-const SearchField = () => {
+const SearchField = ({handleInputChange}) => {
     return (
           <div className="grid h-full grid-cols-[8fr_2fr_2fr] items-center justify-center gap-5 grid-areas-user-filter grid-in-searchList mr-5">
               <input
                 type="text"
                 placeholder="search"
+                onChange={handleInputChange}
                 className="rounded-md border pl-7 grid-in-search"
               />
               <div className="text-center grid-in-list">

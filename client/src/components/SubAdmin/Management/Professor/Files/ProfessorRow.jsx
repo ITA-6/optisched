@@ -1,27 +1,27 @@
-const ProfessorRow = ({toggleDialog, professor, openUpdate}) => {
-    const hasData = professor.prof_id && professor.first_name;
+const ProfessorRow = ({toggleDialog, filteredUsers, openUpdate}) => {
+    const hasData = filteredUsers.prof_id && filteredUsers.first_name;
   return (
-    <tr className="h-16" key={professor.prof_id}>
-        <th scope="row"  className="border-y-2 border-gray-200 px-5">{professor.prof_id}</th>
-        <td  className="border-y-2 border-gray-200">{`${professor.first_name} ${professor.last_name}`}</td>
-        <td  className="border-y-2 border-gray-200">{professor.birth_date}</td>
-        <td  className="border-y-2 border-gray-200">{professor.email}</td>
-        <td className=" border-y-2 border-gray-200">{professor.department_name}</td>
-        <td  className="border-y-2 border-gray-200">{professor.has_masteral === "Y" ? "Yes" : professor.has_masteral === "" ? "" : "No"}</td>
-        <td  className="border-y-2 border-gray-200">{professor.employment_status}</td>
+    <tr className="h-16" key={filteredUsers.prof_id}>
+        <th scope="row"  className="border-y-2 border-gray-200 px-5">{filteredUsers.prof_id}</th>
+        <td  className="border-y-2 border-gray-200">{`${filteredUsers.first_name} ${filteredUsers.last_name}`}</td>
+        <td  className="border-y-2 border-gray-200">{filteredUsers.birth_date}</td>
+        <td  className="border-y-2 border-gray-200">{filteredUsers.email}</td>
+        <td className=" border-y-2 border-gray-200">{filteredUsers.department_name}</td>
+        <td  className="border-y-2 border-gray-200">{filteredUsers.has_masteral === "Y" ? "Yes" : filteredUsers.has_masteral === "" ? "" : "No"}</td>
+        <td  className="border-y-2 border-gray-200">{filteredUsers.employment_status}</td>
         <td className="border-y-2 border-gray-200">
            {hasData && (
              <div className="flex items-center justify-center">
                 <div className="ml-5 flex gap-2">
                 <button
                     className="-h5 w-16 bg-green text-white"
-                    onClick={() => openUpdate(professor)}
+                    onClick={() => openUpdate(filteredUsers)}
                 >
                     Edit
                 </button>
                 <button
                     className="-h5 w-16 bg-red-500 text-white"
-                    onClick={(() => toggleDialog(professor.prof_id))}
+                    onClick={(() => toggleDialog(filteredUsers.prof_id))}
                 >
                     Delete
                 </button>

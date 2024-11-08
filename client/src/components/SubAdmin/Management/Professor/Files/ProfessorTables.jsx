@@ -4,7 +4,7 @@ import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
 const ProfessorTables = ({
   toggleDialog,
-  professors,
+  filteredUsers,
   openUpdate,
   totalRows,
 }) => {
@@ -24,7 +24,7 @@ const ProfessorTables = ({
 
   const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
     return (
-      professors[index] || {
+      filteredUsers[index] || {
         prof_id: "",
         first_name: "",
         last_name: "",
@@ -79,11 +79,11 @@ const ProfessorTables = ({
           </tr>
         </thead>
         <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-          {rowsToDisplay?.map((professor, index) => (
+          {rowsToDisplay?.map((filteredUsers, index) => (
             <ProfessorRow
               key={index}
               toggleDialog={toggleDialog}
-              professor={professor}
+              filteredUsers={filteredUsers}
               openUpdate={openUpdate}
             />
           ))}

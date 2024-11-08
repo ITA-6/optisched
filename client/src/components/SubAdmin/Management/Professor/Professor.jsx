@@ -13,14 +13,42 @@ const Professor = () => {
   const [initialData, setInitialData] = useState(null);
   const [errors, setError] = useState();
   const [errorMessage, setErrorMessage] = useState([]);
-
   const [SelectedProfessor, setSelectedProfessor] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const [searchItem, setSearchItem] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState(professors);
+
+  useEffect(() => {
+    setFilteredUsers(professors);
+  }, [professors]);
+
+
+    const handleInputChange = (e) => { 
+      const searchTerm = e.target.value.toLowerCase();
+      setSearchItem(searchTerm);
+
+      // Filter professors based on the search term
+      const filteredItems = professors.filter((prof) => {
+          // Check each field of the professor object
+          return Object.values(prof).some(value => 
+              value && value.toString().toLowerCase().startsWith(searchTerm)
+          );
+      });
+
+      setFilteredUsers(filteredItems);
+  };
+
+  console.log(filteredUsers)
+
+
+
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedProfessor(id);
   };
-  const totalRows = (professors.length < 10) ? 10 : professors.length;
+  
+  const totalRows = (filteredUsers.length < 10) ? 10 : filteredUsers.length;
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("professors/");
@@ -38,33 +66,33 @@ const Professor = () => {
 
   const submitProfessor = async (professor) => {
     try {
-        await api.post("professors/", professor);
-        
-        // Fetch the updated list of professors after successfully adding
-        const response = await api.get("professors/");
-        setProfessor(response.data);
-        setIsModalOpen(false);
+      await api.post("professors/", professor);
+      
+      // Fetch the updated list of professors after successfully adding
+      const response = await api.get("professors/");
+      setProfessor(response.data);
+      setIsModalOpen(false);
     } catch (error) {
-        if (error.response && error.response.status === 400) {
-            const errorData = error.response.data;
-            setErrorMessage(errorData);
-            // Check for specific errors in prof_id and email
-            if (errorData.prof_id && errorData.prof_id.length > 0) {
-                setError(`Professor ID error: ${errorData.prof_id.join(', ')}`);
-            } else if (errorData.email && errorData.email.length > 0) {
-                setError(`Email error: ${errorData.email.join(', ')}`);
-            } else {
-                setError("Invalid input. Please check your data.");
-            }
-        } else {
-            // General error handling for other status codes
-            setError("An error occurred while adding the professor.");
-        }
+      if (error.response && error.response.status === 400) {
+          const errorData = error.response.data;
+          setErrorMessage(errorData);
+          // Check for specific errors in prof_id and email
+          if (errorData.prof_id && errorData.prof_id.length > 0) {
+              setError(`Professor ID error: ${errorData.prof_id.join(', ')}`);
+          } else if (errorData.email && errorData.email.length > 0) {
+              setError(`Email error: ${errorData.email.join(', ')}`);
+          } else {
+              setError("Invalid input. Please check your data.");
+          }
+      } else {
+          // General error handling for other status codes
+          setError("An error occurred while adding the professor.");
+      }
 
-        // Show the error message for 5 seconds
-        setTimeout(() => {
-            setError(false);
-        }, 5000);
+      // Show the error message for 5 seconds
+      setTimeout(() => {
+          setError(false);
+      }, 5000);
     }
 };
 
@@ -99,11 +127,11 @@ const Professor = () => {
   return (
     <div className="h-screen w-screen bg-white">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout">
-        <SearchField />
-        <div className={`mr-5 h-full grid-in-userTable ${(professors.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
+        <SearchField handleInputChange={handleInputChange} />
+        <div className={`mr-5 h-full grid-in-userTable ${(filteredUsers.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
           <ProfessorTable
             toggleDialog={toggleDialog}
-            professors={professors}
+            filteredUsers={filteredUsers}
             openUpdate={openUpdate}
             totalRows={totalRows}
           />
