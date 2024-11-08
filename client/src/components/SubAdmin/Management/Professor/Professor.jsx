@@ -16,32 +16,44 @@ const Professor = () => {
   const [SelectedProfessor, setSelectedProfessor] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  
+  const [selectedStatus, setSelectedStatus] = useState(''); // New state for the select option
   const [searchItem, setSearchItem] = useState('');
   const [filteredUsers, setFilteredUsers] = useState(professors);
 
   useEffect(() => {
+    // Set initial filtered users when component mounts or professors change
     setFilteredUsers(professors);
-  }, [professors]);
+}, [professors]);
 
-
-    const handleInputChange = (e) => { 
+  const handleInputChange = (e) => {
       const searchTerm = e.target.value.toLowerCase();
       setSearchItem(searchTerm);
+      filterUsers(searchTerm, selectedStatus);
+  };
 
-      // Filter professors based on the search term
+  const handleStatusChange = (e) => {
+      const status = e.target.value;
+      setSelectedStatus(status);
+      filterUsers(searchItem, status);
+  };
+
+  const filterUsers = (searchTerm, status) => {
       const filteredItems = professors.filter((prof) => {
-          // Check each field of the professor object
-          return Object.values(prof).some(value => 
+          // Check if professor's employment status matches the selected status, if any
+          const matchesStatus = status ? prof.employment_status === status : true;
+          
+          // Check if any field in professor's data starts with the search term
+          const matchesSearchTerm = Object.values(prof).some(value =>
               value && value.toString().toLowerCase().startsWith(searchTerm)
           );
+
+          // Return true if both conditions match
+          return matchesStatus && matchesSearchTerm;
       });
 
       setFilteredUsers(filteredItems);
   };
-
-  console.log(filteredUsers)
-
-
 
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
@@ -127,7 +139,7 @@ const Professor = () => {
   return (
     <div className="h-screen w-screen bg-white">
       <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout">
-        <SearchField handleInputChange={handleInputChange} />
+        <SearchField handleInputChange={handleInputChange} handleStatusChange={handleStatusChange} />
         <div className={`mr-5 h-full grid-in-userTable ${(filteredUsers.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
           <ProfessorTable
             toggleDialog={toggleDialog}

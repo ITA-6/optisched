@@ -1,4 +1,4 @@
-const SearchField = ({setFiltered}) => {
+const SearchField = ({handleInputChange, handleStatusChange}) => {
 
   
 
@@ -7,11 +7,12 @@ const SearchField = ({setFiltered}) => {
         <input
           type="text"
           placeholder="search"
+          onChange={handleInputChange}
           className="sm:hidden md:inline rounded-md border pl-7 grid-in-search"
         />
         <div className="text-center grid-in-list">
           <select className="w-full rounded-md border"
-            onChange={(e) =>setFiltered(e.target.value)}
+             onChange={handleStatusChange}
           >
             <option value="">List: All users</option>
             <option value="PERMANENT">PERMANENT</option>

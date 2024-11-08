@@ -12,11 +12,43 @@ const ViewProfessor = () => {
   const [selectedProf, setSelectedProf] = useState([]);
   const {isSidebarOpen} = useSidebar();
 
-  const [filtered, setFiltered] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState(''); // New state for the select option
+  const [searchItem, setSearchItem] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState(professors);
 
-  const dynamicFiltered = professors.filter(
-    (professor) => filtered === "" || professor.employment_status === filtered
-  );
+  useEffect(() => {
+    // Set initial filtered users when component mounts or professors change
+    setFilteredUsers(professors);
+}, [professors]);
+
+  const handleInputChange = (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      setSearchItem(searchTerm);
+      filterUsers(searchTerm, selectedStatus);
+  };
+
+  const handleStatusChange = (e) => {
+      const status = e.target.value;
+      setSelectedStatus(status);
+      filterUsers(searchItem, status);
+  };
+
+  const filterUsers = (searchTerm, status) => {
+      const filteredItems = professors.filter((prof) => {
+          // Check if professor's employment status matches the selected status, if any
+          const matchesStatus = status ? prof.employment_status === status : true;
+          
+          // Check if any field in professor's data starts with the search term
+          const matchesSearchTerm = Object.values(prof).some(value =>
+              value && value.toString().toLowerCase().startsWith(searchTerm)
+          );
+
+          // Return true if both conditions match
+          return matchesStatus && matchesSearchTerm;
+      });
+
+      setFilteredUsers(filteredItems);
+  };
 
   
   useEffect(() => {
@@ -42,10 +74,10 @@ const ViewProfessor = () => {
   return (
     <div className="h-screen w-screen bg-white font-noto">
       <div className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]": "lg:ml-32"} ease-linear duration-200`}>
-        <SearchField setFiltered={setFiltered} />
+          <SearchField handleInputChange={handleInputChange} handleStatusChange={handleStatusChange} />
         <div className={`sm:ml-10 lg:ml-0 sm:mr-3 mr-5 h-full grid-in-userTable ${(professors.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
           <ProfessorTable
-            dynamicFiltered={dynamicFiltered}
+            filteredUsers={filteredUsers}
             totalRows={totalRows}
             ViewProfessor={ViewProfessor}
           />
