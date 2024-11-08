@@ -1,8 +1,11 @@
 import CurriculumTableRow from "./CurriculumTableRow";
+import {useSidebar} from "../../../Users/Sidenav/SidenavContext/SidenavContext"
 
 const CurriculumTable = ({ curriculum }) => {
+
+  const {isSidebarOpen} = useSidebar();
   return (
-    <div className="pr-10 pl-28">
+    <div className={`${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-28"} ease-linear duration-200`}>
       <div className="ml-8 rounded p-4">
         <div className="flex">
           <div className="flex flex-1 justify-between">
