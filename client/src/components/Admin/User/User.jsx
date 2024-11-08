@@ -17,18 +17,48 @@ const User = () => {
   const [selectedUser, setSelectedUser] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const [selectedStatus, setSelectedStatus] = useState(''); // New state for the select option
+  const [searchItem, setSearchItem] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState(users);
+
+  useEffect(() => {
+    setFilteredUsers(users);
+  }, [users]);
+
+  const handleInputChange = (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      setSearchItem(searchTerm);
+      filterUsers(searchTerm, selectedStatus);
+  };
+
+  const handleStatusChange = (e) => {
+      const status = e.target.value;
+      setSelectedStatus(status);
+      filterUsers(searchItem, status);
+  };
+
+  const filterUsers = (searchTerm, status) => {
+      const filteredItems = users.filter((user) => {
+          // Check if professor's employment status matches the selected status, if any
+          const matchesStatus = status ? user.user_type === status : true;
+          
+          // Check if any field in professor's data starts with the search term
+          const matchesSearchTerm = Object.values(user).some(value =>
+              value && value.toString().toLowerCase().startsWith(searchTerm)
+          );
+
+          // Return true if both conditions match
+          return matchesStatus && matchesSearchTerm;
+      });
+
+      setFilteredUsers(filteredItems);
+  };
+
   const {isSidebarOpen} = useSidebar();
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedUser(id);
   };
-  console.log(users)
-
-  const [filtered, setFiltered] = useState("");
-
-  const user = users.filter(
-    (user) => filtered === "" || user.user_type === filtered
-  );
 
   const DeleteUser= async (id) => {
     try {
@@ -110,10 +140,10 @@ const User = () => {
   return (
     <div className="h-screen m-w-screen bg-white font-noto">
       <div className={`w-full grid h-screen grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_9fr_3fr] grid-areas-user-layout`}>
-        <UserSearchField setFiltered={setFiltered}/>
+          <UserSearchField handleInputChange={handleInputChange} handleStatusChange={handleStatusChange} />
         <div className={`grid grid-areas-user-table-layout  grid-in-userTable overflow-y-auto xm:mx-4 sm:mx-8 xl:mr-5 xm:overflow-auto  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-24"} ease-out duration-300`}>
           <UserTable
-            user={user}
+            filteredUsers={filteredUsers}
             openUpdate={openUpdate}
             toggleModal={toggleModal}
             DeleteUser={DeleteUser}
