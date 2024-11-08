@@ -34,7 +34,7 @@ class Professor(models.Model):
         "schedule.Schedule", blank=True, related_name="professors"
     )
     birth_date = models.DateField(default=timezone.now)
-    email = models.EmailField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True, unique=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default="O")
     advisee = models.OneToOneField(
         "section.Section",
