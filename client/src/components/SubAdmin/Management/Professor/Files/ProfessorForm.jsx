@@ -73,7 +73,7 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData, errors 
                 id="professorID"
                 value={professorId}
                 onChange={(e) => setProfessorId(e.target.value)}
-                className={` mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errors ? "outline-none border-red-500" : ""}`}
+                className={` mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errors ? "outline-none border-red-500 ease-in-out duration-100" : ""}`}
                 required
               />
             </div>
