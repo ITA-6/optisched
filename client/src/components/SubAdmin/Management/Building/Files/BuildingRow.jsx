@@ -1,5 +1,6 @@
 const BuildingRow = ({ building, openUpdate, toggleDialog }) => {
-  const hasData = building.name;
+  console.log(building);
+  const hasData = building.name && building.available_rooms;
 
   return (
     <tr className="h-16">

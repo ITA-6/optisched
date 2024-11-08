@@ -23,6 +23,12 @@ class Section(models.Model):
 
     class Meta:
         db_table = "section"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["label", "year_level"],
+                name="unique_section",
+            )
+        ]
 
     def __str__(self):
         return f"{self.label} (Year {self.year_level}) - {self.department.name if self.department else 'No Department'}"

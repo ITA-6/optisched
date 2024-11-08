@@ -9,6 +9,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from account.models import CustomUser, AuthenticationHistory
 from professor.serializers import ProfessorSerializer
 from django.template.defaultfilters import date
+from django.utils import timezone
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -147,4 +148,6 @@ class AuthenticationHistorySerializer(serializers.ModelSerializer):
 
     def get_time(self, obj):
         """Return the time in a formatted style: Day, Month, Year - Time."""
-        return date(obj.time, "D, M d, Y - H:i")
+        # Convert to local timezone (Asia/Manila) if `USE_TZ` is enabled
+        local_time = timezone.localtime(obj.time)
+        return date(local_time, "D, M d, Y - H:i")

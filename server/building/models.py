@@ -12,6 +12,16 @@ class Building(models.Model):
     class Meta:
         db_table = "building"
 
+    def decrement_available_rooms(self):
+        if self.available_rooms > 0:
+            self.available_rooms -= 1
+            self.save()
+
+    def increment_available_rooms(self):
+        if self.available_rooms < self.total_rooms:
+            self.available_rooms += 1
+            self.save()
+
     def soft_delete(self):
         self.is_active = False
         self.save()

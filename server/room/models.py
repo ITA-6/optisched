@@ -21,6 +21,12 @@ class Room(models.Model):
 
     class Meta:
         db_table = "room"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["number", "floor", "building"],
+                name="unique_room_number_floor_per_building",
+            )
+        ]
 
     def soft_delete(self):
         self.is_active = False
@@ -29,15 +35,22 @@ class Room(models.Model):
     def save(self, *args, **kwargs):
         # Check for existing inactive room to reactivate
         if self.pk is None:
+            if self.building.available_rooms <= 0:
+                raise ValueError("No available rooms in the building.")
+
             existing_room = Room.objects.filter(
                 number=self.number,
                 floor=self.floor,
                 building=self.building,
                 is_active=False,
             ).first()
+
             if existing_room:
                 existing_room.is_active = True
                 existing_room.save()
                 return
+
+            # Decrement available rooms in the building
+            self.building.decrement_available_rooms()
 
         super().save(*args, **kwargs)

@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
+from building.models import Building
 from room.models import Room
 from room.serializers import RoomSerializer
 
@@ -31,7 +32,31 @@ class RoomAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = RoomSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        building_id = serializer.validated_data.get("building").id
+        building = Building.objects.get(id=building_id)
+
+        # Check if there are available rooms
+        if building.available_rooms <= 0:
+            return Response(
+                {"message": "No available rooms in the building."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Check for uniqueness of number and floor in the building
+        number = serializer.validated_data.get("number")
+        floor = serializer.validated_data.get("floor")
+
+        if Room.objects.filter(number=number, floor=floor, building=building).exists():
+            return Response(
+                {
+                    "message": "A room with this number and floor already exists in the building."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         serializer.save()
+
         data = {"message": "Room has been created.", "data": serializer.data}
         return Response(data, status=status.HTTP_201_CREATED)
 
