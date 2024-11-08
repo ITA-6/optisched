@@ -21,23 +21,23 @@ const Admin = () => {
       case "/admin/user/manage":
         return "MANAGE USERS";
       case "/admin/view/professor":
-        return "MANAGE PROFESSOR";
+        return "PROFESSORS";
       case "/admin/view/section":
-        return "MANAGE SECTIONS";
+        return "SECTIONS";
       case "/admin/view/classroom":
-        return "MANAGE CLASSROOM";
+        return "CLASSROOMS";
       case "/admin/generate":
         return "GENERATE";
       case "/admin/curriculum":
         return "CURRICULUM";
       case "/admin/view/building":
-        return "MANAGE BUILDING";
+        return "BUILDINGS";
       case "/admin/view/department":
-        return "MANAGE COLLEGE";
+        return "COLLEGES";
       case "/admin/view/course":
-        return "MANAGE COURSES";
+        return "COURSES";
       case "/admin/view/program":
-        return "MANAGE PROGRAMS";
+        return "PROGRAMS";
       case "/admin/generated/":
         return "Generate SCHEDULE";
       default:
