@@ -39,7 +39,7 @@ const Curriculum = () => {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="h-screen bg-white-grayish">
       <div className={`mr-[2rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-out duration-300 font-noto`}>
         <div className="grid mt-10">
           <div className="text-md mt-20 flex gap-x-1 font-bold">
