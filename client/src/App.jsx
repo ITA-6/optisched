@@ -29,7 +29,7 @@ import Unauthorized from "./components/Error/Unauthorized/Unauthorized";
 import Notfound from "./components/Error/Notfound/Notfound";
 import PrintSchedule from "./components/Users/PrintSchedule";
 import CurriculumView from "./components/Admin/Curriculum/Files/CurriculumView";
-
+import Vpaa from "./components/Users/ViewVPAA";" "
 const App = () => {
   return (
     <SidebarProvider>
@@ -71,8 +71,9 @@ const App = () => {
           {/* User */}
           <Route path="User" element={<Users />}>
             <Route index element={<GenerateUser />} />
-            <Route path="generate" element={<GenerateUser />} />
-            <Route path="schedule" element={<Schedule />} />
+            <Route path="professor/generate" element={<GenerateUser />} />
+            <Route path="professor/schedule" element={<Schedule />} />
+            <Route path="vpaa" element={<Vpaa />} />
           </Route>
 
           <Route path="Unauthorized" element={<Unauthorized />} />
