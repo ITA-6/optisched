@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SectionRow from "./SectionRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const SectionTable = ({ section , totalRows }) => {
+const SectionTable = ({filteredSections }) => {
   const [loading, setLoading] = useState(true); // State to manage loading status
 
   //  data loading
@@ -18,8 +18,8 @@ const SectionTable = ({ section , totalRows }) => {
     fetchData();
   }, []); // Run only once on component mount
 
-  const rowsToDisplay = Array.from({ length: section.length }, (_, index) => {
-    return section [index] || { label: "", year_level: "" };
+  const rowsToDisplay = Array.from({ length:filteredSections.length }, (_, index) => {
+    return filteredSections [index] || { label: "", year_level: "" };
   });
 
   if (loading) {
@@ -51,8 +51,8 @@ const SectionTable = ({ section , totalRows }) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay.map((section , index) => (
-          <SectionRow key={index} section ={section } />
+        {rowsToDisplay.map((filteredSections , index) => (
+          <SectionRow key={index} filteredSections ={filteredSections } />
         ))}
       </tbody>
     </table>
