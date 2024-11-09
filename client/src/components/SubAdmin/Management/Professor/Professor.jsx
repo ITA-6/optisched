@@ -5,6 +5,7 @@ import add from "../../../../assets/add.png";
 import SearchField from "./Files/SearchField";
 import ProfessorForm from "./Files/ProfessorForm";
 import ProfessorTable from "./Files/ProfessorTables";
+import { useSidebar } from "../../../Users/Sidenav/SidenavContext/SidenavContext";
 
 const Professor = () => {
   const [professors, setProfessor] = useState([]);
@@ -15,52 +16,53 @@ const Professor = () => {
   const [errorMessage, setErrorMessage] = useState([]);
   const [SelectedProfessor, setSelectedProfessor] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { isSidebarOpen } = useSidebar();
 
-  
-  const [selectedStatus, setSelectedStatus] = useState(''); // New state for the select option
-  const [searchItem, setSearchItem] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState(""); // New state for the select option
+  const [searchItem, setSearchItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(professors);
 
   useEffect(() => {
     // Set initial filtered users when component mounts or professors change
     setFilteredUsers(professors);
-}, [professors]);
+  }, [professors]);
 
   const handleInputChange = (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      setSearchItem(searchTerm);
-      filterUsers(searchTerm, selectedStatus);
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchItem(searchTerm);
+    filterUsers(searchTerm, selectedStatus);
   };
 
   const handleStatusChange = (e) => {
-      const status = e.target.value;
-      setSelectedStatus(status);
-      filterUsers(searchItem, status);
+    const status = e.target.value;
+    setSelectedStatus(status);
+    filterUsers(searchItem, status);
   };
 
   const filterUsers = (searchTerm, status) => {
-      const filteredItems = professors.filter((prof) => {
-          // Check if professor's employment status matches the selected status, if any
-          const matchesStatus = status ? prof.employment_status === status : true;
-          
-          // Check if any field in professor's data starts with the search term
-          const matchesSearchTerm = Object.values(prof).some(value =>
-              value && value.toString().toLowerCase().startsWith(searchTerm)
-          );
+    const filteredItems = professors.filter((prof) => {
+      // Check if professor's employment status matches the selected status, if any
+      const matchesStatus = status ? prof.employment_status === status : true;
 
-          // Return true if both conditions match
-          return matchesStatus && matchesSearchTerm;
-      });
+      // Check if any field in professor's data starts with the search term
+      const matchesSearchTerm = Object.values(prof).some(
+        (value) =>
+          value && value.toString().toLowerCase().startsWith(searchTerm),
+      );
 
-      setFilteredUsers(filteredItems);
+      // Return true if both conditions match
+      return matchesStatus && matchesSearchTerm;
+    });
+
+    setFilteredUsers(filteredItems);
   };
 
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedProfessor(id);
   };
-  
-  const totalRows = (filteredUsers.length < 10) ? 10 : filteredUsers.length;
+
+  const totalRows = filteredUsers.length < 10 ? 10 : filteredUsers.length;
   useEffect(() => {
     const fetchData = async () => {
       const response = await api.get("professors/");
@@ -79,35 +81,34 @@ const Professor = () => {
   const submitProfessor = async (professor) => {
     try {
       await api.post("professors/", professor);
-      
+
       // Fetch the updated list of professors after successfully adding
       const response = await api.get("professors/");
       setProfessor(response.data);
       setIsModalOpen(false);
     } catch (error) {
       if (error.response && error.response.status === 400) {
-          const errorData = error.response.data;
-          setErrorMessage(errorData);
-          // Check for specific errors in prof_id and email
-          if (errorData.prof_id && errorData.prof_id.length > 0) {
-              setError(`Professor ID error: ${errorData.prof_id.join(', ')}`);
-          } else if (errorData.email && errorData.email.length > 0) {
-              setError(`Email error: ${errorData.email.join(', ')}`);
-          } else {
-              setError("Invalid input. Please check your data.");
-          }
+        const errorData = error.response.data;
+        setErrorMessage(errorData);
+        // Check for specific errors in prof_id and email
+        if (errorData.prof_id && errorData.prof_id.length > 0) {
+          setError(`Professor ID error: ${errorData.prof_id.join(", ")}`);
+        } else if (errorData.email && errorData.email.length > 0) {
+          setError(`Email error: ${errorData.email.join(", ")}`);
+        } else {
+          setError("Invalid input. Please check your data.");
+        }
       } else {
-          // General error handling for other status codes
-          setError("An error occurred while adding the professor.");
+        // General error handling for other status codes
+        setError("An error occurred while adding the professor.");
       }
 
       // Show the error message for 5 seconds
       setTimeout(() => {
-          setError(false);
+        setError(false);
       }, 5000);
     }
-};
-
+  };
 
   const updateProfessor = async (professor) => {
     try {
@@ -138,9 +139,16 @@ const Professor = () => {
 
   return (
     <div className="h-screen w-screen bg-white">
-      <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout">
-        <SearchField handleInputChange={handleInputChange} handleStatusChange={handleStatusChange} />
-        <div className={`mr-5 h-full grid-in-userTable ${(filteredUsers.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
+      <div
+        className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
+      >
+        <SearchField
+          handleInputChange={handleInputChange}
+          handleStatusChange={handleStatusChange}
+        />
+        <div
+          className={`mr-5 h-full grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${filteredUsers.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
+        >
           <ProfessorTable
             toggleDialog={toggleDialog}
             filteredUsers={filteredUsers}

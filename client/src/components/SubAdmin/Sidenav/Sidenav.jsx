@@ -3,7 +3,6 @@ import optisched from "../../../assets/optisched.png";
 import pncHeader from "../../../assets/pncHeader.png";
 import section from "../../../assets/section.png";
 import educationalPrograms from "../../../assets/educationaPrograms.png";
-import { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,22 +12,11 @@ import {
   faBookOpen,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
 
 const Sidenav = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isHoverOn, setIsHoverOn] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const hoverOn = () => {
-    setIsHoverOn(true);
-  };
-
-  const hoverOff = () => {
-    setIsHoverOn(false);
-  };
+  const { isSidebarOpen, toggleSidebar, isHoverOn, hoverOn, hoverOff } =
+    useSidebar();
 
   return (
     <>

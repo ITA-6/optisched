@@ -6,6 +6,7 @@ import SearchField from "./Files/SearchField";
 import api from "../../../../api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useSidebar } from "../../../Users/Sidenav/SidenavContext/SidenavContext";
 
 const Buildings = () => {
   const [buildings, setBuildings] = useState([]);
@@ -13,11 +14,14 @@ const Buildings = () => {
   const [initialData, setInitialData] = useState(null);
   const [SelectedBuilding, setSelectedBuilding] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { isSidebarOpen } = useSidebar(); // Move this inside the component
+
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedBuilding(id);
   };
-  const totalRows = (buildings.length < 10) ? 10 : buildings.length;
+
+  const totalRows = buildings.length < 10 ? 10 : buildings.length;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,10 +77,14 @@ const Buildings = () => {
   };
 
   return (
-    <div className=" h-screen w-screen bg-white">
-      <div className="ml-[18rem] mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout">
+    <div className="h-screen w-screen bg-white font-noto">
+      <div
+        className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
+      >
         <SearchField />
-        <div className={`mr-5 h-full grid-in-userTable ${(buildings.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
+        <div
+          className={`mr-5 h-full grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${buildings.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
+        >
           <BuildingTable
             toggleDialog={toggleDialog}
             buildings={buildings}
@@ -86,10 +94,10 @@ const Buildings = () => {
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
           <button
-            className="mr-5 flex h-[4rem] w-52 items-center justify-center space-x-2 rounded-3xl border-2 bg-light-green text-white font-medium"
+            className="mr-5 flex h-[4rem] w-52 items-center justify-center space-x-2 rounded-3xl border-2 bg-light-green font-medium text-white"
             onClick={toggleModal}
           >
-           <FontAwesomeIcon icon={faPlus}  color="white" size="xl"/>
+            <FontAwesomeIcon icon={faPlus} color="white" size="xl" />
             <span>Add New Building</span>
           </button>
         </div>
@@ -138,5 +146,3 @@ const Buildings = () => {
 };
 
 export default Buildings;
-
-
