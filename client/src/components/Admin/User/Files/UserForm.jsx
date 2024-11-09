@@ -45,11 +45,17 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 xm:overflow-auto sm:overflow-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 sm:overflow-auto xm:overflow-auto">
       <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-          <img src={user} alt="" className="m-3 mr-4 h-[30px] w-[30px] xm:h-[1.5em] xm:w-[1.5em] sm:h-[1.7em] sm:w-[1.7em] md:h-[2em] md:w-[2em]" />
-          <h2 className="ml-2 text-3xl font-extrabold xm:text-sm xm:ml-0 sm:ml-0 sm:text-lg md:text-xl text-white">Create New User</h2>
+          <img
+            src={user}
+            alt=""
+            className="m-3 mr-4 h-[30px] w-[30px] sm:h-[1.7em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em]"
+          />
+          <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
+            Create New User
+          </h2>
         </div>
         <div className="p-5">
           <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
@@ -57,37 +63,36 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
             <div className="flex flex-col">
               <label
                 htmlFor="mail"
-                className="text-lg font-medium text-gray-700 xm:text-xs sm:text-sm md:text-base"
+                className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Professor ID
               </label>
               <input
                 type="number"
                 id="professorID"
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 xm:p-1 xm:text-xs sm:p-1 md:text-base"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 md:text-base xm:p-1 xm:text-xs"
                 value={professorId}
                 onChange={(e) => setProfessorId(e.target.value)}
                 required
               />
             </div>
             {/* Role Field */}
-            <div className="flex flex-col xm:text-xs sm:text-sm md:text-base">
+            <div className="flex flex-col sm:text-sm md:text-base xm:text-xs">
               <label
                 htmlFor="role"
-                className="text-lg font-medium text-gray-700 xm:text-xs sm:text-sm md:text-base "
+                className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Role
               </label>
               <select
                 name="role"
                 id="role"
-                className="border rounded-md border-gray-300 p-2 xm:p-1 xm:rounded-md sm:p-1 md:p-2  "
+                className="rounded-md border border-gray-300 p-2 sm:p-1 md:p-2 xm:rounded-md xm:p-1"
                 onChange={(e) => setRole(e.target.value)}
                 value={role}
               >
                 <option value="DC">Department Chair</option>
                 <option value="D">Dean</option>
-                <option value="P">Professor</option>
                 <option value="R">Registrar</option>
                 <option value="VPAA">
                   Vice President for Academic Affairs
@@ -96,20 +101,22 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
             </div>
 
             {/* Name Fields */}
-            <div className="flex flex-col xm:text-xs sm:text-sm md:text-base">
-              <label className="text-lg font-medium text-gray-700 xm:text-xs sm:text-sm md:text-base">Name</label>
-              <div className="mt-2 flex  xm:flex-col sm:flex-col xm:gap-4 sm:gap-4 md:flex-row">
+            <div className="flex flex-col sm:text-sm md:text-base xm:text-xs">
+              <label className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs">
+                Name
+              </label>
+              <div className="mt-2 flex sm:flex-col sm:gap-4 md:flex-row xm:flex-col xm:gap-4">
                 <div className="flex-1">
                   <label
                     htmlFor="firstname"
-                    className="block text-sm font-medium text-gray-600 xm:text-xs sm:text-sm md:text-base"
+                    className="block text-sm font-medium text-gray-600 sm:text-sm md:text-base xm:text-xs"
                   >
                     Firstname
                   </label>
                   <input
                     type="text"
                     id="firstname"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 xm:p-1 sm:p-1"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 xm:p-1"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     required
@@ -118,14 +125,14 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 <div className="flex-1">
                   <label
                     htmlFor="middlename"
-                    className="block text-sm font-medium text-gray-600 xm:text-xs sm:text-sm md:text-base"
+                    className="block text-sm font-medium text-gray-600 sm:text-sm md:text-base xm:text-xs"
                   >
                     Middlename
                   </label>
                   <input
                     type="text"
                     id="middlename"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 xm:p-1 sm:p-1"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 xm:p-1"
                     onChange={(e) => setMiddleName(e.target.value)}
                     value={middleName}
                   />
@@ -133,14 +140,14 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 <div className="flex-1">
                   <label
                     htmlFor="lastname"
-                    className="block text-sm font-medium text-gray-600 xm:text-xs sm:text-sm md:text-base"
+                    className="block text-sm font-medium text-gray-600 sm:text-sm md:text-base xm:text-xs"
                   >
                     Lastname
                   </label>
                   <input
                     type="text"
                     id="lastname"
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 xm:p-1 sm:p-1"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 xm:p-1"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     required
@@ -150,17 +157,17 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
             </div>
 
             {/* Email Address Field */}
-            <div className="flex flex-col xm:text-xs sm:text-sm md:text-base">
+            <div className="flex flex-col sm:text-sm md:text-base xm:text-xs">
               <label
                 htmlFor="mail"
-                className="text-lg font-medium text-gray-700 xm:text-xs sm:text-sm md:text-base"
+                className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Email Address
               </label>
               <input
                 type="email"
                 id="mail"
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 xm:p-1 xm:text-xs sm:text-sm sm:p-1 md:text-base"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 sm:text-sm md:text-base xm:p-1 xm:text-xs"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -168,15 +175,15 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
             </div>
 
             {/* Birthdate */}
-            <div className="grid flex-1 xm:text-xs sm:text-sm md:text-base">
+            <div className="grid flex-1 sm:text-sm md:text-base xm:text-xs">
               <label
                 htmlFor="birthdate"
-                className="text-lg font-medium text-gray-700 xm:text-xs  sm:text-sm md:text-base"
+                className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Birthdate
               </label>
               <input
-                className="rounded-md border border-gray-300 p-2 xm:p-1 sm:p-1"
+                className="rounded-md border border-gray-300 p-2 sm:p-1 xm:p-1"
                 type="date"
                 name="birthdate"
                 id="birthdate"
@@ -189,7 +196,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
               <div className="flex flex-col xm:text-xs">
                 <label
                   htmlFor="department"
-                  className="text-lg font-medium text-gray-700 xm:text-xs sm:text-sm md:text-base"
+                  className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
                 >
                   Department
                 </label>
@@ -197,7 +204,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                   id="department"
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 xm:text-xs xm:p-1 sm:text-sm sm:p-1 md:text-base"
+                  className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 sm:text-sm md:text-base xm:p-1 xm:text-xs"
                   required
                 >
                   <option value="" disabled>
@@ -213,7 +220,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
             )}
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
-                <span className="xm:text-xs text-white">Confirm</span>
+                <span className="text-white xm:text-xs">Confirm</span>
               </button>
             </div>
           </form>

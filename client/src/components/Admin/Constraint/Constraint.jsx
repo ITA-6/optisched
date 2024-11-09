@@ -64,10 +64,10 @@ const Constraint = () => {
   );
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 font-noto xm:text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 font-noto sm:text-sm md:text-base lg:text-lg xl:text-xl xm:text-xs">
       <div className="w-full max-w-4xl space-y-8 p-8">
         {/* Student Constraints */}
-        <div className="ml-20 mt-10 rounded-lg bg-white p-6 shadow-lg xm:ml-0 sm:ml-0">
+        <div className="ml-20 mt-10 rounded-lg bg-white p-6 shadow-lg sm:ml-0 xm:ml-0">
           <h2 className="mb-6 text-xl font-semibold text-dark-green">
             <b>Student Constraints</b>
           </h2>
@@ -93,7 +93,7 @@ const Constraint = () => {
         </div>
 
         {/* Professor Constraints */}
-        <div className="ml-20 rounded-lg bg-white p-6 shadow-lg xm:ml-0 sm:ml-0">
+        <div className="ml-20 rounded-lg bg-white p-6 shadow-lg sm:ml-0 xm:ml-0">
           <h2 className="mb-6 text-xl font-semibold text-dark-green">
             <b>Professor Constraints</b>
           </h2>
@@ -142,7 +142,7 @@ const Constraint = () => {
         </div>
 
         {/* Classroom Utilization Constraints */}
-        <div className="ml-20 rounded-lg bg-white p-6 shadow-lg xm:ml-0 sm:ml-0">
+        <div className="ml-20 rounded-lg bg-white p-6 shadow-lg sm:ml-0 xm:ml-0">
           <h2 className="mb-6 text-xl font-semibold text-dark-green">
             <b>Classroom Utilization Constraints</b>
           </h2>
@@ -188,7 +188,7 @@ const Constraint = () => {
         {/* Update Button */}
         <div className="flex justify-end">
           <button className="rounded-lg bg-green px-6 py-2 text-white shadow-md hover:bg-green">
-            Update
+            Save Changes
           </button>
         </div>
       </div>
