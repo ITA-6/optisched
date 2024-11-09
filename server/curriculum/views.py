@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 
 from curriculum.models import Curriculum
-from curriculum.serializers import CurriculumSerializer
+from curriculum.serializers import CurriculumSerializer, CreateCurriculumSerializer
 
 
 class CurriculumAPIView(APIView):
@@ -41,3 +41,44 @@ class CurriculumAPIView(APIView):
 
         # Return the serialized data in the response
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        serializer = CreateCurriculumSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, *args, **kwargs):
+        curriculum_id = kwargs.get("id")
+        try:
+            curriculum = Curriculum.objects.get(id=curriculum_id)
+        except Curriculum.DoesNotExist:
+            return Response(
+                {"error": "Curriculum not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = CreateCurriculumSerializer(
+            curriculum, data=request.data, partial=True
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, *args, **kwargs):
+        curriculum_id = kwargs.get("id")
+        try:
+            curriculum = Curriculum.objects.get(id=curriculum_id)
+        except Curriculum.DoesNotExist:
+            return Response(
+                {"error": "Curriculum not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        curriculum.delete()
+        return Response(
+            {"message": "Curriculum deleted successfully."},
+            status=status.HTTP_204_NO_CONTENT,
+        )
