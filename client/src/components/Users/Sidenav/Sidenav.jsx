@@ -38,7 +38,7 @@ const Sidenav = () => {
           <ul className="flex flex-col gap-2 px-4">
             <li className="w-full">
               <Link
-                to="generate"
+                to="professor/generate"
                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
               >
                  <FontAwesomeIcon icon={faGears} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
@@ -47,7 +47,7 @@ const Sidenav = () => {
             </li>
             <li className="w-full">
               <Link
-                to="schedule"
+                to="professor/schedule"
                 className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200"
               >
                 <FontAwesomeIcon icon={faBarsProgress} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
