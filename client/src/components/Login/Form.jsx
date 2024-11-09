@@ -19,6 +19,8 @@ const navigateUserUrl = (token) => {
       return "sub-admin";
     case "P":
       return "user";
+    case "VPAA":
+      return "user/vpaa";
     default:
       return "unauthorized";
   }
