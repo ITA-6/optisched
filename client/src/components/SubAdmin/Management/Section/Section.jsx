@@ -4,18 +4,21 @@ import SearchField from "./Files/SearchField";
 import SectionTable from "./Files/SectionTable";
 import SectionForm from "./Files/SectionForm";
 import { useSidebar } from "../../../Users/Sidenav/SidenavContext/SidenavContext";
-
 import api from "../../../../api";
 
 const Section = () => {
   const [sections, setSections] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
-  const totalRows = sections.length < 10 ? 10 : sections.length;
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
   const { isSidebarOpen } = useSidebar();
 
-  const [SelectedSection, setSelectedSection] = useState("");
+  const [selectedSection, setSelectedSection] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const totalRows = sections.length < 10 ? 10 : sections.length;
+
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedSection(id);
@@ -23,36 +26,68 @@ const Section = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get("sections/");
-      setSections(response.data);
+      try {
+        const response = await api.get("sections/");
+        setSections(response.data);
+      } catch (error) {
+        console.error("Error fetching sections:", error);
+      }
     };
     fetchData();
   }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    if (isModalOpen) setInitialData(null);
+    if (isModalOpen) {
+      setInitialData(null);
+      setErrors({});
+      setErrorMessage("");
+    }
   };
 
   const submitSection = async (section) => {
     try {
       await api.post("sections/", section);
-      const response = await api("sections/");
+      const response = await api.get("sections/");
       setSections(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        // Log the error response to see the specific validation issues
+        console.error("Validation error:", error.response.data);
+        setErrorMessage(error.response.data);
+      } else {
+        console.error("An error occurred:", error);
+      }
     }
   };
 
-  const UpdateSections = async (section) => {
+  const updateSection = async (section) => {
     try {
       await api.put(`sections/${section.id}/`, section);
-      const response = await api("sections/");
+      const response = await api.get("sections/");
       setSections(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        const errorData = error.response.data;
+        setErrors(errorData);
+
+        if (errorData.label) {
+          setErrorMessage(`Label error: ${errorData.label.join(", ")}`);
+        } else if (errorData.year_level) {
+          setErrorMessage(
+            `Year Level error: ${errorData.year_level.join(", ")}`,
+          );
+        } else {
+          setErrorMessage("Invalid input. Please check your data.");
+        }
+      } else {
+        setErrorMessage("An error occurred while updating the section.");
+      }
+
+      // Clear the error message after 5 seconds
+      setTimeout(() => setErrorMessage(""), 5000);
     }
   };
 
@@ -61,17 +96,18 @@ const Section = () => {
     toggleModal();
   };
 
-  const DeleteSection = async (id) => {
+  const deleteSection = async (id) => {
     try {
       await api.delete(`sections/${id}`);
-      const response = await api("sections/");
+      const response = await api.get("sections/");
       setSections(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error deleting section:", error);
     }
 
     toggleDialog();
   };
+
   return (
     <div className="h-screen w-screen bg-white">
       <div
@@ -101,8 +137,10 @@ const Section = () => {
       {isModalOpen && (
         <SectionForm
           toggleModal={toggleModal}
-          handler={initialData ? UpdateSections : submitSection}
+          handler={initialData ? updateSection : submitSection}
           initialData={initialData}
+          errors={errors}
+          errorMessage={errorMessage}
         />
       )}
       {isDialogOpen && (
@@ -122,7 +160,7 @@ const Section = () => {
             <div className="flex gap-4">
               <button
                 className="bg-green px-10 py-2 text-center text-white"
-                onClick={() => DeleteSection(SelectedSection)}
+                onClick={() => deleteSection(selectedSection)}
               >
                 Yes
               </button>
@@ -139,4 +177,5 @@ const Section = () => {
     </div>
   );
 };
+
 export default Section;

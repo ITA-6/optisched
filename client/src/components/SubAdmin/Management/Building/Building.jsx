@@ -12,9 +12,10 @@ const Buildings = () => {
   const [buildings, setBuildings] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState({}); // State for error messages
   const [SelectedBuilding, setSelectedBuilding] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { isSidebarOpen } = useSidebar(); // Move this inside the component
+  const { isSidebarOpen } = useSidebar();
 
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
@@ -34,29 +35,44 @@ const Buildings = () => {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    if (isModalOpen) setInitialData(null);
+    if (isModalOpen) {
+      setInitialData(null);
+      setErrorMessage({}); // Clear errors when closing the modal
+    }
   };
 
   const submitBuilding = async (building) => {
     try {
       await api.post("buildings/", building);
-      const response = await api("buildings/");
+      const response = await api.get("buildings/");
       setBuildings(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        console.log("Validation error response:", error.response.data); // Debugging
+        // Capture specific field errors
+        setErrorMessage(error.response.data);
+      } else {
+        console.error("An error occurred:", error);
+      }
     }
   };
 
   const updateBuilding = async (building) => {
     try {
       await api.put(`buildings/${building.id}/`, building);
-      const response = await api("buildings/");
+      const response = await api.get("buildings/");
       setBuildings(response.data);
       setInitialData(null);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        console.log("Validation error response:", error.response.data); // Debugging
+        // Capture specific field errors
+        setErrorMessage(error.response.data);
+      } else {
+        console.error("An error occurred:", error);
+      }
     }
   };
 
@@ -71,7 +87,7 @@ const Buildings = () => {
       const response = await api.get("buildings/");
       setBuildings(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error deleting building:", error);
     }
     toggleDialog(id);
   };
@@ -103,7 +119,7 @@ const Buildings = () => {
         </div>
         {isModalOpen && (
           <BuildingForm
-            DeleteBuilding={DeleteBuilding}
+            errorMessage={errorMessage} // Pass down errorMessage
             handler={initialData ? updateBuilding : submitBuilding}
             initialData={initialData}
             toggleModal={toggleModal}

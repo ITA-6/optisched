@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import add from "../../../../assets/add.png";
-
 import SearchField from "./Files/SearchField";
 import ProgramTable from "./Files/ProgramTable";
 import ProgramForms from "./Files/ProgramForms";
@@ -12,6 +11,7 @@ const Program = () => {
   const [programs, setPrograms] = useState([]);
   const [departments, setDepartment] = useState("");
   const [initialData, setInitialData] = useState(null);
+  const [errorMessage, setErrorMessage] = useState({}); // State for error messages
   const totalRows = programs.length < 10 ? 10 : programs.length;
   const { isSidebarOpen } = useSidebar();
 
@@ -21,6 +21,7 @@ const Program = () => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedProgram(id);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await api("programs/");
@@ -33,28 +34,39 @@ const Program = () => {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    if (isModalOpen) setInitialData(null);
+    if (isModalOpen) {
+      setInitialData(null);
+      setErrorMessage({}); // Clear errors when closing the modal
+    }
   };
 
   const submitProgram = async (program) => {
     try {
       await api.post("programs/", program);
-      const response = await api("programs/");
+      const response = await api.get("programs/");
       setPrograms(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        setErrorMessage(error.response.data);
+      } else {
+        console.error(error);
+      }
     }
   };
 
   const updateProgram = async (program) => {
     try {
       await api.put(`programs/${program.id}/`, program);
-      const response = await api("programs/");
+      const response = await api.get("programs/");
       setPrograms(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        setErrorMessage(error.response.data);
+      } else {
+        console.error(error);
+      }
     }
   };
 
@@ -106,6 +118,7 @@ const Program = () => {
           handler={initialData ? updateProgram : submitProgram}
           initialData={initialData}
           departments={departments}
+          errorMessage={errorMessage} // Pass down errorMessage
         />
       )}
 
@@ -143,4 +156,5 @@ const Program = () => {
     </div>
   );
 };
+
 export default Program;

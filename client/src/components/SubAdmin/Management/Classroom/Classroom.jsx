@@ -2,15 +2,16 @@ import SearchField from "./Files/SearchField";
 import ClassroomTable from "./Files/ClassroomTable";
 import { useState, useEffect } from "react";
 import { useSidebar } from "../../../Users/Sidenav/SidenavContext/SidenavContext";
-
 import add from "../../../../assets/add.png";
 import api from "../../../../api";
 import ClassroomForm from "./Files/ClassroomForm";
+
 const Classroom = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
-  const [buildings, setBuilding] = useState(0);
+  const [buildings, setBuilding] = useState([]);
+  const [errorMessage, setErrorMessage] = useState({}); // State to store error messages
   const { isSidebarOpen } = useSidebar();
 
   const [SelectedClassroom, setSelectedClassroom] = useState("");
@@ -24,38 +25,55 @@ const Classroom = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get("rooms/");
-      const building = await api.get("buildings/");
-      setClassrooms(response.data);
-      setBuilding(building.data);
+      try {
+        const response = await api.get("rooms/");
+        const building = await api.get("buildings/");
+        setClassrooms(response.data);
+        setBuilding(building.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
     fetchData();
   }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    if (isModalOpen) setInitialData(null);
+    if (isModalOpen) {
+      setInitialData(null);
+      setErrorMessage({}); // Clear errors when closing the modal
+    }
   };
 
   const submitClassroom = async (classroom) => {
     try {
       await api.post("rooms/", classroom);
-      const response = await api("rooms/");
+      const response = await api.get("rooms/");
       setClassrooms(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        // Capture validation errors
+        setErrorMessage(error.response.data);
+      } else {
+        console.error("An error occurred:", error);
+      }
     }
   };
 
   const updateClassroom = async (classroom) => {
     try {
       await api.put(`rooms/${classroom.id}/`, classroom);
-      const response = await api("rooms/");
+      const response = await api.get("rooms/");
       setClassrooms(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        // Capture validation errors
+        setErrorMessage(error.response.data);
+      } else {
+        console.error("An error occurred:", error);
+      }
     }
   };
 
@@ -70,10 +88,11 @@ const Classroom = () => {
       const response = await api.get("rooms/");
       setClassrooms(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error deleting classroom:", error);
     }
     toggleDialog();
   };
+
   return (
     <div className="h-screen w-screen bg-white font-noto">
       <div
@@ -106,6 +125,7 @@ const Classroom = () => {
           buildings={buildings}
           handler={initialData ? updateClassroom : submitClassroom}
           initialData={initialData}
+          errorMessage={errorMessage} // Pass down errorMessage
         />
       )}
 
@@ -143,4 +163,5 @@ const Classroom = () => {
     </div>
   );
 };
+
 export default Classroom;

@@ -1,6 +1,7 @@
 import course from "../../../../../assets/course.png";
 import { useState, useEffect } from "react";
-const BuildingForm = ({ handler, initialData, toggleModal }) => {
+
+const BuildingForm = ({ handler, initialData, toggleModal, errorMessage }) => {
   const [name, setName] = useState("");
   const [totalRooms, setTotalRooms] = useState("");
   const [availableRooms, setAvailableRooms] = useState("");
@@ -35,56 +36,72 @@ const BuildingForm = ({ handler, initialData, toggleModal }) => {
         </div>
         <div className="p-5">
           <form onSubmit={handleSubmit} className="mt-5 space-y-6">
+            {/* Building Name Field with Error Handling */}
             <div className="flex flex-1 flex-col">
               <label htmlFor="BuildingName" className="text-lg font-medium">
-                {" "}
                 Building Name
               </label>
               <input
                 type="text"
                 id="BuildingName"
                 name="BuildingName"
-                placeholder="Building  Name"
+                placeholder="Building Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="rounded-md border border-gray-300 p-2"
+                className={`rounded-md border p-2 ${errorMessage?.name ? "border-red-500" : "border-gray-300"}`}
                 required
               />
+              {errorMessage?.name && (
+                <span className="ml-2 text-sm text-red-500">
+                  {errorMessage.name[0]}
+                </span>
+              )}
             </div>
-            <div className="flex gap-10">
-              <div className="flex flex-1 flex-col">
-                <label htmlFor="totalRooms" className="text-lg font-medium">
-                  {" "}
-                  Total Rooms
-                </label>
-                <input
-                  type="number"
-                  id="totalRooms"
-                  name="totalRooms"
-                  placeholder="0"
-                  value={totalRooms}
-                  onChange={(e) => setTotalRooms(e.target.value)}
-                  className="rounded-md border border-gray-300 p-2"
-                  required
-                />
-              </div>
-              <div className="flex flex-1 flex-col">
-                <label htmlFor="availableRooms" className="text-lg font-medium">
-                  {" "}
-                  Available Rooms
-                </label>
-                <input
-                  type="number"
-                  id="availableRooms"
-                  name="availableRooms"
-                  placeholder="0"
-                  value={availableRooms}
-                  onChange={(e) => setAvailableRooms(e.target.value)}
-                  className="rounded-md border border-gray-300 p-2"
-                  required
-                />
-              </div>
+
+            {/* Total Rooms Field */}
+            <div className="flex flex-1 flex-col">
+              <label htmlFor="totalRooms" className="text-lg font-medium">
+                Total Rooms
+              </label>
+              <input
+                type="number"
+                id="totalRooms"
+                name="totalRooms"
+                placeholder="0"
+                value={totalRooms}
+                onChange={(e) => setTotalRooms(e.target.value)}
+                className={`rounded-md border p-2 ${errorMessage?.total_rooms ? "border-red-500" : "border-gray-300"}`}
+                required
+              />
+              {errorMessage?.total_rooms && (
+                <span className="ml-2 text-sm text-red-500">
+                  {errorMessage.total_rooms[0]}
+                </span>
+              )}
             </div>
+
+            {/* Available Rooms Field */}
+            <div className="flex flex-1 flex-col">
+              <label htmlFor="availableRooms" className="text-lg font-medium">
+                Available Rooms
+              </label>
+              <input
+                type="number"
+                id="availableRooms"
+                name="availableRooms"
+                placeholder="0"
+                value={availableRooms}
+                onChange={(e) => setAvailableRooms(e.target.value)}
+                className={`rounded-md border p-2 ${errorMessage?.available_rooms ? "border-red-500" : "border-gray-300"}`}
+                required
+              />
+              {errorMessage?.available_rooms && (
+                <span className="ml-2 text-sm text-red-500">
+                  {errorMessage.available_rooms[0]}
+                </span>
+              )}
+            </div>
+
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
                 <span>Confirm</span>

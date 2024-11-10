@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import classroom from "../../../../../assets/classroom.png";
 
-const ClassroomForm = ({ toggleModal, buildings, handler, initialData }) => {
+const ClassroomForm = ({
+  toggleModal,
+  buildings,
+  handler,
+  initialData,
+  errorMessage,
+}) => {
   const [building, setBuilding] = useState("");
   const [floorNumber, setFloorNumber] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
@@ -36,6 +42,13 @@ const ClassroomForm = ({ toggleModal, buildings, handler, initialData }) => {
         </div>
         <div className="p-5">
           <form onSubmit={handleSubmit} className="mt-5 space-y-6">
+            {/* Display non_field_errors if available */}
+            {errorMessage.non_field_errors && (
+              <div className="mb-4 text-sm text-red-500">
+                {errorMessage.non_field_errors[0]}
+              </div>
+            )}
+
             <div className="flex flex-1 flex-col">
               <label htmlFor="building" className="text-lg font-medium">
                 Building Name
@@ -44,7 +57,7 @@ const ClassroomForm = ({ toggleModal, buildings, handler, initialData }) => {
                 id="building"
                 value={building}
                 onChange={(e) => setBuilding(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                className={`mt-1 w-full rounded-lg border p-2 ${errorMessage.building ? "border-red-500" : "border-gray-300"}`}
                 required
               >
                 <option value="" disabled>
@@ -56,7 +69,13 @@ const ClassroomForm = ({ toggleModal, buildings, handler, initialData }) => {
                   </option>
                 ))}
               </select>
+              {errorMessage.building && (
+                <span className="ml-2 text-sm text-red-500">
+                  {errorMessage.building[0]}
+                </span>
+              )}
             </div>
+
             <div className="flex flex-1 flex-col">
               <label htmlFor="floorNumber" className="text-lg font-medium">
                 Floor Number
@@ -67,27 +86,37 @@ const ClassroomForm = ({ toggleModal, buildings, handler, initialData }) => {
                 placeholder="Floor Number"
                 value={floorNumber}
                 onChange={(e) => setFloorNumber(e.target.value)}
-                className="rounded-md border border-gray-300 p-2"
+                className={`rounded-md border p-2 ${errorMessage.floor ? "border-red-500" : "border-gray-300"}`}
                 required
               />
+              {errorMessage.floor && (
+                <span className="ml-2 text-sm text-red-500">
+                  {errorMessage.floor[0]}
+                </span>
+              )}
             </div>
-            <div className="flex gap-5">
-              <div className="flex flex-1 flex-col">
-                <label htmlFor="roomNumber" className="text-lg font-medium">
-                  Room Number
-                </label>
-                <input
-                  type="number"
-                  id="roomNumber"
-                  name="roomNumber"
-                  placeholder="Room Number"
-                  value={roomNumber}
-                  onChange={(e) => setRoomNumber(e.target.value)}
-                  className="rounded-md border border-gray-300 p-2"
-                  required
-                />
-              </div>
+
+            <div className="flex flex-1 flex-col">
+              <label htmlFor="roomNumber" className="text-lg font-medium">
+                Room Number
+              </label>
+              <input
+                type="number"
+                id="roomNumber"
+                name="roomNumber"
+                placeholder="Room Number"
+                value={roomNumber}
+                onChange={(e) => setRoomNumber(e.target.value)}
+                className={`rounded-md border p-2 ${errorMessage.number ? "border-red-500" : "border-gray-300"}`}
+                required
+              />
+              {errorMessage.number && (
+                <span className="ml-2 text-sm text-red-500">
+                  {errorMessage.number[0]}
+                </span>
+              )}
             </div>
+
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
                 <span>Confirm</span>

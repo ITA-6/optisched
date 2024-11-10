@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import section from "../../../../../assets/section.png";
 
-const SectionForm = ({ toggleModal, handler, initialData }) => {
+const SectionForm = ({
+  toggleModal,
+  handler,
+  initialData,
+  errors,
+  errorMessage,
+}) => {
   const [label, setLabel] = useState("");
   const [year, setYearLevel] = useState("");
 
@@ -36,7 +42,15 @@ const SectionForm = ({ toggleModal, handler, initialData }) => {
             onSubmit={handleSubmit}
             className="mr-5 mt-5 space-y-6 text-lg font-medium"
           >
+            {/* Display non_field_errors if available */}
+            {errorMessage.non_field_errors && (
+              <div className="mb-4 text-sm text-red-500">
+                {errorMessage.non_field_errors[0]}
+              </div>
+            )}
+
             <div className="flex gap-5">
+              {/* Label Field with Error Handling */}
               <div className="flex flex-1 flex-col">
                 <label htmlFor="section">Label</label>
                 <input
@@ -46,24 +60,38 @@ const SectionForm = ({ toggleModal, handler, initialData }) => {
                   placeholder="Label"
                   value={label}
                   onChange={(e) => setLabel(e.target.value)}
-                  className="rounded-lg border border-gray-300 p-2"
+                  className={`rounded-lg border p-2 ${errorMessage.label ? "border-red-500" : "border-gray-300"}`}
                   required
                 />
+                <span
+                  className={`${errorMessage.label ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {errorMessage.label && "* Label is required or invalid"}
+                </span>
               </div>
+
+              {/* Year Level Field with Error Handling */}
               <div className="flex flex-1 flex-col">
-                <label htmlFor="maximumCount">Year Level</label>
+                <label htmlFor="yearLevel">Year Level</label>
                 <input
                   type="number"
-                  name="maximumCount"
-                  id="maximumCount"
+                  name="yearLevel"
+                  id="yearLevel"
                   placeholder="0"
                   value={year}
                   onChange={(e) => setYearLevel(e.target.value)}
-                  className="rounded-lg border border-gray-300 p-2"
+                  className={`rounded-lg border p-2 ${errorMessage.year_level ? "border-red-500" : "border-gray-300"}`}
                   required
                 />
+                <span
+                  className={`${errorMessage.year_level ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {errorMessage.year_level &&
+                    "* Year Level is required or invalid"}
+                </span>
               </div>
             </div>
+
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
                 <span>Confirm</span>
@@ -81,4 +109,5 @@ const SectionForm = ({ toggleModal, handler, initialData }) => {
     </div>
   );
 };
+
 export default SectionForm;
