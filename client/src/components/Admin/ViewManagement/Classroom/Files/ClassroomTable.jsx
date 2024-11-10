@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ClassroomRow from "./ClassroomRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ClassroomTable = ({classroom}) => {
+const ClassroomTable = ({filteredClassrooms}) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data loading
@@ -18,8 +18,8 @@ const ClassroomTable = ({classroom}) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: classroom.length }, (_, index) => {
-    return classroom[index] || { number: "", floor: "", building: "" };
+  const rowsToDisplay = Array.from({ length: filteredClassrooms.length }, (_, index) => {
+    return filteredClassrooms[index] || { number: "", floor: "", building: "" };
   });
 
   if (loading) {
@@ -42,9 +42,15 @@ const ClassroomTable = ({classroom}) => {
         </tr>
       </thead>
       <tbody className="mb-10 h-full overflow-auto">
-        {rowsToDisplay?.map((classroom, index) => (
-          <ClassroomRow key={index} classroom={classroom} />
-        ))}
+      {filteredClassrooms.length > 0 ? (
+        rowsToDisplay?.map((filteredClassrooms, index) => (
+            <ClassroomRow key={index} filteredClassrooms={filteredClassrooms} />
+          ))
+        ) : (
+          <tr>
+            <td className="text-center" colSpan="3">No classrooms found</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

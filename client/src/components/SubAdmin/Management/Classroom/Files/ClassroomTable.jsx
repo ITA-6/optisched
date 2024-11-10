@@ -4,9 +4,8 @@ import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
 const ClassroomTable = ({
   toggleDialog,
-  classrooms,
+  filteredClassrooms,
   openUpdate,
-  totalRows,
 }) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
@@ -21,8 +20,8 @@ const ClassroomTable = ({
     fetchData();
   }, []); // Run once on mount
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return classrooms[index] || { building: "", number: "", floor: "" };
+  const rowsToDisplay = Array.from({ length: filteredClassrooms.length }, (_, index) => {
+    return filteredClassrooms[index] || { building: "", number: "", floor: "" };
   });
 
   if (loading) {
@@ -51,11 +50,11 @@ const ClassroomTable = ({
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay.map((classroom, index) => (
+        {rowsToDisplay.map((filteredClassrooms, index) => (
           <ClassroomRow
             key={index}
             toggleDialog={toggleDialog}
-            classroom={classroom}
+            filteredClassrooms={filteredClassrooms}
             openUpdate={openUpdate}
           />
         ))}

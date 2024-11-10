@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CourseRow from "./CourseRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const CourseTable = ({course}) => {
+const CourseTable = ({filteredCourses}) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data loading or replace with actual data fetching
@@ -18,8 +18,8 @@ const CourseTable = ({course}) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: course.length }, (_, index) => {
-    return course[index] || { name: "", code: "", category: "" };
+  const rowsToDisplay = Array.from({ length: filteredCourses.length }, (_, index) => {
+    return filteredCourses[index] || { name: "", code: "", category: "" };
   });
 
   if (loading) {
@@ -48,8 +48,8 @@ const CourseTable = ({course}) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay?.map((course, index) => (
-          <CourseRow key={index} course={course} />
+        {rowsToDisplay?.map((filteredCourses, index) => (
+          <CourseRow key={index} filteredCourses={filteredCourses} />
         ))}
       </tbody>
     </table>

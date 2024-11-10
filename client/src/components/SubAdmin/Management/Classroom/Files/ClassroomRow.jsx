@@ -1,11 +1,11 @@
-const ClassroomRow = ({ toggleDialog, classroom, openUpdate }) => {
-  const hasData = classroom.building && classroom.number; //
+const ClassroomRow = ({ toggleDialog, filteredClassrooms, openUpdate }) => {
+  const hasData = filteredClassrooms.building && filteredClassrooms.number; //
   return (
     <>
-      <tr key={classroom.id} className="h-16">
-        <td className="border border-gray-100">{classroom.building_name}</td>
-        <td className="border border-gray-100">{classroom.number}</td>
-        <td className="border border-gray-100"> {classroom.floor}</td>
+      <tr key={filteredClassrooms.id} className="h-16">
+        <td className="border border-gray-100">{filteredClassrooms.building_name}</td>
+        <td className="border border-gray-100">{filteredClassrooms.number}</td>
+        <td className="border border-gray-100"> {filteredClassrooms.floor}</td>
         <td className="border border-gray-100">
           {hasData && (
             <div className="flex items-center justify-center">

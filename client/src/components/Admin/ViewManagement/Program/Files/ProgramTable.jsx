@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProgramRow from "./ProgramRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProgramTable = ({ program}) => {
+const ProgramTable = ({filteredPrograms}) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data fetching or replace with actual fetching logic
@@ -18,8 +18,8 @@ const ProgramTable = ({ program}) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: program.length}, (_, index) => {
-    return program[index] || { name: "", department_name: "" };
+  const rowsToDisplay = Array.from({ length: filteredPrograms.length}, (_, index) => {
+    return filteredPrograms[index] || { name: "", department_name: "" };
   });
 
   if (loading) {
@@ -45,8 +45,8 @@ const ProgramTable = ({ program}) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay?.map((program, index) => (
-          <ProgramRow key={index} program={program} />
+        {rowsToDisplay?.map((filteredPrograms, index) => (
+          <ProgramRow key={index} filteredPrograms={filteredPrograms} />
         ))}
       </tbody>
     </table>

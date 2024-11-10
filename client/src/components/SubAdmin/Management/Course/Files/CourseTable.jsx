@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CourseRow from "./CourseRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
+const CourseTable = ({ toggleDialog,  filteredCourses, openUpdate, totalRows }) => {
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
@@ -16,8 +16,8 @@ const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
     fetchData();
   }, []); // Run only once on mount
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return courses[index] || { name: "", code: "", category: "" };
+  const rowsToDisplay = Array.from({ length:  filteredCourses.length }, (_, index) => {
+    return  filteredCourses[index] || { name: "", code: "", category: "" };
   });
 
   if (loading) {
@@ -65,10 +65,10 @@ const CourseTable = ({ toggleDialog, courses, openUpdate, totalRows }) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay.map((course, index) => (
+        {rowsToDisplay.map(( filteredCourses, index) => (
           <CourseRow
             key={index}
-            course={course}
+            filteredCourses={filteredCourses}
             toggleDialog={toggleDialog}
             openUpdate={openUpdate}
           />

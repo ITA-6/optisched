@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BuildingRow from "./BuildingRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const BuildingTable = ({ buildings, totalRows }) => {
+const BuildingTable = ({ filteredBuildings}) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data loading or replace with actual data fetching
@@ -18,9 +18,9 @@ const BuildingTable = ({ buildings, totalRows }) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
+  const rowsToDisplay = Array.from({ length: filteredBuildings.length }, (_, index) => {
     return (
-      buildings[index] || { name: "", total_rooms: "", available_rooms: "" }
+      filteredBuildings[index] || { name: "", total_rooms: "", available_rooms: "" }
     );
   });
 
@@ -50,8 +50,8 @@ const BuildingTable = ({ buildings, totalRows }) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay?.map((building, index) => (
-          <BuildingRow key={index} building={building} />
+        {rowsToDisplay?.map((filteredBuildings, index) => (
+          <BuildingRow key={index} filteredBuildings={filteredBuildings} />
         ))}
       </tbody>
     </table>

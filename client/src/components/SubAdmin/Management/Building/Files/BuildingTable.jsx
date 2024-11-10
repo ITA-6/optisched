@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BuildingRow from "./BuildingRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const BuildingTable = ({ buildings, toggleDialog, openUpdate, totalRows }) => {
+const BuildingTable = ({ filteredBuildings, toggleDialog, openUpdate}) => {
   const [loading, setLoading] = useState(true); // State to manage loading status
 
   useEffect(() => {
@@ -17,9 +17,9 @@ const BuildingTable = ({ buildings, toggleDialog, openUpdate, totalRows }) => {
     fetchData();
   }, []); // Run only once on component mount
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
+  const rowsToDisplay = Array.from({ length: filteredBuildings.length }, (_, index) => {
     return (
-      buildings[index] || { name: "", total_rooms: "", available_rooms: "" }
+      filteredBuildings[index] || { name: "", total_rooms: "", available_rooms: "" }
     );
   });
 
@@ -50,10 +50,10 @@ const BuildingTable = ({ buildings, toggleDialog, openUpdate, totalRows }) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay.map((building, index) => (
+        {rowsToDisplay.map((filteredBuildings, index) => (
           <BuildingRow
             key={index}
-            building={building}
+            filteredBuildings={filteredBuildings}
             toggleDialog={toggleDialog}
             openUpdate={openUpdate}
           />

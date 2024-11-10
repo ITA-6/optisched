@@ -17,12 +17,61 @@ const Buildings = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { isSidebarOpen } = useSidebar();
 
+  const [filteredBuildings, setFilteredBuildings] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedBuildings, setSelectedBuildings] = useState("");
+
+  const allBuildingNames = [...new Set(buildings.map((building) => building.name))];
+
+
+  console.log(allBuildingNames)
+  useEffect(() => {
+    // Set initial filtered buildings when component mounts or buildings change
+    setFilteredBuildings(buildings);
+  }, [buildings]);
+
+  const handleInputChange = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchTerm(searchTerm);
+    filterBuildings(searchTerm, selectedBuildings);
+  };
+
+  const handleBuildingChange = (e) => {
+    const selected = e.target.value;
+    setSelectedBuilding(selected);
+    filterBuildings(searchTerm, selected);
+  };
+
+  const filterBuildings = (searchTerm, selectedBuilding) => {
+    const filteredItems = buildings.filter((building) => {
+      // Check if building name matches the selected building, or if no building is selected
+      const matchesBuilding = selectedBuilding === "" || building.name === selectedBuilding;
+
+      // Check if any relevant field in building data starts with the search term
+      const matchesSearchTerm =
+        (building.name && building.name.toLowerCase().startsWith(searchTerm)) ||
+        (building.total_rooms && building.total_rooms.toString().startsWith(searchTerm)) ||
+        (building.available_rooms && building.available_rooms.toString().startsWith(searchTerm));
+
+      return matchesBuilding && matchesSearchTerm;
+    });
+
+    setFilteredBuildings(filteredItems);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get("buildings/");
+      setBuildings(response.data);
+    };
+
+    fetchData();
+  }, []);
+
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedBuilding(id);
   };
-
-  const totalRows = buildings.length < 10 ? 10 : buildings.length;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -97,15 +146,14 @@ const Buildings = () => {
       <div
         className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
       >
-        <SearchField />
+        <SearchField allBuildingNames={allBuildingNames}  handleBuildingChange={handleBuildingChange} handleInputChange={handleInputChange}/>
         <div
-          className={`mr-5 h-full grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${buildings.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
+          className={`mr-5 h-full grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${filteredBuildings.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
         >
           <BuildingTable
             toggleDialog={toggleDialog}
-            buildings={buildings}
+            filteredBuildings={filteredBuildings}
             openUpdate={openUpdate}
-            totalRows={totalRows}
           />
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
