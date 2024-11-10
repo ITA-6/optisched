@@ -1,16 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import userIcon from "../../../assets/userIcon.png";
 import { useNavigate } from "react-router-dom";
 import api from "../../../api";
 import { useSidebar } from "./SidenavContext/SidenavContext"; // Import useSidebar
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
+import {jwtDecode} from "jwt-decode"
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
   const toggleUser = () => setUserOpen(!isUserOpen);
   const navigate = useNavigate();
+  const [name, setName] = useState();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("schedule/professor/");
+        setName(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  const token = jwtDecode(localStorage.getItem("access_token"))
+  console.log(token)
   const {isSidebarOpen, toggleSidebar} = useSidebar();
 
   const handleLogout = async () => {
@@ -29,7 +45,7 @@ const Header = ({ pageName }) => {
   return (
     <div className={`sm: xl: z-10 fixed top-0 flex w-screen items-center justify-between bg-green shadow-outerShadow font-noto lg:py-2`}>
       <h1 className={`xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} ease-linear duration-200`}>
-        {pageName}
+        <span className="text-xs ml-2 italic">Professor.No {token.username}</span>
       </h1>
       <button 
           className="xm:block xm:text-lg text-2xl sm:block ml-5 lg:hidden xl:hidden"
