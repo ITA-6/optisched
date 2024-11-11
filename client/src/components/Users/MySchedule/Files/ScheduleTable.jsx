@@ -42,16 +42,16 @@ const ScheduleTable = () => {
     <table className="w-[85%] w border-collapse border  table-fixed">
       <thead>
         <tr className="bg-green text-white lg:text-xs sm:text-[0.7rem] md:text-xs">
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200 p-2 sm:p-0 lg:p-2`}>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200 p-2 sm:p-0 lg:p-2`}>
             TIME
           </th>
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>MONDAY</th>
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>TUESDAY</th>
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>WEDNESDAY</th>
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>THURSDAY</th>
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>FRIDAY</th>
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>SATURDAY</th>
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>SUNDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>MONDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>TUESDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>WEDNESDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>THURSDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>FRIDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>SATURDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[12.2rem]" : "lg:w-[9.2rem] xl:w-[13rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>SUNDAY</th>
         </tr>
       </thead>
       <tbody className="text-center text-xs">
