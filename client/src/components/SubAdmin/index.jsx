@@ -12,13 +12,15 @@ const SubAdmin = () => {
     const token = localStorage.getItem("access_token");
     if (!token) navigate("/");
 
-    if(jwtDecode(token).user_type === "DC" || "D"){
-      navigate("/sub-admin")
-    }
+    console.log(jwtDecode(token).user_type)
 
-    if(jwtDecode(token).user_type !== "DC" || "D"){
+    if(jwtDecode(token).user_type === "D" || jwtDecode(token).user_type === "DC"  ){
+      navigate("/sub-admin")
+    }else {
       navigate("/unauthorized")
     }
+
+
   }, []);
 
   const getPageName = (path) => {
