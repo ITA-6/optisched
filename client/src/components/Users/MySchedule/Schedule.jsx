@@ -18,7 +18,7 @@ const Schedule = () => {
             <h1 className="font-medium text-lg  ml-2 xm:text-[0.6rem] xm:-mt-[0.4rem]">My Schedule</h1>
          </div>
       
-         <div className="overflow-x-scroll ml-4 mr-4 xl:overflow-hidden">
+         <div className="overflow-auto ml-4 mr-4">
             <ScheduleTable />
          </div>
          <div className="flex justify-center items-center xm:h-14 sm:h-20">Footer @PNC</div>
