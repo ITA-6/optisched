@@ -12,11 +12,9 @@ const Admin = () => {
     const token = localStorage.getItem("access_token");
     if (!token) navigate("/");  
 
-    if(jwtDecode(token).user_type === "R"){
+    if(token !== null && jwtDecode(token).user_type === "R"){
       navigate("/admin")
-    }
-
-    if(jwtDecode(token).user_type !== "R"){
+    }else {
       navigate("/unauthorized")
     }
   

@@ -5,12 +5,28 @@ import optisched from "../../../assets/optisched.png"
 import {jwtDecode} from "jwt-decode"
 const Unauthorized = () => {
 
-  const {user_type} = jwtDecode(localStorage.getItem("access_token"));
+  // Get the token from localStorage
+    const token = localStorage.getItem("access_token");
+
+    // Check if the token exists and is a valid string
+    if (token && typeof token === 'string') {
+      try {
+        // Decode the token
+        const { user_type } = jwtDecode(token);
+        setUserType(user_type)
+      } catch (error) {
+        console.error('Invalid token', error); // Handle decoding error if the token is invalid
+      }
+    } else {
+      console.error('No valid token found in localStorage');
+      // Handle the case where there is no token or it is not a string
+    }
+  
   const [component, setComponent] = useState();
   const navigate = useNavigate();
- 
+ const [userType, setUserType] = useState();
   const handleNavigation = () => {
-    switch (user_type) {
+    switch (userType) {
       case "R":
         navigate("/admin");
         break;
@@ -22,11 +38,12 @@ const Unauthorized = () => {
         navigate("/sub-admin");
         break;
       default:
-        navigate("/Unauthorized");
+        navigate("/");
     }
   };
   useEffect(() => {
-    switch (user_type) {
+    if(!userType) return navigate("/")
+    switch (userType) {
       case "R":
         setComponent("Back to Admin Dashboard");
         break;
@@ -40,7 +57,7 @@ const Unauthorized = () => {
       default:
         setComponent("Back to Home");
     }
-  }, [user_type]); // Add user_type as a dependency
+  }, [userType]); // Add user_type as a dependency
 
   
   return (

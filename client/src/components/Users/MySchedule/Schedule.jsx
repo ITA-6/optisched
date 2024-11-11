@@ -8,7 +8,7 @@ const Schedule = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
   return (
     <div className="min-h-screen w-screen bg-gray-50 mr-10  ">
-      <div className={`flex flex-col  text-black text-2xl h-full  ease-in duration-300  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-20"} ease-out duration-200`}>
+      <div className={`flex flex-col  text-black text-2xl h-full  ease-in duration-300  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-36 lg:mr-12"} ease-out duration-200`}>
          <div className="flex mb-5 mx-4 mt-20 xm:mt-20">
             <FontAwesomeIcon 
               icon={faBarsProgress}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ScheduleRow from "./ScheduleRow";
 import api from "../../../../api";
 import { format, addMinutes, isBefore } from "date-fns";
+import { useSidebar } from "../../../Users/Sidenav/SidenavContext/SidenavContext";
 
 const generateTimeSlots = (startTime, endTime) => {
   const slots = [];
@@ -22,6 +23,7 @@ const generateTimeSlots = (startTime, endTime) => {
 const ScheduleTable = () => {
   const timeSlots = generateTimeSlots("6:00", "22:00");
   const [scheduleData, setScheduleData] = useState([]);
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,19 +39,19 @@ const ScheduleTable = () => {
   }, []);
 
   return (
-    <table className="w-full border-collapse border sm:table-fixed xm:table-fixed">
+    <table className="w-[85%] border-collapse border  table-fixed">
       <thead>
         <tr className="bg-green text-white lg:text-xs">
-          <th className="border sm:w-40 xm:w-12 xm:p-0 xm:text-[0.5rem]">
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>
             TIME
           </th>
-          <th className="border sm:w-40 xm:w-12 xm:text-[0.5rem]">MONDAY</th>
-          <th className="border sm:w-40 xm:w-12 xm:text-[0.5rem]">TUESDAY</th>
-          <th className="border sm:w-40 xm:w-12 xm:text-[0.5rem]">WEDNESDAY</th>
-          <th className="border sm:w-40 xm:w-12 xm:text-[0.5rem]">THURSDAY</th>
-          <th className="border sm:w-40 xm:w-12 xm:text-[0.5rem]">FRIDAY</th>
-          <th className="border sm:w-40 xm:w-12 xm:text-[0.5rem]">SATURDAY</th>
-          <th className="border sm:w-40 xm:w-12 xm:text-[0.5rem]">SUNDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>MONDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>TUESDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>WEDNESDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>THURSDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>FRIDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>SATURDAY</th>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>SUNDAY</th>
         </tr>
       </thead>
       <tbody className="text-center text-xs">
