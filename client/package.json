@@ -21,6 +21,7 @@
     "@savvywombat/tailwindcss-grid-areas": "^4.0.0",
     "@syncfusion/ej2-react-schedule": "^27.1.50",
     "axios": "^1.7.2",
+    "date-fns": "^4.1.0",
     "history": "^5.3.0",
     "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.2",

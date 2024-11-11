@@ -1,413 +1,151 @@
-import React from 'react'
+import React from "react";
+import { format, addMinutes, parse } from "date-fns";
 
-const ScheduleRow = () => {
+const daysOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+// Helper function to calculate the row span based on start and end time
+const calculateRowSpan = (startTime, endTime) => {
+  const start = parse(startTime, "h:mm a", new Date());
+  const end = parse(endTime, "h:mm a", new Date());
+  const differenceInMinutes = (end - start) / (1000 * 60); // Time difference in minutes
+  return differenceInMinutes / 30; // Convert to 30-minute intervals
+};
+
+// Helper function to get consistent color based on course code
+const getColorForCourse = (courseCode) => {
+  const colors = ["bg-red-500", "bg-blue-500", "bg-orange-500", "bg-green"];
+  const index = courseCode.charCodeAt(0) % colors.length;
+
+  return colors[index];
+};
+
+// Function to find the course for a specific day and timeslot
+const findCourseForSlot = (day, timeslot, scheduleData, type) => {
+  if (!Array.isArray(scheduleData)) {
+    console.error("scheduleData should be an array. Received:", scheduleData);
+    return null;
+  }
+
+  for (const entry of scheduleData) {
+    for (const course of entry.courses) {
+      const timeRange =
+        type === "LECTURE" ? course.lecture_time_range : course.lab_time_range;
+      const room = type === "LECTURE" ? course.lecture_room : course.lab_room;
+
+      if (
+        timeRange &&
+        timeRange.day_of_week === day &&
+        timeRange.start_time === timeslot.start
+      ) {
+        const color = getColorForCourse(course.course.code);
+        return {
+          ...course,
+          room: room ? `Room ${room.number}` : null,
+          rowSpan: calculateRowSpan(timeRange.start_time, timeRange.end_time),
+          type: type,
+          color: color, // Apply the dynamic color based on course code
+          section_label: entry.section_label,
+          professor: entry.professor,
+        };
+      }
+    }
+  }
+  return null;
+};
+
+const ScheduleRow = ({ timeslot, scheduleData = [] }) => {
+  const renderedSlots = {};
+
   return (
-   <>
-     <tr className="bg-white border-b xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">6:00 am  - 6:30 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">6:30 am  - 7:00 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">7:00 am  - 7:30 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">7:30 am  - 8:00 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">8:00 am  - 8:30 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">8:30 am  - 9:00 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td  className="border ">9:00 am  - 9:30 am</td>
-        <td className="border bg-green text-white" rowSpan="4">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #3232</p>
-            <p className='text-base font-bold'>RIZ101</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>BCH 504</p>
-           </div>
+    <tr className="h-[3rem] border-b bg-white">
+      <td className="border">{`${timeslot.start} - ${timeslot.end}`}</td>
+      {daysOfWeek.map((day) => {
+        const lecture = findCourseForSlot(
+          day,
+          timeslot,
+          scheduleData,
+          "LECTURE",
+        );
+        const lab = findCourseForSlot(day, timeslot, scheduleData, "LAB");
 
-        </td>
-        <td className="border "></td>
-        <td className="border bg-green text-white" rowSpan="4">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #3232</p>
-            <p className='text-base font-bold'>RIZ101</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>BCH 504</p>
-           </div>
+        // Render lecture slot if available and not yet rendered
+        if (lecture && !renderedSlots[`${day}-${timeslot.start}-LECTURE`]) {
+          for (let i = 0; i < lecture.rowSpan; i++) {
+            const slotTime = format(
+              addMinutes(parse(timeslot.start, "h:mm a", new Date()), i * 30),
+              "h:mm a",
+            );
+            renderedSlots[`${day}-${slotTime}-LECTURE`] = true;
+          }
 
-        </td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">9:30 am  - 10:00 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">10:00 am  - 10:30 am</td>
-        <td className="border bg-blue-500 text-white" rowSpan="3">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #1352</p>
-            <p className='text-base font-bold'>CS101</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>312</p>
-           </div>
+          return (
+            <td
+              key={`${day}-lecture`}
+              className={`border text-white ${lecture.color}`}
+              rowSpan={lecture.rowSpan}
+            >
+              <div className="flex flex-col p-1 text-xs">
+                <p className="text-[0.6rem] font-light">
+                  Class #{lecture.section_label}
+                </p>
+                <p className="text-base font-bold">{lecture.course.code}</p>
+                <p>
+                  {lecture.professor.first_name} {lecture.professor.last_name}
+                </p>
+                <p className="text-[0.7rem] font-light">({lecture.type})</p>
+                <p className="text-[0.8rem] font-light">{lecture.room}</p>
+              </div>
+            </td>
+          );
+        }
 
-        </td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
+        // Render lab slot if available and not yet rendered
+        else if (lab && !renderedSlots[`${day}-${timeslot.start}-LAB`]) {
+          for (let i = 0; i < lab.rowSpan; i++) {
+            const slotTime = format(
+              addMinutes(parse(timeslot.start, "h:mm a", new Date()), i * 30),
+              "h:mm a",
+            );
+            renderedSlots[`${day}-${slotTime}-LAB`] = true;
+          }
 
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">10:30 am  - 11:00 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">11:00 am  - 11:30 am</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">11:30 am  - 12:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">12:00 pm  - 12:30 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">12:30 pm  - 1:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">1:00 pm  - 1:30 pm</td>
-        <td className="border bg-red-400 text-white" rowSpan="4">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #1444</p>
-            <p className='text-base font-bold'>MATH201</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>210</p>
-           </div>
+          return (
+            <td
+              key={`${day}-lab`}
+              className={`border text-white ${lab.color}`}
+              rowSpan={lab.rowSpan}
+            >
+              <div className="flex flex-col p-1 text-xs">
+                <p className="text-[0.6rem] font-light">
+                  Class #{lab.section_label}
+                </p>
+                <p className="text-base font-bold">{lab.course.code}</p>
+                <p>
+                  {lab.professor.first_name} {lab.professor.last_name}
+                </p>
+                <p className="text-[0.7rem] font-light">({lab.type})</p>
+                <p className="text-[0.8rem] font-light">{lab.room}</p>
+              </div>
+            </td>
+          );
+        }
+        // Render empty cell if no course is scheduled for this timeslot
+        else if (!renderedSlots[`${day}-${timeslot.start}`]) {
+          return <td key={day} className="border"></td>;
+        } else {
+          return null;
+        }
+      })}
+    </tr>
+  );
+};
 
-        </td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">1:30 pm  - 2:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">2:00 pm  - 2:30 pm</td>
-        <td className="border"></td>
-        <td className="border "></td>
-        <td className="border bg-blue-500 text-white" rowSpan="6">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #1352</p>
-            <p className='text-base font-bold'>CS101</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LABORATORY)</p>
-             <p className='font-light text-[0.8rem]'>COMLAB 4</p>
-           </div>
-
-        </td>
-        <td className="border bg-red-400 text-white" rowSpan="4">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #1444</p>
-            <p className='text-base font-bold'>MATH201</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>105</p>
-           </div>
-
-        </td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">2:30 pm  - 3:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">3:00 pm  - 3:30 pm</td>
-        <td className="border "></td>
-        <td className="border bg-slate-600 text-white" rowSpan="3">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #523</p>
-            <p className='text-base font-bold'>PSY301</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>303</p>
-           </div>
-
-        </td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">3:30 pm  - 4:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">4:00 pm  - 4:30 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">4:30 pm  - 5:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">5:00 pm  - 5:30 pm</td>
-        <td className="border bg-orange-300 text-white" rowSpan="3">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #444</p>
-            <p className='text-base font-bold'>ENG102</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>204</p>
-           </div>
-
-        </td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border bg-orange-300 text-white" rowSpan="3">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #444</p>
-            <p className='text-base font-bold'>ENG102</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>303</p>
-           </div>
-
-        </td>
-        <td className="border "></td>
-        <td className="border"></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">5:30 pm  - 6:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">6:00 pm  - 6:30 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border bg-slate-600 text-white" rowSpan="3">
-           <div className="flex flex-col mb-2">
-            <p className='text-[0.7rem] font-light'>Class #523</p>
-            <p className='text-base font-bold'>PSY301</p>
-           </div>
-           <div className="flex flex-col text-sm">
-             <p> M. Dela Cruz</p>
-             <p className='text-[0.7rem]'>(LECTURE)</p>
-             <p className='font-light text-[0.8rem]'>303</p>
-           </div>
-        </td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">6:30 pm  - 7:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border"></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">7:00 pm  - 7:30 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">7:30 pm  - 8:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">8:00 pm  - 8:30 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">8:30 pm  - 9:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">9:00 pm  - 9:30 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-      <tr className="bg-white xm:h-[2.5rem] sm:h-[3rem]">
-        <td className="border ">9:30 pm  - 10:00 pm</td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-        <td className="border "></td>
-      </tr>
-   </>
-  )
-}
-
-export default ScheduleRow
+export default ScheduleRow;
