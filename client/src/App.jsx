@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { SidebarProvider } from "./components/Users/Sidenav/SidenavContext/SidenavContext"; // Import SidebarProvider
-
+import { SidebarProvider } from "./components/Users/Sidenav/SidenavContext/SidenavContext";
 import Login from "./components/Login";
 import Admin from "./components/Admin";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
@@ -29,7 +28,8 @@ import Unauthorized from "./components/Error/Unauthorized/Unauthorized";
 import Notfound from "./components/Error/Notfound/Notfound";
 import PrintSchedule from "./components/Users/PrintSchedule";
 import CurriculumView from "./components/Admin/Curriculum/Files/CurriculumView";
-import Vpaa from "./components/Users/ViewVPAA";" "
+import Vpaa from "./components/Users/ViewVPAA";
+
 const App = () => {
   return (
     <SidebarProvider>
@@ -39,42 +39,44 @@ const App = () => {
           <Route path="login" element={<Login />} />
 
           {/* ADMIN */}
-          <Route path="admin" element={<Admin />}>
-            <Route index element={<Dashboard />} />
-            <Route path="user" element={<Navigate to="manage" />} />
-            <Route path="user/manage" element={<User />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="generate" element={<Generate />} />
-            <Route path="curriculum" element={<Curriculum />} />
-            <Route path="view/professor" element={<ViewProfessor />} />
-            <Route path="view/section" element={<ViewSection />} />
-            <Route path="view/classroom" element={<ViewClassroom />} />
-            <Route path="view/course" element={<ViewCourse />} />
-            <Route path="view/college" element={<ViewDepartment />} />
-            <Route path="view/program" element={<ViewProgram />} />
-            <Route path="view/building" element={<ViewBuilding />} />
-            <Route path="view/constraint" element={<Constraint />} />
-            <Route path="curriculum/program" element={<CurriculumView />} />
-          </Route>
+            <Route path="admin" element={<Admin />}>
+              <Route index element={<Dashboard />} />
+              <Route path="user" element={<Navigate to="manage" />} />
+              <Route path="user/manage" element={<User />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="generate" element={<Generate />} />
+              <Route path="curriculum" element={<Curriculum />} />
+              <Route path="view/professor" element={<ViewProfessor />} />
+              <Route path="view/section" element={<ViewSection />} />
+              <Route path="view/classroom" element={<ViewClassroom />} />
+              <Route path="view/course" element={<ViewCourse />} />
+              <Route path="view/college" element={<ViewDepartment />} />
+              <Route path="view/program" element={<ViewProgram />} />
+              <Route path="view/building" element={<ViewBuilding />} />
+              <Route path="view/constraint" element={<Constraint />} />
+              <Route path="curriculum/program" element={<CurriculumView />} />
+            </Route>
+    
 
           {/* Sub Admin */}
-          <Route path="sub-admin" element={<SubAdmin />}>
-            <Route index element={<Professors />} />
-            <Route path="management/building" element={<Buildings />} />
-            <Route path="management/professor" element={<Professors />} />
-            <Route path="management/section" element={<Sections />} />
-            <Route path="management/classroom" element={<Classrooms />} />
-            <Route path="management/course" element={<Courses />} />
-            <Route path="management/program" element={<Programs />} />
-          </Route>
+            <Route path="sub-admin" element={<SubAdmin />}>
+              <Route index element={<Professors />} />
+              <Route path="management/building" element={<Buildings />} />
+              <Route path="management/professor" element={<Professors />} />
+              <Route path="management/section" element={<Sections />} />
+              <Route path="management/classroom" element={<Classrooms />} />
+              <Route path="management/course" element={<Courses />} />
+              <Route path="management/program" element={<Programs />} />
+            </Route>
 
           {/* User */}
-          <Route path="User" element={<Users />}>
-            <Route index element={<GenerateUser />} />
-            <Route path="professor/generate" element={<GenerateUser />} />
-            <Route path="professor/schedule" element={<Schedule />} />
-            <Route path="vpaa" element={<Vpaa />} />
-          </Route>
+              <Route path="User" element={<Users />}>
+                <Route index element={<GenerateUser />} />
+                <Route path="professor/generate" element={<GenerateUser />} />
+                <Route path="professor/schedule" element={<Schedule />} />
+                <Route path="vpaa" element={<Vpaa />} />
+              </Route>
+
 
           <Route path="Unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<Notfound />} />

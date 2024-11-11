@@ -11,6 +11,14 @@ const SubAdmin = () => {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (!token) navigate("/");
+
+    if(jwtDecode(token).user_type === "DC" || "D"){
+      navigate("/admin")
+    }
+
+    if(jwtDecode(token).user_type !== "DC" || "D"){
+      navigate("/unauthorized")
+    }
   }, []);
 
   const getPageName = (path) => {
