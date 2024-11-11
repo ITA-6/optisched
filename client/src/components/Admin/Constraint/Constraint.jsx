@@ -1,54 +1,101 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../../../api";
 
 const Constraint = () => {
-  const [studentConstraints, setStudentConstraints] = useState({
-    transitionTime: true,
-    waitTime: true,
-  });
-
-  const [professorConstraints, setProfessorConstraints] = useState({
-    teachingLoad: true,
-    dailyTeachingLimit: true,
-    employmentWorkload: {
+  const [constraints, setConstraints] = useState({
+    transition_time: true,
+    wait_time: true,
+    teaching_load: true,
+    daily_teaching_limit: true,
+    classroom_capacity: true,
+    room_occupancy: true,
+    laboratory_sessions: true,
+    employment_workload: {
       permanent: 0,
       temporary: 0,
       partTime: 0,
     },
+    schedule: {
+      startTime: "08:00",
+      endTime: "18:00",
+    },
   });
 
-  const [classroomConstraints, setClassroomConstraints] = useState({
-    classroomCapacity: true,
-    roomOccupancy: true,
-    laboratorySessions: true,
-  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleCheckboxChange = (section, key) => {
-    if (section === "student") {
-      setStudentConstraints({
-        ...studentConstraints,
-        [key]: !studentConstraints[key],
+  const fetchConstraints = async () => {
+    try {
+      const response = await api.get("constraint/");
+      setConstraints({
+        ...constraints,
+        ...response.data,
+        employment_workload: {
+          permanent: response.data?.permanent_workload ?? 0,
+          temporary: response.data?.temporary_workload ?? 0,
+          partTime: response.data?.part_time_workload ?? 0,
+        },
+        schedule: {
+          startTime: response.data?.schedule?.startTime ?? "08:00",
+          endTime: response.data?.schedule?.endTime ?? "18:00",
+        },
       });
-    } else if (section === "professor") {
-      setProfessorConstraints({
-        ...professorConstraints,
-        [key]: !professorConstraints[key],
-      });
-    } else if (section === "classroom") {
-      setClassroomConstraints({
-        ...classroomConstraints,
-        [key]: !classroomConstraints[key],
-      });
+      setLoading(false);
+    } catch (error) {
+      setError("Failed to load constraints");
+      setLoading(false);
     }
   };
 
+  const saveConstraints = async () => {
+    try {
+      await api.put("constraint/", {
+        transition_time: constraints.transition_time,
+        wait_time: constraints.wait_time,
+        teaching_load: constraints.teaching_load,
+        daily_teaching_limit: constraints.daily_teaching_limit,
+        classroom_capacity: constraints.classroom_capacity,
+        room_occupancy: constraints.room_occupancy,
+        laboratory_sessions: constraints.laboratory_sessions,
+        permanent_workload: constraints.employment_workload.permanent,
+        temporary_workload: constraints.employment_workload.temporary,
+        part_time_workload: constraints.employment_workload.partTime,
+      });
+      alert("Constraints updated successfully!");
+    } catch (error) {
+      alert("Failed to update constraints");
+    }
+  };
+
+  useEffect(() => {
+    fetchConstraints();
+  }, []);
+
+  const handleCheckboxChange = (key) => {
+    setConstraints((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
   const handleNumberChange = (type, value) => {
-    setProfessorConstraints({
-      ...professorConstraints,
-      employmentWorkload: {
-        ...professorConstraints.employmentWorkload,
+    setConstraints((prev) => ({
+      ...prev,
+      employment_workload: {
+        ...prev.employment_workload,
         [type]: value,
       },
-    });
+    }));
+  };
+
+  const handleTimeChange = (field, value) => {
+    setConstraints((prev) => ({
+      ...prev,
+      schedule: {
+        ...prev.schedule,
+        [field]: value,
+      },
+    }));
   };
 
   const ToggleSwitch = ({ isChecked, onChange }) => (
@@ -63,72 +110,105 @@ const Constraint = () => {
     </label>
   );
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 font-noto sm:text-sm md:text-base lg:text-lg xl:text-xl xm:text-xs">
       <div className="w-full max-w-4xl space-y-8 p-8">
-        {/* Student Constraints */}
         <div className="ml-20 mt-10 rounded-lg bg-white p-6 shadow-lg sm:ml-0 xm:ml-0">
           <h2 className="mb-6 text-xl font-semibold text-dark-green">
-            <b>Student Constraints</b>
+            <b>General Constraints</b>
           </h2>
+
+          {/* General Constraints */}
           <div className="mb-4 flex items-center justify-between">
             <span>
               <b>Transition Time:</b> Minimum of 30 minutes to 1 hour for
               transitions between rooms.
             </span>
             <ToggleSwitch
-              isChecked={studentConstraints.transitionTime}
-              onChange={() => handleCheckboxChange("student", "transitionTime")}
+              isChecked={constraints.transition_time}
+              onChange={() => handleCheckboxChange("transitionTime")}
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="mb-4 flex items-center justify-between">
             <span>
-              <b>Wait Time:</b> Maximum wait time of 6 hours between courses
+              <b>Wait Time:</b> Maximum wait time of 6 hours between courses.
             </span>
             <ToggleSwitch
-              isChecked={studentConstraints.waitTime}
-              onChange={() => handleCheckboxChange("student", "waitTime")}
+              isChecked={constraints.wait_time}
+              onChange={() => handleCheckboxChange("waitTime")}
             />
           </div>
-        </div>
-
-        {/* Professor Constraints */}
-        <div className="ml-20 rounded-lg bg-white p-6 shadow-lg sm:ml-0 xm:ml-0">
-          <h2 className="mb-6 text-xl font-semibold text-dark-green">
-            <b>Professor Constraints</b>
-          </h2>
           <div className="mb-4 flex items-center justify-between">
             <span>
               <b>Teaching Load:</b> Professors should not teach two different
               courses simultaneously.
             </span>
             <ToggleSwitch
-              isChecked={professorConstraints.teachingLoad}
-              onChange={() => handleCheckboxChange("professor", "teachingLoad")}
+              isChecked={constraints.teaching_load}
+              onChange={() => handleCheckboxChange("teachingLoad")}
             />
           </div>
           <div className="mb-4 flex items-center justify-between">
             <span>
-              <b>Daily Teaching Limit:</b> Maximum of 6 teaching hours per day
+              <b>Daily Teaching Limit:</b> Maximum of 6 teaching hours per day.
             </span>
             <ToggleSwitch
-              isChecked={professorConstraints.dailyTeachingLimit}
-              onChange={() =>
-                handleCheckboxChange("professor", "dailyTeachingLimit")
-              }
+              isChecked={constraints.daily_teaching_limit}
+              onChange={() => handleCheckboxChange("dailyTeachingLimit")}
             />
           </div>
+          <div className="mb-4 flex items-center justify-between">
+            <span>
+              <b>Classroom Capacity:</b> Each classroom should accommodate up to
+              50 students.
+            </span>
+            <ToggleSwitch
+              isChecked={constraints.classroom_capacity}
+              onChange={() => handleCheckboxChange("classroomCapacity")}
+            />
+          </div>
+          <div className="mb-4 flex items-center justify-between">
+            <span>
+              <b>Room Occupancy:</b> Classrooms should not remain empty for
+              extended periods.
+            </span>
+            <ToggleSwitch
+              isChecked={constraints.room_occupancy}
+              onChange={() => handleCheckboxChange("roomOccupancy")}
+            />
+          </div>
+          <div className="mb-4 flex items-center justify-between">
+            <span>
+              <b>Laboratory Sessions:</b> Classrooms with laboratory sessions
+              must be located in the same building or area as the next scheduled
+              session.
+            </span>
+            <ToggleSwitch
+              isChecked={constraints.laboratory_sessions}
+              onChange={() => handleCheckboxChange("laboratorySessions")}
+            />
+          </div>
+
+          {/* Employment Position Workload */}
           <div>
             <span>
               <b>Employment Position Workload:</b>
             </span>
             <div className="mt-2 flex gap-4">
-              {["Permanent", "Temporary", "Part-time"].map((type) => (
+              {["permanent", "temporary", "partTime"].map((type) => (
                 <label key={type} className="flex flex-col items-center gap-1">
                   <span>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
                   <input
                     type="number"
-                    value={professorConstraints.employmentWorkload[type]}
+                    value={constraints.employment_workload[type] ?? 0}
                     onChange={(e) =>
                       handleNumberChange(type, Number(e.target.value))
                     }
@@ -139,55 +219,43 @@ const Constraint = () => {
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Classroom Utilization Constraints */}
-        <div className="ml-20 rounded-lg bg-white p-6 shadow-lg sm:ml-0 xm:ml-0">
-          <h2 className="mb-6 text-xl font-semibold text-dark-green">
-            <b>Classroom Utilization Constraints</b>
-          </h2>
-          <div className="mb-4 flex items-center justify-between">
+          {/* Schedule Constraint */}
+          <div className="mt-6">
             <span>
-              <b>Classroom Capacity:</b> Each classroom should accommodate up to
-              50 students.
+              <b>Schedule:</b>
             </span>
-            <ToggleSwitch
-              isChecked={classroomConstraints.classroomCapacity}
-              onChange={() =>
-                handleCheckboxChange("classroom", "classroomCapacity")
-              }
-            />
-          </div>
-          <div className="mb-4 flex items-center justify-between">
-            <span>
-              <b>Room Occupancy:</b> Classrooms should not remain empty for
-              extended periods.
-            </span>
-            <ToggleSwitch
-              isChecked={classroomConstraints.roomOccupancy}
-              onChange={() =>
-                handleCheckboxChange("classroom", "roomOccupancy")
-              }
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <span>
-              <b>Laboratory Sessions:</b> Classrooms with laboratory sessions
-              must be located in <br></br>the same building or area as the next
-              scheduled session.
-            </span>
-            <ToggleSwitch
-              isChecked={classroomConstraints.laboratorySessions}
-              onChange={() =>
-                handleCheckboxChange("classroom", "laboratorySessions")
-              }
-            />
+            <div className="mt-2 flex gap-4">
+              <label className="flex flex-col items-center">
+                <span>Start Time</span>
+                <input
+                  type="time"
+                  value={constraints.schedule.startTime ?? "08:00"}
+                  onChange={(e) =>
+                    handleTimeChange("startTime", e.target.value)
+                  }
+                  className="w-24 rounded-md border border-gray-300 p-1 text-center"
+                />
+              </label>
+              <label className="flex flex-col items-center">
+                <span>End Time</span>
+                <input
+                  type="time"
+                  value={constraints.schedule.endTime ?? "18:00"}
+                  onChange={(e) => handleTimeChange("endTime", e.target.value)}
+                  className="w-24 rounded-md border border-gray-300 p-1 text-center"
+                />
+              </label>
+            </div>
           </div>
         </div>
 
-        {/* Update Button */}
+        {/* Save Button */}
         <div className="flex justify-end">
-          <button className="rounded-lg bg-green px-6 py-2 text-white shadow-md hover:bg-green">
+          <button
+            onClick={saveConstraints}
+            className="rounded-lg bg-green px-6 py-2 text-white shadow-md hover:bg-green"
+          >
             Save Changes
           </button>
         </div>

@@ -73,4 +73,6 @@ urlpatterns = [
     path(f"{api_base_url}schedule/", include("schedule.urls")),
     # Curriculum Endpoints
     path(f"{api_base_url}curriculum/", include("curriculum.urls"), name="curriculum"),
+    # Constraint related URLs
+    path(f"{api_base_url}constraint/", include("constraint.urls"), name="constraint"),
 ]
