@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
-
+import {jwtDecode} from "jwt-decode"
 const SubAdmin = () => {
   const location = useLocation();
   const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
@@ -13,7 +13,7 @@ const SubAdmin = () => {
     if (!token) navigate("/");
 
     if(jwtDecode(token).user_type === "DC" || "D"){
-      navigate("/admin")
+      navigate("/sub-admin")
     }
 
     if(jwtDecode(token).user_type !== "DC" || "D"){
