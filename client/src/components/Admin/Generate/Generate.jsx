@@ -159,28 +159,31 @@ const Generate = () => {
             </button>
             </div>
             {isGenerateClicked && (
-             <div className="flex justify-end items-center">
+            <>
+              <div className="flex justify-end items-center">
+                  <button
+                    onClick={handleConfirmSchedule}
+                    className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
+                  >
+                    Save Schedule
+                  </button>
+              </div>
+                <div className="flex items-center justify-end py-10">
                 <button
-                  onClick={handleConfirmSchedule}
-                  className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
+                  className="rounded-md px-10 py-2 text-base font-bold text-white"
                 >
-                  Save Schedule
-                </button>
-             </div>
-            )}
-            <div className="flex items-center justify-end py-10">
-              <button
-                className="rounded-md px-10 py-2 text-base font-bold text-white"
-              >
-                <FontAwesomeIcon
-                  icon={faPrint}
-                  color="black"
-                  className='sm:text-lg md:text-2xl'
-                  onClick={togglePrintModal}
-                />
+                  <FontAwesomeIcon
+                    icon={faPrint}
+                    color="black"
+                    className='sm:text-lg md:text-2xl'
+                    onClick={togglePrintModal}
+                  />
 
-              </button>
-            </div>
+                </button>
+              </div>
+            </>
+            )}
+           
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
