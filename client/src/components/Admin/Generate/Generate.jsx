@@ -6,8 +6,8 @@ import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
 import PrintModal from "./ViewSchule/PrintModal";
 import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
-import { faPrint } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Generate = () => {
   const [loading, setLoading] = useState(false);
@@ -149,46 +149,44 @@ const Generate = () => {
             </div>
           </div>
 
-          <div className={`mb-4 grid ${isGenerateClicked ? "grid-cols-[2fr_2fr_0.1fr]" : "grid-cols-[5fr_1fr]"} justify-between items-center xm:text-xs xm:ml-4 sm:text-sm sm:mb-2 md:text-md`}>
-            <div className="flex justify items-center justify-start">
-            <button
-              onClick={handleGenerateSchedule}
-              className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
-            >
-              Generate Schedule
-            </button>
+          <div
+            className={`mb-4 grid ${isGenerateClicked ? "grid-cols-[2fr_2fr_0.1fr]" : "grid-cols-[5fr_1fr]"} md:text-md items-center justify-between sm:mb-2 sm:text-sm xm:ml-4 xm:text-xs`}
+          >
+            <div className="justify flex items-center justify-start">
+              <button
+                onClick={handleGenerateSchedule}
+                className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
+              >
+                Generate Schedule
+              </button>
             </div>
             {isGenerateClicked && (
-            <>
-              <div className="flex justify-end items-center">
+              <>
+                <div className="flex items-center justify-end">
                   <button
                     onClick={handleConfirmSchedule}
                     className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
                   >
                     Save Schedule
                   </button>
-              </div>
+                </div>
                 <div className="flex items-center justify-end py-10">
-                <button
-                  className="rounded-md px-4 py-2 text-base font-bold text-white"
-                >
-                  <FontAwesomeIcon
-                    icon={faPrint}
-                    color="black"
-                    className='sm:text-lg md:text-2xl'
-                    onClick={togglePrintModal}
-                  />
-
-                </button>
-              </div>
-            </>
+                  <button className="rounded-md px-4 py-2 text-base font-bold text-white">
+                    <FontAwesomeIcon
+                      icon={faPrint}
+                      color="black"
+                      className="sm:text-lg md:text-2xl"
+                      onClick={togglePrintModal}
+                    />
+                  </button>
+                </div>
+              </>
             )}
-           
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
 
-          <div className="flex min-h-screen gap-x-2 sm:w-full  xm:text-xs xm:ml-4  md:text-base lg:text-lg xl:text-xl">
+          <div className="flex min-h-screen gap-x-2 sm:w-full md:text-base lg:text-lg xl:text-xl xm:ml-4 xm:text-xs">
             <div className="flex flex-1 flex-col overflow-x-auto">
               <GenerateTableHeaders
                 department={department}
@@ -196,30 +194,30 @@ const Generate = () => {
                 handleButtonClickDepartment={handleButtonClickDepartment}
               />
               {activeDepartment ? (
-                  data.length > 0 ? (
-                    <div className="flex flex-col mt-10 overflow-auto ">
-                      <div className="flex flex-col overflow-auto lg:mx-4">
-                        {data.map((section) =>
-                          section.map((sectionArray, index) => (
-                            <ViewTableSchedule
-                              key={index}
-                              sectionArray={sectionArray}
-                            />
-                          )),
-                        )}
-                      </div>
+                data.length > 0 ? (
+                  <div className="mt-10 flex flex-col overflow-auto">
+                    <div className="flex flex-col overflow-auto lg:mx-4">
+                      {data.map((section) =>
+                        section.map((sectionArray, index) => (
+                          <ViewTableSchedule
+                            key={index}
+                            sectionArray={sectionArray}
+                          />
+                        )),
+                      )}
                     </div>
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <p className="text-gray-500">No Data Available</p>
-                    </div>
-                  )
+                  </div>
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <p className="text-gray-500">No Data Available</p>
+                  </div>
+                )
               ) : (
                 <div className="m-h-screen sm:text-sm md:text-base lg:text-lg">
                   <GeneratedTable
-                  filteredPrograms={filteredPrograms}
-                  viewProgram={viewProgram}
-                />
+                    filteredPrograms={filteredPrograms}
+                    viewProgram={viewProgram}
+                  />
                 </div>
               )}
             </div>

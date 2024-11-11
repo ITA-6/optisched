@@ -95,7 +95,6 @@ class CourseScheduleSerializer(serializers.ModelSerializer):
 
 
 class ScheduleSerializer(serializers.ModelSerializer):
-    year_level = serializers.CharField(source="get_year_level_display")
     semester = serializers.CharField(source="get_semester_display")
     program_name = serializers.CharField(source="program.name", required=False)
     department_name = serializers.CharField(source="department.name", required=False)
