@@ -6,6 +6,9 @@ import GenerateTableHeaders from "./Files/GenerateTableHeaders";
 import ViewTableSchedule from "./ViewSchule/ViewTableSchedule";
 import PrintModal from "./ViewSchule/PrintModal";
 import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
+import { faPrint } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const Generate = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -146,21 +149,38 @@ const Generate = () => {
             </div>
           </div>
 
-          <div className="mb-4 flex justify-between xm:text-xs xm:ml-4 sm:text-sm sm:mb-2 md:text-md">
+          <div className={`mb-4 grid ${isGenerateClicked ? "grid-cols-[2fr_2fr_0.5fr]" : "grid-cols-[5fr_1fr]"} justify-between items-center xm:text-xs xm:ml-4 sm:text-sm sm:mb-2 md:text-md`}>
+            <div className="flex justify items-center justify-start">
             <button
               onClick={handleGenerateSchedule}
               className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
             >
               Generate Schedule
             </button>
+            </div>
             {isGenerateClicked && (
-              <button
-                onClick={handleConfirmSchedule}
-                className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
-              >
-                Save Schedule
-              </button>
+             <div className="flex justify-end items-center">
+                <button
+                  onClick={handleConfirmSchedule}
+                  className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
+                >
+                  Save Schedule
+                </button>
+             </div>
             )}
+            <div className="flex items-center justify-end py-10">
+              <button
+                className="rounded-md px-10 py-2 text-base font-bold text-white"
+              >
+                <FontAwesomeIcon
+                  icon={faPrint}
+                  color="black"
+                  className='sm:text-lg md:text-2xl'
+                  onClick={togglePrintModal}
+                />
+
+              </button>
+            </div>
           </div>
 
           {error && <p className="text-red-500">{error}</p>}
@@ -184,14 +204,6 @@ const Generate = () => {
                             />
                           )),
                         )}
-                      </div>
-                      <div className="flex items-center justify-end py-10">
-                        <button
-                          className="rounded-md bg-green px-10 py-2 text-base font-bold text-white"
-                          onClick={togglePrintModal}
-                        >
-                          Print Schedule
-                        </button>
                       </div>
                     </div>
                   ) : (
