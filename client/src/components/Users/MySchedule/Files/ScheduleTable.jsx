@@ -42,7 +42,7 @@ const ScheduleTable = () => {
     <table className="w-[85%] border-collapse border  table-fixed">
       <thead>
         <tr className="bg-green text-white lg:text-xs">
-          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>
+          <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200 p-3`}>
             TIME
           </th>
           <th className={`border sm:w-40 xm:w-12 ${isSidebarOpen ? "md:w-[14rem]" : "md:w-[15rem]"} xm:p-0 xm:text-[0.5rem] ease-out duration-200`}>MONDAY</th>
