@@ -149,7 +149,7 @@ const Generate = () => {
             </div>
           </div>
 
-          <div className={`mb-4 grid ${isGenerateClicked ? "grid-cols-[2fr_2fr_0.5fr]" : "grid-cols-[5fr_1fr]"} justify-between items-center xm:text-xs xm:ml-4 sm:text-sm sm:mb-2 md:text-md`}>
+          <div className={`mb-4 grid ${isGenerateClicked ? "grid-cols-[2fr_2fr_0.1fr]" : "grid-cols-[5fr_1fr]"} justify-between items-center xm:text-xs xm:ml-4 sm:text-sm sm:mb-2 md:text-md`}>
             <div className="flex justify items-center justify-start">
             <button
               onClick={handleGenerateSchedule}
@@ -170,7 +170,7 @@ const Generate = () => {
               </div>
                 <div className="flex items-center justify-end py-10">
                 <button
-                  className="rounded-md px-10 py-2 text-base font-bold text-white"
+                  className="rounded-md px-4 py-2 text-base font-bold text-white"
                 >
                   <FontAwesomeIcon
                     icon={faPrint}
