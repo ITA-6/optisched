@@ -13,14 +13,14 @@ const navigateUserUrl = (token) => {
 
   switch (user_type) {
     case "R":
-      return "admin/dashboard";
+      return "/admin/dashboard";
     case "DC":
     case "D":
-      return "sub-admin";
+      return "/sub-admin";
     case "P":
-      return "user";
+      return "/user";
     case "VPAA":
-      return "user/vpaa";
+      return "/user/vpaa";
     default:
       return "unauthorized";
   }

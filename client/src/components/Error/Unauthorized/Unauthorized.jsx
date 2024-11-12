@@ -47,7 +47,7 @@ const Unauthorized = () => {
         navigate("/admin");
         break;
       case "P":
-        navigate("/user/professor");
+        navigate("/user");
         break;
       case "VPAA":
       navigate("/user/vpaa");

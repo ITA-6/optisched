@@ -95,7 +95,7 @@ const Vpaa = () => {
   };
 
   return (
-    <div className="h-screen overflow-auto bg-white">
+    <div className="min-h-screen overflow-auto bg-white">
       {loading ? (
         <div className="flex h-full items-center justify-center">
           <video

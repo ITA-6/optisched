@@ -2,24 +2,32 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
-const Users= () => {
+import {jwtDecode }from "jwt-decode";
+
+const Users = () => {
   const location = useLocation();
-  const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
   const navigate = useNavigate();
+
+  const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (!token) navigate("/");
-
-    if(token !== null  && jwtDecode(token).user_type === "P"){
-      navigate("/user")
-    }else {
-      navigate("/unauthorized")
+    console.log(jwtDecode(token).user_type)
+    if (!token) {
+      navigate("/");
+    } else {
+      const decodedToken = jwtDecode(token);
+      
+      if (decodedToken.user_type === "P") {
+        navigate("/user");
+      } else if(decodedToken.user_type === "VPAA"){
+        navigate("/user/vpaa");
+      }
+      else {
+        navigate("/unauthorized");
+      }
     }
-
-   
-  }, []);
+  },[]);
 
   const getPageName = (path) => {
     switch (path) {

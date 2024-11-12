@@ -2,38 +2,28 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
-import {jwtDecode} from "jwt-decode"
+import {jwtDecode} from "jwt-decode";
+
 const SubAdmin = () => {
   const location = useLocation();
-  const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
   const navigate = useNavigate();
+
+  const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-  
-    // Redirect to "/" if there is no token
-    if (!token) {
+
+    if (token === null) {
       navigate("/");
-      return;
-    }
-  
-    try {
-      // Attempt to decode the token
+    } else {
       const decodedToken = jwtDecode(token);
-  
-      // Check the user type and navigate accordingly
-      if (decodedToken.user_type === "R") {
-        navigate("/admin");
+      if (decodedToken.user_type === "D" || decodedToken.user_type === "DC") {
+        navigate("/sub-admin");
       } else {
         navigate("/unauthorized");
       }
-    } catch (error) {
-      // If decoding fails, log the error and redirect to "/"
-      console.error("Invalid token:", error);
-      navigate("/");
     }
-  }, [navigate]);
-  
+  },);
 
   const getPageName = (path) => {
     switch (path) {
@@ -54,6 +44,8 @@ const SubAdmin = () => {
         return "Curriculum";
       case "/sub-admin/management/program":
         return "MANAGE PROGRAM";
+      default:
+        return "Sub Admin Dashboard";
     }
   };
 
