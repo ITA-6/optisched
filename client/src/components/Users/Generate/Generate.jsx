@@ -25,7 +25,7 @@ const Generated = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div
-        className={`${isSidebarOpen ? "xl:ml-[18rem]" : "lg:ml-32"} lg:mr-[2rem]ease-out grid grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_8fr] pb-10 duration-200 grid-areas-generated-table-layout sm:mr-0 xm:mr-0`}
+        className={`${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} lg:mr-[2rem]ease-out grid grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_8fr] pb-10 duration-200 grid-areas-generated-table-layout sm:mr-0 xm:mr-0`}
       >
         <GeneratePrint />
         <div className="bg-white px-5 pt-5 grid-in-table">
