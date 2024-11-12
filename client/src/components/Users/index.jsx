@@ -3,7 +3,7 @@ import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-const Users= () => {
+const Users = () => {
   const location = useLocation();
   const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
   const navigate = useNavigate();
@@ -12,13 +12,11 @@ const Users= () => {
     const token = localStorage.getItem("access_token");
     if (!token) navigate("/");
 
-    if(token !== null  && jwtDecode(token).user_type === "P"){
-      navigate("/user")
-    }else {
-      navigate("/unauthorized")
+    if (token !== null && jwtDecode(token).user_type === "P") {
+      navigate("/user");
+    } else {
+      navigate("/unauthorized");
     }
-
-   
   }, []);
 
   const getPageName = (path) => {
