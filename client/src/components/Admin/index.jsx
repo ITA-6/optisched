@@ -10,14 +10,25 @@ const Admin = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (!token) navigate("/");
-
-    if (token !== null && jwtDecode(token).user_type === "R") {
-      navigate("/admin");
-    } else {
-      navigate("/unauthorized");
+  
+    if (!token) {
+      navigate("/"); // Redirect if token is null
+      return;
     }
-  }, []);
+  
+    try {
+      const decodedToken = jwtDecode(token);
+      
+      if (decodedToken.user_type === "R") {
+        navigate("/admin"); // Redirect if user_type is "R"
+      } else {
+        navigate("/unauthorized"); // Redirect if user_type is not "R"
+      }
+    } catch (error) {
+      console.error("Invalid token:", error);
+      navigate("/"); // Redirect if token is invalid or decoding fails
+    }
+  }, [navigate]);
 
   const getPageName = (path) => {
     switch (path) {

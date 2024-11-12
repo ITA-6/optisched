@@ -10,15 +10,30 @@ const SubAdmin = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (token === null) navigate("/login");
-
-
-    if(token !== null  && jwtDecode(token).user_type === "D" || token !== null  &&  jwtDecode(token).user_type === "DC"  ){
-      navigate("/sub-admin")
-    }else {
-      navigate("/unauthorized")
+  
+    // Redirect to "/" if there is no token
+    if (!token) {
+      navigate("/");
+      return;
     }
-  }, []);
+  
+    try {
+      // Attempt to decode the token
+      const decodedToken = jwtDecode(token);
+  
+      // Check the user type and navigate accordingly
+      if (decodedToken.user_type === "R") {
+        navigate("/admin");
+      } else {
+        navigate("/unauthorized");
+      }
+    } catch (error) {
+      // If decoding fails, log the error and redirect to "/"
+      console.error("Invalid token:", error);
+      navigate("/");
+    }
+  }, [navigate]);
+  
 
   const getPageName = (path) => {
     switch (path) {

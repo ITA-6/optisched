@@ -12,6 +12,7 @@ const Header = ({ pageName }) => {
   const toggleUser = () => setUserOpen(!isUserOpen);
   const navigate = useNavigate();
   const [name, setName] = useState();
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,10 +25,21 @@ const Header = ({ pageName }) => {
     };
 
     fetchData();
-  }, []);
 
-  const token = jwtDecode(localStorage.getItem("access_token"));
-  console.log(token);
+    // Retrieve and decode token if it exists
+    const accessToken = localStorage.getItem("access_token");
+    if (accessToken) {
+      try {
+        setToken(jwtDecode(accessToken));
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    } else {
+      console.warn("No token found, please log in.");
+      navigate("/login"); // Optionally redirect to login if no token
+    }
+  }, [navigate]);
+
   const { isSidebarOpen, toggleSidebar } = useSidebar();
 
   const handleLogout = async () => {
@@ -37,7 +49,7 @@ const Header = ({ pageName }) => {
       });
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }
@@ -48,11 +60,20 @@ const Header = ({ pageName }) => {
       className={`sm: xl: fixed top-0 z-10 flex w-screen items-center justify-between bg-green font-noto shadow-outerShadow lg:py-2`}
     >
       <h1
-        className={`xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
+        className={`xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden ${
+          isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"
+        } duration-200 ease-linear`}
       >
-        {`${token.first_name} ${token.middle_name} ${token.last_name}`}
+        {token
+          ? `${token.first_name} ${token.middle_name} ${token.last_name}`
+          : "Guest User"}
         <span className="ml-2 text-xs italic">
-         {token.user_type === "P" ? " Professor.No" : "VPAA.No"} {token.username}
+          {token
+            ? token.user_type === "P"
+              ? " Professor.No"
+              : "VPAA.No"
+            : ""}
+          {token ? token.username : ""}
         </span>
       </h1>
       <button
@@ -75,7 +96,9 @@ const Header = ({ pageName }) => {
           />
         </button>
         <ul
-          className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
+          className={`${
+            isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"
+          } grid items-center justify-center rounded-md bg-white`}
         >
           <li>
             <a href="">Change Password</a>
