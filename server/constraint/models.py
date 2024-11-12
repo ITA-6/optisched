@@ -9,15 +9,8 @@ class Constraint(models.Model):
     wait_time = models.BooleanField(
         default=True, help_text="Maximum wait time between courses."
     )
-    teaching_load = models.BooleanField(
-        default=True,
-        help_text="Professors should not teach two courses simultaneously.",
-    )
     daily_teaching_limit = models.BooleanField(
         default=True, help_text="Limit for daily teaching hours per professor."
-    )
-    classroom_capacity = models.BooleanField(
-        default=True, help_text="Classroom capacity limit enforcement."
     )
     room_occupancy = models.BooleanField(
         default=True, help_text="Ensure rooms are not left empty for long periods."

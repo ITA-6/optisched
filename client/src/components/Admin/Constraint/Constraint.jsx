@@ -5,9 +5,7 @@ const Constraint = () => {
   const [constraints, setConstraints] = useState({
     transition_time: true,
     wait_time: true,
-    teaching_load: true,
     daily_teaching_limit: true,
-    classroom_capacity: true,
     room_occupancy: true,
     laboratory_sessions: true,
     employment_workload: {
@@ -36,8 +34,8 @@ const Constraint = () => {
           partTime: response.data?.part_time_workload ?? 0,
         },
         schedule: {
-          startTime: response.data?.schedule?.startTime ?? "08:00",
-          endTime: response.data?.schedule?.endTime ?? "18:00",
+          startTime: response.data?.start_time ?? "08:00",
+          endTime: response.data?.end_time ?? "18:00",
         },
       });
       setLoading(false);
@@ -52,14 +50,14 @@ const Constraint = () => {
       await api.put("constraint/", {
         transition_time: constraints.transition_time,
         wait_time: constraints.wait_time,
-        teaching_load: constraints.teaching_load,
         daily_teaching_limit: constraints.daily_teaching_limit,
-        classroom_capacity: constraints.classroom_capacity,
         room_occupancy: constraints.room_occupancy,
         laboratory_sessions: constraints.laboratory_sessions,
         permanent_workload: constraints.employment_workload.permanent,
         temporary_workload: constraints.employment_workload.temporary,
         part_time_workload: constraints.employment_workload.partTime,
+        start_time: constraints.schedule.startTime,
+        end_time: constraints.schedule.endTime,
       });
       alert("Constraints updated successfully!");
     } catch (error) {
@@ -148,31 +146,11 @@ const Constraint = () => {
           </div>
           <div className="mb-4 flex items-center justify-between">
             <span>
-              <b>Teaching Load:</b> Professors should not teach two different
-              courses simultaneously.
-            </span>
-            <ToggleSwitch
-              isChecked={constraints.teaching_load}
-              onChange={() => handleCheckboxChange("teachingLoad")}
-            />
-          </div>
-          <div className="mb-4 flex items-center justify-between">
-            <span>
               <b>Daily Teaching Limit:</b> Maximum of 6 teaching hours per day.
             </span>
             <ToggleSwitch
               isChecked={constraints.daily_teaching_limit}
               onChange={() => handleCheckboxChange("dailyTeachingLimit")}
-            />
-          </div>
-          <div className="mb-4 flex items-center justify-between">
-            <span>
-              <b>Classroom Capacity:</b> Each classroom should accommodate up to
-              50 students.
-            </span>
-            <ToggleSwitch
-              isChecked={constraints.classroom_capacity}
-              onChange={() => handleCheckboxChange("classroomCapacity")}
             />
           </div>
           <div className="mb-4 flex items-center justify-between">

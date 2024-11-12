@@ -10,6 +10,8 @@ from django.core.serializers.json import (
     DjangoJSONEncoder,
 )
 from django.core.cache import cache
+from constraint.models import Constraint
+from datetime import datetime, timedelta, date
 
 
 class GeneticAlgorithmRunner:
@@ -19,13 +21,28 @@ class GeneticAlgorithmRunner:
         self.professors = list(Professor.objects.filter(is_active=True))
         self.sections = list(Section.objects.filter(is_active=True))
 
+        # Load constraint settings for start and end times
+        self.constraints = (
+            Constraint.objects.first()
+        )  # Assuming a single constraint instance
+        self.start_time = datetime.combine(date.min, self.constraints.start_time)
+        self.end_time = datetime.combine(date.min, self.constraints.end_time)
+
         # Semester filter
         self.semester = semester
 
-        # Constants
+        # Calculate time slots based on constraint-defined time range
+        time_interval = timedelta(minutes=30)  # 30-minute intervals
+        total_minutes = (self.end_time - self.start_time).seconds // 60
         self.TIME_SLOTS = (
-            28  # 7:00 AM to 9:00 PM with 30-minute intervals (14 hours * 2)
-        )
+            total_minutes // 30
+        )  # Number of 30-minute slots between start_time and end_time
+
+        # Map each time slot to an actual time
+        self.times = [
+            self.start_time + i * time_interval for i in range(self.TIME_SLOTS)
+        ]
+
         self.DAY_PAIRS = {
             0: (0, 3),  # Monday and Thursday
             1: (1, 4),  # Tuesday and Friday
@@ -58,6 +75,14 @@ class GeneticAlgorithmRunner:
                 day: 0 for day in range(6)
             }  # Track units per day (Monday to Saturday)
 
+            # Track occupied times for each room and professor per day for overlap checks
+            section_day_times = {
+                day: [] for day in range(6)
+            }  # Track timeslots per day for section to prevent overlap
+            professor_daily_times = {
+                prof: {day: [] for day in range(6)} for prof in self.professors
+            }  # For wait time constraint
+
             # Extract schedule
             for i in range(0, len(solution), 5):
                 course_idx = int(solution[i]) % len(curriculum_courses)
@@ -78,6 +103,35 @@ class GeneticAlgorithmRunner:
 
                 course_units = course.lecture_unit + course.lab_unit
 
+                # Check if assigned time falls within constraint-defined hours
+                lecture_start_time = self.times[timeslot]
+                lecture_end_time = lecture_start_time + timedelta(
+                    hours=course.lecture_unit
+                )
+
+                # Overlap check for the same section on the same day
+                for scheduled_start, scheduled_end in section_day_times[lecture_day]:
+                    if not (
+                        lecture_end_time <= scheduled_start
+                        or lecture_start_time >= scheduled_end
+                    ):
+                        fitness -= 15  # Penalize time overlaps
+                        break
+                else:
+                    # No overlap, add this lecture time to section_day_times for further checks
+                    section_day_times[lecture_day].append(
+                        (lecture_start_time, lecture_end_time)
+                    )
+                    fitness += 5  # Reward for non-overlapping schedules
+
+                # Check if assigned time falls within constraint-defined hours
+                if (
+                    lecture_start_time < self.start_time
+                    or lecture_end_time > self.end_time
+                ):
+                    fitness -= 10
+                    continue
+
                 # Check department match
                 if course.department != professor.department:
                     fitness -= 10
@@ -94,6 +148,19 @@ class GeneticAlgorithmRunner:
                         fitness -= 10  # Penalize exceeding lab units per day
                         continue
                     daily_units[lab_day] += course.lab_unit
+
+                # Wait time constraint: Enforce 30-minute gap between consecutive courses for a professor
+                if self.constraints.wait_time:
+                    previous_times = professor_daily_times[professor][lecture_day]
+                    if previous_times:
+                        last_end_time = previous_times[-1] + timedelta(minutes=30)
+                        if lecture_start_time < last_end_time:
+                            fitness -= 5  # Penalize lack of 30-minute gap
+                        else:
+                            fitness += 1  # Reward schedules with proper gap
+                    professor_daily_times[professor][lecture_day].append(
+                        lecture_end_time
+                    )
 
                 # Assign lecture to the first day in the pair, and lab (if applicable) to the second day
                 if course.lab_unit > 0:
@@ -189,19 +256,16 @@ class GeneticAlgorithmRunner:
             schedule.append((course, professor, room, day_pair, timeslot))
         return schedule
 
-    def format_time_range(self, start_hour, start_minute, duration_hours):
-        # Calculate end hour and minute based on duration
-        end_hour = (start_hour + duration_hours) % 24
-        end_minute = start_minute
+    def format_time_range(self, start_slot, duration_hours):
+        """Format a time range given a start slot and duration in hours, respecting the constraint end time."""
+        start_time = self.times[start_slot]
+        end_time = start_time + timedelta(hours=duration_hours)
 
-        def to_am_pm(hour, minute):
-            period = "AM" if hour < 12 else "PM"
-            hour = hour % 12 if hour % 12 != 0 else 12
-            return f"{hour}:{minute:02} {period}"
+        # Ensure end_time does not exceed constraint-defined end time
+        if end_time > self.end_time:
+            end_time = self.end_time
 
-        start_time = to_am_pm(start_hour, start_minute)
-        end_time = to_am_pm(end_hour, end_minute)
-        return f"{start_time} - {end_time}"
+        return f"{start_time.strftime('%I:%M %p')} - {end_time.strftime('%I:%M %p')}"
 
     def format_schedule_output(self, section, curriculum, schedule):
         day_mapping = [
@@ -218,20 +282,12 @@ class GeneticAlgorithmRunner:
             course, professor, room, day_pair, timeslot = entry
             lecture_day, lab_day = day_pair
 
-            lecture_start_hour = 7 + (timeslot // 2)
-            lecture_start_minute = 30 if timeslot % 2 else 0
-            lecture_time_range = self.format_time_range(
-                lecture_start_hour, lecture_start_minute, course.lecture_hours
-            )
+            lecture_time_range = self.format_time_range(timeslot, course.lecture_hours)
 
             if course.lab_unit > 0:
                 lab_timeslot = (timeslot + course.lecture_hours * 2) % self.TIME_SLOTS
                 lab_room = self.rooms[(self.rooms.index(room) + 1) % len(self.rooms)]
-                lab_start_hour = 7 + (lab_timeslot // 2)
-                lab_start_minute = 30 if lab_timeslot % 2 else 0
-                lab_time_range = self.format_time_range(
-                    lab_start_hour, lab_start_minute, course.lab_hours
-                )
+                lab_time_range = self.format_time_range(lab_timeslot, course.lab_hours)
 
                 course_entry = {
                     "professor_name": professor.first_name + professor.last_name,

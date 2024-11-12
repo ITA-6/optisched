@@ -3,15 +3,16 @@ from .models import Constraint
 
 
 class ConstraintSerializer(serializers.ModelSerializer):
+    start_time = serializers.TimeField(format="%H:%M")
+    end_time = serializers.TimeField(format="%H:%M")
+
     class Meta:
         model = Constraint
         fields = [
             "id",
             "transition_time",
             "wait_time",
-            "teaching_load",
             "daily_teaching_limit",
-            "classroom_capacity",
             "room_occupancy",
             "laboratory_sessions",
             "permanent_workload",

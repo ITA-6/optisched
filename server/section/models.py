@@ -25,7 +25,7 @@ class Section(models.Model):
         db_table = "section"
         constraints = [
             models.UniqueConstraint(
-                fields=["label", "year_level"],
+                fields=["label", "year_level", "program", "department"],
                 name="unique_section",
             )
         ]
