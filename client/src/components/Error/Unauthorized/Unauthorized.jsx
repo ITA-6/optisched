@@ -27,10 +27,10 @@ const Unauthorized = () => {
   useEffect(() => {
     switch (userType) {
       case "R":
-        setComponent("Back to Admin Dashboard");
+        setComponent("Back to Admin ");
         break;
       case "P":
-        setComponent("Back to User Page");
+        setComponent("Back to User");
         break;
       case "DC":
       case "D":
@@ -47,8 +47,11 @@ const Unauthorized = () => {
         navigate("/admin");
         break;
       case "P":
-        navigate("/user");
+        navigate("/user/professor");
         break;
+      case "VPAA":
+      navigate("/user/vpaa");
+      break;
       case "DC":
       case "D":
         navigate("/sub-admin");

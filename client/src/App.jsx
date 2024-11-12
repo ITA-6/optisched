@@ -69,13 +69,12 @@ const App = () => {
               <Route path="management/program" element={<Programs />} />
             </Route>
 
-          {/* User */}
-              <Route path="User" element={<Users />}>
-                <Route index element={<GenerateUser />} />
-                <Route path="professor/generate" element={<GenerateUser />} />
-                <Route path="professor/schedule" element={<Schedule />} />
-                <Route path="vpaa" element={<Vpaa />} />
-              </Route>
+          {   /* User routes */}
+          <Route path="user" element={<Users />}>
+            <Route index path="professor/generate" element={<GenerateUser />} />
+            <Route path="professor/schedule" element={<Schedule />} />
+            <Route path="vpaa" element={<Vpaa />} />
+          </Route>
 
 
           <Route path="Unauthorized" element={<Unauthorized />} />

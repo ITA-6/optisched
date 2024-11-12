@@ -52,7 +52,7 @@ const Header = ({ pageName }) => {
       >
         {`${token.first_name} ${token.middle_name} ${token.last_name}`}
         <span className="ml-2 text-xs italic">
-          Professor.No {token.username}
+         {token.user_type === "P" ? " Professor.No" : "VPAA.No"} {token.username}
         </span>
       </h1>
       <button

@@ -4,7 +4,10 @@ import pncHeader from "../../../assets/pncHeader.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGears, faBarsProgress, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useSidebar } from "./SidenavContext/SidenavContext";
+import { jwtDecode } from "jwt-decode";
 const Sidenav = () => {
+
+  const {user_type} = jwtDecode(localStorage.getItem("access_token"));
 
   const { isSidebarOpen, toggleSidebar, isHoverOn, hoverOn, hoverOff} = useSidebar();
   console.log(isHoverOn + " hover is on")
@@ -36,7 +39,9 @@ const Sidenav = () => {
             <h1 className="m-2 text-md">Scheduling System</h1>
           </div>
           <ul className="flex flex-col gap-2 px-4">
-            <li className="w-full">
+            {user_type === "P" ? (
+              <>
+                <li className="w-full">
               <Link
                 to="professor/generate"
                 className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
@@ -44,16 +49,28 @@ const Sidenav = () => {
                  <FontAwesomeIcon icon={faGears} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
                 <span className={`text-sidenavTextSize ml-3  ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Generate</span>
               </Link>
-            </li>
-            <li className="w-full">
-              <Link
-                to="professor/schedule"
-                className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200"
-              >
-                <FontAwesomeIcon icon={faBarsProgress} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
-                <span className={`text-sidenavTextSize ml-5 ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Schedule</span>
-              </Link>
-            </li>
+              </li>
+              <li className="w-full">
+                <Link
+                  to="professor/schedule"
+                  className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200"
+                >
+                  <FontAwesomeIcon icon={faBarsProgress} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
+                  <span className={`text-sidenavTextSize ml-5 ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Schedule</span>
+                </Link>
+              </li>
+              </>
+            ) : (
+              <li className="w-full">
+                <Link
+                  to="professor/generate"
+                  className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
+                >
+                  <FontAwesomeIcon icon={faGears} className={`${!isSidebarOpen  ? "xm:hidden sm:hidden lg:flex"  : ""}`} />
+                  <span className={`text-sidenavTextSize ml-3  ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Schedule</span>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </nav>

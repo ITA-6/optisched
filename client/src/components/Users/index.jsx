@@ -10,14 +10,29 @@ const Users = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    if (!token) navigate("/");
 
-    if (token !== null && jwtDecode(token).user_type === "P") {
-      navigate("/user");
-    } else {
-      navigate("/unauthorized");
+    // Check if the token exists
+    if (!token) {
+      navigate("/"); // Redirect to home if token is missing
+      return;
     }
-  }, []);
+
+    try {
+      const userType = jwtDecode(token).user_type;
+
+      // Redirect based on user type
+      if (userType === "VPAA") {
+        navigate("/user/vpaa");
+      } else if (userType === "P" && userType !== "VPAA") {
+        navigate("/user/professor");
+      } else {
+        navigate("/unauthorized");
+      }
+    } catch (error) {
+      console.error("Invalid token:", error);
+      navigate("/unauthorized"); // Redirect to unauthorized if token decoding fails
+    }
+  }, [navigate]);
 
   const getPageName = (path) => {
     switch (path) {
