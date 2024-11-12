@@ -3,36 +3,23 @@ import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-const Users = () => {
+const Users= () => {
   const location = useLocation();
   const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
+    if (!token) navigate("/");
 
-    // Check if the token exists
-    if (!token) {
-      navigate("/"); // Redirect to home if token is missing
-      return;
+    if(token !== null  && jwtDecode(token).user_type === "P"){
+      navigate("/user")
+    }else {
+      navigate("/unauthorized")
     }
 
-    try {
-      const userType = jwtDecode(token).user_type;
-
-      // Redirect based on user type
-      if (userType === "VPAA") {
-        navigate("/user/vpaa");
-      } else if (userType === "P" && userType !== "VPAA") {
-        navigate("/user/professor");
-      } else {
-        navigate("/unauthorized");
-      }
-    } catch (error) {
-      console.error("Invalid token:", error);
-      navigate("/unauthorized"); // Redirect to unauthorized if token decoding fails
-    }
-  }, [navigate]);
+   
+  }, []);
 
   const getPageName = (path) => {
     switch (path) {

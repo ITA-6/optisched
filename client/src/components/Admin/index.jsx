@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode"
 const Admin = () => {
   const location = useLocation();
   const generatedPattern = /^\/admin\/generated\/[^/]+$/; // Matches /admin/generated/:name
@@ -10,25 +10,14 @@ const Admin = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-  
-    if (!token) {
-      navigate("/"); // Redirect if token is null
-      return;
+    if (!token) navigate("/");  
+
+    if(token !== null && jwtDecode(token).user_type === "R"){
+      navigate("/admin")
+    }else {
+      navigate("/unauthorized")
     }
-  
-    try {
-      const decodedToken = jwtDecode(token);
-      
-      if (decodedToken.user_type === "R") {
-        navigate("/admin"); // Redirect if user_type is "R"
-      } else {
-        navigate("/unauthorized"); // Redirect if user_type is not "R"
-      }
-    } catch (error) {
-      console.error("Invalid token:", error);
-      navigate("/"); // Redirect if token is invalid or decoding fails
-    }
-  }, [navigate]);
+  }, []);
 
   const getPageName = (path) => {
     switch (path) {
