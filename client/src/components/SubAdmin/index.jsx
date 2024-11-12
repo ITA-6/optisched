@@ -23,7 +23,7 @@ const SubAdmin = () => {
         navigate("/unauthorized");
       }
     }
-  },);
+  },[]);
 
   const getPageName = (path) => {
     switch (path) {
