@@ -17,4 +17,5 @@ class CourseSerializer(serializers.ModelSerializer):
             "need_masteral",
             "pre_requisites",
             "co_requisites",
+            "department",
         ]
