@@ -5,6 +5,7 @@ import 'jspdf-autotable';
 const PrintModal = ({ togglePrintModal, filterScheduleSections }) => {
     
     const printPage = () => {
+        togglePrintModal();
         const doc = new jsPDF({
             orientation: 'portrait',
             unit: 'mm',
