@@ -24,7 +24,7 @@ const DepartmentForm = ({ toggleModal, handler, initialData }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
+      <div className="relative w-2/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
           <img src={course} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
           <h2 className="ml-2 text-3xl font-extrabold">

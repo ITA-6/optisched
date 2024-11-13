@@ -46,7 +46,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 sm:overflow-auto xm:overflow-auto">
-      <div className="relative w-3/4 rounded-lg bg-white shadow-lg">
+      <div className="relative w-2/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
           <img
             src={user}
