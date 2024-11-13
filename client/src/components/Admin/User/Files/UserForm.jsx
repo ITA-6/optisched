@@ -93,6 +93,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 onChange={(e) => setRole(e.target.value)}
                 value={role}
               >
+                <option value="">Select Role</option>
                 <option value="DC">Department Chair</option>
                 <option value="D">Dean</option>
                 <option value="R">Registrar</option>
