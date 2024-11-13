@@ -1,7 +1,6 @@
 const BuildingRow = ({ filteredBuildings, openUpdate, toggleDialog }) => {
 
   const hasData = filteredBuildings.name;
-  console.log(hasData)
 
   return (
     <tr className="h-16">
