@@ -87,7 +87,7 @@ const Dashboard = () => {
         <div className="grid-in-text mb-5">
           <DashboardSearchField />
         </div>
-        <div className=" grid-in-history overflow-auto">
+        <div className="h-[30rem] grid-in-history overflow-auto">
           <DashboardTable />
         </div>
       </div>

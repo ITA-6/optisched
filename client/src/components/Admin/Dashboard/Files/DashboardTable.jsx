@@ -17,7 +17,7 @@ const DashboardTable = () => {
 
   return (
     <div className="grid grid-cols-[1fr_8fr_1fr] text-center grid-areas-table grid-in-history">
-      <table className="relative mb-16 table-fixed bg-white grid-in-table xm:w-full">
+      <table className="relative table-fixed bg-white grid-in-table xm:w-full">
         <thead className="z-0 sticky top-0 border-separate border border-gray-100 bg-green text-xs text-white xm:text-[0.5em]">
           <tr>
             <th scope="col" className="border border-white p-2 xm:p-[0.2rem] xm:w-20 ">
