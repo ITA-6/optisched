@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProgramRow from "./ProgramRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProgramTable = ({ toggleDialog, programs, openUpdate, totalRows }) => {
+const ProgramTable = ({ toggleDialog, filteredPrograms, openUpdate }) => {
   const [loading, setLoading] = useState(true); // Loading state
 
   // Simulate data fetching or any asynchronous operation
@@ -17,8 +17,8 @@ const ProgramTable = ({ toggleDialog, programs, openUpdate, totalRows }) => {
     fetchData();
   }, []); // Empty dependency array to run this effect only once on component mount
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return programs[index] || { name: "", department_name: "" };
+  const rowsToDisplay = Array.from({ length: filteredPrograms.length }, (_, index) => {
+    return filteredPrograms[index] || { name: "", department_name: "" };
   });
 
   if (loading) {
@@ -44,11 +44,11 @@ const ProgramTable = ({ toggleDialog, programs, openUpdate, totalRows }) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay?.map((program, index) => (
+        {rowsToDisplay?.map((filteredPrograms, index) => (
           <ProgramRow
             key={index}
             toggleDialog={toggleDialog}
-            program={program}
+            filteredPrograms={filteredPrograms}
             openUpdate={openUpdate}
           />
         ))}

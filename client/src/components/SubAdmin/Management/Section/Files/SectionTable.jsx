@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SectionRow from "./SectionRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const SectionTable = ({ toggleDialog, sections, openUpdate, totalRows }) => {
+const SectionTable = ({ toggleDialog, filteredSections, openUpdate }) => {
   const [loading, setLoading] = useState(true); // Loading state
 
   // Simulate data fetching or any asynchronous operation
@@ -17,8 +17,8 @@ const SectionTable = ({ toggleDialog, sections, openUpdate, totalRows }) => {
     fetchData();
   }, []); // Empty dependency array to run this effect only once on component mount
 
-  const rowsToDisplay = Array.from({ length: totalRows }, (_, index) => {
-    return sections[index] || { label: "", year_level: "" };
+  const rowsToDisplay = Array.from({ length: filteredSections.length }, (_, index) => {
+    return filteredSections[index] || { label: "", year_level: "" };
   });
 
   if (loading) {
@@ -47,11 +47,11 @@ const SectionTable = ({ toggleDialog, sections, openUpdate, totalRows }) => {
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay.map((section, index) => (
+        {rowsToDisplay.map((filteredSections, index) => (
           <SectionRow
             key={index}
             toggleDialog={toggleDialog}
-            section={section}
+            filteredSections={filteredSections}
             openUpdate={openUpdate}
           />
         ))}
