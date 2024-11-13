@@ -7,8 +7,8 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
   const [category, setCategory] = useState("");
   const [totalUnits, setTotalUnits] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
-  const [needMasteral, setNeedMasteral] = useState(false); 
-  const [isRequisiteOpen, setIsRequisiteOpen] = useState(false)
+  const [needMasteral, setNeedMasteral] = useState(false);
+  const [isRequisiteOpen, setIsRequisiteOpen] = useState(false);
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
     if (initialData) {
@@ -21,10 +21,9 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
     }
   }, [initialData]);
 
-
-  const toggleRequisiteForm = () =>{
-    setIsRequisiteOpen(!isRequisiteOpen)
-  }
+  const toggleRequisiteForm = () => {
+    setIsRequisiteOpen(!isRequisiteOpen);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const courseData = {
@@ -104,7 +103,9 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                 <option value="BOTH">Laboratory & Lecture</option>
               </select>
             </div>
-            <div className={`flex gap-10  ${(category === "LECTURE" || category === "BOTH" ? "flex" : "hidden")}`}>
+            <div
+              className={`flex gap-10 ${category === "LECTURE" || category === "BOTH" ? "flex" : "hidden"}`}
+            >
               <div className={`flex flex-1 flex-col`}>
                 <label htmlFor="lecUnits" className="text-lg font-medium">
                   Lecture Units
@@ -136,8 +137,10 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                 />
               </div>
             </div>
-            <div className={`flex-row gap-10 ${(category === "LABORATORY" || category === "BOTH" ? "flex" : "hidden")}`}>
-              <div className={` flex flex-1 flex-col `}>
+            <div
+              className={`flex-row gap-10 ${category === "LABORATORY" || category === "BOTH" ? "flex" : "hidden"}`}
+            >
+              <div className={`flex flex-1 flex-col`}>
                 <label htmlFor="labUnits" className="text-lg font-medium">
                   Laboratory Units
                 </label>
@@ -187,10 +190,10 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                 <option value={false}>No</option>
               </select>
             </div>
-            <div className="flex flex-col justify-start items-start gap-2">
+            {/* <div className="flex flex-col justify-start items-start gap-2">
                 <label htmlFor="reqiusite">Choose Pre/Co-Requisite</label>
                 <button type="button" className="border border-gray-300 py-1 px-10 rounded-md" onClick={toggleRequisiteForm}>Choose</button>
-            </div>
+            </div> */}
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button
                 type="submit"
@@ -210,7 +213,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
       </div>
 
       {isRequisiteOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-scroll">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-scroll bg-black bg-opacity-50">
           <div className="relative w-2/4 rounded-lg bg-white shadow-lg">
             <div className="flex h-1/5 items-center justify-center bg-green">
               <img
@@ -222,16 +225,24 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                 Select Pre/Co-Requisite
               </h2>
             </div>
-            <div className="flex flex-wrap justify-start items-center gap-5 p-10 text-base">
-              {courses.map(subject => (
-                 <div className="flex justify-items-center gap-2" key={subject.id}>
-                    <input  type="checkbox" name="requisite" id="requisite" />
-                    <label htmlFor="requisite"> {subject.code}</label>
-                 </div>
+            <div className="flex flex-wrap items-center justify-start gap-5 p-10 text-base">
+              {courses.map((subject) => (
+                <div
+                  className="flex justify-items-center gap-2"
+                  key={subject.id}
+                >
+                  <input type="checkbox" name="requisite" id="requisite" />
+                  <label htmlFor="requisite"> {subject.code}</label>
+                </div>
               ))}
             </div>
-            <div className="flex justify-end items-center">
-              <button type="button" className="bg-green text-white py-2 px-10 rounded-md mb-10 mr-10">Confirm</button>
+            <div className="flex items-center justify-end">
+              <button
+                type="button"
+                className="mb-10 mr-10 rounded-md bg-green px-10 py-2 text-white"
+              >
+                Confirm
+              </button>
             </div>
             <button
               className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
@@ -241,7 +252,6 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
             </button>
           </div>
         </div>
-        
       )}
     </div>
   );
