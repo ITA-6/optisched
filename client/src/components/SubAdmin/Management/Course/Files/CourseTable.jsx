@@ -46,14 +46,14 @@ const CourseTable = ({ toggleDialog,  filteredCourses, openUpdate, totalRows }) 
             Lec Unit
           </th>
           <th scope="col" className="border border-white">
-            Lab Unit
+          Lecture Hours
           </th>
           <th scope="col" className="border border-white">
-            Total Units
+            Lab Unit
           </th>
 
           <th scope="col" className="border border-white">
-            Total Hours
+            Lab Hours
           </th>
           <th scope="col" className="border border-white">
             Pre/Co-Requisite

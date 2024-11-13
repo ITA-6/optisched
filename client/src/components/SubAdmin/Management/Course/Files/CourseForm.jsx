@@ -5,8 +5,10 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [category, setCategory] = useState("");
-  const [totalUnits, setTotalUnits] = useState(0);
-  const [totalHours, setTotalHours] = useState(0);
+  const [lectureUnits, setLectureUnits] = useState(0);
+  const [lectureHours, setLectureHours] = useState(0);
+  const [labUnits, setLabUnits] = useState(0);
+  const [labHours, setLabHours] = useState(0);
   const [needMasteral, setNeedMasteral] = useState(false);
   const [isRequisiteOpen, setIsRequisiteOpen] = useState(false);
   // Effect to populate form fields if initialData is provided
@@ -15,8 +17,10 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
       setName(initialData.name || "");
       setCode(initialData.code || "");
       setCategory(initialData.category || "");
-      setTotalUnits(initialData.total_units || 0);
-      setTotalHours(initialData.total_hours || 0);
+      setLectureUnits(initialData.lecture_units|| 0);
+      setTotalHours(initialData.lecture_hours || 0);
+      setLabUnits(initialData.lab_units|| 0);
+      setLabHours(initialData.lab_hours || 0);
       setNeedMasteral(initialData.need_masteral || false);
     }
   }, [initialData]);
@@ -30,10 +34,14 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
       name,
       code,
       category,
-      total_units: totalUnits,
-      total_hours: totalHours,
+      lecture_unit: +lectureUnits,
+      lecture_hours: +lectureHours,
+      lab_unit: +lectureUnits,
+      lab_hours: +lectureHours,
       need_masteral: needMasteral,
     };
+
+    console.log(courseData)
     if (initialData) courseData.id = initialData.id;
     handler(courseData);
   };
@@ -115,8 +123,8 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   name="lecUnits"
                   id="lecUnits"
                   placeholder="Lecture Units"
-                  value={totalUnits}
-                  onChange={(e) => setTotalUnits(Number(e.target.value))}
+                  value={lectureUnits}
+                  onChange={(e) => setLectureUnits(e.target.value)}
                   className="rounded-md border border-gray-300 p-2"
                   required
                 />
@@ -130,8 +138,8 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   name="lecHours"
                   id="lecHours"
                   placeholder="Lecture Hours"
-                  value={totalHours}
-                  onChange={(e) => setTotalHours(Number(e.target.value))}
+                  value={lectureHours}
+                  onChange={(e) => setLectureHours(e.target.value)}
                   className="rounded-md border border-gray-300 p-2"
                   required
                 />
@@ -149,8 +157,8 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   name="labUnits"
                   id="labUnits"
                   placeholder="Laboratory Units"
-                  value={totalUnits}
-                  onChange={(e) => setTotalUnits(Number(e.target.value))}
+                  value={labUnits}
+                  onChange={(e) => setLabUnits(e.target.value)}
                   className="rounded-md border border-gray-300 p-2"
                   required
                 />
@@ -164,8 +172,8 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   name="labHours"
                   id="labHours"
                   placeholder="Laboratory Hours"
-                  value={totalHours}
-                  onChange={(e) => setTotalHours(Number(e.target.value))}
+                  value={labHours}
+                  onChange={(e) => setLabHours(e.target.value)}
                   className="rounded-md border border-gray-300 p-2"
                   required
                 />

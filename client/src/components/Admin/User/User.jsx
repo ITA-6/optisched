@@ -17,6 +17,9 @@ const User = () => {
   const [selectedUser, setSelectedUser] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const [errors, setError] = useState();
+  const [errorMessage, setErrorMessage] = useState([]);
+
   const [selectedStatus, setSelectedStatus] = useState(''); // New state for the select option
   const [searchItem, setSearchItem] = useState('');
   const [filteredUsers, setFilteredUsers] = useState(users);
@@ -116,9 +119,29 @@ const User = () => {
       setUsers(response.data);
       setIsModalOpen(false);
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.status === 400) {
+        const errorData = error.response.data;
+        setErrorMessage(errorData);
+        console.log(errorMessage)
+        // Check for specific errors in prof_id and email
+        if (errorData.prof_id && errorData.prof_id.length > 0) {
+          setError(`Professor ID error: ${errorData.prof_id.join(", ")}`);
+        } else if (errorData.email && errorData.email.length > 0) {
+          setError(`Email error: ${errorData.email.join(", ")}`);
+        } else {
+          setError("Invalid input. Please check your data.");
+        }
+      } else {
+        // General error handling for other status codes
+        setError("An error occurred while adding the professor.");
+      }
+
+      // Show the error message for 5 seconds
+      setTimeout(() => {
+        setError(false);
+      }, 5000);
     }
-  };
+  }
 
   if (loading) {
     // Render the loading video while data is being fetched and during the delay
@@ -169,6 +192,8 @@ const User = () => {
           toggleModal={toggleModal}
           handler={initialData ? updateUser : submitUser}
           initialData={initialData}
+          errorMessage={errorMessage}
+          errors={errors}
         />
       )}
 

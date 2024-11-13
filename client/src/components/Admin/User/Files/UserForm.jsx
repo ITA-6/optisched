@@ -2,7 +2,7 @@ import user from "../../../../assets/user.png";
 
 import { useState, useEffect } from "react";
 
-const UserForm = ({ toggleModal, handler, initialData, departments }) => {
+const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage, errors }) => {
   const [professorId, setProfessorId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -11,7 +11,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
   const [birthDate, setBirthDate] = useState("");
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
-
+  console.log(errorMessage.user_id)
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
     if (initialData) {
@@ -66,6 +66,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Professor ID
+                <span className={`${errorMessage.user_id && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Professor ID is Taken</span>
               </label>
               <input
                 type="number"
@@ -83,6 +84,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Role
+                <span className={`${errorMessage.user_type && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Please Select a  valid Role</span>
               </label>
               <select
                 name="role"
@@ -163,6 +165,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments }) => {
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Email Address
+                <span className={`${errorMessage.email && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Email is Taken</span>
               </label>
               <input
                 type="email"

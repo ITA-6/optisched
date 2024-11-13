@@ -7,9 +7,9 @@ const CourseRow = ({ toggleDialog, filteredCourses, openUpdate }) => {
         <td className="border-y-2 border-gray-200">{filteredCourses.code}</td>
         <td className="border-y-2 border-gray-200">{filteredCourses.category}</td>
         <td className="border-y-2 border-gray-200">{filteredCourses.lecture_unit}</td>
+        <td className="border-y-2 border-gray-200">{filteredCourses.lecture_hours}</td>
         <td className="border-y-2 border-gray-200">{filteredCourses.lab_unit}</td>
-        <td className="border-y-2 border-gray-200">{filteredCourses.lecture_unit + filteredCourses.lab_unit}</td>
-        <td className="border-y-2 border-gray-200">{filteredCourses.lecture_hours + filteredCourses.lab_hours}</td>
+        <td className="border-y-2 border-gray-200">{filteredCourses.lab_hours}</td>
         <td className="border-y-2 border-gray-200">NONE</td>
         <td className="border-y-2 border-gray-200">{filteredCourses.need_masteral === true  ? "Yes" : "No"}</td>
         <td className="border-y-2 border-gray-200">

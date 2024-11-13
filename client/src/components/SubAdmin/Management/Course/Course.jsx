@@ -20,6 +20,7 @@ const Course = () => {
     ...new Set(courses.map((course) => course.category)),
   ];
 
+  console.log(courses)
 
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
