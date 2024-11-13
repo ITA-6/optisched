@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const Admin = () => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const Admin = () => {
         navigate("/unauthorized");
       }
     }
-  },[]);
+  }, []);
 
   const getPageName = (path) => {
     switch (path) {

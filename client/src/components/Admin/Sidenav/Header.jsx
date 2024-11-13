@@ -27,6 +27,10 @@ const Header = ({ pageName }) => {
     }
   };
 
+  const handleChangePassword = () => {
+    navigate("changepassword");
+  };
+
   return (
     <div
       className={`sm: xl: fixed top-0 z-10 flex w-screen items-center justify-between bg-green font-noto shadow-outerShadow`}
@@ -55,7 +59,9 @@ const Header = ({ pageName }) => {
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
         >
           <li>
-            <a href="">Change Password</a>
+            <button className="" onClick={handleChangePassword}>
+              Change Password
+            </button>
           </li>
           <button onClick={handleLogout}>Logout</button>
         </ul>

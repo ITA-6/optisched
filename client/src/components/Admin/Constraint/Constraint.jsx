@@ -132,7 +132,7 @@ const Constraint = () => {
             </span>
             <ToggleSwitch
               isChecked={constraints.transition_time}
-              onChange={() => handleCheckboxChange("transitionTime")}
+              onChange={() => handleCheckboxChange("transition_time")}
             />
           </div>
           <div className="mb-4 flex items-center justify-between">
@@ -141,7 +141,7 @@ const Constraint = () => {
             </span>
             <ToggleSwitch
               isChecked={constraints.wait_time}
-              onChange={() => handleCheckboxChange("waitTime")}
+              onChange={() => handleCheckboxChange("wait_time")}
             />
           </div>
           <div className="mb-4 flex items-center justify-between">
@@ -150,7 +150,7 @@ const Constraint = () => {
             </span>
             <ToggleSwitch
               isChecked={constraints.daily_teaching_limit}
-              onChange={() => handleCheckboxChange("dailyTeachingLimit")}
+              onChange={() => handleCheckboxChange("daily_teaching_limit")}
             />
           </div>
           <div className="mb-4 flex items-center justify-between">
@@ -160,7 +160,7 @@ const Constraint = () => {
             </span>
             <ToggleSwitch
               isChecked={constraints.room_occupancy}
-              onChange={() => handleCheckboxChange("roomOccupancy")}
+              onChange={() => handleCheckboxChange("room_occupancy")}
             />
           </div>
           <div className="mb-4 flex items-center justify-between">
@@ -171,7 +171,7 @@ const Constraint = () => {
             </span>
             <ToggleSwitch
               isChecked={constraints.laboratory_sessions}
-              onChange={() => handleCheckboxChange("laboratorySessions")}
+              onChange={() => handleCheckboxChange("laboratory_sessions")}
             />
           </div>
 
