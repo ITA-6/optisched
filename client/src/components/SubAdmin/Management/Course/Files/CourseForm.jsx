@@ -18,7 +18,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
       setCode(initialData.code || "");
       setCategory(initialData.category || "");
       setLectureUnits(initialData.lecture_units|| 0);
-      setTotalHours(initialData.lecture_hours || 0);
+      setLectureHours(initialData.lecture_hours || 0);
       setLabUnits(initialData.lab_units|| 0);
       setLabHours(initialData.lab_hours || 0);
       setNeedMasteral(initialData.need_masteral || false);
