@@ -32,6 +32,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "current_units",
             "handled_schedule",  # List of schedules the professor handles
         ]
+        read_only_fields = ["middle_name"]
 
     def validate(self, data):
         """

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 const ProfessorForm = ({
   toggleModal,
   handler,
-  departments,
   initialData,
   errors,
   errorMessage,
@@ -14,7 +13,6 @@ const ProfessorForm = ({
   const [lastName, setLastName] = useState("");
   const [hasMasteral, setHasMasteral] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
@@ -31,7 +29,6 @@ const ProfessorForm = ({
       setBirthDate(initialData.birth_date || "");
       setEmail(initialData.email || "");
       setGender(initialData.gender || "O");
-      setDepartment(initialData.department || "");
     }
   }, [initialData]);
 
@@ -47,7 +44,6 @@ const ProfessorForm = ({
       employment_status: employmentStatus,
       has_masteral: hasMasteral,
       birth_date: birthDate,
-      department: department,
     };
     if (initialData) professorData.id = initialData.id;
     handler(professorData);
@@ -121,7 +117,6 @@ const ProfessorForm = ({
                     value={middleName}
                     onChange={(e) => setMiddleName(e.target.value)}
                     className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                    required
                   />
                 </div>
                 <div className="flex-1">
@@ -234,34 +229,7 @@ const ProfessorForm = ({
               />
             </div>
 
-            {/* Department Field */}
             <div className="flex gap-10">
-              <div className="flex-1">
-                <label
-                  htmlFor="department"
-                  className="text-lg font-medium text-gray-700"
-                >
-                  Department
-                </label>
-                <select
-                  id="department"
-                  value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                  required
-                >
-                  <option value="" disabled>
-                    Select Department
-                  </option>
-                  {departments?.map((department) => (
-                    <>
-                      <option key={department.id} value={department.id}>
-                        {department.name}
-                      </option>
-                    </>
-                  ))}
-                </select>
-              </div>
               {/* Masteral Field */}
               <div className="flex-1">
                 <label

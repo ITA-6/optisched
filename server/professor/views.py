@@ -85,13 +85,14 @@ class ProfessorAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         # Ensure department exists
-        department_id = request.data.get("department")
-        if not self.is_valid_department(department_id):
+        department = request.user.department.id
+        if not self.is_valid_department(department):
             return Response(
                 {"error": "Department not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
         professor_data = self.build_professor_data(request.data)
+        professor_data["department"] = department
 
         # Initialize serializer with professor data
         professor_serializer = ProfessorSerializer(data=professor_data)

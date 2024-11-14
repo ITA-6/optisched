@@ -23,6 +23,7 @@ class Section(models.Model):
 
     class Meta:
         db_table = "section"
+        ordering = ["-created_at"]
         constraints = [
             models.UniqueConstraint(
                 fields=["label", "year_level", "program", "department"],

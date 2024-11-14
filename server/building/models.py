@@ -11,6 +11,7 @@ class Building(models.Model):
 
     class Meta:
         db_table = "building"
+        ordering = ["-created_at"]
 
     def decrement_available_rooms(self):
         if self.available_rooms > 0:
