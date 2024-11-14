@@ -34,6 +34,7 @@ class Schedule(models.Model):
 
     class Meta:
         db_table = "schedule"
+        ordering = ["-created_at"]
 
     def soft_delete(self):
         """Sets the schedule as inactive without deleting it."""
