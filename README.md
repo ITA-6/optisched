@@ -2,10 +2,6 @@
 
 OptiSched is designed to automate scheduling that is tailored to the needs of the University of Cabuyao.
 
-# Let's create a README file with the provided simplified explanation.
-
-readme_content = """
-
 # Genetic Algorithm Scheduling - Overview
 
 This code uses a **genetic algorithm** to create a schedule for classes, balancing room availability, professor qualifications, time slots, and curriculum requirements.
