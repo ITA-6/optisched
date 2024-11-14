@@ -3,7 +3,6 @@ from django.utils.dateparse import parse_datetime
 from django.utils import timezone
 from django.db import transaction
 from course.models import Course
-from department.models import Department
 
 from data.courses.ccs import CCS_COURSES
 from data.courses.cbaa import CBAA_COURSES
@@ -13,7 +12,7 @@ from data.courses.coe import COE_COURSES
 
 
 class Command(BaseCommand):
-    help = "Create courses with initial data"
+    help = "Create or update courses with initial data"
 
     def handle(self, *args, **kwargs):
         # Combine all course lists into one
@@ -21,70 +20,44 @@ class Command(BaseCommand):
             COED_COURSES + CCS_COURSES + CBAA_COURSES + CHAS_COURSES + COE_COURSES
         )
 
-        # Store references to created courses
+        # Store references to created or updated courses
         course_mapping = {}
 
         with transaction.atomic():  # Ensures atomicity of the database operations
-            # First pass: Create courses if they don't exist
             for course_data in courses_data:
-                try:
-                    # Check if the course already exists
-                    if Course.objects.filter(
-                        name=course_data["name"], code=course_data["code"]
-                    ).exists():
-                        self.stdout.write(
-                            self.style.WARNING(
-                                f"Course '{course_data['name']}' with code '{course_data['code']}' already exists. Skipping creation."
-                            )
+                # Check if the course already exists
+                course, created = Course.objects.get_or_create(
+                    code=course_data["code"],
+                    defaults={
+                        "name": course_data["name"],
+                        "category": course_data["category"],
+                        "lecture_unit": course_data.get("lec_units", 0),
+                        "lab_unit": course_data.get("lab_units", 0),
+                        "lecture_hours": course_data.get("lec_hours", 0),
+                        "lab_hours": course_data.get("lab_hours", 0),
+                        "need_masteral": course_data["need_masteral"],
+                        "is_active": course_data["is_active"],
+                        "created_at": parse_datetime(course_data.get("created_at")) or timezone.now(),
+                        "updated_at": parse_datetime(course_data.get("updated_at")) or timezone.now(),
+                    },
+                )
+
+                # If the course already exists, skip creation
+                if not created:
+                    self.stdout.write(
+                        self.style.WARNING(
+                            f"Course '{course_data['name']}' with code '{course_data['code']}' already exists. Skipping creation."
                         )
-                        continue  # Skip this course if it exists
-
-                    # Only set department if it exists in course_data
-                    department = None
-                    if "department_id" in course_data:
-                        department = Department.objects.get(
-                            id=course_data["department_id"]
-                        )
-
-                    # Parse created_at and updated_at with default fallback to timezone.now()
-                    created_at = (
-                        parse_datetime(course_data.get("created_at")) or timezone.now()
                     )
-                    updated_at = (
-                        parse_datetime(course_data.get("updated_at")) or timezone.now()
-                    )
-
-                    # Create the course
-                    course = Course.objects.create(
-                        name=course_data["name"],
-                        code=course_data["code"],
-                        category=course_data["category"],
-                        department=department,  # Can be None if no department_id
-                        lecture_unit=course_data.get("lec_units", 0),
-                        lab_unit=course_data.get("lab_units", 0),
-                        lecture_hours=course_data.get("lec_hours", 0),
-                        lab_hours=course_data.get("lab_hours", 0),
-                        need_masteral=course_data["need_masteral"],
-                        is_active=course_data["is_active"],
-                        created_at=created_at,
-                        updated_at=updated_at,
-                    )
-
-                    # Store reference to the course by code for later use in pre/co-requisites
-                    course_mapping[course_data["code"]] = course
-
+                else:
                     self.stdout.write(
                         self.style.SUCCESS(f"Created course: {course.name}")
                     )
 
-                except Department.DoesNotExist:
-                    self.stdout.write(
-                        self.style.ERROR(
-                            f"Department with id {course_data.get('department_id')} does not exist for course '{course_data['name']}'."
-                        )
-                    )
+                # Store reference to the course by code for pre/co-requisite handling
+                course_mapping[course_data["code"]] = course
 
-            # Second pass: Set pre-requisites and co-requisites relationships
+            # Second pass: Set pre-requisites and co-requisites
             for course_data in courses_data:
                 course = course_mapping.get(course_data["code"])
                 if not course:

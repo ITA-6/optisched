@@ -8,6 +8,9 @@ from department.models import Department
 # Import multiple datasets
 from data.sections.ccs.bsit import BSIT_SECTIONS
 from data.sections.ccs.bscs import BSCS_SECTIONS
+from data.sections.coe.bscpe import BSCPE_SECTIONS
+from data.sections.coe.bsece import BSECE_SECTIONS
+from data.sections.coe.bsie import BSIE_SECTIONS
 
 
 class Command(BaseCommand):
@@ -20,6 +23,9 @@ class Command(BaseCommand):
         section_datasets = [
             {"name": "BSIT", "data": BSIT_SECTIONS},
             {"name": "BSCS", "data": BSCS_SECTIONS},
+            {"name": "BSCPE", "data": BSCPE_SECTIONS},
+            {"name": "BSECE", "data": BSECE_SECTIONS},
+            {"name": "BSIE", "data": BSIE_SECTIONS},
             # Add more datasets here as needed
         ]
 

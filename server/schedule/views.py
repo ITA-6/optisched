@@ -162,6 +162,8 @@ class GenerateScheduleView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+        Schedule.objects.all().delete()
+
         # Iterate over each section's schedule and save it to the database
         for section_id, cached_schedule in cached_schedules.items():
             # Get or create the main Schedule entry

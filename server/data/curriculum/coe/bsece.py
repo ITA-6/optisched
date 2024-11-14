@@ -29,7 +29,7 @@ BSECE_CURRICULUM = [
         {"course": "HMN101"},  # Art Appreciation
         {"course": "COM101"},  # Purposive Communication
         {"course": "COE104"},  # Calculus 2
-        {"course": "HS101"},  # Readings in Philippine History
+        {"course": "HIS101"},  # Readings in Philippine History
         {"course": "COE105"},  # Calculus-Based Physics 1
         {"course": "NSTP2"},  # National Service Training Program 2
         {"course": "PED102"},  # Physical Activities Toward Health and Fitness 2

@@ -27,13 +27,13 @@ BSCPE_CURRICULUM = [
     "year_level": 1,
     "courses": [
         {"course": "GAD101"},  # Gender and Development
-        {"course": "HS101"},  # Readings in Philippine History
+        {"course": "HIS101"},  # Readings in Philippine History
         {"course": "PHD102"},  # PiCnS Holistic Development 2
         {"course": "COM101"},  # Purposive Communication
         {"course": "CPP103"},  # Object Oriented Programming
         {"course": "COE103"},  # Calculus 2
         {"course": "COE105"},  # Calculus-Based Physics
-        {"course": "MNN101"},  # Art Appreciation
+        {"course": "HMN101"},  # Art Appreciation
         {"course": "NSTP2"},  # National Service Training Program 2
         {"course": "PED102"}  # Physical Activities Toward Health and Fitness 2
     ]

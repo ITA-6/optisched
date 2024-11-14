@@ -1,6 +1,13 @@
 import user from "../../../../../assets/user.png";
 import { useState, useEffect } from "react";
-const ProfessorForm = ({ toggleModal, handler, departments, initialData, errors, errorMessage }) => {
+const ProfessorForm = ({
+  toggleModal,
+  handler,
+  departments,
+  initialData,
+  errors,
+  errorMessage,
+}) => {
   const [professorId, setProfessorId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -11,7 +18,6 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData, errors,
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
-
 
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
@@ -65,14 +71,19 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData, errors,
                 className="text-lg font-medium text-gray-700"
               >
                 Professor ID
-                <span className={`${errorMessage.prof_id ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Professor ID is Taken</span>
+                <span
+                  className={`${errorMessage.prof_id && errors ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {" "}
+                  * Professor ID is Taken
+                </span>
               </label>
               <input
                 type="number"
                 id="professorID"
                 value={professorId}
                 onChange={(e) => setProfessorId(e.target.value)}
-                className={` mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errorMessage.prof_id ? "outline-none border-red-500 ease-in-out duration-300" : ""}`}
+                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errorMessage.prof_id && errors ? "border-red-500 outline-none duration-300 ease-in-out" : ""}`}
                 required
               />
             </div>
@@ -206,14 +217,19 @@ const ProfessorForm = ({ toggleModal, handler, departments, initialData, errors,
                 className="text-lg font-medium text-gray-700"
               >
                 Email Address
-                <span className={`${ errors && errorMessage.email ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Email is Taken</span>
+                <span
+                  className={`${errors && errorMessage.email ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {" "}
+                  * Email is Taken
+                </span>
               </label>
               <input
                 type="email"
                 id="mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errors && errorMessage.email ? "outline-none border-red-500" : ""}`}
+                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errors && errorMessage.email ? "border-red-500 outline-none" : ""}`}
                 required
               />
             </div>

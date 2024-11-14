@@ -367,4 +367,21 @@ COED_COURSES = [
         "created_at": "2022-06-27 10:42:57",
         "updated_at": "2021-05-18 08:41:22",
     },
+     {
+        "name": "Science Development Reading",
+        "code": "SDR1",
+        "category": "LECTURE",  # d
+        "department_id": 5,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units": 0,
+        "lab_hours": 0,
+        "total_units": 3,
+        "total_hours": 3,
+        "need_masteral": False,
+        "is_active": True,
+        "created_at": "2022-06-27 10:42:57",
+        "updated_at": "2021-05-18 08:41:22",
+    },
+    
 ]

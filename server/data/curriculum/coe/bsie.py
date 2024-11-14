@@ -26,7 +26,7 @@ BSIE_CURRICULUM = [
     "year_level": 1,
     "courses": [
         {"course": "GAD101"},  # Gender and Development
-        {"course": "HS101"},  # Readings in Philippine History
+        {"course": "HIS101"},  # Readings in Philippine History
         {"course": "HMN101"},  # Art Appreciation
         {"course": "COM101"},  # Purposive Communication
         {"course": "COE104"},  # Calculus 2
@@ -123,8 +123,8 @@ BSIE_CURRICULUM = [
     "semester": "SECOND_SEMESTER",
     "year_level": 4,
     "courses": [
-        {"course": "IEP121"},  # IE Practice and Design 2
-        {"course": "IEP122"},  # Systems Engineering
+        {"course": "IEP120"},  # IE Practice and Design 2
+        {"course": "IEP121"},  # Systems Engineering
         {"course": "COE111"}  # Basic Occupational Safety and Health
     ]
 }

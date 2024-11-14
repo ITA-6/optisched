@@ -1487,4 +1487,20 @@ COE_COURSES = [
         "created_at": "2022-06-27 10:42:57",
         "updated_at": "2021-05-18 08:41:22",
     },
+     {
+        "name": "Computer Engineering as a Discipline",
+        "code": "CPP101",
+        "category": "LECTURE",  # d
+        "department_id": 5,
+        "lec_units": 1,
+        "lec_hours": 1,
+        "lab_units": 0,
+        "lab_hours": 0,
+        "total_units": 1,
+        "total_hours": 1,
+        "need_masteral": False,
+        "is_active": True,
+        "created_at": "2022-06-27 10:42:57",
+        "updated_at": "2021-05-18 08:41:22",
+    },
 ]
