@@ -49,68 +49,89 @@ class Command(BaseCommand):
                 )
                 continue
 
-            # Create or reactivate professor
-            professor, created = Professor.objects.get_or_create(
-                prof_id=prof_data["prof_id"],
-                defaults={
-                    "first_name": prof_data["first_name"],
-                    "last_name": prof_data["last_name"],
-                    "middle_name": prof_data["middle_name"],
-                    "employment_status": prof_data["employment_status"],
-                    "has_masteral": prof_data["has_masteral"],
-                    "department": department,
-                    "required_units": prof_data["required_units"],
-                    "current_units": prof_data["current_units"],
-                    "birth_date": prof_data["birth_date"],
-                    "email": prof_data["email"],
-                    "gender": prof_data["gender"],
-                    "is_active": prof_data["is_active"],
-                    "created_at": prof_data.get("created_at", timezone.now()),
-                    "updated_at": prof_data.get("updated_at", timezone.now()),
-                },
-            )
-
-            # Reactivate professor if they already existed but were inactive
-            if not created and not professor.is_active:
-                professor.is_active = True
+            # Check if professor exists by email to avoid duplicates
+            professor = Professor.objects.filter(email=prof_data["email"]).first()
+            if professor:
+                professor.prof_id = prof_data["prof_id"]
+                professor.first_name = prof_data["first_name"]
+                professor.last_name = prof_data["last_name"]
+                professor.middle_name = prof_data["middle_name"]
+                professor.employment_status = prof_data["employment_status"]
+                professor.has_masteral = prof_data["has_masteral"]
+                professor.department = department
+                professor.required_units = prof_data["required_units"]
+                professor.current_units = prof_data["current_units"]
+                professor.birth_date = prof_data["birth_date"]
+                professor.gender = prof_data["gender"]
+                professor.is_active = prof_data["is_active"]
+                professor.updated_at = timezone.now()
                 professor.save()
+                professor_created = False
+            else:
+                professor = Professor.objects.create(
+                    prof_id=prof_data["prof_id"],
+                    first_name=prof_data["first_name"],
+                    last_name=prof_data["last_name"],
+                    middle_name=prof_data["middle_name"],
+                    employment_status=prof_data["employment_status"],
+                    has_masteral=prof_data["has_masteral"],
+                    department=department,
+                    required_units=prof_data["required_units"],
+                    current_units=prof_data["current_units"],
+                    birth_date=prof_data["birth_date"],
+                    email=prof_data["email"],
+                    gender=prof_data["gender"],
+                    is_active=prof_data["is_active"],
+                    created_at=timezone.now(),
+                    updated_at=timezone.now(),
+                )
+                professor_created = True
 
-            # Create or reactivate corresponding user account
-            user, user_created = CustomUser.objects.get_or_create(
-                email=prof_data["email"],
-                defaults={
-                    "username": prof_data["prof_id"],
-                    "user_id": prof_data[
-                        "prof_id"
-                    ],  # Assigning the unique user_id here
-                    "password": make_password(str(prof_data["birth_date"])),
-                    "professor": professor,
-                    "first_name": prof_data["first_name"],
-                    "last_name": prof_data["last_name"],
-                    "middle_name": prof_data["middle_name"],
-                    "birth_date": prof_data["birth_date"],
-                    "department": department,
-                    "user_type": CustomUser.DEFAULT_USER[0],
-                    "is_active": prof_data["is_active"],
-                    "date_joined": timezone.now(),
-                    "created_at": timezone.now(),
-                    "updated_at": timezone.now(),
-                },
-            )
-
-            # Reactivate user if they already existed but were inactive
-            if not user_created and not user.is_active:
-                user.is_active = True
+            # Create or update corresponding user account
+            user = CustomUser.objects.filter(email=prof_data["email"]).first()
+            if user:
+                user.username = prof_data["prof_id"]
+                user.user_id = prof_data["prof_id"]
+                user.password = make_password(str(prof_data["birth_date"]))
+                user.professor = professor
+                user.first_name = prof_data["first_name"]
+                user.last_name = prof_data["last_name"]
+                user.middle_name = prof_data["middle_name"]
+                user.birth_date = prof_data["birth_date"]
+                user.department = department
+                user.user_type = CustomUser.DEFAULT_USER[0]
+                user.is_active = prof_data["is_active"]
+                user.updated_at = timezone.now()
                 user.save()
+                user_created = False
+            else:
+                user = CustomUser.objects.create(
+                    email=prof_data["email"],
+                    username=prof_data["prof_id"],
+                    user_id=prof_data["prof_id"],
+                    password=make_password(str(prof_data["birth_date"])),
+                    professor=professor,
+                    first_name=prof_data["first_name"],
+                    last_name=prof_data["last_name"],
+                    middle_name=prof_data["middle_name"],
+                    birth_date=prof_data["birth_date"],
+                    department=department,
+                    user_type=CustomUser.DEFAULT_USER[0],
+                    is_active=prof_data["is_active"],
+                    date_joined=timezone.now(),
+                    created_at=timezone.now(),
+                    updated_at=timezone.now(),
+                )
+                user_created = True
 
             # Output to the console
-            if created and user_created:
+            if professor_created and user_created:
                 self.stdout.write(
                     self.style.SUCCESS(
                         f"Created Professor {prof_data['first_name']} {prof_data['last_name']} and corresponding user."
                     )
                 )
-            elif created:
+            elif professor_created:
                 self.stdout.write(
                     self.style.SUCCESS(
                         f"Created Professor {prof_data['first_name']} {prof_data['last_name']}."
@@ -125,6 +146,6 @@ class Command(BaseCommand):
             else:
                 self.stdout.write(
                     self.style.WARNING(
-                        f"Professor {prof_data['first_name']} {prof_data['last_name']} and user already exist and were reactivated."
+                        f"Professor {prof_data['first_name']} {prof_data['last_name']} and user already exist and were updated."
                     )
                 )
