@@ -22,6 +22,10 @@ const Generated = () => {
     fetchData();
   }, []);
 
+  const totalUnitsSum = data.reduce(
+    (sum, schedule) => sum + schedule.total_units,
+    0,
+  );
   return (
     <div className="min-h-screen bg-gray-50">
       <div
@@ -41,7 +45,7 @@ const Generated = () => {
                 </h1>
                 <div className="flex items-center justify-between py-2 grid-in-units">
                   <h1 className="text-xl font-medium sm:text-sm lg:text-lg xm:text-xs">
-                    Total Units : {sched.total_units}
+                    Total Units : {totalUnitsSum}
                   </h1>
                 </div>
               </>

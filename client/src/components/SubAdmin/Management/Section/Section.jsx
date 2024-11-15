@@ -17,49 +17,48 @@ const Section = () => {
   const [selectedSection, setSelectedSection] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const [selectedStatus, setSelectedStatus] = useState(''); // New state for the select option
-  const [searchItem, setSearchItem] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState(""); // New state for the select option
+  const [searchItem, setSearchItem] = useState("");
   const [filteredSections, setFilteredSections] = useState(sections);
 
+  const getAllSection = [...new Set(sections.map((section) => section.label))];
 
-  const getAllSection = [
-    ...new Set(sections.map((section) => section.label)),
-  ];
-  
-  
   useEffect(() => {
-      setFilteredSections(sections);
+    setFilteredSections(sections);
   }, [sections]);
 
   const handleInputChange = (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      setSearchItem(searchTerm);
-      filterSections(searchTerm, selectedStatus);
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchItem(searchTerm);
+    filterSections(searchTerm, selectedStatus);
   };
 
   const handleStatusChange = (e) => {
-      const status = e.target.value;
-      setSelectedStatus(status);
-      filterSections(searchItem, status);
+    const status = e.target.value;
+    setSelectedStatus(status);
+    filterSections(searchItem, status);
   };
 
   const filterSections = (searchTerm, status) => {
-      const filteredItems = sections.filter((section) => {
-          // Check if the section's label matches the selected status, if any
-          const matchesStatus = status ? section.label === status : true;
-          
-          // Check if any of the specific fields match the search term
-          const matchesSearchTerm = 
-              (section.label && section.label.toLowerCase().startsWith(searchTerm)) ||
-              (section.year_level && section.year_level.toString().startsWith(searchTerm)) ||
-              (section.department_name && section.department_name.toLowerCase().startsWith(searchTerm)) ||
-              (section.program_name && section.program_name.toLowerCase().startsWith(searchTerm));
+    const filteredItems = sections.filter((section) => {
+      // Check if the section's label matches the selected status, if any
+      const matchesStatus = status ? section.label === status : true;
 
-          // Return true if both conditions match
-          return matchesStatus && matchesSearchTerm;
-      });
+      // Check if any of the specific fields match the search term
+      const matchesSearchTerm =
+        (section.label && section.label.toLowerCase().startsWith(searchTerm)) ||
+        (section.year_level &&
+          section.year_level.toString().startsWith(searchTerm)) ||
+        (section.department_name &&
+          section.department_name.toLowerCase().startsWith(searchTerm)) ||
+        (section.program_name &&
+          section.program_name.toLowerCase().startsWith(searchTerm));
 
-      setFilteredSections(filteredItems);
+      // Return true if both conditions match
+      return matchesStatus && matchesSearchTerm;
+    });
+
+    setFilteredSections(filteredItems);
   };
 
   const toggleDialog = (id) => {
@@ -156,7 +155,11 @@ const Section = () => {
       <div
         className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
       >
-        <SearchField getAllSection={getAllSection}  handleInputChange={handleInputChange} handleStatusChange={handleStatusChange} />
+        <SearchField
+          getAllSection={getAllSection}
+          handleInputChange={handleInputChange}
+          handleStatusChange={handleStatusChange}
+        />
         <div
           className={`mr-5 h-full grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${sections.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
         >
