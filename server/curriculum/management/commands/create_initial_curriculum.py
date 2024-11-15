@@ -21,7 +21,7 @@ class Command(BaseCommand):
             "ccs": BSIT_CURRICULUM + BSCS_CURRICULUM,
             "coe": BSCPE_CURRICULUM + BSECE_CURRICULUM + BSIE_CURRICULUM,
             # "cbaa": BSA_CURRICULUM,
-            # "chas": BSN_CURRICULUM,
+            "chas": BSN_CURRICULUM,
             # "coed": [],
             # "bsp": [],
         }

@@ -11,6 +11,7 @@ from data.sections.ccs.bscs import BSCS_SECTIONS
 from data.sections.coe.bscpe import BSCPE_SECTIONS
 from data.sections.coe.bsece import BSECE_SECTIONS
 from data.sections.coe.bsie import BSIE_SECTIONS
+from data.sections.chas.bsn import BSN_SECTIONS
 
 
 class Command(BaseCommand):
@@ -26,6 +27,7 @@ class Command(BaseCommand):
             {"name": "BSCPE", "data": BSCPE_SECTIONS},
             {"name": "BSECE", "data": BSECE_SECTIONS},
             {"name": "BSIE", "data": BSIE_SECTIONS},
+            {"name": "BSN", "data": BSN_SECTIONS},
             # Add more datasets here as needed
         ]
 

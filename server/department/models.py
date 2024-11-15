@@ -11,7 +11,6 @@ class Department(models.Model):
 
     class Meta:
         db_table = "department"
-        ordering = ["-created_at"]
 
     def soft_delete(self):
         self.is_active = False
