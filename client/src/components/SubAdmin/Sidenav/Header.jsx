@@ -6,13 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import api from "../../../api";
 import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
-
+import PasswordChange from "../../Password/index";
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
   const toggleUser = () => setUserOpen(!isUserOpen);
   const navigate = useNavigate();
 
   const { isSidebarOpen, toggleSidebar } = useSidebar();
+  const [passChange, setPassChange] = useState();
 
   const handleLogout = async () => {
     try {
@@ -25,6 +26,10 @@ const Header = ({ pageName }) => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleChangePassword = () => {
+    setPassChange(!passChange);
   };
 
   return (
@@ -55,11 +60,16 @@ const Header = ({ pageName }) => {
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
         >
           <li>
-            <a href="">Change Password</a>
+             <button className="" onClick={handleChangePassword}>
+              Change Password
+            </button>
           </li>
           <button onClick={handleLogout}>Logout</button>
         </ul>
       </div>
+      {passChange && (
+          <PasswordChange handleChangePassword={handleChangePassword}/>
+        )}
     </div>
   );
 };

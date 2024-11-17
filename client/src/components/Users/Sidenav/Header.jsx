@@ -6,6 +6,7 @@ import { useSidebar } from "./SidenavContext/SidenavContext"; // Import useSideb
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import {jwtDecode} from "jwt-decode";
+import PasswordChange from "../../Password/index";
 
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
@@ -13,6 +14,12 @@ const Header = ({ pageName }) => {
   const navigate = useNavigate();
   const [name, setName] = useState();
   const [token, setToken] = useState(null);
+  const [passChange, setPassChange] = useState();
+
+  const handleChangePassword = () => {
+    setPassChange(!passChange);
+  };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,11 +102,16 @@ const Header = ({ pageName }) => {
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
         >
           <li>
-            <a href="">Change Password</a>
+            <button className="" onClick={handleChangePassword}>
+              Change Password
+            </button>
           </li>
           <button onClick={handleLogout}>Logout</button>
         </ul>
       </div>
+      {passChange && (
+          <PasswordChange handleChangePassword={handleChangePassword}/>
+        )}
     </div>
   );
 };
