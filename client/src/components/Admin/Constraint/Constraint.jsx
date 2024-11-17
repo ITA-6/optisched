@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import api from "../../../api";
-
+import completeMark from "../../../assets/completeMark.png"
+import failedMark from "../../../assets/FailedMark.png"
+import loadingVideo from "../../../assets/loadingVideo.mp4";
 const Constraint = () => {
+
+  
   const [constraints, setConstraints] = useState({
     transition_time: true,
     wait_time: true,
@@ -21,6 +25,8 @@ const Constraint = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [saveConstraint, setSaveConstraint] = useState();
+  const [success, setSuccess] = useState("");
 
   const fetchConstraints = async () => {
     try {
@@ -46,6 +52,8 @@ const Constraint = () => {
   };
 
   const saveConstraints = async () => {
+    setSaveConstraint(true)
+    setLoading(true)
     try {
       await api.put("constraint/", {
         transition_time: constraints.transition_time,
@@ -59,9 +67,15 @@ const Constraint = () => {
         start_time: constraints.schedule.startTime,
         end_time: constraints.schedule.endTime,
       });
-      alert("Constraints updated successfully!");
+      setSuccess("Constraints updated successfully!");
     } catch (error) {
-      alert("Failed to update constraints");
+      
+      setError("Failed to update constraints");
+    }finally{
+      setLoading(false)
+      setTimeout(() => {
+        setSaveConstraint(false)
+      },[5000])
     }
   };
 
@@ -238,6 +252,32 @@ const Constraint = () => {
           </button>
         </div>
       </div>
+      {saveConstraint && (
+         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-1/4 h- rounded-lg bg-white shadow-lg">
+            {loading ? (
+              <div className="flex h-10 flex-col items-center justify-center py-10 bg-white rounded-lg">
+                <video
+                  src={loadingVideo}
+                  autoPlay
+                  loop
+                  className="rounded-lg translate-x-0 transform"
+                />
+              </div>
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
+                <img src={failedMark} alt="" className="w-24" />
+                <p>{error}</p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
+                  <img src={completeMark} alt=""  className="w-24"/>
+                <p>{success}</p>
+              </div>
+            )}
+          </div>
+       </div>
+      )}
     </div>
   );
 };
