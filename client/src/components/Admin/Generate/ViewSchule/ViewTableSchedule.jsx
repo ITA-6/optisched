@@ -1,8 +1,6 @@
 import React from 'react'
 import ViewTableRow from "./ViewTableRow"
 const ViewTableSchedule = ({sectionArray}) => {
-
-  console.log(sectionArray)
   return (
     <table className="h-full w-full table-fixed mb-10 lg:table-auto">
         <thead>

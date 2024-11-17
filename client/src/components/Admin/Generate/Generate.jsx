@@ -8,13 +8,13 @@ import PrintModal from "./ViewSchule/PrintModal";
 import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import completeMark from "../../../assets/completeMark.png"
+import failedMark from "../../../assets/FailedMark.png"
 const Generate = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { isSidebarOpen } = useSidebar();
   const [scheduleData, setScheduleData] = useState([]);
-
   const [selectedDepartment, setSelectedDepartment] = useState(1);
   const [department, setDepartment] = useState([]);
   const [programs, setPrograms] = useState([]);
@@ -23,7 +23,9 @@ const Generate = () => {
   const [printModalOpen, setPrintModalOpen] = useState(false);
   const [schedules, setSchedules] = useState([]);
   const [isGenerateClicked, setIsGenerateClicked] = useState();
-
+  const [saveSchedule, setSaveSchedule] = useState();
+  const [loadingModal,setLoadingModal] = useState();
+  const [success, setSuccess] = useState("");
   const togglePrintModal = () => {
     setPrintModalOpen(!printModalOpen);
   };
@@ -115,15 +117,20 @@ const Generate = () => {
   };
 
   const handleConfirmSchedule = async () => {
-    setLoading(true); // Show loading screen
+    setSaveSchedule(true)
+    setLoadingModal(true);
     setError(null);
     try {
       await api.post("schedule/generate/", { schedule_data: scheduleData }); // API request to confirm and save schedule
-      alert("Schedule confirmed and saved!");
+      setSuccess("Schedule has been Saved!")
     } catch (err) {
-      setError("Error confirming schedule");
+      console.error("Error generating schedule:", err);
+      setError("Failed to save the Schedule");
     } finally {
-      setLoading(false); // Hide loading screen
+      setLoadingModal(false)
+      setTimeout(() => {
+        setSaveSchedule(false)
+      },[3000])
     }
   };
 
@@ -184,8 +191,6 @@ const Generate = () => {
             )}
           </div>
 
-          {error && <p className="text-red-500">{error}</p>}
-
           <div className="flex min-h-screen gap-x-2 sm:w-full md:text-base lg:text-lg xl:text-xl xm:ml-4 xm:text-xs">
             <div className="flex flex-1 flex-col overflow-x-auto">
               <GenerateTableHeaders
@@ -234,6 +239,32 @@ const Generate = () => {
               togglePrintModal={togglePrintModal}
               filterScheduleSections={filterScheduleSections}
             />
+          )}
+          {saveSchedule && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="w-1/4 h- rounded-lg bg-white shadow-lg">
+                {loadingModal ? (
+                  <div className="flex h-10 flex-col items-center justify-center py-10 bg-white rounded-lg">
+                    <video
+                      src={loadingVideo}
+                      autoPlay
+                      loop
+                      className="rounded-lg translate-x-0 transform"
+                    />
+                  </div>
+                ) : error ? (
+                  <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
+                    <img src={failedMark} alt="" className="w-24" />
+                    <p>{error}</p>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
+                     <img src={completeMark} alt=""  className="w-24"/>
+                    <p>{success}</p>
+                  </div>
+                )}
+              </div>
+            </div>
           )}
         </div>
       )}
