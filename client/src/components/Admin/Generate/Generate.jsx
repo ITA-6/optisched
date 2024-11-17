@@ -170,7 +170,7 @@ const Generate = () => {
                 </button>
               </div>
             )}
-            {data !== 0 && (
+            {data.length !== 0 && (
               <div className="flex items-center justify-end py-10">
               <button className="rounded-md px-4 py-2 text-base font-bold text-white">
                 <FontAwesomeIcon

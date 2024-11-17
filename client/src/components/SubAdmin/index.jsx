@@ -13,17 +13,24 @@ const SubAdmin = () => {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
 
-    if (token === null) {
-      navigate("/");
+    if (!token) {
+      // If no token, redirect to login page
+      navigate("/", { replace: true });
     } else {
-      const decodedToken = jwtDecode(token);
-      if (decodedToken.user_type === "D" || decodedToken.user_type === "DC") {
-        navigate("/sub-admin");
-      } else {
-        navigate("/unauthorized");
+      try {
+        const decodedToken = jwtDecode(token);
+
+        if (decodedToken.user_type !== "D" && decodedToken.user_type !== "DC") {
+          // If user is not authorized for SubAdmin, redirect to unauthorized page
+          navigate("/unauthorized", { replace: true });
+        }
+        // Otherwise, allow access and stay on the current page
+      } catch (error) {
+        console.error("Invalid token:", error);
+        navigate("/", { replace: true }); // Redirect to login if token is invalid
       }
     }
-  },[]);
+  }, [navigate]);
 
   const getPageName = (path) => {
     switch (path) {
@@ -35,7 +42,7 @@ const SubAdmin = () => {
       case "/sub-admin/management/classroom":
         return "MANAGE CLASSROOM";
       case "/admin/management/section":
-        return "Manage Sections";
+        return "Manage SECTION";
       case "/sub-admin/management/course":
         return "MANAGE COURSE";
       case "/sub-admin/management/building":

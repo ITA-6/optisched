@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Sidenav/Header";
 import Sidenav from "./Sidenav/Sidenav";
 import { useEffect } from "react";
-import {jwtDecode }from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 const Users = () => {
   const location = useLocation();
@@ -12,22 +12,30 @@ const Users = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    console.log(jwtDecode(token).user_type)
+
     if (!token) {
-      navigate("/");
+      // If no token, redirect to login page
+      navigate("/", { replace: true });
     } else {
-      const decodedToken = jwtDecode(token);
-      
-      if (decodedToken.user_type === "P") {
-        navigate("/user");
-      } else if(decodedToken.user_type === "VPAA"){
-        navigate("/user/vpaa");
-      }
-      else {
-        navigate("/unauthorized");
+      try {
+        const decodedToken = jwtDecode(token);
+
+        // Handle different user types
+        if (decodedToken.user_type === "P") {
+          navigate("/user", { replace: true });
+        } else if (decodedToken.user_type === "VPAA") {
+          navigate("/user/vpaa", { replace: true });
+        } else if (!["P", "VPAA", "Admin"].includes(decodedToken.user_type)) {
+          // If user type is not authorized
+          navigate("/unauthorized", { replace: true });
+        }
+        // Otherwise, stay on the current page for Admin or other valid users
+      } catch (error) {
+        console.error("Invalid token:", error);
+        navigate("/", { replace: true }); // Redirect to login if token is invalid
       }
     }
-  },[]);
+  }, [navigate]);
 
   const getPageName = (path) => {
     switch (path) {
@@ -54,8 +62,6 @@ const Users = () => {
         return "Manage Courses";
       case "/admin/management/program":
         return "Manage Programs";
-      case "/admin/generated/":
-        return "Generate Schedule";
       default:
         // Check if path matches dynamic route pattern
         if (generatedPattern.test(path)) {
