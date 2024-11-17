@@ -1,4 +1,6 @@
 import user from "../../../../../assets/user.png";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 const ProfessorForm = ({
   toggleModal,
@@ -51,10 +53,13 @@ const ProfessorForm = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative w-2/4 rounded-lg bg-white shadow-lg">
+      <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-          <img src={user} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
-          <h2 className="ml-2 text-3xl font-extrabold">
+          <FontAwesomeIcon
+            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+            icon={faUser}
+           />
+          <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             {initialData ? "Update Professor" : "Create New Professor"}
           </h2>
         </div>
@@ -66,19 +71,24 @@ const ProfessorForm = ({
                 htmlFor="mail"
                 className="text-lg font-medium text-gray-700"
               >
-                Professor ID
+                Professor ID *
                 <span
                   className={`${errorMessage.prof_id && errors ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
                 >
                   {" "}
-                  * Professor ID is Taken
+                  Professor ID is Taken
                 </span>
               </label>
               <input
                 type="number"
                 id="professorID"
                 value={professorId}
-                onChange={(e) => setProfessorId(e.target.value)}
+                onChange={(e) => {
+                  // Ensure value is not more than 7 digits
+                  const value = e.target.value.slice(0, 7);
+                  setProfessorId(value);
+                }}
+                max={9999999} // Allows up to 7 digits
                 className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errorMessage.prof_id && errors ? "border-red-500 outline-none duration-300 ease-in-out" : ""}`}
                 required
               />
@@ -93,7 +103,7 @@ const ProfessorForm = ({
                     htmlFor="firstname"
                     className="block text-sm font-medium text-gray-600"
                   >
-                    Firstname
+                    Firstname *
                   </label>
                   <input
                     type="text"
@@ -124,7 +134,7 @@ const ProfessorForm = ({
                     htmlFor="lastname"
                     className="block text-sm font-medium text-gray-600"
                   >
-                    Lastname
+                    Lastname *
                   </label>
                   <input
                     type="text"
@@ -145,7 +155,7 @@ const ProfessorForm = ({
                   htmlFor="gender"
                   className="text-lg font-medium text-gray-700"
                 >
-                  Gender
+                  Gender *
                 </label>
                 <select
                   id="gender"
@@ -167,7 +177,7 @@ const ProfessorForm = ({
                   htmlFor="birthdate"
                   className="text-lg font-medium text-gray-700"
                 >
-                  Birthdate
+                  Birthdate *
                 </label>
                 <input
                   className="rounded-md border border-gray-300 p-2"
@@ -186,7 +196,7 @@ const ProfessorForm = ({
                 htmlFor="employmentStatus"
                 className="text-lg font-medium text-gray-700"
               >
-                Employment Status
+                Employment Status *
               </label>
               <select
                 name="employmentStatus"
@@ -211,7 +221,7 @@ const ProfessorForm = ({
                 htmlFor="mail"
                 className="text-lg font-medium text-gray-700"
               >
-                Email Address
+                Email Address *
                 <span
                   className={`${errors && errorMessage.email ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
                 >
@@ -236,7 +246,7 @@ const ProfessorForm = ({
                   htmlFor="masteral"
                   className="text-lg font-medium text-gray-700"
                 >
-                  Masteral
+                  Masteral *
                 </label>
                 <select
                   id="masteral"
@@ -255,13 +265,13 @@ const ProfessorForm = ({
             </div>
 
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
-              <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
-                <span>Confirm</span>
+              <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
+                <span className="text-white xm:text-xs font-bold">Confirm</span>
               </button>
             </div>
           </form>
           <button
-            className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
+            className="absolute right-4 top-4 rounded-full bg-red-500 px-1 text-white"
             onClick={toggleModal}
           >
             &times;

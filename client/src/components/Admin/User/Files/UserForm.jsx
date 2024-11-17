@@ -1,5 +1,6 @@
 import user from "../../../../assets/user.png";
-
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 
 const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage, errors }) => {
@@ -46,13 +47,12 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 sm:overflow-auto xm:overflow-auto">
-      <div className="relative w-2/4 rounded-lg bg-white shadow-lg">
+      <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-          <img
-            src={user}
-            alt=""
-            className="m-3 mr-4 h-[30px] w-[30px] sm:h-[1.7em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em]"
-          />
+          <FontAwesomeIcon
+            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+            icon={faUser}
+           />
           <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             Create New User
           </h2>
@@ -65,17 +65,22 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 htmlFor="mail"
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
-                Professor ID
+                User ID *
                 <span className={`${errorMessage.user_id && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Professor ID is Taken</span>
               </label>
               <input
-                type="number"
-                id="professorID"
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 md:text-base xm:p-1 xm:text-xs"
-                value={professorId}
-                onChange={(e) => setProfessorId(e.target.value)}
-                required
-              />
+              type="number"
+              id="professorID"
+              className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 md:text-base xm:p-1 xm:text-xs"
+              value={professorId}
+              onChange={(e) => {
+                // Ensure value is not more than 7 digits
+                const value = e.target.value.slice(0, 7);
+                setProfessorId(value);
+              }}
+              max={9999999} // Allows up to 7 digits
+              required
+            />
             </div>
             {/* Role Field */}
             <div className="flex flex-col sm:text-sm md:text-base xm:text-xs">
@@ -83,7 +88,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 htmlFor="role"
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
-                Role
+                Role *
                 <span className={`${errorMessage.user_type && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Please Select a  valid Role</span>
               </label>
               <select
@@ -92,6 +97,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 className="rounded-md border border-gray-300 p-2 sm:p-1 md:p-2 xm:rounded-md xm:p-1"
                 onChange={(e) => setRole(e.target.value)}
                 value={role}
+                required
               >
                 <option value="">Select Role</option>
                 <option value="DC">Department Chair</option>
@@ -114,7 +120,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                     htmlFor="firstname"
                     className="block text-sm font-medium text-gray-600 sm:text-sm md:text-base xm:text-xs"
                   >
-                    Firstname
+                    Firstname *
                   </label>
                   <input
                     type="text"
@@ -145,7 +151,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                     htmlFor="lastname"
                     className="block text-sm font-medium text-gray-600 sm:text-sm md:text-base xm:text-xs"
                   >
-                    Lastname
+                    Lastname *
                   </label>
                   <input
                     type="text"
@@ -165,7 +171,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 htmlFor="mail"
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
-                Email Address
+                Email Address *
                 <span className={`${errorMessage.email && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Email is Taken</span>
               </label>
               <input
@@ -184,7 +190,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 htmlFor="birthdate"
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
-                Birthdate
+                Birthdate *
               </label>
               <input
                 className="rounded-md border border-gray-300 p-2 sm:p-1 xm:p-1"
@@ -193,6 +199,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 id="birthdate"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
+                required
               />
             </div>
 
@@ -202,7 +209,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                   htmlFor="department"
                   className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
                 >
-                  Department
+                  Department *
                 </label>
                 <select
                   id="department"
@@ -229,7 +236,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
             </div>
           </form>
           <button
-            className="absolute right-4 top-4 rounded-full bg-red-500 px-2 text-white"
+            className="absolute right-4 top-4 rounded-full bg-red-500 px-1 text-white"
             onClick={toggleModal}
           >
             &times;

@@ -1,6 +1,7 @@
 import course from "../../../../../assets/course.png";
 import { useState, useEffect } from "react";
-
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const BuildingForm = ({ handler, initialData, toggleModal, errorMessage }) => {
   const [name, setName] = useState("");
   const [totalRooms, setTotalRooms] = useState("");
@@ -27,10 +28,13 @@ const BuildingForm = ({ handler, initialData, toggleModal, errorMessage }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative w-2/4 rounded-lg bg-white shadow-lg">
+      <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-          <img src={course} alt="" className="m-3 mr-4 h-[30px] w-[30px]" />
-          <h2 className="ml-2 text-3xl font-extrabold">
+          <FontAwesomeIcon
+            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+            icon={faBuilding}
+           />
+          <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             {initialData ? "Update Building" : "Create New Building"}
           </h2>
         </div>
@@ -39,7 +43,7 @@ const BuildingForm = ({ handler, initialData, toggleModal, errorMessage }) => {
             {/* Building Name Field with Error Handling */}
             <div className="flex flex-1 flex-col">
               <label htmlFor="BuildingName" className="text-lg font-medium">
-                Building Name
+                Building Name *
               </label>
               <input
                 type="text"
@@ -61,7 +65,7 @@ const BuildingForm = ({ handler, initialData, toggleModal, errorMessage }) => {
             {/* Total Rooms Field */}
             <div className="flex flex-1 flex-col">
               <label htmlFor="totalRooms" className="text-lg font-medium">
-                Total Rooms
+                Total Rooms *
               </label>
               <input
                 type="number"
@@ -83,7 +87,7 @@ const BuildingForm = ({ handler, initialData, toggleModal, errorMessage }) => {
             {/* Available Rooms Field */}
             <div className="flex flex-1 flex-col">
               <label htmlFor="availableRooms" className="text-lg font-medium">
-                Available Rooms
+                Available Rooms *
               </label>
               <input
                 type="number"
@@ -103,13 +107,13 @@ const BuildingForm = ({ handler, initialData, toggleModal, errorMessage }) => {
             </div>
 
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
-              <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl border-2 border-black bg-green">
-                <span>Confirm</span>
+              <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
+                <span className="text-white xm:text-xs font-bold">Confirm</span>
               </button>
             </div>
           </form>
           <button
-            className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white"
+            className="absolute right-4 top-4 rounded-full bg-red-500 px-1 text-white"
             onClick={toggleModal}
           >
             &times;
