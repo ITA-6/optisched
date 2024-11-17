@@ -6,9 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import api from "../../../api";
 import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
-
+import PasswordChange from "../../Password/index";
 const Header = ({ pageName }) => {
   const [isUserOpen, setUserOpen] = useState(false);
+  const [passChange, setPassChange] = useState();
   const toggleUser = () => setUserOpen(!isUserOpen);
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const Header = ({ pageName }) => {
   };
 
   const handleChangePassword = () => {
-    navigate("changepassword");
+    setPassChange(!passChange);
   };
 
   return (
@@ -36,7 +37,9 @@ const Header = ({ pageName }) => {
       className={`sm: xl: fixed top-0 z-10 flex w-screen items-center justify-between bg-green font-noto shadow-outerShadow`}
     >
       <h1
-        className={`xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
+        className={`xl: m-1 ml-[18.5em] text-base font-bold text-white sm:hidden lg:inline xm:hidden ${
+          isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"
+        } duration-200 ease-linear`}
       >
         {pageName}
       </h1>
@@ -56,7 +59,9 @@ const Header = ({ pageName }) => {
           />
         </button>
         <ul
-          className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
+          className={`${
+            isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"
+          } grid items-center justify-center rounded-md bg-white`}
         >
           <li>
             <button className="" onClick={handleChangePassword}>
@@ -66,6 +71,9 @@ const Header = ({ pageName }) => {
           <button onClick={handleLogout}>Logout</button>
         </ul>
       </div>
+      {passChange && (
+          <PasswordChange handleChangePassword={handleChangePassword}/>
+        )}
     </div>
   );
 };
