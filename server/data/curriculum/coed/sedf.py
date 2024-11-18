@@ -25,16 +25,16 @@ SEDF_CURRICULUM = [
     "semester": "SECOND_SEMESTER",
     "year_level": 1,
     "courses": [
-    {"course": "GAD101"},  # Gender and Development
-    {"course": "HIS101"},  # Readings in Philippine History
-    {"course": "HMN101"},  # Art Appreciation
-    {"course": "COM101"},  # Purposive Communication
-    {"course": "CED101"},  # The Child and Adolescent Learners and Learning Principles
-    {"course": "CED103"},  # The Teacher and the Community, School Culture, and Organizational Leadership
-    {"course": "SFM103"},  # Ang Filipino sa Kurikulum ng Batayang Edukasyon
-    {"course": "PHD102"},  # PnCians Holistic Development
-    {"course": "PED102"},  # PATHFit 2: Exercise-Based Fitness Activities
-    {"course": "NSTP2"}  # National Service Training Program 2
+        {"course": "GAD101"},  # Gender and Development
+        {"course": "HIS101"},  # Readings in Philippine History
+        {"course": "HMN101"},  # Art Appreciation
+        {"course": "COM101"},  # Purposive Communication
+        {"course": "CED101"},  # The Child and Adolescent Learners and Learning Principles
+        {"course": "CED103"},  # The Teacher and the Community, School Culture, and Organizational Leadership
+        {"course": "SFM103"},  # Ang Filipino sa Kurikulum ng Batayang Edukasyon
+        {"course": "PHD102"},  # PnCians Holistic Development
+        {"course": "PED102"},  # PATHFit 2: Exercise-Based Fitness Activities
+        {"course": "NSTP2"}  # National Service Training Program 2
 
     ]
 },
