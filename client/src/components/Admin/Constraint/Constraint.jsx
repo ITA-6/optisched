@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import api from "../../../api";
-import completeMark from "../../../assets/completeMark.png"
-import failedMark from "../../../assets/FailedMark.png"
+import completeMark from "../../../assets/completeMark.png";
+import failedMark from "../../../assets/FailedMark.png";
 import loadingVideo from "../../../assets/loadingVideo.mp4";
-const Constraint = () => {
 
-  
+const Constraint = () => {
   const [constraints, setConstraints] = useState({
-    transition_time: true,
-    wait_time: true,
-    daily_teaching_limit: true,
-    room_occupancy: true,
-    laboratory_sessions: true,
+    transition_time_value: 30, // Added default for transition time value
+    wait_time_value: 6, // Added default for wait time value
+    teaching_time_value: 6, // Added default for teaching time value
     employment_workload: {
       permanent: 0,
       temporary: 0,
@@ -52,15 +49,13 @@ const Constraint = () => {
   };
 
   const saveConstraints = async () => {
-    setSaveConstraint(true)
-    setLoading(true)
+    setSaveConstraint(true);
+    setLoading(true);
     try {
       await api.put("constraint/", {
-        transition_time: constraints.transition_time,
-        wait_time: constraints.wait_time,
-        daily_teaching_limit: constraints.daily_teaching_limit,
-        room_occupancy: constraints.room_occupancy,
-        laboratory_sessions: constraints.laboratory_sessions,
+        transition_time_value: constraints.transition_time_value,
+        wait_time_value: constraints.wait_time_value,
+        teaching_time_value: constraints.teaching_time_value,
         permanent_workload: constraints.employment_workload.permanent,
         temporary_workload: constraints.employment_workload.temporary,
         part_time_workload: constraints.employment_workload.partTime,
@@ -69,26 +64,18 @@ const Constraint = () => {
       });
       setSuccess("Constraints updated successfully!");
     } catch (error) {
-      
       setError("Failed to update constraints");
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
       setTimeout(() => {
-        setSaveConstraint(false)
-      },[5000])
+        setSaveConstraint(false);
+      }, [5000]);
     }
   };
 
   useEffect(() => {
     fetchConstraints();
   }, []);
-
-  const handleCheckboxChange = (key) => {
-    setConstraints((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
 
   const handleNumberChange = (type, value) => {
     setConstraints((prev) => ({
@@ -110,18 +97,6 @@ const Constraint = () => {
     }));
   };
 
-  const ToggleSwitch = ({ isChecked, onChange }) => (
-    <label className="inline-flex cursor-pointer items-center">
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={onChange}
-        className="peer sr-only"
-      />
-      <div className="relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all peer-checked:bg-dark-green peer-checked:after:translate-x-full peer-focus:ring-4 peer-focus:ring-dark-green dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-dark-green"></div>
-    </label>
-  );
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -135,58 +110,74 @@ const Constraint = () => {
       <div className="w-full max-w-4xl space-y-8 p-8">
         <div className="ml-20 mt-10 rounded-lg bg-white p-6 shadow-lg sm:ml-0 xm:ml-0">
           <h2 className="mb-6 text-xl font-semibold text-dark-green">
-            <b>General Constraints</b>
+            <b>Scheduling Constraints</b>
           </h2>
 
-          {/* General Constraints */}
+          {/* Scheduling Constraints */}
           <div className="mb-4 flex items-center justify-between">
             <span>
-              <b>Transition Time:</b> Minimum of 30 minutes to 1 hour for
-              transitions between rooms.
+              <b>Transition Time:</b>
+              <input
+                type="number"
+                min="30"
+                max="60"
+                step="1"
+                className="ml-2 rounded border px-2 py-1"
+                value={constraints.transition_time_value || ""}
+                onChange={(e) =>
+                  setConstraints((prev) => ({
+                    ...prev,
+                    transition_time_value: Number(e.target.value),
+                  }))
+                }
+              />{" "}
+              minutes transition time between rooms.
             </span>
-            <ToggleSwitch
-              isChecked={constraints.transition_time}
-              onChange={() => handleCheckboxChange("transition_time")}
-            />
           </div>
+
           <div className="mb-4 flex items-center justify-between">
             <span>
-              <b>Wait Time:</b> Maximum wait time of 6 hours between courses.
+              <b>Wait Time:</b> Maximum wait time of{" "}
+              <input
+                type="number"
+                className="ml-2 w-20 rounded border px-2 py-1"
+                value={constraints.wait_time_value || ""}
+                onChange={(e) =>
+                  setConstraints((prev) => ({
+                    ...prev,
+                    wait_time_value: Number(e.target.value),
+                  }))
+                }
+              />{" "}
+              hours between courses.
             </span>
-            <ToggleSwitch
-              isChecked={constraints.wait_time}
-              onChange={() => handleCheckboxChange("wait_time")}
-            />
           </div>
+
           <div className="mb-4 flex items-center justify-between">
             <span>
-              <b>Daily Teaching Limit:</b> Maximum of 6 teaching hours per day.
+              <b>Daily Teaching Limit:</b> Maximum of{" "}
+              <input
+                type="number"
+                className="ml-2 w-20 rounded border px-2 py-1"
+                value={constraints.teaching_time_value || ""}
+                onChange={(e) =>
+                  setConstraints((prev) => ({
+                    ...prev,
+                    teaching_time_value: Number(e.target.value),
+                  }))
+                }
+              />{" "}
+              teaching hours per day.
             </span>
-            <ToggleSwitch
-              isChecked={constraints.daily_teaching_limit}
-              onChange={() => handleCheckboxChange("daily_teaching_limit")}
-            />
           </div>
-          <div className="mb-4 flex items-center justify-between">
-            <span>
-              <b>Room Occupancy:</b> Classrooms should not remain empty for
-              extended periods.
-            </span>
-            <ToggleSwitch
-              isChecked={constraints.room_occupancy}
-              onChange={() => handleCheckboxChange("room_occupancy")}
-            />
-          </div>
+
           <div className="mb-4 flex items-center justify-between">
             <span>
               <b>Laboratory Sessions:</b> Classrooms with laboratory sessions
-              must be located in the same building or area as the next scheduled
+              must be <br />
+              located in the same building or area as the next scheduled
               session.
             </span>
-            <ToggleSwitch
-              isChecked={constraints.laboratory_sessions}
-              onChange={() => handleCheckboxChange("laboratory_sessions")}
-            />
           </div>
 
           {/* Employment Position Workload */}
@@ -253,30 +244,30 @@ const Constraint = () => {
         </div>
       </div>
       {saveConstraint && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-1/4 h- rounded-lg bg-white shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="h- w-1/4 rounded-lg bg-white shadow-lg">
             {loading ? (
-              <div className="flex h-10 flex-col items-center justify-center py-10 bg-white rounded-lg">
+              <div className="flex h-10 flex-col items-center justify-center rounded-lg bg-white py-10">
                 <video
                   src={loadingVideo}
                   autoPlay
                   loop
-                  className="rounded-lg translate-x-0 transform"
+                  className="translate-x-0 transform rounded-lg"
                 />
               </div>
             ) : error ? (
-              <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
+              <div className="flex flex-col items-center justify-center rounded-lg bg-white py-10 duration-75 ease-in-out">
                 <img src={failedMark} alt="" className="w-24" />
                 <p>{error}</p>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
-                  <img src={completeMark} alt=""  className="w-24"/>
+              <div className="flex flex-col items-center justify-center rounded-lg bg-white py-10 duration-75 ease-in-out">
+                <img src={completeMark} alt="" className="w-24" />
                 <p>{success}</p>
               </div>
             )}
           </div>
-       </div>
+        </div>
       )}
     </div>
   );
