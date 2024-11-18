@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from program.models import Program
@@ -8,14 +8,28 @@ from program.serializers import ProgramSerializer
 
 
 class ProgramAPIView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+        user = request.user
+        user_privilege = user.get_privilege()
+
         if pk:
+            # Handle single program retrieval
             try:
                 program = Program.objects.get(pk=pk)
+
+                # Check access permissions for sub_admin
+                if (
+                    user_privilege == "sub_admin"
+                    and program.department != user.department
+                ):
+                    return Response(
+                        {"error": "You do not have permission to access this program."},
+                        status=status.HTTP_403_FORBIDDEN,
+                    )
+
                 serializer = ProgramSerializer(program)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except Program.DoesNotExist:
@@ -24,18 +38,36 @@ class ProgramAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
-            programs = Program.objects.all()
+            # Handle all programs retrieval
+            if user_privilege == "admin":
+                programs = Program.objects.all()
+            elif user_privilege == "sub_admin":
+                programs = Program.objects.filter(department=user.department)
+            else:
+                return Response(
+                    {"error": "You do not have permission to view programs."},
+                    status=status.HTTP_403_FORBIDDEN,
+                )
+
             serializer = ProgramSerializer(programs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        # Ensure department exists
+        department = request.user.department.id
+        if not self.is_valid_department(department):
+            return Response(
+                {"error": "Department not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        request.data["department"] = department
         serializer = ProgramSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
         data = {"message": "Program has been created.", "data": serializer.data}
         return Response(data, status=status.HTTP_201_CREATED)
-    
+
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
         # Retrieve the existing instance of Building

@@ -9,4 +9,4 @@ class ProgramSerializer(serializers.ModelSerializer):
     class Meta:
         model = Program
 
-        fields = ["id", "name", "department", "department_name"]
+        fields = ["id", "name", "acronym", "department", "department_name"]
