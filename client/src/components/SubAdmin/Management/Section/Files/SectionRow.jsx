@@ -2,7 +2,9 @@ const SectionRow = ({toggleDialog, filteredSections, openUpdate}) => {
     const hasData = filteredSections.label && filteredSections.year_level
   return (
     <tr key={filteredSections.id} className="h-16">
-       <td className="border-y-2 border-gray-200">{filteredSections.label}</td>
+        <td className="border-y-2 border-gray-200">{filteredSections.label}</td>
+        <td className="border-y-2 border-gray-200">TBA</td>
+        <td className="border-y-2 border-gray-200">TBA</td>
         <td className="border-y-2 border-gray-200">{filteredSections.year_level}</td>
         <td className="border-y-2 border-gray-200">{filteredSections.adviser}</td>
         <td className="border-y-2 border-gray-200">

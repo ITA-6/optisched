@@ -4,6 +4,8 @@ const ClassroomRow = ({ toggleDialog, filteredClassrooms, openUpdate }) => {
     <>
       <tr key={filteredClassrooms.id} className="h-16">
         <td className="border border-gray-100">{filteredClassrooms.building_name}</td>
+        <td className="border border-gray-100">TBA</td>
+        <td className="border border-gray-100">TBA</td>
         <td className="border border-gray-100">{filteredClassrooms.number}</td>
         <td className="border border-gray-100"> {filteredClassrooms.floor}</td>
         <td className="border border-gray-100">

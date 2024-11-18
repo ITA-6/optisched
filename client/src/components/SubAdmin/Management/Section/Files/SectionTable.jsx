@@ -38,6 +38,12 @@ const SectionTable = ({ toggleDialog, filteredSections, openUpdate }) => {
             Label
           </th>
           <th scope="col" className="border border-white">
+            Program
+          </th>
+          <th scope="col" className="border border-white">
+            Department
+          </th>
+          <th scope="col" className="border border-white">
             Year Level
           </th>
           <th scope="col" className="border border-white">
