@@ -11,12 +11,12 @@ const ProgramForms = ({
   errorMessage,
 }) => {
   const [program, setProgram] = useState("");
-  const [department, setDepartment] = useState("");
+  const [acronym, setAcronym] = useState("");
 
   useEffect(() => {
     if (initialData) {
       setProgram(initialData.name || "");
-      setDepartment(initialData.department || "");
+      setAcronym(initialData.acronym || "");
     }
   }, [initialData]);
 
@@ -24,7 +24,7 @@ const ProgramForms = ({
     e.preventDefault();
     const programData = {
       name: program,
-      department: department,
+      acronym: acronym,
     };
     if (initialData) programData.id = initialData.id;
     handler(programData);
@@ -47,7 +47,8 @@ const ProgramForms = ({
             {/* Program Name Field with Error Handling */}
             <div className="flex flex-1 flex-col">
               <label htmlFor="programName" className="text-lg font-medium">
-                Program Name *
+                Program Name
+                <span className="text-red-700 ml-1">*</span>
               </label>
               <input
                 type="text"
@@ -66,33 +67,29 @@ const ProgramForms = ({
               )}
             </div>
 
-            {/* Department Select Field with Error Handling */}
             <div className="flex flex-1 flex-col">
-              <label htmlFor="departmentName" className="text-lg font-medium">
-                Department *
+              <label htmlFor="programName" className="text-lg font-medium">
+                Acronym
+                <span className="text-red-700 ml-1">*</span>
               </label>
-              <select
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                className={`w-full rounded-md border p-2 ${errorMessage?.department ? "border-red-500" : "border-gray-300"}`}
+              <input
+                type="text"
+                id="acronym"
+                name="acronym"
+                placeholder="Acronym"
+                value={acronym}
+                onChange={(e) => setAcronym(e.target.value)}
+                className={`rounded-md border p-2 ${errorMessage?.acronym ? "border-red-500" : "border-gray-300"}`}
                 required
-              >
-                <option disabled value="">
-                  Select Department
-                </option>
-                {departments?.map((department) => (
-                  <option key={department.id} value={department.id}>
-                    {department.name}
-                  </option>
-                ))}
-              </select>
-              {errorMessage?.department && (
+              />
+              {errorMessage?.acronym && (
                 <span className="ml-2 text-sm text-red-500">
-                  {errorMessage.department[0]}
+                  {errorMessage.acronym[0]}
                 </span>
               )}
             </div>
 
+            
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
                 <span className="font-bold text-white xm:text-xs">Confirm</span>

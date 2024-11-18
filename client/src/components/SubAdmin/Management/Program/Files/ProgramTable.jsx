@@ -38,6 +38,9 @@ const ProgramTable = ({ toggleDialog, filteredPrograms, openUpdate }) => {
             Program Name
           </th>
           <th scope="col" className="border border-white">
+            Acronym
+          </th>
+          <th scope="col" className="border border-white">
             Department
           </th>
           <th className="border border-white"></th>

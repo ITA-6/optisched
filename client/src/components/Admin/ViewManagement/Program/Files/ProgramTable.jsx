@@ -40,6 +40,9 @@ const ProgramTable = ({filteredPrograms}) => {
             Program Name
           </th>
           <th scope="col" className="border border-white">
+            Acronym
+          </th>
+          <th scope="col" className="border border-white">
             Department
           </th>
         </tr>
