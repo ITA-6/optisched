@@ -55,10 +55,6 @@ class ProgramAPIView(APIView):
     def post(self, request, *args, **kwargs):
         # Ensure department exists
         department = request.user.department.id
-        if not self.is_valid_department(department):
-            return Response(
-                {"error": "Department not found"}, status=status.HTTP_404_NOT_FOUND
-            )
 
         request.data["department"] = department
         serializer = ProgramSerializer(data=request.data)
