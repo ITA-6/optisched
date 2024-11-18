@@ -35,7 +35,7 @@ const Users = () => {
         navigate("/", { replace: true }); // Redirect to login if token is invalid
       }
     }
-  }, [navigate]);
+  }, []);
 
   const getPageName = (path) => {
     switch (path) {

@@ -54,13 +54,13 @@ const Sidenav = () => {
                 <li className="w-full">
                   <Link to="professor/generate" className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200">
                     <FontAwesomeIcon icon={faGears} className={`${!isSidebarOpen ? "xm:hidden sm:hidden lg:flex" : ""}`} />
-                    <span className={`text-sidenavTextSize ml-3 ${((!isHoverOn && isSidebarOpen) || isHoverOn) ? "flex" : "hidden"}`}>Generate</span>
+                    <span className={`text-sidenavTextSize ml-3 ${((!isHoverOn && isSidebarOpen) || isHoverOn) ? "flex" : "hidden"}`}>Schedule</span>
                   </Link>
                 </li>
                 <li className="w-full">
                   <Link to="professor/schedule" className="flex w-full items-center rounded-lg px-2 py-2 hover:bg-gray-200">
                     <FontAwesomeIcon icon={faBarsProgress} className={`${!isSidebarOpen ? "xm:hidden sm:hidden lg:flex" : ""}`} />
-                    <span className={`text-sidenavTextSize ml-5 ${((!isHoverOn && isSidebarOpen) || isHoverOn) ? "flex" : "hidden"}`}>Schedule</span>
+                    <span className={`text-sidenavTextSize ml-5 ${((!isHoverOn && isSidebarOpen) || isHoverOn) ? "flex" : "hidden"}`}>Weekly Schedule</span>
                   </Link>
                 </li>
               </>
