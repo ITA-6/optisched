@@ -11,6 +11,8 @@ from data.professors.ccs import CCS_PROFESSORS
 from data.professors.coe import COE_PROFESSORS
 from data.professors.coed import COED_PROFESSORS
 from data.professors.chas import CHAS_PROFESSORS
+from data.professors.cbaa import CBAA_PROFESSORS
+from data.professors.cas import CAS_PROFESSORS
 
 
 class Command(BaseCommand):
@@ -23,6 +25,8 @@ class Command(BaseCommand):
             {"name": "COE", "data": COE_PROFESSORS},
             {"name": "COED", "data": COED_PROFESSORS},
             {"name": "CHAS", "data": CHAS_PROFESSORS},
+            {"name": "CBAA", "data": CBAA_PROFESSORS},
+            {"name": "CAS", "data": CAS_PROFESSORS},
         ]
 
         # Process each dataset

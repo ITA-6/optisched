@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 
 from building.models import Building
 from room.models import Room
@@ -9,8 +9,7 @@ from room.serializers import RoomSerializer
 
 
 class RoomAPIView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
@@ -25,11 +24,13 @@ class RoomAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
-            rooms = Room.objects.all()
+            rooms = Room.objects.filter(is_active=True)
             serializer = RoomSerializer(rooms, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        department_id = request.user.department.id
+        request.data["department"] = department_id
         serializer = RoomSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -62,6 +63,8 @@ class RoomAPIView(APIView):
 
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+        department_id = request.user.department.id
+        request.data["department"] = department_id
         # Retrieve the existing instance of Building
         try:
             course = Room.objects.get(pk=pk)

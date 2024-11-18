@@ -3,9 +3,15 @@ const ClassroomRow = ({ toggleDialog, filteredClassrooms, openUpdate }) => {
   return (
     <>
       <tr key={filteredClassrooms.id} className="h-16">
-        <td className="border border-gray-100">{filteredClassrooms.building_name}</td>
-        <td className="border border-gray-100">TBA</td>
-        <td className="border border-gray-100">TBA</td>
+        <td className="border border-gray-100">
+          {filteredClassrooms.building_name}
+        </td>
+        <td className="border border-gray-100">
+          {filteredClassrooms.department_name ?? "TBA"}
+        </td>
+        <td className="border border-gray-100">
+          {filteredClassrooms.program_name ?? "TBA"}
+        </td>
         <td className="border border-gray-100">{filteredClassrooms.number}</td>
         <td className="border border-gray-100"> {filteredClassrooms.floor}</td>
         <td className="border border-gray-100">
@@ -14,14 +20,14 @@ const ClassroomRow = ({ toggleDialog, filteredClassrooms, openUpdate }) => {
               <div className="ml-5 flex gap-2">
                 <button
                   className="-h5 w-16 bg-green text-white"
-                  onClick={() => openUpdate(classroom)}
+                  onClick={() => openUpdate(filteredClassrooms)}
                 >
                   {" "}
                   Edit
                 </button>
                 <button
                   className="-h5 w-16 bg-red-500 text-white"
-                  onClick={() => toggleDialog(classroom.id)}
+                  onClick={() => toggleDialog(filteredClassrooms.id)}
                 >
                   {" "}
                   Delete

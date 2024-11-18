@@ -52,6 +52,8 @@ class SectionAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        department_id = request.user.department.id
+        request.data["department"] = department_id
         serializer = SectionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -60,6 +62,8 @@ class SectionAPIView(APIView):
 
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+        department_id = request.user.department.id
+        request.data["department"] = department_id
         # Retrieve the existing instance of Building
         try:
             course = Section.objects.get(pk=pk)

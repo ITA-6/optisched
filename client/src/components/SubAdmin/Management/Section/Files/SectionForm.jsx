@@ -8,7 +8,7 @@ const SectionForm = ({
   initialData,
   errors,
   errorMessage,
-  program
+  program,
 }) => {
   const [label, setLabel] = useState("");
   const [year, setYearLevel] = useState("");
@@ -26,7 +26,7 @@ const SectionForm = ({
     const sectionData = {
       label: label,
       year_level: year,
-      program : selectedProgram
+      program: selectedProgram,
     };
     if (initialData) sectionData.id = initialData.id;
     handler(sectionData);
@@ -37,9 +37,9 @@ const SectionForm = ({
       <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
           <FontAwesomeIcon
-            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+            className="m-3 mr-4 text-white sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em]"
             icon={faChalkboard}
-           />
+          />
           <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             {initialData ? "Update Section" : "Create New Section"}
           </h2>
@@ -77,8 +77,6 @@ const SectionForm = ({
                 </span>
               </div>
 
-              
-
               {/* Year Level Field with Error Handling */}
               <div className="flex flex-1 flex-col">
                 <label htmlFor="yearLevel">Year Level *</label>
@@ -101,18 +99,21 @@ const SectionForm = ({
               </div>
 
               <div className="flex flex-1 flex-col">
-                <label htmlFor="Program">Program 
+                <label htmlFor="Program">
+                  Program
                   <span className="text-red-500"> *</span>
                 </label>
-                <select 
-                  name="Program" 
-                  id="Program" 
-                  className="border border-gray-300 p-2 rounded-lg"
+                <select
+                  name="Program"
+                  id="Program"
+                  className="rounded-lg border border-gray-300 p-2"
                   onChange={(e) => setSelectedProgram(e.target.value)}
                 >
                   <option value="">Select Program</option>
-                  {program.map(programs => (
-                    <option key={programs.id} value={programs.name} className="">{programs.name}</option>
+                  {program.map((programs) => (
+                    <option key={programs.id} value={programs.id} className="">
+                      {programs.name}
+                    </option>
                   ))}
                 </select>
                 <span
@@ -126,7 +127,7 @@ const SectionForm = ({
 
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
-                <span className="text-white xm:text-xs font-bold">Confirm</span>
+                <span className="font-bold text-white xm:text-xs">Confirm</span>
               </button>
             </div>
           </form>

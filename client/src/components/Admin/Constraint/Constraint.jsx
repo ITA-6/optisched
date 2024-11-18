@@ -217,7 +217,7 @@ const Constraint = () => {
                   onChange={(e) =>
                     handleTimeChange("startTime", e.target.value)
                   }
-                  className="w-24 rounded-md border border-gray-300 p-1 text-center"
+                  className="rounded-md border border-gray-300 p-1 text-center"
                 />
               </label>
               <label className="flex flex-col items-center">
@@ -226,7 +226,7 @@ const Constraint = () => {
                   type="time"
                   value={constraints.schedule.endTime ?? "18:00"}
                   onChange={(e) => handleTimeChange("endTime", e.target.value)}
-                  className="w-24 rounded-md border border-gray-300 p-1 text-center"
+                  className="rounded-md border border-gray-300 p-1 text-center"
                 />
               </label>
             </div>

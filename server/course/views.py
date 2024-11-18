@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from course.models import Course
@@ -8,15 +8,28 @@ from course.serializers import CourseSerializer
 
 
 class CourseAPIView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+        user = request.user
+        user_privilege = user.get_privilege()
 
         if pk:
+            # Retrieve a single course by primary key
             try:
                 course = Course.objects.get(pk=pk)
+
+                # Restrict sub_admin access to their department's courses
+                if (
+                    user_privilege == "sub_admin"
+                    and course.department != user.department
+                ):
+                    return Response(
+                        {"error": "You do not have permission to access this course."},
+                        status=status.HTTP_403_FORBIDDEN,
+                    )
+
                 serializer = CourseSerializer(course)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except Course.DoesNotExist:
@@ -25,7 +38,17 @@ class CourseAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
-            courses = Course.objects.all()
+            # Retrieve all courses based on user privilege
+            if user_privilege == "admin":
+                courses = Course.objects.all()
+            elif user_privilege == "sub_admin":
+                courses = Course.objects.filter(department=user.department)
+            else:
+                return Response(
+                    {"error": "You do not have permission to view courses."},
+                    status=status.HTTP_403_FORBIDDEN,
+                )
+
             serializer = CourseSerializer(courses, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 

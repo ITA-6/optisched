@@ -3,6 +3,7 @@ from django.utils.dateparse import parse_datetime
 from django.utils import timezone
 from django.db import transaction
 from course.models import Course
+from department.models import Department  # Import the Department model
 
 from data.courses.ccs import CCS_COURSES
 from data.courses.cbaa import CBAA_COURSES
@@ -25,11 +26,24 @@ class Command(BaseCommand):
 
         with transaction.atomic():  # Ensures atomicity of the database operations
             for course_data in courses_data:
+                # Fetch the Department instance
+                department_id = course_data["department_id"]
+                try:
+                    department = Department.objects.get(pk=department_id)
+                except Department.DoesNotExist:
+                    self.stdout.write(
+                        self.style.ERROR(
+                            f"Department with id '{department_id}' does not exist. Skipping course '{course_data['name']}'."
+                        )
+                    )
+                    continue  # Skip this course if the department doesn't exist
+
                 # Check if the course already exists
                 course, created = Course.objects.get_or_create(
                     code=course_data["code"],
                     defaults={
                         "name": course_data["name"],
+                        "department": department,  # Use the Department instance
                         "category": course_data["category"],
                         "lecture_unit": course_data.get("lec_units", 0),
                         "lab_unit": course_data.get("lab_units", 0),
@@ -37,8 +51,10 @@ class Command(BaseCommand):
                         "lab_hours": course_data.get("lab_hours", 0),
                         "need_masteral": course_data["need_masteral"],
                         "is_active": course_data["is_active"],
-                        "created_at": parse_datetime(course_data.get("created_at")) or timezone.now(),
-                        "updated_at": parse_datetime(course_data.get("updated_at")) or timezone.now(),
+                        "created_at": parse_datetime(course_data.get("created_at"))
+                        or timezone.now(),
+                        "updated_at": parse_datetime(course_data.get("updated_at"))
+                        or timezone.now(),
                     },
                 )
 

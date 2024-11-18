@@ -10,6 +10,12 @@ class Room(models.Model):
     number = models.IntegerField()
     floor = models.IntegerField()
     building = models.ForeignKey("building.Building", on_delete=models.CASCADE)
+    department = models.ForeignKey(
+        "department.Department", on_delete=models.CASCADE, null=True, blank=True
+    )
+    program = models.ForeignKey(
+        "program.Program", on_delete=models.CASCADE, null=True, blank=True
+    )
     room_category = models.CharField(
         max_length=25,
         choices=ROOM_CATEGORY,
@@ -54,3 +60,18 @@ class Room(models.Model):
             self.building.decrement_available_rooms()
 
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """
+        Perform a soft delete by setting is_active to False
+        and increment available rooms in the building.
+        """
+        if not self.is_active:
+            raise ValueError("Room is already inactive and cannot be deleted again.")
+
+        # Soft delete the room
+        self.is_active = False
+        self.save()
+
+        # Increment available rooms in the building
+        self.building.increment_available_rooms()

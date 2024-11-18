@@ -197,24 +197,50 @@ class LogoutApiView(APIView):
 
 
 class CountApiView(APIView):
-    permission_classes = [AllowAny]
-    authentication_classes = []
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        # Counting the number of CustomAccount instances
-        professor_count = Professor.objects.count()
-        section_count = Section.objects.count()
-        room_count = Room.objects.count()
-        course_count = Course.objects.count()
+        user = request.user
+        user_privilege = user.get_privilege()
 
-        # Returning both counts in the response
+        if user_privilege == "admin":
+            # Admin: Counts across all departments
+            professor_count = Professor.objects.filter(is_active=True).count()
+            section_count = Section.objects.filter(is_active=True).count()
+            room_count = Room.objects.filter(is_active=True).count()
+            course_count = Course.objects.filter(is_active=True).count()
+
+        elif user_privilege == "sub_admin":
+            # Sub-admin: Counts restricted to the user's department
+            department = user.department
+            professor_count = Professor.objects.filter(
+                department=department, is_active=True
+            ).count()
+            section_count = Section.objects.filter(
+                department=department, is_active=True
+            ).count()
+            room_count = Room.objects.filter(
+                department=department, is_active=True
+            ).count()
+            course_count = Course.objects.filter(
+                department=department, is_active=True
+            ).count()
+        else:
+            # Unauthorized users
+            return Response(
+                {"error": "You do not have permission to access this data."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        # Return the counts
         return Response(
             {
                 "professor_count": professor_count,
                 "section_count": section_count,
                 "room_count": room_count,
                 "course_count": course_count,
-            }
+            },
+            status=status.HTTP_200_OK,
         )
 
 

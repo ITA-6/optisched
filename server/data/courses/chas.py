@@ -2,11 +2,11 @@ CHAS_COURSES = [
     {
         "name": "Anatomy and Physiology",
         "code": "ANA101",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":2,
+        "lab_units": 2,
         "lab_hours": 6,
         "total_units": 5,
         "total_hours": 9,
@@ -18,11 +18,11 @@ CHAS_COURSES = [
     {
         "name": "Theoretical Foundation of Nursing",
         "code": "NCM100",
-        "category": "LECTURE", #d
-        "department_id": 4, 
+        "category": "LECTURE",  # d
+        "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -34,11 +34,11 @@ CHAS_COURSES = [
     {
         "name": "Health Assessment",
         "code": "NCM101",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":2,
+        "lab_units": 2,
         "lab_hours": 6,
         "total_units": 5,
         "total_hours": 9,
@@ -50,11 +50,11 @@ CHAS_COURSES = [
     {
         "name": "Health Education",
         "code": "NCM102",
-        "category": "LECTURE", #d
-        "department_id": 4, 
+        "category": "LECTURE",  # d
+        "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -66,11 +66,11 @@ CHAS_COURSES = [
     {
         "name": "Fundamentals of Nursing Practice",
         "code": "NCM103",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":2,
+        "lab_units": 2,
         "lab_hours": 6,
         "total_units": 5,
         "total_hours": 9,
@@ -82,11 +82,11 @@ CHAS_COURSES = [
     {
         "name": "Biochemistry",
         "code": "CHM104A",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":2,
+        "lab_units": 2,
         "lab_hours": 6,
         "total_units": 5,
         "total_hours": 9,
@@ -98,11 +98,11 @@ CHAS_COURSES = [
     {
         "name": "Community Health Nursing 1: Individual and Family as Clients",
         "code": "NCM104",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 4,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":2,
+        "lab_units": 2,
         "lab_hours": 6,
         "total_units": 4,
         "total_hours": 8,
@@ -114,11 +114,11 @@ CHAS_COURSES = [
     {
         "name": "Nutrition and Diet Therapy",
         "code": "NCM105",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 4,
         "lec_units": 2,
         "lec_hours": 2,
-        "lab_units":1,
+        "lab_units": 1,
         "lab_hours": 3,
         "total_units": 3,
         "total_hours": 5,
@@ -130,11 +130,11 @@ CHAS_COURSES = [
     {
         "name": "Care of Mother, Child, Adolescent, Well Clients",
         "code": "NCM107",
-        "category": "BOTH", #d
+        "category": "BOTH",  # d
         "department_id": 4,
         "lec_units": 4,
         "lec_hours": 4,
-        "lab_units":5,
+        "lab_units": 5,
         "lab_hours": 15,
         "total_units": 9,
         "total_hours": 19,
@@ -146,11 +146,11 @@ CHAS_COURSES = [
     {
         "name": "Pharmacology",
         "code": "NCM106",
-        "category": "LECTURE", #d
-        "department_id": 4, 
+        "category": "LECTURE",  # d
+        "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -162,11 +162,11 @@ CHAS_COURSES = [
     {
         "name": "Health Care Ethics (Bioethics)",
         "code": "NCM108",
-        "category": "LECTURE", #d
-        "department_id": 4, 
+        "category": "LECTURE",  # d
+        "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
-        "lab_units":0,
+        "lab_units": 0,
         "lab_hours": 0,
         "total_units": 3,
         "total_hours": 3,
@@ -178,8 +178,8 @@ CHAS_COURSES = [
     {
         "name": "Microbiology and Parasitology",
         "code": "MIC101",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 1,
@@ -194,8 +194,8 @@ CHAS_COURSES = [
     {
         "name": "Nursing Informatics",
         "code": "NCM110",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -210,8 +210,8 @@ CHAS_COURSES = [
     {
         "name": "Care of Mother and Child at Risk or with Problems",
         "code": "NCM109",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 6,
         "lec_hours": 6,
         "lab_units": 6,
@@ -226,8 +226,8 @@ CHAS_COURSES = [
     {
         "name": "Nursing Research 1",
         "code": "NCM111",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -242,8 +242,8 @@ CHAS_COURSES = [
     {
         "name": "Nursing Research 2",
         "code": "NCM115",
-        "category": "LABORATORY", #d
-        "department_id": 4, 
+        "category": "LABORATORY",  # d
+        "department_id": 4,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 2,
@@ -258,8 +258,8 @@ CHAS_COURSES = [
     {
         "name": "Care of Client with Problem in Oxygenation",
         "code": "NCM112",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 8,
         "lec_hours": 8,
         "lab_units": 6,
@@ -274,8 +274,8 @@ CHAS_COURSES = [
     {
         "name": "Community Health Nursing 2",
         "code": "NCM113",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -290,8 +290,8 @@ CHAS_COURSES = [
     {
         "name": "Care of the Older Adult",
         "code": "NCM114",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -306,8 +306,8 @@ CHAS_COURSES = [
     {
         "name": "Care of Client with Problems in Nutrition",
         "code": "NCM116",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 5,
         "lec_hours": 5,
         "lab_units": 4,
@@ -322,8 +322,8 @@ CHAS_COURSES = [
     {
         "name": "Care of Clients with Maladaptive Patterns of Behavior, Acute & Chronic",
         "code": "NCM117",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 4,
         "lec_hours": 4,
         "lab_units": 4,
@@ -338,8 +338,8 @@ CHAS_COURSES = [
     {
         "name": "Competency Appraisal 1",
         "code": "CA1",
-        "category": "LECTURE",# d
-        "department_id": 4, 
+        "category": "LECTURE",  # d
+        "department_id": 4,
         "lec_units": 3,
         "lec_hours": 3,
         "lab_units": 0,
@@ -354,8 +354,8 @@ CHAS_COURSES = [
     {
         "name": "Nursing Care of Clients with Life Threatening Conditions",
         "code": "NCM118",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 4,
         "lec_hours": 4,
         "lab_units": 5,
@@ -370,8 +370,8 @@ CHAS_COURSES = [
     {
         "name": "Nursing Leadership & Management",
         "code": "NCM119",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 4,
         "lec_hours": 4,
         "lab_units": 3,
@@ -386,8 +386,8 @@ CHAS_COURSES = [
     {
         "name": "Disaster Nursing",
         "code": "NCM121",
-        "category": "BOTH", #d
-        "department_id": 4, 
+        "category": "BOTH",  # d
+        "department_id": 4,
         "lec_units": 2,
         "lec_hours": 2,
         "lab_units": 1,
@@ -402,14 +402,46 @@ CHAS_COURSES = [
     {
         "name": "Intensive Nursing Practicum (Hospital & Community Settings)",
         "code": "NCM122",
-        "category": "LABORATORY", #d
-        "department_id": 4, 
+        "category": "LABORATORY",  # d
+        "department_id": 4,
         "lec_units": 0,
         "lec_hours": 0,
         "lab_units": 8,
         "lab_hours": 24,
         "total_units": 8,
         "total_hours": 24,
+        "need_masteral": True,
+        "is_active": True,
+        "created_at": "2021-06-28 23:01:54",
+        "updated_at": "2021-04-05 22:54:08",
+    },
+    {
+        "name": "Decent Work Employment & Transculture Nursing",
+        "code": "NCM120",
+        "category": "LECTURE",  # d
+        "department_id": 4,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units": 0,
+        "lab_hours": 0,
+        "total_units": 3,
+        "total_hours": 3,
+        "need_masteral": True,
+        "is_active": True,
+        "created_at": "2021-06-28 23:01:54",
+        "updated_at": "2021-04-05 22:54:08",
+    },
+    {
+        "name": "Competency Appraisal 2",
+        "code": "CA2",
+        "category": "LABORATORY",  # d
+        "department_id": 4,
+        "lec_units": 3,
+        "lec_hours": 3,
+        "lab_units": 0,
+        "lab_hours": 0,
+        "total_units": 3,
+        "total_hours": 3,
         "need_masteral": True,
         "is_active": True,
         "created_at": "2021-06-28 23:01:54",

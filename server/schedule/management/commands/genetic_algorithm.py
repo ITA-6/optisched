@@ -222,18 +222,22 @@ class GeneticAlgorithmRunner:
             return fitness
 
         # Initialize PyGAD instance for the section
-        ga_instance = pygad.GA(
-            num_generations=self.num_generations,
-            num_parents_mating=self.num_parents_mating,
-            fitness_func=fitness_func,
-            sol_per_pop=self.sol_per_pop,
-            num_genes=len(curriculum_courses) * 5,
-            gene_space=gene_space,
-            parent_selection_type="sss",
-            crossover_type="single_point",
-            mutation_type="random",
-            mutation_percent_genes=10,
-        )
+        try:
+            ga_instance = pygad.GA(
+                num_generations=self.num_generations,
+                num_parents_mating=self.num_parents_mating,
+                fitness_func=fitness_func,
+                sol_per_pop=self.sol_per_pop,
+                num_genes=len(curriculum_courses) * 5,
+                gene_space=gene_space,
+                parent_selection_type="sss",
+                crossover_type="single_point",
+                mutation_type="random",
+                mutation_percent_genes=10,
+            )
+        except ValueError as e:
+            print(f"Error initializing PyGAD for section {section.label}: {e}")
+            return []
 
         # Run GA for the section
         ga_instance.run()

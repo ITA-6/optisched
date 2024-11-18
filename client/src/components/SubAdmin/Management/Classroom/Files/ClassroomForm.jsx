@@ -9,7 +9,7 @@ const ClassroomForm = ({
   handler,
   initialData,
   errorMessage,
-  program
+  program,
 }) => {
   const [building, setBuilding] = useState("");
   const [floorNumber, setFloorNumber] = useState("");
@@ -21,7 +21,7 @@ const ClassroomForm = ({
       setBuilding(initialData.building || "");
       setFloorNumber(initialData.floor || "");
       setRoomNumber(initialData.number || "");
-      setSelectedProgram(initialData.program || "")
+      setSelectedProgram(initialData.program || "");
     }
   }, [initialData]);
 
@@ -31,7 +31,7 @@ const ClassroomForm = ({
       number: roomNumber,
       floor: floorNumber,
       building: building,
-      program : selectedProgram
+      program: selectedProgram,
     };
     if (initialData) formData.id = initialData.id;
     handler(formData);
@@ -41,10 +41,10 @@ const ClassroomForm = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-        <FontAwesomeIcon
-            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+          <FontAwesomeIcon
+            className="m-3 mr-4 text-white sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em]"
             icon={faChalkboardUser}
-           />
+          />
           <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             {initialData ? "Update Classroom" : "Create New Classroom"}
           </h2>
@@ -85,21 +85,24 @@ const ClassroomForm = ({
               )}
             </div>
 
-
             <div className="flex flex-1 flex-col">
               <label htmlFor="Programs" className="text-lg font-medium">
                 Program
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1 text-red-500">*</span>
               </label>
               <select
                 name="program"
                 id="program"
-                className="border border-gray-300 p-2 rounded-lg"
+                className="rounded-lg border border-gray-300 p-2"
                 onChange={(e) => setSelectedProgram(e.target.value)}
               >
-                <option value="" className="">Select Program</option>
-                {program.map(programs => (
-                  <option key={programs.id} value={programs.name} className="">{programs.name}</option>
+                <option value="" className="">
+                  Select Program
+                </option>
+                {program.map((programs) => (
+                  <option key={programs.id} value={programs.id} className="">
+                    {programs.name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -147,7 +150,7 @@ const ClassroomForm = ({
 
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
-                <span className="text-white xm:text-xs font-bold">Confirm</span>
+                <span className="font-bold text-white xm:text-xs">Confirm</span>
               </button>
             </div>
           </form>

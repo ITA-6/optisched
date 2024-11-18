@@ -7,10 +7,18 @@ from curriculum.models import Curriculum
 from data.curriculum.ccs.bsit import BSIT_CURRICULUM
 from data.curriculum.ccs.bscs import BSCS_CURRICULUM
 from data.curriculum.cbaa.bsa import BSA_CURRICULUM
+from data.curriculum.cbaa.baf import BAF_CURRICULUM
+from data.curriculum.cbaa.bam import BAM_CURRICULUM
 from data.curriculum.chas.bsn import BSN_CURRICULUM
 from data.curriculum.coe.bscpe import BSCPE_CURRICULUM
 from data.curriculum.coe.bsece import BSECE_CURRICULUM
 from data.curriculum.coe.bsie import BSIE_CURRICULUM
+from data.curriculum.coed.beed import BEED_CURRICULUM
+from data.curriculum.coed.sede import SEDE_CURRICULUM
+from data.curriculum.coed.sedf import SEDF_CURRICULUM
+from data.curriculum.coed.sedm import SEDM_CURRICULUM
+from data.curriculum.coed.seds import SEDS_CURRICULUM
+from data.curriculum.bsp.bsp import PSY_CURRICULUM
 
 
 class Command(BaseCommand):
@@ -20,10 +28,14 @@ class Command(BaseCommand):
         curriculum_data_groups = {
             "ccs": BSIT_CURRICULUM + BSCS_CURRICULUM,
             "coe": BSCPE_CURRICULUM + BSECE_CURRICULUM + BSIE_CURRICULUM,
-            # "cbaa": BSA_CURRICULUM,
+            "cbaa": BSA_CURRICULUM + BAF_CURRICULUM + BAM_CURRICULUM,
             "chas": BSN_CURRICULUM,
-            # "coed": [],
-            # "bsp": [],
+            "coed": BEED_CURRICULUM
+            + SEDE_CURRICULUM
+            + SEDF_CURRICULUM
+            + SEDM_CURRICULUM
+            + SEDS_CURRICULUM,
+            "bsp": PSY_CURRICULUM,
         }
 
         for group_name, curriculums in curriculum_data_groups.items():

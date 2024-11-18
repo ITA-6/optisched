@@ -12,6 +12,15 @@ from data.sections.coe.bscpe import BSCPE_SECTIONS
 from data.sections.coe.bsece import BSECE_SECTIONS
 from data.sections.coe.bsie import BSIE_SECTIONS
 from data.sections.chas.bsn import BSN_SECTIONS
+from data.sections.bsp.bsp import BSP_SECTIONS
+from data.sections.cbaa.baf import BAF_SECTIONS
+from data.sections.cbaa.bam import BAM_SECTIONS
+from data.sections.cbaa.bsa import BSA_SECTIONS
+from data.sections.coed.beed import BEED_SECTIONS
+from data.sections.coed.sede import SEDE_SECTIONS
+from data.sections.coed.sedf import SEDF_SECTIONS
+from data.sections.coed.sedm import SEDM_SECTIONS
+from data.sections.coed.seds import SEDS_SECTIONS
 
 
 class Command(BaseCommand):
@@ -28,6 +37,15 @@ class Command(BaseCommand):
             {"name": "BSECE", "data": BSECE_SECTIONS},
             {"name": "BSIE", "data": BSIE_SECTIONS},
             {"name": "BSN", "data": BSN_SECTIONS},
+            {"name": "BSP", "data": BSP_SECTIONS},
+            {"name": "BAF", "data": BAF_SECTIONS},
+            {"name": "BAM", "data": BAM_SECTIONS},
+            {"name": "BSA", "data": BSA_SECTIONS},
+            {"name": "BEED", "data": BEED_SECTIONS},
+            {"name": "SEDE", "data": SEDE_SECTIONS},
+            {"name": "SEDF", "data": SEDF_SECTIONS},
+            {"name": "SEDM", "data": SEDM_SECTIONS},
+            {"name": "SEDS", "data": SEDS_SECTIONS},
             # Add more datasets here as needed
         ]
 
