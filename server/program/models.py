@@ -11,7 +11,6 @@ class Program(models.Model):
 
     class Meta:
         db_table = "program"
-        ordering = ["-created_at"]
 
     def soft_delete(self):
         self.is_active = False

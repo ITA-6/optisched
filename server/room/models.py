@@ -21,7 +21,6 @@ class Room(models.Model):
 
     class Meta:
         db_table = "room"
-        ordering = ["-created_at"]
         constraints = [
             models.UniqueConstraint(
                 fields=["number", "floor", "building"],

@@ -32,7 +32,6 @@ class Course(models.Model):
 
     class Meta:
         db_table = "course"
-        ordering = ["-created_at"]
         unique_together = ("name", "code")
 
     def soft_delete(self):
