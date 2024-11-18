@@ -66,6 +66,8 @@ class ProgramAPIView(APIView):
 
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+        department_id = request.user.department.id
+        request.data["department"] = department_id
         # Retrieve the existing instance of Building
         try:
             course = Program.objects.get(pk=pk)
