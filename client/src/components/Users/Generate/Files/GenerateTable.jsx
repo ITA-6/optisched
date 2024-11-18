@@ -16,7 +16,7 @@ const GenerateTable = ({ data }) => {
           <th className="sm:w-20 xm:w-20">Section</th>
         </tr>
       </thead>
-      <tbody className="text-center sm:text-sm xm:text-xs">
+      <tbody className="text-center sm:text-sm xm:text-xs  className='border border-collapse border-gray-300'">
         {data.map((sched) =>
           sched.courses.map((course, index) => (
             <GenerateTableRow course={course} key={index} sched={sched} />
