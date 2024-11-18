@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
 
 from ua_parser import user_agent_parser
 
@@ -153,3 +154,38 @@ class AuthenticationHistorySerializer(serializers.ModelSerializer):
         # Convert to local timezone (Asia/Manila) if `USE_TZ` is enabled
         local_time = timezone.localtime(obj.time)
         return date(local_time, "D, M d, Y - H:i")
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(write_only=True, required=True)
+    new_password = serializers.CharField(write_only=True, required=True)
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
+    def validate(self, data):
+        """Validate old_password, and check new_password and confirm_password match and ensure new_password is different."""
+        user = self.context["request"].user
+
+        # Validate old_password
+        if not check_password(data.get("old_password"), user.password):
+            raise serializers.ValidationError({"message": "Old password is incorrect."})
+
+        # Validate new_password and confirm_password match
+        if data.get("new_password") != data.get("confirm_password"):
+            raise serializers.ValidationError(
+                {"message": "New password and confirm password do not match."}
+            )
+
+        # Ensure new_password is different from old_password
+        if check_password(data.get("new_password"), user.password):
+            raise serializers.ValidationError(
+                {"message": "New password cannot be the same as the old password."}
+            )
+
+        return data
+
+    def save(self, **kwargs):
+        """Update the user's password."""
+        user = self.context["request"].user
+        user.set_password(self.validated_data["new_password"])
+        user.save()
+        return user

@@ -4,14 +4,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
-from rest_framework.permissions import AllowAny
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from account.serializers import (
     AccountSerializer,
     LoginSerializer,
     CustomTokenObtainPairSerializer,
     AuthenticationHistorySerializer,
+    ChangePasswordSerializer,
 )
 
 from account.models import CustomUser, AuthenticationHistory
@@ -225,3 +225,18 @@ class LoginHistoryApiView(APIView):
         login_history = AuthenticationHistory.objects.all().order_by("-time")
         serializer = AuthenticationHistorySerializer(login_history, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ChangePasswordApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        serializer = ChangePasswordSerializer(
+            data=request.data, context={"request": request}
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"success": "Password updated successfully."}, status=status.HTTP_200_OK
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

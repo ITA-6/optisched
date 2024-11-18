@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import api from "../../api";
 
 const PasswordChange = ({ handleChangePassword }) => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -6,38 +7,36 @@ const PasswordChange = ({ handleChangePassword }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState([]);
   const [passwordStrength, setPasswordStrength] = useState("Weak");
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [notification, setNotification] = useState(null); // For success or error messages
+
+  useEffect(() => {
+    validatePassword();
+  }, [newPassword, confirmPassword]);
 
   const validatePassword = () => {
     const errors = [];
     let fulfilledCriteria = 0;
 
-    // Check for at least one uppercase letter
-    if (!/[A-Z]/.test(newPassword)) {
-      errors.push("At least 1 uppercase");
-    } else {
-      fulfilledCriteria++;
-    }
+    const criteria = [
+      { check: /[A-Z]/.test(newPassword), message: "At least 1 uppercase" },
+      { check: /\d/.test(newPassword), message: "At least 1 number" },
+      { check: newPassword.length >= 8, message: "At least 8 characters" },
+      {
+        check: newPassword === confirmPassword,
+        message: "Passwords do not match",
+      },
+    ];
 
-    // Check for at least one number
-    if (!/\d/.test(newPassword)) {
-      errors.push("At least 1 number");
-    } else {
-      fulfilledCriteria++;
-    }
+    criteria.forEach((criterion) => {
+      if (!criterion.check) {
+        errors.push(criterion.message);
+      } else if (criterion.message !== "Passwords do not match") {
+        fulfilledCriteria++;
+      }
+    });
 
-    // Check for at least 8 characters
-    if (newPassword.length < 8) {
-      errors.push("At least 8 characters");
-    } else {
-      fulfilledCriteria++;
-    }
-
-    // Check if passwords match
-    if (newPassword !== confirmPassword) {
-      errors.push("Passwords do not match");
-    }
-
-    // Update password strength
+    // Update password strength dynamically
     if (fulfilledCriteria === 3) {
       setPasswordStrength("Strong");
     } else if (fulfilledCriteria === 2) {
@@ -46,23 +45,45 @@ const PasswordChange = ({ handleChangePassword }) => {
       setPasswordStrength("Weak");
     }
 
+    // Disable submit button if there are errors
+    setIsSubmitDisabled(errors.length > 0);
     setValidationErrors(errors);
-    return errors.length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validatePassword()) {
-      // Add your password change logic here
-      console.log("Password updated successfully");
+
+    try {
+      if (validationErrors.length === 0) {
+        const response = await api.put("account/change-password/", {
+          old_password: currentPassword,
+          new_password: newPassword,
+          confirm_password: confirmPassword,
+        });
+        setNotification({
+          type: "success",
+          message: response.data.message,
+        });
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+        handleChangePassword();
+      }
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error.response && error.response.data && error.response.data.message
+          ? error.response.data.message
+          : "An error occurred. Please try again.";
+      setNotification({ type: "error", message: errorMessage });
     }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
         {/* Dialog Header */}
-        <div className="flex justify-between items-center border-b pb-2 mb-4">
+        <div className="mb-4 flex items-center justify-between border-b pb-2">
           <h2 className="text-lg font-semibold">Change Password</h2>
           <button
             onClick={handleChangePassword}
@@ -73,8 +94,21 @@ const PasswordChange = ({ handleChangePassword }) => {
           </button>
         </div>
 
+        {/* Notification */}
+        {notification && (
+          <div
+            className={`mb-4 rounded-lg p-3 text-sm ${
+              notification.type === "success"
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {notification.message}
+          </div>
+        )}
+
         {/* Dialog Content */}
-        <p className="text-gray-600 text-sm mb-4">
+        <p className="mb-4 text-sm text-gray-600">
           Update password for enhanced account security.
         </p>
 
@@ -83,7 +117,7 @@ const PasswordChange = ({ handleChangePassword }) => {
           <div>
             <label
               htmlFor="current-password"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="mb-1 block text-sm font-medium text-gray-700"
             >
               Current Password<span className="text-red-500">*</span>
             </label>
@@ -92,7 +126,7 @@ const PasswordChange = ({ handleChangePassword }) => {
               id="current-password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -100,7 +134,7 @@ const PasswordChange = ({ handleChangePassword }) => {
           <div>
             <label
               htmlFor="new-password"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="mb-1 block text-sm font-medium text-gray-700"
             >
               New Password<span className="text-red-500">*</span>
             </label>
@@ -109,7 +143,7 @@ const PasswordChange = ({ handleChangePassword }) => {
               id="new-password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -117,7 +151,7 @@ const PasswordChange = ({ handleChangePassword }) => {
           <div>
             <label
               htmlFor="confirm-password"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="mb-1 block text-sm font-medium text-gray-700"
             >
               Confirm New Password<span className="text-red-500">*</span>
             </label>
@@ -126,41 +160,29 @@ const PasswordChange = ({ handleChangePassword }) => {
               id="confirm-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg text-sm border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {/* Password Validation Errors */}
           <div>
             <p
-              className={`font-medium mb-2 ${
+              className={`mb-2 font-medium ${
                 passwordStrength === "Strong"
                   ? "text-green-600"
                   : passwordStrength === "Medium"
-                  ? "text-yellow-600"
-                  : "text-red-600"
+                    ? "text-yellow-600"
+                    : "text-red-600"
               }`}
             >
               Password Strength: {passwordStrength}
             </p>
-            <ul className="text-gray-600 text-sm space-y-1">
-              {["At least 1 uppercase", "At least 1 number", "At least 8 characters", "Passwords do not match"].map(
-                (criteria) => (
-                  <li
-                    key={criteria}
-                    className={`flex items-center ${
-                      validationErrors.includes(criteria)
-                        ? "text-red-500"
-                        : "text-green-500"
-                    }`}
-                  >
-                    <span className="mr-2">
-                      {validationErrors.includes(criteria) ? "✗" : "✓"}
-                    </span>
-                    {criteria}
-                  </li>
-                )
-              )}
+            <ul className="space-y-1 text-sm text-gray-600">
+              {[...validationErrors].map((criteria) => (
+                <li key={criteria} className="text-red-500">
+                  ✗ {criteria}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -169,13 +191,18 @@ const PasswordChange = ({ handleChangePassword }) => {
             <button
               type="button"
               onClick={handleChangePassword}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200"
+              className="rounded-lg border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200"
             >
               Discard
             </button>
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+              disabled={isSubmitDisabled}
+              className={`rounded-lg px-4 py-2 text-sm font-medium text-white ${
+                isSubmitDisabled
+                  ? "cursor-not-allowed bg-gray-400"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }`}
             >
               Apply Changes
             </button>

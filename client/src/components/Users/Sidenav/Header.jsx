@@ -5,7 +5,7 @@ import api from "../../../api";
 import { useSidebar } from "./SidenavContext/SidenavContext"; // Import useSidebar
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import PasswordChange from "../../Password/index";
 
 const Header = ({ pageName }) => {
@@ -19,7 +19,6 @@ const Header = ({ pageName }) => {
   const handleChangePassword = () => {
     setPassChange(!passChange);
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +40,6 @@ const Header = ({ pageName }) => {
       try {
         const decodedToken = jwtDecode(accessToken);
         setToken(decodedToken);
-        console.log(decodedToken);
       } catch (error) {
         console.error("Failed to decode token:", error);
       }
@@ -77,26 +75,32 @@ const Header = ({ pageName }) => {
           <>
             {`${token.first_name} ${token.middle_name} ${token.last_name}`}
             <span className="ml-2 text-xs italic">
-              {token.user_type === "P" ? " Professor.No" : "VPAA.No"} {token.username}
+              {token.user_type === "P" ? " Professor.No" : "VPAA.No"}{" "}
+              {token.username}
             </span>
           </>
         ) : (
           "Loading..."
         )}
       </h1>
-      <button 
-        className="xm:block xm:text-lg text-2xl sm:block ml-5 lg:hidden xl:hidden"
+      <button
+        className="ml-5 text-2xl sm:block lg:hidden xl:hidden xm:block xm:text-lg"
         onClick={toggleSidebar}
       >
-        <FontAwesomeIcon icon={faBars} 
+        <FontAwesomeIcon
+          icon={faBars}
           color="white"
-          className="xm:text-xs sm:text-sm md:text-base"
+          className="sm:text-sm md:text-base xm:text-xs"
         />
       </button>
 
       <div className="relative">
         <button onClick={toggleUser}>
-          <img src={userIcon} className="mr-5 xm:w-4 sm:w-6 md:mx-6 md:w-7 lg:w-10 md:inline" alt="User" />
+          <img
+            src={userIcon}
+            className="mr-5 sm:w-6 md:mx-6 md:inline md:w-7 lg:w-10 xm:w-4"
+            alt="User"
+          />
         </button>
         <ul
           className={`${isUserOpen ? "absolute right-8 top-20 w-52" : "hidden"} grid items-center justify-center rounded-md bg-white`}
@@ -110,8 +114,8 @@ const Header = ({ pageName }) => {
         </ul>
       </div>
       {passChange && (
-          <PasswordChange handleChangePassword={handleChangePassword}/>
-        )}
+        <PasswordChange handleChangePassword={handleChangePassword} />
+      )}
     </div>
   );
 };
