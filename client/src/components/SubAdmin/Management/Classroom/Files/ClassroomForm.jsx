@@ -9,16 +9,19 @@ const ClassroomForm = ({
   handler,
   initialData,
   errorMessage,
+  program
 }) => {
   const [building, setBuilding] = useState("");
   const [floorNumber, setFloorNumber] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
+  const [selectedProgram, setSelectedProgram] = useState("");
 
   useEffect(() => {
     if (initialData) {
       setBuilding(initialData.building || "");
       setFloorNumber(initialData.floor || "");
       setRoomNumber(initialData.number || "");
+      setSelectedProgram(initialData.program || "")
     }
   }, [initialData]);
 
@@ -28,6 +31,7 @@ const ClassroomForm = ({
       number: roomNumber,
       floor: floorNumber,
       building: building,
+      program : selectedProgram
     };
     if (initialData) formData.id = initialData.id;
     handler(formData);
@@ -79,6 +83,25 @@ const ClassroomForm = ({
                   {errorMessage.building[0]}
                 </span>
               )}
+            </div>
+
+
+            <div className="flex flex-1 flex-col">
+              <label htmlFor="Programs" className="text-lg font-medium">
+                Program
+                <span className="text-red-500 ml-1">*</span>
+              </label>
+              <select
+                name="program"
+                id="program"
+                className="border border-gray-300 p-2 rounded-lg"
+                onChange={(e) => setSelectedProgram(e.target.value)}
+              >
+                <option value="" className="">Select Program</option>
+                {program.map(programs => (
+                  <option key={programs.id} value={programs.name} className="">{programs.name}</option>
+                ))}
+              </select>
             </div>
 
             <div className="flex flex-1 flex-col">

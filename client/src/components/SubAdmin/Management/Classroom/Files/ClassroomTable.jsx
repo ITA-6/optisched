@@ -41,6 +41,12 @@ const ClassroomTable = ({
             Building Name
           </th>
           <th scope="col" className="border border-white">
+            Department
+          </th>
+          <th scope="col" className="border border-white">
+            Program
+          </th>
+          <th scope="col" className="border border-white">
             Room Number
           </th>
           <th scope="col" className="border border-white">

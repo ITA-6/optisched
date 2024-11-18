@@ -13,7 +13,7 @@ const Classroom = () => {
   const [buildings, setBuilding] = useState([]);
   const [errorMessage, setErrorMessage] = useState({}); // State to store error messages
   const { isSidebarOpen } = useSidebar();
-
+  const [program, setProgram] = useState();
   const [SelectedClassroom, setSelectedClassroom] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -60,16 +60,6 @@ const Classroom = () => {
     setFilteredClassrooms(filteredItems);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await api.get("rooms/");
-      setClassrooms(response.data);
-    };
-    fetchData();
-  }, []);
-
-
-
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedClassroom(id);
@@ -80,8 +70,10 @@ const Classroom = () => {
       try {
         const response = await api.get("rooms/");
         const building = await api.get("buildings/");
+        const program = await api.get("programs/");
         setClassrooms(response.data);
         setBuilding(building.data);
+        setProgram(program.data)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -177,6 +169,7 @@ const Classroom = () => {
           handler={initialData ? updateClassroom : submitClassroom}
           initialData={initialData}
           errorMessage={errorMessage} // Pass down errorMessage
+          program={program}
         />
       )}
 

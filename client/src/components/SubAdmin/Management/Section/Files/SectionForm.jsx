@@ -8,14 +8,16 @@ const SectionForm = ({
   initialData,
   errors,
   errorMessage,
+  program
 }) => {
   const [label, setLabel] = useState("");
   const [year, setYearLevel] = useState("");
-
+  const [selectedProgram, setSelectedProgram] = useState("");
   useEffect(() => {
     if (initialData) {
       setLabel(initialData.label || "");
       setYearLevel(initialData.year_level || "");
+      setSelectedProgram(initialData.program || "");
     }
   }, [initialData]);
 
@@ -24,6 +26,7 @@ const SectionForm = ({
     const sectionData = {
       label: label,
       year_level: year,
+      program : selectedProgram
     };
     if (initialData) sectionData.id = initialData.id;
     handler(sectionData);
@@ -74,6 +77,8 @@ const SectionForm = ({
                 </span>
               </div>
 
+              
+
               {/* Year Level Field with Error Handling */}
               <div className="flex flex-1 flex-col">
                 <label htmlFor="yearLevel">Year Level *</label>
@@ -87,6 +92,29 @@ const SectionForm = ({
                   className={`rounded-lg border p-2 ${errorMessage.year_level ? "border-red-500" : "border-gray-300"}`}
                   required
                 />
+                <span
+                  className={`${errorMessage.year_level ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {errorMessage.year_level &&
+                    "* Year Level is required or invalid"}
+                </span>
+              </div>
+
+              <div className="flex flex-1 flex-col">
+                <label htmlFor="Program">Program 
+                  <span className="text-red-500"> *</span>
+                </label>
+                <select 
+                  name="Program" 
+                  id="Program" 
+                  className="border border-gray-300 p-2 rounded-lg"
+                  onChange={(e) => setSelectedProgram(e.target.value)}
+                >
+                  <option value="">Select Program</option>
+                  {program.map(programs => (
+                    <option key={programs.id} value={programs.name} className="">{programs.name}</option>
+                  ))}
+                </select>
                 <span
                   className={`${errorMessage.year_level ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
                 >

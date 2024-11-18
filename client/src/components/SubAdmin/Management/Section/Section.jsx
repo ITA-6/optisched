@@ -13,7 +13,7 @@ const Section = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
   const { isSidebarOpen } = useSidebar();
-
+  const [program, setProgram] = useState([]);
   const [selectedSection, setSelectedSection] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -70,7 +70,9 @@ const Section = () => {
     const fetchData = async () => {
       try {
         const response = await api.get("sections/");
+        const responseProgram = await api.get("programs/");
         setSections(response.data);
+        setProgram(responseProgram.data);
       } catch (error) {
         console.error("Error fetching sections:", error);
       }
@@ -186,6 +188,7 @@ const Section = () => {
           initialData={initialData}
           errors={errors}
           errorMessage={errorMessage}
+          program={program}
         />
       )}
       {isDialogOpen && (
