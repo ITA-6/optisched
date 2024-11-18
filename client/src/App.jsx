@@ -31,7 +31,7 @@ import CurriculumView from "./components/Admin/Curriculum/Files/CurriculumView";
 import Vpaa from "./components/Users/ViewVPAA";
 import PasswordChange from "./components/Password/index";
 import Forbidden from "./components/Error/Forbidden";
-
+import SubAdminDashboard from "./components/SubAdmin/Dashboard";
 const App = () => {
   return (
     <SidebarProvider>
@@ -62,7 +62,8 @@ const App = () => {
 
           {/* Sub Admin */}
           <Route path="sub-admin" element={<SubAdmin />}>
-            <Route index element={<Professors />} />
+            <Route index element={<SubAdminDashboard />} />
+            <Route path="dashboard" element={<SubAdminDashboard />} />
             <Route path="management/building" element={<Buildings />} />
             <Route path="management/professor" element={<Professors />} />
             <Route path="management/section" element={<Sections />} />

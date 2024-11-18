@@ -3,7 +3,7 @@ import optisched from "../../../assets/optisched.png";
 import pncHeader from "../../../assets/pncHeader.png";
 import section from "../../../assets/section.png";
 import educationalPrograms from "../../../assets/educationaPrograms.png";
-
+import dash from "../../../assets/dash.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBuilding,
@@ -64,6 +64,15 @@ const Sidenav = () => {
             <h1 className="text-md m-2">Scheduling System</h1>
           </div>
           <ul className="flex flex-col gap-2 px-4">
+            <li className="w-full">
+              <Link
+                to="dashboard"
+                className="flex w-full items-center rounded-lg px-1 py-2 hover:bg-gray-200"
+              >
+                <img src={dash} alt="Dashboard Icon" className="w-7 h-6" />
+                <span className={`text-sidenavTextSize ml-3  ${((!isHoverOn && isSidebarOpen) || isHoverOn ) ? "flex": "hidden"}`}>Dashboard</span>
+              </Link>
+            </li>
             <li className="w-full">
               <Link
                 to="management/professor"
