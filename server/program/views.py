@@ -55,10 +55,6 @@ class ProgramAPIView(APIView):
     def post(self, request, *args, **kwargs):
         # Ensure department exists
         department = request.user.department.id
-        if not self.is_valid_department(department):
-            return Response(
-                {"error": "Department not found"}, status=status.HTTP_404_NOT_FOUND
-            )
 
         request.data["department"] = department
         serializer = ProgramSerializer(data=request.data)
@@ -70,6 +66,8 @@ class ProgramAPIView(APIView):
 
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
+        department_id = request.user.department.id
+        request.data["department"] = department_id
         # Retrieve the existing instance of Building
         try:
             course = Program.objects.get(pk=pk)

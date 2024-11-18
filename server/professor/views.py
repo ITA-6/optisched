@@ -138,7 +138,9 @@ class ProfessorAPIView(APIView):
                 {"error": "Professor not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
-        department_id = request.data.get("department")
+        department_id = request.user.department.id
+        request.data["department"] = department_id
+
         if not self.is_valid_department(department_id):
             return Response(
                 {"error": "Department not found"}, status=status.HTTP_404_NOT_FOUND

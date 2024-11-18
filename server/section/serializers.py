@@ -12,6 +12,8 @@ class SectionSerializer(serializers.ModelSerializer):
             "id",
             "label",
             "year_level",
+            "program",
+            "department",
             "program_name",
             "department_name",
         ]
