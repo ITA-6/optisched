@@ -7,10 +7,10 @@ from ua_parser import user_agent_parser
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-from account.models import CustomUser, AuthenticationHistory
+from account.models import CustomUser, ActivityHistory
 from professor.serializers import ProfessorSerializer
 from django.template.defaultfilters import date
-from django.utils import timezone
+from django.utils.timezone import localtime
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -100,59 +100,69 @@ class LoginSerializer(serializers.Serializer):
         return attrs
 
 
-class AuthenticationHistorySerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()  # Return the user's full name
+class ActivityHistorySerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()  # User's full name
     user_agent_readable = (
         serializers.SerializerMethodField()
-    )  # Add readable user agent field
-    session_display = (
-        serializers.SerializerMethodField()
-    )  # Human-readable session field
-    time = serializers.SerializerMethodField()  # Human-readable time field
+    )  # Human-readable user agent details
+    action_display = serializers.SerializerMethodField()  # Human-readable action field
+    time = serializers.SerializerMethodField()  # Formatted time
 
     class Meta:
-        model = AuthenticationHistory
+        model = ActivityHistory
         fields = [
             "name",
             "time",
-            "session_display",
+            "action_display",
             "ip_address",
             "user_agent",
             "user_agent_readable",
+            "model_name",
+            "object_id",
+            "description",
         ]
         extra_kwargs = {
-            "user_agent": {"write_only": True}  # Make user_agent write-only
+            "user_agent": {"write_only": True},  # Hide user_agent in GET responses
         }
 
     def get_name(self, obj):
-        """Return the full name of the user."""
-        full_name = f"{obj.user.first_name} {obj.user.last_name}"
-        return full_name.strip()
+        """
+        Return the full name of the user.
+        If first or last name is missing, fallback to username.
+        """
+        if obj.user.first_name or obj.user.last_name:
+            return f"{obj.user.first_name} {obj.user.last_name}".strip()
+        return obj.user.username
 
     def get_user_agent_readable(self, obj):
-        """Parse the user_agent string and return human-readable details using ua-parser."""
-        user_agent = user_agent_parser.Parse(obj.user_agent)
+        """
+        Parse the user_agent string and return human-readable details.
+        """
+        try:
+            user_agent = user_agent_parser(obj.user_agent)
+            browser = f"{user_agent.browser.family} {user_agent.browser.version_string}"
+            os = f"{user_agent.os.family} {user_agent.os.version_string}"
+            device = (
+                user_agent.device.family
+                if user_agent.device.family != "Other"
+                else "Unknown Device"
+            )
+            return {"browser": browser, "os": os, "device": device}
+        except Exception:
+            return {"browser": "Unknown", "os": "Unknown", "device": "Unknown"}
 
-        browser = user_agent["user_agent"]
-        os = user_agent["os"]
-        device = user_agent["device"]
-
-        return {
-            "browser": f"{browser['family']} {browser['major']}.{browser.get('minor', '')}",
-            "os": f"{os['family']} {os['major']}.{os.get('minor', '')}",
-            "device": device["family"]
-            if device["family"] != "Other"
-            else "Unknown Device",
-        }
-
-    def get_session_display(self, obj):
-        """Return the human-readable display value for the session field."""
-        return obj.get_session_display()
+    def get_action_display(self, obj):
+        """
+        Return the human-readable value for the action field.
+        """
+        return dict(ActivityHistory.ACTION_TYPES).get(obj.action, obj.action)
 
     def get_time(self, obj):
-        """Return the time in a formatted style: Day, Month, Year - Time."""
-        # Convert to local timezone (Asia/Manila) if `USE_TZ` is enabled
-        local_time = timezone.localtime(obj.time)
+        """
+        Format the time in a user-friendly manner.
+        Adjusts to the local timezone if `USE_TZ` is enabled.
+        """
+        local_time = localtime(obj.time)
         return date(local_time, "D, M d, Y - H:i")
 
 

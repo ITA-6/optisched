@@ -81,20 +81,41 @@ class CustomUser(AbstractBaseUser):
         return self.username
 
 
-class AuthenticationHistory(models.Model):
-    ACCOUNT_SESSIONS = [("LOGIN", "Login"), ("LOGOUT", "Logout")]
+class ActivityHistory(models.Model):
+    ACTION_TYPES = [
+        ("CREATE", "Create"),
+        ("UPDATE", "Update"),
+        ("DELETE", "Delete"),
+        ("LOGIN", "Login"),
+        ("LOGOUT", "Logout"),
+        ("OTHER", "Other"),
+    ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    time = models.DateTimeField(default=timezone.now)
-    session = models.CharField(
-        max_length=25, choices=ACCOUNT_SESSIONS, blank=True, null=True
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="activity_history",
     )
+    time = models.DateTimeField(default=timezone.now)
+    action = models.CharField(
+        max_length=25, choices=ACTION_TYPES, blank=True, null=True
+    )
+    model_name = models.CharField(
+        max_length=255, null=True, blank=True
+    )  # e.g., "Professor"
+    object_id = models.CharField(
+        max_length=255, null=True, blank=True
+    )  # ID of the object acted upon
+    description = models.TextField(
+        null=True, blank=True
+    )  # e.g., "Created Professor John Doe"
     ip_address = models.GenericIPAddressField(null=True, blank=True)
     user_agent = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
-        verbose_name = "Login History"
-        verbose_name_plural = "Login Histories"
+        verbose_name = "Activity History"
+        verbose_name_plural = "Activity Histories"
+        ordering = ["-time"]
 
     def __str__(self):
-        return f"Login by {self.user.username} on {self.login_time}"
+        return f"{self.action} on {self.model_name} ({self.object_id}) by {self.user.username} at {self.time}"

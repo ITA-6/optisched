@@ -1,16 +1,46 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-
+from account.models import ActivityHistory
 from department.models import Department
 from department.serializers import DepartmentSerializer
 
+from django.utils.timezone import now
+
 
 class DepartmentAPIView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+
+    def log_activity(self, request, action, instance=None, description=None):
+        """
+        Logs activity into the ActivityHistory model.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            action (str): Action type (e.g., CREATE, UPDATE, DELETE).
+            instance (Model): The Department instance involved (optional).
+            description (str): Detailed description of the action (optional).
+        """
+        user = request.user if request.user.is_authenticated else None
+        ip_address = (
+            request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+            if "HTTP_X_FORWARDED_FOR" in request.META
+            else request.META.get("REMOTE_ADDR")
+        )
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+        ActivityHistory.objects.create(
+            user=user,
+            action=action,
+            model_name="Department",
+            object_id=str(instance.id) if instance else None,
+            description=description,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            time=now(),
+        )
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
@@ -33,6 +63,15 @@ class DepartmentAPIView(APIView):
         serializer = DepartmentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         department = serializer.save()
+
+        # Log the creation activity
+        self.log_activity(
+            request,
+            action="CREATE",
+            instance=department,
+            description=f"Created a new department with name {department.name}.",
+        )
+
         data = {
             "message": "Department has been created.",
             "data": {
@@ -41,21 +80,27 @@ class DepartmentAPIView(APIView):
             },
         }
         return Response(data, status=status.HTTP_201_CREATED)
-    
+
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
-        # Retrieve the existing instance of Building
         try:
-            course = Department.objects.get(pk=pk)
+            department = Department.objects.get(pk=pk)
         except Department.DoesNotExist:
             return Response(
-                {"message": "Course not found."}, status=status.HTTP_404_NOT_FOUND
+                {"message": "Department not found."}, status=status.HTTP_404_NOT_FOUND
             )
 
-        # Pass the instance to the serializer along with the new data
-        serializer = DepartmentSerializer(course, data=request.data)
+        serializer = DepartmentSerializer(department, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        updated_department = serializer.save()
+
+        # Log the update activity
+        self.log_activity(
+            request,
+            action="UPDATE",
+            instance=updated_department,
+            description=f"Updated department with name {updated_department.name}.",
+        )
 
         data = {"message": "Department has been updated.", "data": serializer.data}
         return Response(data, status=status.HTTP_200_OK)
@@ -63,8 +108,17 @@ class DepartmentAPIView(APIView):
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
         try:
-            instance = Department.objects.get(pk=pk)
-            instance.delete()
+            department = Department.objects.get(pk=pk)
+            department.delete()
+
+            # Log the delete activity
+            self.log_activity(
+                request,
+                action="DELETE",
+                instance=department,
+                description=f"Deleted department with name {department.name}.",
+            )
+
             return Response(
                 {"message": "Department has been deleted successfully."},
                 status=status.HTTP_204_NO_CONTENT,

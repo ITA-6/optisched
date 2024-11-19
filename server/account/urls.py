@@ -4,7 +4,7 @@ from account.views import (
     CountApiView,
     LoginApiView,
     LogoutApiView,
-    LoginHistoryApiView,
+    ActivityHistoryApiView,
     ChangePasswordApiView,
 )
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -21,5 +21,5 @@ urlpatterns = [
     path("logout/", LogoutApiView.as_view(), name="logout"),
     path("count/", CountApiView.as_view(), name="count"),
     path("refresh-token/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("login-history/", LoginHistoryApiView.as_view(), name="login_history"),
+    path("login-history/", ActivityHistoryApiView.as_view(), name="login_history"),
 ]

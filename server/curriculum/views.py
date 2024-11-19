@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from curriculum.models import Curriculum
@@ -8,8 +8,7 @@ from curriculum.serializers import CurriculumSerializer, CreateCurriculumSeriali
 
 
 class CurriculumAPIView(APIView):
-    authentication_classes = []
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         # Get query parameters

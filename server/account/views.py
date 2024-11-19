@@ -1,28 +1,57 @@
-from django.utils import timezone
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from account.serializers import (
     AccountSerializer,
     LoginSerializer,
     CustomTokenObtainPairSerializer,
-    AuthenticationHistorySerializer,
+    ActivityHistorySerializer,
     ChangePasswordSerializer,
 )
 
-from account.models import CustomUser, AuthenticationHistory
+from account.models import CustomUser, ActivityHistory
 from professor.models import Professor
 from section.models import Section
 from room.models import Room
 from course.models import Course
 
+from django.utils.timezone import now
+
 
 class AccountApiView(APIView):
     permission_classes = [IsAuthenticated]
+
+    def log_activity(self, request, action, instance=None, description=None):
+        """
+        Logs activity into the ActivityHistory model.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            action (str): Action type (e.g., CREATE, UPDATE, DELETE).
+            instance (Model): The CustomUser instance involved (optional).
+            description (str): Detailed description of the action (optional).
+        """
+        user = request.user
+        ip_address = (
+            request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+            if "HTTP_X_FORWARDED_FOR" in request.META
+            else request.META.get("REMOTE_ADDR")
+        )
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+        ActivityHistory.objects.create(
+            user=user,
+            action=action,
+            model_name="CustomUser",
+            object_id=str(instance.id) if instance else None,
+            description=description,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            time=now(),
+        )
 
     def get_user_data(self, request):
         return {
@@ -46,6 +75,14 @@ class AccountApiView(APIView):
         if serializer.is_valid(raise_exception=True):
             account = serializer.save()
 
+            # Log the creation activity
+            self.log_activity(
+                request,
+                action="CREATE",
+                instance=account,
+                description=f"Created account with user ID {account.user_id}.",
+            )
+
             data = {
                 "response": "Account has been created",
                 "username": account.username,
@@ -56,7 +93,6 @@ class AccountApiView(APIView):
 
     def put(self, request, **kwargs):
         pk = kwargs.get("pk")
-        print(CustomUser.objects.get(user_id=2101264))
         try:
             user = CustomUser.objects.get(user_id=pk)
         except CustomUser.DoesNotExist:
@@ -67,7 +103,15 @@ class AccountApiView(APIView):
         user_data = self.get_user_data(request)
         account_serializer = AccountSerializer(user, data=user_data)
         account_serializer.is_valid(raise_exception=True)
-        user = account_serializer.save()
+        updated_user = account_serializer.save()
+
+        # Log the update activity
+        self.log_activity(
+            request,
+            action="UPDATE",
+            instance=updated_user,
+            description=f"Updated account with user ID {updated_user.user_id}.",
+        )
 
         data = {
             "message": "User has been updated.",
@@ -94,8 +138,17 @@ class AccountApiView(APIView):
     def delete(self, request, **kwargs):
         pk = kwargs.get("pk")
         try:
-            instance = CustomUser.objects.get(user_id=pk)
-            instance.delete()
+            user = CustomUser.objects.get(user_id=pk)
+            user.delete()
+
+            # Log the delete activity
+            self.log_activity(
+                request,
+                action="DELETE",
+                instance=user,
+                description=f"Deleted account with user ID {pk}.",
+            )
+
             return Response(
                 {"message": "User has been deleted successfully."},
                 status=status.HTTP_204_NO_CONTENT,
@@ -108,10 +161,11 @@ class AccountApiView(APIView):
 
 class LoginApiView(APIView):
     permission_classes = [AllowAny]
-    authentication_classes = []
 
     def get_client_ip(self, request):
-        """Get the client's IP address from the request headers."""
+        """
+        Get the client's IP address from the request headers.
+        """
         x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
         if x_forwarded_for:
             ip = x_forwarded_for.split(",")[0]
@@ -129,14 +183,18 @@ class LoginApiView(APIView):
             ip_address = self.get_client_ip(request)
             user_agent = request.META.get("HTTP_USER_AGENT", "")
 
-            AuthenticationHistory.objects.create(
+            ActivityHistory.objects.create(
                 user=user,
-                time=timezone.now(),
-                session="LOGIN",  # Assuming "session" is meant to describe the action
+                time=now(),
+                action="LOGIN",  # Generalized action type
+                model_name="Authentication",  # Context for the activity
+                object_id=None,  # No specific object ID for login
+                description=f"User {user.username} logged in.",
                 ip_address=ip_address,
                 user_agent=user_agent,
             )
 
+            # Generate tokens using the custom serializer
             refresh = CustomTokenObtainPairSerializer().get_token(user)
             access_token = refresh.access_token
 
@@ -158,6 +216,10 @@ class LoginApiView(APIView):
 class LogoutApiView(APIView):
     permission_classes = [IsAuthenticated]
 
+    """
+    Handles logout functionality and logs the activity in ActivityHistory.
+    """
+
     def post(self, request, *args, **kwargs):
         try:
             # Get the refresh token from the request data
@@ -169,19 +231,32 @@ class LogoutApiView(APIView):
                 )
 
             # Blacklist the refresh token
-            token = RefreshToken(refresh_token)
-            token.blacklist()
+            try:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+            except Exception as e:
+                return Response(
+                    {"error": f"Token blacklisting failed: {str(e)}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
             # Get the user, IP address, and user agent
             user = request.user
-            ip_address = request.META.get("REMOTE_ADDR")
-            user_agent = request.META.get("HTTP_USER_AGENT")
+            ip_address = (
+                request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+                if "HTTP_X_FORWARDED_FOR" in request.META
+                else request.META.get("REMOTE_ADDR")
+            )
+            user_agent = request.META.get("HTTP_USER_AGENT", "")
 
-            # Log the logout event in AuthenticationHistory
-            AuthenticationHistory.objects.create(
+            # Log the logout event in ActivityHistory
+            ActivityHistory.objects.create(
                 user=user,
-                time=timezone.now(),
-                session="LOGOUT",  # Assuming "session" is meant to describe the action
+                time=now(),
+                action="LOGOUT",  # Action type
+                model_name="Authentication",  # Model or system context
+                object_id=None,  # No specific object ID for logout
+                description=f"User {user.username} logged out.",
                 ip_address=ip_address,
                 user_agent=user_agent,
             )
@@ -190,9 +265,10 @@ class LogoutApiView(APIView):
                 {"success": "Logout successful."}, status=status.HTTP_205_RESET_CONTENT
             )
 
-        except Exception:
+        except Exception as e:
             return Response(
-                {"error": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST
+                {"error": f"An unexpected error occurred: {str(e)}"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
 
@@ -244,12 +320,12 @@ class CountApiView(APIView):
         )
 
 
-class LoginHistoryApiView(APIView):
-    permission_classes = [AllowAny]
+class ActivityHistoryApiView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        login_history = AuthenticationHistory.objects.all().order_by("-time")
-        serializer = AuthenticationHistorySerializer(login_history, many=True)
+        login_history = ActivityHistory.objects.all().order_by("-time")
+        serializer = ActivityHistorySerializer(login_history, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

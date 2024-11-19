@@ -3,12 +3,44 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
+from account.models import ActivityHistory
 from course.models import Course
 from course.serializers import CourseSerializer
+
+from django.utils.timezone import now
 
 
 class CourseAPIView(APIView):
     permission_classes = [IsAuthenticated]
+
+    def log_activity(self, request, action, instance=None, description=None):
+        """
+        Logs activity into the ActivityHistory model.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            action (str): Action type (e.g., CREATE, UPDATE, DELETE).
+            instance (Model): The Course instance involved (optional).
+            description (str): Detailed description of the action (optional).
+        """
+        user = request.user
+        ip_address = (
+            request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+            if "HTTP_X_FORWARDED_FOR" in request.META
+            else request.META.get("REMOTE_ADDR")
+        )
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+        ActivityHistory.objects.create(
+            user=user,
+            action=action,
+            model_name="Course",
+            object_id=str(instance.id) if instance else None,
+            description=description,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            time=now(),
+        )
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
@@ -55,13 +87,22 @@ class CourseAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = CourseSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        course = serializer.save()
+
+        # Log the creation activity
+        self.log_activity(
+            request,
+            action="CREATE",
+            instance=course,
+            description=f"Created a new course with ID {course.id}.",
+        )
+
         data = {"message": "Course has been created.", "data": serializer.data}
         return Response(data, status=status.HTTP_201_CREATED)
 
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
-        # Retrieve the existing instance of Building
+        # Retrieve the existing instance of Course
         try:
             course = Course.objects.get(pk=pk)
         except Course.DoesNotExist:
@@ -72,7 +113,15 @@ class CourseAPIView(APIView):
         # Pass the instance to the serializer along with the new data
         serializer = CourseSerializer(course, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        updated_course = serializer.save()
+
+        # Log the update activity
+        self.log_activity(
+            request,
+            action="UPDATE",
+            instance=updated_course,
+            description=f"Updated course with ID {updated_course.id}.",
+        )
 
         data = {"message": "Course has been updated.", "data": serializer.data}
         return Response(data, status=status.HTTP_200_OK)
@@ -81,8 +130,17 @@ class CourseAPIView(APIView):
         pk = kwargs.get("pk")
 
         try:
-            instance = Course.objects.get(pk=pk)
-            instance.delete()
+            course = Course.objects.get(pk=pk)
+            course.delete()
+
+            # Log the delete activity
+            self.log_activity(
+                request,
+                action="DELETE",
+                instance=course,
+                description=f"Deleted course with ID {pk}.",
+            )
+
             return Response(
                 {"message": "Course has been deleted successfully."},
                 status=status.HTTP_204_NO_CONTENT,

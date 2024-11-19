@@ -3,12 +3,44 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
+from account.models import ActivityHistory
 from section.models import Section
 from section.serializers import SectionSerializer
+
+from django.utils.timezone import now
 
 
 class SectionAPIView(APIView):
     permission_classes = [IsAuthenticated]
+
+    def log_activity(self, request, action, instance=None, description=None):
+        """
+        Logs activity into the ActivityHistory model.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            action (str): Action type (e.g., CREATE, UPDATE, DELETE).
+            instance (Model): The Section instance involved (optional).
+            description (str): Detailed description of the action (optional).
+        """
+        user = request.user
+        ip_address = (
+            request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+            if "HTTP_X_FORWARDED_FOR" in request.META
+            else request.META.get("REMOTE_ADDR")
+        )
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+        ActivityHistory.objects.create(
+            user=user,
+            action=action,
+            model_name="Section",
+            object_id=str(instance.id) if instance else None,
+            description=description,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            time=now(),
+        )
 
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
@@ -37,7 +69,6 @@ class SectionAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
-            # Retrieve all sections based on user privilege
             if user_privilege == "admin":
                 sections = Section.objects.all()
             elif user_privilege == "sub_admin":
@@ -56,7 +87,16 @@ class SectionAPIView(APIView):
         request.data["department"] = department_id
         serializer = SectionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        section = serializer.save()
+
+        # Log the creation activity
+        self.log_activity(
+            request,
+            action="CREATE",
+            instance=section,
+            description=f"Created a new section with ID {section.id}.",
+        )
+
         data = {"message": "Section has been created.", "data": serializer.data}
         return Response(data, status=status.HTTP_201_CREATED)
 
@@ -64,18 +104,25 @@ class SectionAPIView(APIView):
         pk = kwargs.get("pk")
         department_id = request.user.department.id
         request.data["department"] = department_id
-        # Retrieve the existing instance of Building
+
         try:
-            course = Section.objects.get(pk=pk)
+            section = Section.objects.get(pk=pk)
         except Section.DoesNotExist:
             return Response(
                 {"message": "Section not found."}, status=status.HTTP_404_NOT_FOUND
             )
 
-        # Pass the instance to the serializer along with the new data
-        serializer = SectionSerializer(course, data=request.data)
+        serializer = SectionSerializer(section, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        updated_section = serializer.save()
+
+        # Log the update activity
+        self.log_activity(
+            request,
+            action="UPDATE",
+            instance=updated_section,
+            description=f"Updated section with ID {updated_section.id}.",
+        )
 
         data = {"message": "Section has been updated.", "data": serializer.data}
         return Response(data, status=status.HTTP_200_OK)
@@ -83,8 +130,17 @@ class SectionAPIView(APIView):
     def delete(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
         try:
-            instance = Section.objects.get(pk=pk)
-            instance.delete()
+            section = Section.objects.get(pk=pk)
+            section.delete()
+
+            # Log the delete activity
+            self.log_activity(
+                request,
+                action="DELETE",
+                instance=section,
+                description=f"Deleted section with ID {pk}.",
+            )
+
             return Response(
                 {"message": "Section has been deleted successfully."},
                 status=status.HTTP_204_NO_CONTENT,

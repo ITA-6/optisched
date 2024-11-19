@@ -5,9 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 
 from professor.models import Professor
 from professor.serializers import ProfessorSerializer
-from account.models import CustomUser
+from account.models import CustomUser, ActivityHistory
 from account.serializers import AccountSerializer
 from department.models import Department
+
+from django.utils.timezone import now
 
 
 class ProfessorManager:
@@ -36,6 +38,35 @@ class ProfessorManager:
 class ProfessorAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
+    def log_activity(self, request, action, instance=None, description=None):
+        """
+        Logs activity into the ActivityHistory model.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            action (str): Action type (e.g., CREATE, UPDATE, DELETE).
+            instance (Model): The Professor instance involved (optional).
+            description (str): Detailed description of the action (optional).
+        """
+        user = request.user
+        ip_address = (
+            request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+            if "HTTP_X_FORWARDED_FOR" in request.META
+            else request.META.get("REMOTE_ADDR")
+        )
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+        ActivityHistory.objects.create(
+            user=user,
+            action=action,
+            model_name="Professor",
+            object_id=str(instance.id) if instance else None,
+            description=description,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            time=now(),
+        )
+
     def get(self, request, *args, **kwargs):
         pk = kwargs.get("pk")
 
@@ -45,34 +76,26 @@ class ProfessorAPIView(APIView):
             return self.get_all_professors(request)
 
     def get_all_professors(self, request):
-        user = request.user  # The currently authenticated user
+        user = request.user
 
-        # Check the user's role and department
         if user.get_privilege() == "admin":
-            # Registrar sees all professors
             professors = Professor.objects.all()
         elif user.get_privilege() == "sub_admin":
-            # Dean or Department Chair sees only professors in their department
             if not user.department:
                 return Response(
                     {"error": "User does not have an assigned department."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-
-            # Filter professors by the user's department
             professors = Professor.objects.filter(department=user.department)
         else:
-            # Default: no access to any professors
             return Response(
                 {"error": "You do not have permission to view professors."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        # Serialize the filtered professor list
         serializer = ProfessorSerializer(professors, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # Helper methods (same as before, no changes needed here)
     def get_professor_detail(self, pk):
         try:
             professor = Professor.objects.get(pk=pk)
@@ -84,7 +107,6 @@ class ProfessorAPIView(APIView):
             )
 
     def post(self, request, *args, **kwargs):
-        # Ensure department exists
         department = request.user.department.id
         if not self.is_valid_department(department):
             return Response(
@@ -94,21 +116,24 @@ class ProfessorAPIView(APIView):
         professor_data = self.build_professor_data(request.data)
         professor_data["department"] = department
 
-        # Initialize serializer with professor data
         professor_serializer = ProfessorSerializer(data=professor_data)
         professor_serializer.is_valid(raise_exception=True)
 
-        # Check if user already exists
         user_id = professor_data.get("prof_id")
-        user = ProfessorManager.get_user_by_id(
-            user_id
-        )  # Replace with your logic to get a user by email or any other field
+        user = ProfessorManager.get_user_by_id(user_id)
 
         if user:
-            # If user exists, just link the professor to the existing account
             professor = professor_serializer.save()
             user.professor = professor
             user.save()
+
+            # Log the activity
+            self.log_activity(
+                request,
+                action="CREATE",
+                instance=professor,
+                description="Professor linked to existing user account.",
+            )
 
             data = {
                 "message": "Professor has been created and linked to an existing user account.",
@@ -116,12 +141,17 @@ class ProfessorAPIView(APIView):
             }
             return Response(data, status=status.HTTP_201_CREATED)
         else:
-            # If user doesn't exist, create a new one
             professor = professor_serializer.save()
-
-            # Build the user data and create a new account
             user_data = self.build_user_data(professor)
             ProfessorManager.create_account(user_data)
+
+            # Log the activity
+            self.log_activity(
+                request,
+                action="CREATE",
+                instance=professor,
+                description="Professor created with a new user account.",
+            )
 
             data = {
                 "message": "Professor has been created with a new user account.",
@@ -151,6 +181,14 @@ class ProfessorAPIView(APIView):
         professor_serializer.is_valid(raise_exception=True)
         professor = professor_serializer.save()
 
+        # Log the activity
+        self.log_activity(
+            request,
+            action="UPDATE",
+            instance=professor,
+            description="Professor details updated.",
+        )
+
         data = {
             "message": "Professor has been updated.",
             "data": professor_serializer.data,
@@ -162,6 +200,15 @@ class ProfessorAPIView(APIView):
         try:
             professor = Professor.objects.get(prof_id=pk)
             professor.delete()
+
+            # Log the activity
+            self.log_activity(
+                request,
+                action="DELETE",
+                instance=professor,
+                description="Professor deleted.",
+            )
+
             return Response(
                 {"message": "Professor has been deleted successfully."},
                 status=status.HTTP_204_NO_CONTENT,
@@ -195,7 +242,7 @@ class ProfessorAPIView(APIView):
             "user_id": professor.prof_id,
             "username": professor.prof_id,
             "email": professor.email,
-            "password": professor.birth_date.strftime("%Y-%m-%d"),  # Default password
+            "password": professor.birth_date.strftime("%Y-%m-%d"),
             "first_name": professor.first_name,
             "last_name": professor.last_name,
             "middle_name": professor.middle_name,

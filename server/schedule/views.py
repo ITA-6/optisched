@@ -1,11 +1,10 @@
 # schedule/views.py
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
 
+from account.models import ActivityHistory
 from professor.models import Professor
 from schedule.models import Schedule, CourseSchedule, TimeSlot
 from schedule.serializers import (
@@ -13,11 +12,17 @@ from schedule.serializers import (
     ScheduleSerializer,
 )
 from section.models import Section
+
 from .management.commands.genetic_algorithm import GeneticAlgorithmRunner
+
+
+from django.shortcuts import get_object_or_404
 from django.core.cache import cache
+from django.utils.timezone import now
 
 
 class ScheduleView(APIView):
+    permission_classes = [IsAuthenticated]
     """
     Manages the creation, viewing, updating, and archiving (soft delete) of schedules.
     """
@@ -141,12 +146,47 @@ class ProfessorScheduleView(APIView):
 
 
 class GenerateScheduleView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
+
+    def log_activity(self, request, action, description=None):
+        """
+        Logs activity into the ActivityHistory model.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            action (str): Action type (e.g., GENERATE, SAVE).
+            description (str): Detailed description of the action.
+        """
+        user = request.user if request.user.is_authenticated else None
+        ip_address = (
+            request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0]
+            if "HTTP_X_FORWARDED_FOR" in request.META
+            else request.META.get("REMOTE_ADDR")
+        )
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
+
+        ActivityHistory.objects.create(
+            user=user,
+            action=action,
+            model_name="Schedule",
+            object_id=None,  # Not tied to a specific object
+            description=description,
+            ip_address=ip_address,
+            user_agent=user_agent,
+            time=now(),
+        )
 
     def get(self, request):
         # Run the genetic algorithm to generate the schedule
         runner = GeneticAlgorithmRunner()
         schedule_data = runner.run()  # Get the generated schedule data
+
+        # Log the activity
+        self.log_activity(
+            request,
+            action="GENERATE",
+            description="Generated schedule using the genetic algorithm.",
+        )
 
         # Serialize the data for display on the client side
         serializer = SectionScheduleSerializer(schedule_data, many=True)
@@ -211,6 +251,13 @@ class GenerateScheduleView(APIView):
 
         # Clear the cache after successfully saving all schedules
         cache.delete("all_generated_schedules")
+
+        # Log the activity
+        self.log_activity(
+            request,
+            action="SAVE",
+            description="Saved generated schedules from cache to the database.",
+        )
 
         return Response(
             {"detail": "All cached schedules successfully saved to the database."},
