@@ -8,8 +8,8 @@ import PrintModal from "./ViewSchule/PrintModal";
 import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import completeMark from "../../../assets/completeMark.png"
-import failedMark from "../../../assets/FailedMark.png"
+import completeMark from "../../../assets/completeMark.png";
+import failedMark from "../../../assets/FailedMark.png";
 const Generate = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ const Generate = () => {
   const [schedules, setSchedules] = useState([]);
   const [isGenerateClicked, setIsGenerateClicked] = useState();
   const [saveSchedule, setSaveSchedule] = useState();
-  const [loadingModal,setLoadingModal] = useState();
+  const [loadingModal, setLoadingModal] = useState();
   const [success, setSuccess] = useState("");
   const togglePrintModal = () => {
     setPrintModalOpen(!printModalOpen);
@@ -100,6 +100,7 @@ const Generate = () => {
     setScheduleData([]); // Clear the schedule data when switching departments
   };
 
+  console.log(data.map((section) => section.map));
   const handleGenerateSchedule = async () => {
     setLoading(true); // Show loading screen
     setError(null);
@@ -117,20 +118,20 @@ const Generate = () => {
   };
 
   const handleConfirmSchedule = async () => {
-    setSaveSchedule(true)
+    setSaveSchedule(true);
     setLoadingModal(true);
     setError(null);
     try {
       await api.post("schedule/generate/", { schedule_data: scheduleData }); // API request to confirm and save schedule
-      setSuccess("Schedule has been Saved!")
+      setSuccess("Schedule has been Saved!");
     } catch (err) {
       console.error("Error generating schedule:", err);
       setError("Failed to save the Schedule");
     } finally {
-      setLoadingModal(false)
+      setLoadingModal(false);
       setTimeout(() => {
-        setSaveSchedule(false)
-      },[3000])
+        setSaveSchedule(false);
+      }, [3000]);
     }
   };
 
@@ -179,15 +180,15 @@ const Generate = () => {
             )}
             {data.length !== 0 && (
               <div className="flex items-center justify-end py-10">
-              <button className="rounded-md px-4 py-2 text-base font-bold text-white">
-                <FontAwesomeIcon
-                  icon={faPrint}
-                  color="black"
-                  className="sm:text-lg md:text-2xl"
-                  onClick={togglePrintModal}
-                />
-              </button>
-            </div>
+                <button className="rounded-md px-4 py-2 text-base font-bold text-white">
+                  <FontAwesomeIcon
+                    icon={faPrint}
+                    color="black"
+                    className="sm:text-lg md:text-2xl"
+                    onClick={togglePrintModal}
+                  />
+                </button>
+              </div>
             )}
           </div>
 
@@ -204,10 +205,34 @@ const Generate = () => {
                     <div className="flex flex-col overflow-auto lg:mx-4">
                       {data.map((section) =>
                         section.map((sectionArray, index) => (
-                          <ViewTableSchedule
-                            key={index}
-                            sectionArray={sectionArray}
-                          />
+                          <>
+                            <div className="flex items-center justify-center">
+                              Curriculum Year Batch
+                            </div>
+                            <div className="flex justify-between">
+                              <p className="">
+                                {(() => {
+                                  switch (sectionArray.year_level) {
+                                    case 1:
+                                      return "1st Year";
+                                    case 2:
+                                      return "2nd Year";
+                                    case 3:
+                                      return "3rd Year";
+                                    case 4:
+                                      return "4th Year";
+                                    default:
+                                      return "Unknown";
+                                  }
+                                })()}
+                              </p>
+                              <p className="">{sectionArray.semester}</p>
+                            </div>
+                            <ViewTableSchedule
+                              key={index}
+                              sectionArray={sectionArray}
+                            />
+                          </>
                         )),
                       )}
                     </div>
@@ -242,24 +267,24 @@ const Generate = () => {
           )}
           {saveSchedule && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="w-1/4 h- rounded-lg bg-white shadow-lg">
+              <div className="h- w-1/4 rounded-lg bg-white shadow-lg">
                 {loadingModal ? (
-                  <div className="flex h-10 flex-col items-center justify-center py-10 bg-white rounded-lg">
+                  <div className="flex h-10 flex-col items-center justify-center rounded-lg bg-white py-10">
                     <video
                       src={loadingVideo}
                       autoPlay
                       loop
-                      className="rounded-lg translate-x-0 transform"
+                      className="translate-x-0 transform rounded-lg"
                     />
                   </div>
                 ) : error ? (
-                  <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
+                  <div className="flex flex-col items-center justify-center rounded-lg bg-white py-10 duration-75 ease-in-out">
                     <img src={failedMark} alt="" className="w-24" />
                     <p>{error}</p>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center py-10 bg-white duration-75 ease-in-out rounded-lg">
-                     <img src={completeMark} alt=""  className="w-24"/>
+                  <div className="flex flex-col items-center justify-center rounded-lg bg-white py-10 duration-75 ease-in-out">
+                    <img src={completeMark} alt="" className="w-24" />
                     <p>{success}</p>
                   </div>
                 )}
