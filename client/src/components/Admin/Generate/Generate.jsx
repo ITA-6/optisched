@@ -100,7 +100,6 @@ const Generate = () => {
     setScheduleData([]); // Clear the schedule data when switching departments
   };
 
-  console.log(data.map((section) => section.map));
   const handleGenerateSchedule = async () => {
     setLoading(true); // Show loading screen
     setError(null);
