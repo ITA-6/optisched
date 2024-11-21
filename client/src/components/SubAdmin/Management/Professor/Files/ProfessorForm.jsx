@@ -2,12 +2,14 @@ import user from "../../../../../assets/user.png";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
+
 const ProfessorForm = ({
   toggleModal,
   handler,
   initialData,
   errors,
   errorMessage,
+  course,
 }) => {
   const [professorId, setProfessorId] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -18,8 +20,9 @@ const ProfessorForm = ({
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
+  const [specialization, setSpecialization] = useState(["", "", ""]);
 
-  // Effect to populate form fields if initialData is provided
+  // Populate form fields with initial data
   useEffect(() => {
     if (initialData) {
       setProfessorId(initialData.prof_id || "");
@@ -31,6 +34,7 @@ const ProfessorForm = ({
       setBirthDate(initialData.birth_date || "");
       setEmail(initialData.email || "");
       setGender(initialData.gender || "O");
+      setSpecialization(initialData.specialization || ["", "", ""]);
     }
   }, [initialData]);
 
@@ -46,6 +50,7 @@ const ProfessorForm = ({
       employment_status: employmentStatus,
       has_masteral: hasMasteral,
       birth_date: birthDate,
+      specialization: specialization,
     };
     if (initialData) professorData.id = initialData.id;
     handler(professorData);
@@ -56,9 +61,9 @@ const ProfessorForm = ({
       <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
           <FontAwesomeIcon
-            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+            className="m-3 mr-4 text-white sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em]"
             icon={faUser}
-           />
+          />
           <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             {initialData ? "Update Professor" : "Create New Professor"}
           </h2>
@@ -68,12 +73,14 @@ const ProfessorForm = ({
             {/* Professor ID */}
             <div className="flex flex-col">
               <label
-                htmlFor="mail"
+                htmlFor="professorID"
                 className="text-lg font-medium text-gray-700"
               >
                 Professor ID *
                 <span
-                  className={`${errorMessage.prof_id && errors ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                  className={`${
+                    errorMessage.prof_id && errors ? "inline" : "hidden"
+                  } ml-2 text-sm text-red-500`}
                 >
                   {" "}
                   Professor ID is Taken
@@ -84,12 +91,15 @@ const ProfessorForm = ({
                 id="professorID"
                 value={professorId}
                 onChange={(e) => {
-                  // Ensure value is not more than 7 digits
-                  const value = e.target.value.slice(0, 7);
+                  const value = e.target.value.slice(0, 7); // Ensure 7 digits max
                   setProfessorId(value);
                 }}
-                max={9999999} // Allows up to 7 digits
-                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errorMessage.prof_id && errors ? "border-red-500 outline-none duration-300 ease-in-out" : ""}`}
+                max={9999999}
+                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${
+                  errorMessage.prof_id && errors
+                    ? "border-red-500 outline-none duration-300 ease-in-out"
+                    : ""
+                }`}
                 required
               />
             </div>
@@ -148,7 +158,38 @@ const ProfessorForm = ({
               </div>
             </div>
 
-            {/* Gender Field */}
+            {/* Specialization */}
+            <div className="flex flex-col">
+              <p className="mb-2 ml-1 text-lg font-medium">Specialization</p>
+              <div className="flex w-full gap-2">
+                {Array(3)
+                  .fill()
+                  .map((_, index) => (
+                    <select
+                      key={index}
+                      name={`specialization-${index}`}
+                      value={specialization[index] || ""}
+                      onChange={(e) => {
+                        const updatedSpecialization = [...specialization];
+                        updatedSpecialization[index] = e.target.value;
+                        setSpecialization(updatedSpecialization);
+                      }}
+                      className="w-full flex-1 rounded-lg border border-gray-300 p-2"
+                    >
+                      <option value="" disabled>
+                        Select Specialization
+                      </option>
+                      {course.map((courses) => (
+                        <option key={courses.id} value={courses.name}>
+                          {courses.name}
+                        </option>
+                      ))}
+                    </select>
+                  ))}
+              </div>
+            </div>
+
+            {/* Gender */}
             <div className="flex gap-10">
               <div className="flex-1">
                 <label
@@ -186,6 +227,7 @@ const ProfessorForm = ({
                   id="birthdate"
                   value={birthDate}
                   onChange={(e) => setBirthDate(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -215,61 +257,70 @@ const ProfessorForm = ({
               </select>
             </div>
 
-            {/* Email Address Field */}
+            {/* Email Address */}
             <div className="flex flex-col">
               <label
-                htmlFor="mail"
+                htmlFor="email"
                 className="text-lg font-medium text-gray-700"
               >
                 Email Address *
                 <span
-                  className={`${errors && errorMessage.email ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                  className={`${
+                    errors && errorMessage.email ? "inline" : "hidden"
+                  } ml-2 text-sm text-red-500`}
                 >
                   {" "}
-                  * Email is Taken
+                  Email is Taken
                 </span>
               </label>
               <input
                 type="email"
-                id="mail"
+                id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${errors && errorMessage.email ? "border-red-500 outline-none" : ""}`}
+                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${
+                  errors && errorMessage.email
+                    ? "border-red-500 outline-none"
+                    : ""
+                }`}
                 required
               />
             </div>
 
-            <div className="flex gap-10">
-              {/* Masteral Field */}
-              <div className="flex-1">
-                <label
-                  htmlFor="masteral"
-                  className="text-lg font-medium text-gray-700"
-                >
-                  Masteral *
-                </label>
-                <select
-                  id="masteral"
-                  value={hasMasteral}
-                  onChange={(e) => setHasMasteral(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                  required
-                >
-                  <option value="" disabled>
-                    Select If Has Masteral
-                  </option>
-                  <option value="Y">Yes</option>
-                  <option value="N">No</option>
-                </select>
-              </div>
+            {/* Masteral */}
+            <div className="flex-1">
+              <label
+                htmlFor="masteral"
+                className="text-lg font-medium text-gray-700"
+              >
+                Masteral *
+              </label>
+              <select
+                id="masteral"
+                value={hasMasteral}
+                onChange={(e) => setHasMasteral(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                required
+              >
+                <option value="" disabled>
+                  Select If Has Masteral
+                </option>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+              </select>
             </div>
 
+            {/* Submit Button */}
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
-              <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
-                <span className="text-white xm:text-xs font-bold">Confirm</span>
+              <button
+                type="submit"
+                className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28"
+              >
+                <span className="font-bold text-white xm:text-xs">Confirm</span>
               </button>
             </div>
           </form>
+
           <button
             className="absolute right-4 top-4 rounded-full bg-red-500 px-1 text-white"
             onClick={toggleModal}

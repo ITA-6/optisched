@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import CourseRow from "./CourseRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const CourseTable = ({ toggleDialog,  filteredCourses, openUpdate, totalRows }) => {
+const CourseTable = ({
+  toggleDialog,
+  filteredCourses,
+  openUpdate,
+  totalRows,
+}) => {
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
@@ -16,9 +21,12 @@ const CourseTable = ({ toggleDialog,  filteredCourses, openUpdate, totalRows }) 
     fetchData();
   }, []); // Run only once on mount
 
-  const rowsToDisplay = Array.from({ length:  filteredCourses.length }, (_, index) => {
-    return  filteredCourses[index] || { name: "", code: "", category: "" };
-  });
+  const rowsToDisplay = Array.from(
+    { length: filteredCourses.length },
+    (_, index) => {
+      return filteredCourses[index] || { name: "", code: "", category: "" };
+    },
+  );
 
   if (loading) {
     // Show loading video while loading
@@ -31,7 +39,7 @@ const CourseTable = ({ toggleDialog,  filteredCourses, openUpdate, totalRows }) 
 
   return (
     <table className="h-[100%] w-full table-auto bg-white text-center">
-      <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white mb-10">
+      <thead className="sticky top-0 mb-10 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">
             Course Title
@@ -46,14 +54,19 @@ const CourseTable = ({ toggleDialog,  filteredCourses, openUpdate, totalRows }) 
             Lec Unit
           </th>
           <th scope="col" className="border border-white">
-          Lecture Hours
+            Lecture Hours
           </th>
           <th scope="col" className="border border-white">
             Lab Unit
           </th>
-
           <th scope="col" className="border border-white">
             Lab Hours
+          </th>
+          <th scope="col" className="border border-white">
+            Total Units
+          </th>
+          <th scope="col" className="border border-white">
+            Total Hours
           </th>
           <th scope="col" className="border border-white">
             Pre/Co-Requisite
@@ -65,7 +78,7 @@ const CourseTable = ({ toggleDialog,  filteredCourses, openUpdate, totalRows }) 
         </tr>
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
-        {rowsToDisplay.map(( filteredCourses, index) => (
+        {rowsToDisplay.map((filteredCourses, index) => (
           <CourseRow
             key={index}
             filteredCourses={filteredCourses}

@@ -10,6 +10,7 @@ import { useSidebar } from "../../../Users/Sidenav/SidenavContext/SidenavContext
 const Professor = () => {
   const [professors, setProfessor] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [course, setCourse] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
   const [errors, setError] = useState();
@@ -67,8 +68,10 @@ const Professor = () => {
     const fetchData = async () => {
       const response = await api.get("professors/");
       const department = await api.get("departments/");
+      const courses = await api.get("courses/");
       setProfessor(response.data);
       setDepartments(department.data);
+      setCourse(courses.data);
     };
     fetchData();
   }, []);
@@ -170,6 +173,7 @@ const Professor = () => {
             errors={errors}
             errorMessage={errorMessage}
             departments={departments}
+            course={course}
             toggleModal={toggleModal}
             handler={initialData ? updateProfessor : submitProfessor}
             initialData={initialData}

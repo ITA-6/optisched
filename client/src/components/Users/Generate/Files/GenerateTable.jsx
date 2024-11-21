@@ -10,13 +10,14 @@ const GenerateTable = ({ data }) => {
           <th className="sm:w-44 xm:w-44">Course Description</th>
           <th className="sm:w-20 xm:w-20">Lec Units</th>
           <th className="sm:w-20 xm:w-20">Lab Units</th>
+          <th className="sm:w-20 xm:w-20">Total Units</th>
           <th className="sm:w-44 xm:w-44">Day</th>
           <th className="sm:w-44 xm:w-44">Time</th>
           <th className="sm:w-20 xm:w-20">Room</th>
           <th className="sm:w-20 xm:w-20">Section</th>
         </tr>
       </thead>
-      <tbody className="text-center sm:text-sm xm:text-xs  className='border border-collapse border-gray-300'">
+      <tbody className="className='border border-gray-300' border-collapse text-center sm:text-sm xm:text-xs">
         {data.map((sched) =>
           sched.courses.map((course, index) => (
             <GenerateTableRow course={course} key={index} sched={sched} />
