@@ -22,6 +22,8 @@ const Generated = () => {
     fetchData();
   }, []);
 
+  console.log(data);
+
   const totalUnitsSum = data.reduce(
     (sum, schedule) => sum + schedule.total_units,
     0,
