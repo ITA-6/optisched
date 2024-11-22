@@ -20,8 +20,9 @@ const ProfessorForm = ({
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
-  const [specialization, setSpecialization] = useState(["", "", ""]);
-
+  const [specialization, setSpecialization] = useState([]); // Holds selected specializations
+  const [specializationCount, setSpecializationCount] = useState(0); // Count of specializations
+  const [activeSpecialization, setActiveSpecialization] = useState("");
   // Populate form fields with initial data
   useEffect(() => {
     if (initialData) {
@@ -54,6 +55,25 @@ const ProfessorForm = ({
     };
     if (initialData) professorData.id = initialData.id;
     handler(professorData);
+  };
+
+  const toggleActive = (count) => {
+    setSpecializationCount(count); // Set the count for specialization
+    setSpecialization(Array(count).fill("")); // Initialize specialization array
+    setActiveSpecialization(true); // Activate specialization selection
+  };
+
+  const handleSpecializationCount = (count) => {
+    setSpecializationCount(count); // Set the number of specialization dropdowns
+    setSpecialization(Array(count).fill("")); // Initialize the specialization array
+  };
+
+  const handleSpecializationChange = (index, value) => {
+    setSpecialization((prev) => {
+      const updatedSpecialization = [...prev];
+      updatedSpecialization[index] = value; // Update the value at the given index
+      return updatedSpecialization;
+    });
   };
 
   return (
@@ -160,32 +180,60 @@ const ProfessorForm = ({
 
             {/* Specialization */}
             <div className="flex flex-col">
-              <p className="mb-2 ml-1 text-lg font-medium">Specialization</p>
-              <div className="flex w-full gap-2">
-                {Array(3)
-                  .fill()
-                  .map((_, index) => (
-                    <select
-                      key={index}
-                      name={`specialization-${index}`}
-                      value={specialization[index] || ""}
-                      onChange={(e) => {
-                        const updatedSpecialization = [...specialization];
-                        updatedSpecialization[index] = e.target.value;
-                        setSpecialization(updatedSpecialization);
-                      }}
-                      className="w-full flex-1 rounded-lg border border-gray-300 p-2"
-                    >
-                      <option value="" disabled>
-                        Select Specialization
-                      </option>
-                      {course.map((courses) => (
-                        <option key={courses.id} value={courses.name}>
-                          {courses.name}
-                        </option>
-                      ))}
-                    </select>
-                  ))}
+              <div className="flex w-full flex-col gap-4">
+                {/* Count selection */}
+                <label htmlFor="number" className="text-sm font-medium">
+                  Number of Specialization
+                </label>
+                <select
+                  name="count"
+                  id="count"
+                  className="flex-1 rounded-md border border-gray-300 p-1"
+                  onChange={(e) =>
+                    handleSpecializationCount(parseInt(e.target.value))
+                  }
+                >
+                  <option value="">Select Count</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                </select>
+
+                <div className="flex flex-col">
+                  <p className="mb-2 ml-1 text-lg font-medium">
+                    Specialization
+                  </p>
+
+                  {/* Specialization dropdowns */}
+                  {specializationCount > 0 && (
+                    <div className="flex w-full flex-row gap-4">
+                      {Array.from(
+                        { length: specializationCount },
+                        (_, index) => (
+                          <select
+                            key={index}
+                            name={`specialization-${index}`}
+                            className="w-full flex-1 rounded-md border border-gray-300 p-1"
+                            onChange={(e) =>
+                              handleSpecializationChange(index, e.target.value)
+                            }
+                          >
+                            <option value="">Select Specialization</option>
+                            {course.map((courses) => (
+                              <option
+                                key={courses.id}
+                                value={courses.id}
+                                className=""
+                              >
+                                {courses.name}
+                              </option>
+                            ))}
+                          </select>
+                        ),
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 

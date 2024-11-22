@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import CurriculumSubjectForm from "./CurriculumSubjectForm";
 import CurriculumTable from "./CurriculumTable";
-
 import api from "../../../../api";
 
 const CurriculumView = () => {
@@ -12,22 +11,41 @@ const CurriculumView = () => {
   const [initialData, setInitialData] = useState(null);
   const [errors, setError] = useState();
   const [errorMessage, setErrorMessage] = useState([]);
-  const [course, setCourse] = useState();
+  const [course, setCourse] = useState([]);
 
-  useEffect(() => {
-    const fetchCurriculums = async () => {
+  const [programId, setProgramId] = useState(location.state.id);
+
+  const fetchCurriculums = async () => {
+    try {
+      // Fetch courses first
+      const courseResponse = await api("courses/");
+      setCourse(courseResponse.data); // Always set the course data even if curriculum is empty
+
+      // Fetch curriculums
       const response = await api(`curriculum/?program_id=${location.state.id}`);
-      const course = await api("courses/");
-      setCourse(course.data);
-      setCurriculums(response.data);
-    };
+      if (!response.data || response.data.length === 0) {
+        console.warn("No existing curriculum found.");
+        setCurriculums([]); // Set curriculums to an empty array if no data
+      } else {
+        setCurriculums(response.data); // Update curriculums with fetched data
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
 
-    fetchCurriculums();
-  }, []);
+      // If curriculum fails to load, ensure courses are still available
+      if (error.response && error.response.status === 404) {
+        console.warn("Curriculum not found for the given program ID.");
+        setCurriculums([]); // Set curriculums to empty array
+      } else {
+        console.error("Error fetching curriculums or courses:", error);
+      }
+    }
+  };
 
+  console.log(curriculums);
+  // Initial fetch
   useEffect(() => {
-    const fetchData = async () => {};
-    fetchData();
+    fetchCurriculums();
   }, []);
 
   const toggleSubjectForm = () => {
@@ -36,24 +54,26 @@ const CurriculumView = () => {
 
   const submitSubject = async (subject) => {
     try {
-      const response = await api(`curriculum/?program_id=${location.state.id}`);
-      setCurriculums(response.data);
-      setIsModalOpen(false);
+      console.log(subject);
+      await api.post("curriculum/", subject);
+      fetchCurriculums(); // Fetch updated curriculums
+      toggleSubjectForm(); // Close the modal
     } catch (error) {
-      // Show the error message for 5 seconds
-      setTimeout(() => {
-        setError(false);
-      }, 5000);
+      console.error("Error submitting subject:", error);
     }
   };
 
-  const UpdateCurriculum = async (professor) => {
+  const UpdateCurriculum = async (subject) => {
     try {
-      const response = await api(`curriculum/?program_id=${location.state.id}`);
-      setCurriculums(response.data);
-      setIsModalOpen(false);
+      await api.put(`curriculum/${subject.id}/`, subject);
+
+      // Re-fetch curriculums
+      fetchCurriculums();
+
+      // Close the modal
+      toggleSubjectForm();
     } catch (error) {
-      console.error(error);
+      console.error("Error updating curriculum:", error);
     }
   };
 
@@ -82,6 +102,7 @@ const CurriculumView = () => {
             initialData={initialData}
             handler={initialData ? UpdateCurriculum : submitSubject}
             course={course}
+            programId={programId}
           />
         )}
       </div>

@@ -5,10 +5,11 @@ const CurriculumSubjectForm = ({
   initialData,
   handler,
   course,
+  programId,
 }) => {
   const [year, setYear] = useState();
   const [semester, setSemester] = useState();
-  const [subject, setSubject] = useState();
+  const [subject, setSubject] = useState([]);
 
   useEffect(() => {
     if (initialData) {
@@ -19,19 +20,38 @@ const CurriculumSubjectForm = ({
   }, [initialData]);
 
   const getSelectedCourse = (id) => {
-    const courseId = course.filter((c) => c.id === +id);
-    return setSubject(courseId);
+    const selectedCourse = course.find((c) => c.id === +id);
+    if (selectedCourse && !subject.some((s) => s.id === selectedCourse.id)) {
+      setSubject((prevSubjects) => [...prevSubjects, selectedCourse]);
+    } else {
+      console.warn("Course already selected or not found");
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const professorData = {
-      year_level: year,
-      semester: semester,
-      courses: [subject],
+
+    if (!subject || !Array.isArray(subject)) {
+      console.error("Invalid subject data");
+      return;
+    }
+    console.log(e);
+
+    const uniqueCourses = [...new Set(subject.map((s) => s.id))]; // Ensure unique IDs
+
+    const curriculumData = {
+      program: programId, // Use program ID passed as a prop
+      year_level: year, // Selected year level
+      semester: semester, // Selected semester
+      courses: uniqueCourses, // Array of course IDs
     };
-    if (initialData) professorData.id = initialData.id;
-    handler(professorData);
+
+    if (initialData?.id) {
+      curriculumData.id = initialData.id; // Add id for update operation
+    }
+
+    console.log("Submitting Curriculum Data:", curriculumData);
+    handler(curriculumData);
   };
 
   return (
@@ -52,13 +72,13 @@ const CurriculumSubjectForm = ({
                 name="year"
                 id="year"
                 className="rounded-md border border-gray-300 p-1"
-                onChange={(e) => setYear(e.target.value)}
+                onChange={(e) => setYear(Number(e.target.value))} // Convert to number explicitly
               >
                 <option value="">Select Year</option>
-                <option value="FIRST YEAR">First Year</option>
-                <option value="SECOND YEAR">Second Year</option>
-                <option value="THIRD YEAR">Third Year</option>
-                <option value="FOURTH YEAR">Fourth Year</option>
+                <option value={1}>First Year</option>
+                <option value={2}>Second Year</option>
+                <option value={3}>Third Year</option>
+                <option value={4}>Fourth Year</option>
               </select>
             </div>
             <div className="flex flex-1 flex-col gap-2">
@@ -70,15 +90,19 @@ const CurriculumSubjectForm = ({
                 onChange={(e) => getSelectedCourse(e.target.value)}
               >
                 <option value="">Select Subject</option>
-                {course.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.code}
-                  </option>
-                ))}
+                {course && course.length > 0 ? (
+                  course.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.code}
+                    </option>
+                  ))
+                ) : (
+                  <option value="">No subjects available</option>
+                )}
               </select>
             </div>
             <div className="flex flex-1 flex-col gap-2">
-              <label htmlFor="semester">Select Year</label>
+              <label htmlFor="semester">Select Semester</label>
               <select
                 name="semester"
                 id="semester"
