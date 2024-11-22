@@ -51,7 +51,7 @@ class CourseScheduleSerializer(serializers.ModelSerializer):
         source="lecture_room.number", required=False
     )
     lab_room_number = serializers.CharField(source="lab_room.number", required=False)
-    building_name = serializers.CharField()
+    building_name = serializers.SerializerMethodField()
 
     class Meta:
         model = CourseSchedule
@@ -67,7 +67,20 @@ class CourseScheduleSerializer(serializers.ModelSerializer):
             "lab_day_of_week",
             "lecture_room_number",
             "lab_room_number",
+            "building_name",
         ]
+
+    def get_building_name(self, obj):
+        lecture_building = obj.lecture_room.building.name if obj.lecture_room else None
+        lab_building = obj.lab_room.building.name if obj.lab_room else None
+
+        if lecture_building and lab_building:
+            return f"{lecture_building}/{lab_building}"
+        elif lecture_building:
+            return lecture_building
+        elif lab_building:
+            return lab_building
+        return "N/A"
 
     def get_professor_name(self, obj):
         if obj.professor:
