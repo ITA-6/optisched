@@ -294,7 +294,7 @@ class GeneticAlgorithmRunner:
                 lab_time_range = self.format_time_range(lab_timeslot, course.lab_hours)
 
                 course_entry = {
-                    "professor_name": professor.first_name + professor.last_name,
+                    "professor_name": f"{professor.first_name} {professor.last_name}",
                     "course_code": course.code,
                     "course_description": course.name,
                     "lecture_units": course.lecture_unit,
@@ -303,12 +303,13 @@ class GeneticAlgorithmRunner:
                     "lab_time_range": lab_time_range,
                     "lecture_day_of_week": day_mapping[lecture_day],
                     "lab_day_of_week": day_mapping[lab_day],
+                    "building_name": room.building.name,
                     "lecture_room_number": room.number,
                     "lab_room_number": lab_room.number,
                 }
             else:
                 course_entry = {
-                    "professor_name": professor.first_name + professor.last_name,
+                    "professor_name": f"{professor.first_name} {professor.last_name}",
                     "course_code": course.code,
                     "course_description": course.name,
                     "lecture_units": course.lecture_unit,
@@ -317,6 +318,7 @@ class GeneticAlgorithmRunner:
                     "lab_time_range": "Time Not Assigned",
                     "lecture_day_of_week": day_mapping[lecture_day],
                     "lab_day_of_week": "Day Not Assigned",
+                    "building_name": room.building.name,
                     "lecture_room_number": room.number,
                     "lab_room_number": "Room Not Assigned",
                 }

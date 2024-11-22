@@ -15,6 +15,7 @@ class CourseScheduleSerializerV2(serializers.Serializer):
     lab_day_of_week = serializers.CharField()
     lecture_room_number = serializers.CharField()
     lab_room_number = serializers.CharField()
+    building_name = serializers.CharField()
 
 
 class SectionScheduleSerializer(serializers.Serializer):
@@ -41,9 +42,7 @@ class CourseScheduleSerializer(serializers.ModelSerializer):
     course_description = serializers.CharField(source="course.name")
     lecture_units = serializers.IntegerField(source="course.lecture_unit")
     lab_units = serializers.IntegerField(source="course.lab_unit")
-    professor_name = serializers.CharField(
-        source="professor.first_name", required=False
-    )
+    professor_name = serializers.SerializerMethodField()
     lecture_time_range = serializers.SerializerMethodField()
     lab_time_range = serializers.SerializerMethodField()
     lecture_day_of_week = serializers.SerializerMethodField()
@@ -68,6 +67,11 @@ class CourseScheduleSerializer(serializers.ModelSerializer):
             "lecture_room_number",
             "lab_room_number",
         ]
+
+    def get_professor_name(self, obj):
+        if obj.professor:
+            return f"{obj.professor.first_name} {obj.professor.last_name}"
+        return None
 
     def get_lecture_time_range(self, obj):
         if obj.lecture_time_range:

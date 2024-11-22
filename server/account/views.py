@@ -131,7 +131,7 @@ class AccountApiView(APIView):
                     {"error": "User not found."}, status=status.HTTP_404_NOT_FOUND
                 )
         else:
-            users = CustomUser.objects.all()
+            users = CustomUser.objects.exclude(user_type="R")
             serializer = AccountSerializer(users, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
