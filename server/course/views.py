@@ -85,6 +85,8 @@ class CourseAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        department = request.user.department.id
+        request.data["department"] = department
         serializer = CourseSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         course = serializer.save()
