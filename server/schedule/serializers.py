@@ -51,6 +51,7 @@ class CourseScheduleSerializer(serializers.ModelSerializer):
         source="lecture_room.number", required=False
     )
     lab_room_number = serializers.CharField(source="lab_room.number", required=False)
+    building_name = serializers.CharField()
 
     class Meta:
         model = CourseSchedule

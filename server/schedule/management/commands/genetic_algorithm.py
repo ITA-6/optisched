@@ -356,13 +356,19 @@ class GeneticAlgorithmRunner:
             lecture_day, lab_day = day_pair
             lecture_start_hour = 7 + (timeslot // 2)
             lecture_start_minute = 30 if timeslot % 2 else 0
-            lecture_end_hour = lecture_start_hour + course.lecture_unit
 
-            # Construct lecture time slot details
+            lecture_end_hour = lecture_start_hour + course.lecture_unit
+            lecture_end_minute = lecture_start_minute
+
+            # Validate time does not exceed 23:59
+            if lecture_end_hour >= 24:
+                lecture_end_hour = 23
+                lecture_end_minute = 59
+
             lecture_time_slot = {
                 "day_of_week": lecture_day,
                 "start_time": f"{lecture_start_hour:02}:{lecture_start_minute:02}",
-                "end_time": f"{lecture_end_hour:02}:{lecture_start_minute:02}",
+                "end_time": f"{lecture_end_hour:02}:{lecture_end_minute:02}",
             }
 
             lab_time_slot = None
