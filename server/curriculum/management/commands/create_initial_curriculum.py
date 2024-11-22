@@ -27,15 +27,15 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         curriculum_data_groups = {
             "ccs": BSIT_CURRICULUM + BSCS_CURRICULUM,
-            # "coe": BSCPE_CURRICULUM + BSECE_CURRICULUM + BSIE_CURRICULUM,
-            # "cbaa": BSA_CURRICULUM + BAF_CURRICULUM + BAM_CURRICULUM,
-            # "chas": BSN_CURRICULUM,
-            # "coed": BEED_CURRICULUM
-            # + SEDE_CURRICULUM
-            # + SEDF_CURRICULUM
-            # + SEDM_CURRICULUM
-            # + SEDS_CURRICULUM,
-            # "bsp": PSY_CURRICULUM,
+            "coe": BSCPE_CURRICULUM + BSECE_CURRICULUM + BSIE_CURRICULUM,
+            "cbaa": BSA_CURRICULUM + BAF_CURRICULUM + BAM_CURRICULUM,
+            "chas": BSN_CURRICULUM,
+            "coed": BEED_CURRICULUM
+            + SEDE_CURRICULUM
+            + SEDF_CURRICULUM
+            + SEDM_CURRICULUM
+            + SEDS_CURRICULUM,
+            "bsp": PSY_CURRICULUM,
         }
 
         for group_name, curriculums in curriculum_data_groups.items():

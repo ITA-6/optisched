@@ -56,7 +56,16 @@ class GeneticAlgorithmRunner:
         self.num_genes = 5  # Each gene represents a single course (course, professor, room, day_pair, timeslot)
 
     def generate_schedule_for_section(self, section, curriculum_courses):
-        # Gene space definition
+        """
+        Generate a schedule for a specific section using genetic algorithms.
+        """
+        if not curriculum_courses:
+            print(
+                f"Warning: No courses found in the curriculum for section {section.year_level}{section.label}. Skipping..."
+            )
+            return []
+
+        # Define the gene space for PyGAD
         gene_space = [
             {"low": 0, "high": len(curriculum_courses) - 1},  # Course index
             {"low": 0, "high": len(self.professors) - 1},  # Professor index
@@ -65,33 +74,49 @@ class GeneticAlgorithmRunner:
             {"low": 0, "high": self.TIME_SLOTS - 1},  # Timeslot
         ] * len(curriculum_courses)
 
-        # Fitness function setup for the current section
-        def fitness_func(ga_instance, solution, solution_idx):
-            fitness = 0
-            course_schedule = {}
-            professor_units = {prof: 0 for prof in self.professors}
-            assigned_courses = set()  # Track assigned courses to prevent duplicates
-            daily_units = {
-                day: 0 for day in range(6)
-            }  # Track units per day (Monday to Saturday)
+        if not gene_space or len(gene_space) == 0:
+            print(
+                f"Warning: Gene space is empty for section {section.label}. Skipping..."
+            )
+            return []
 
-            # Track occupied times for each room and professor per day for overlap checks
+        # Define the fitness function for this section
+        def fitness_func(ga_instance, solution, solution_idx):
+            # Implement fitness function as described earlier
+            fitness = 0
+            assigned_courses = set()  # Track assigned courses
+            required_courses = set(
+                curriculum_courses
+            )  # Courses required by the curriculum
+
+            # Track room and professor utilization
+            room_utilization = {
+                room: {day: 0 for day in range(6)} for room in self.rooms
+            }
             section_day_times = {
                 day: [] for day in range(6)
-            }  # Track timeslots per day for section to prevent overlap
+            }  # Track timeslots per day for the section
             professor_daily_times = {
                 prof: {day: [] for day in range(6)} for prof in self.professors
-            }  # For wait time constraint
+            }
 
-            # Extract schedule
+            professor_units = {
+                prof: 0 for prof in self.professors
+            }  # Track professor workloads
+            daily_units = {
+                day: 0 for day in range(6)
+            }  # Track daily units for the section
+
             for i in range(0, len(solution), 5):
                 course_idx = int(solution[i]) % len(curriculum_courses)
                 course = curriculum_courses[course_idx]
 
-                # Check if the course has already been assigned to this section
-                if course in assigned_courses:
-                    fitness -= 10  # Penalize duplicate course assignment
+                # Penalize if the course is not part of the curriculum
+                if course not in required_courses:
+                    fitness -= 20
                     continue
+
+                # Add the course to the assigned courses
                 assigned_courses.add(course)
 
                 professor = self.professors[int(solution[i + 1]) % len(self.professors)]
@@ -101,9 +126,7 @@ class GeneticAlgorithmRunner:
                 day_pair = self.DAY_PAIRS[day_pair_idx]
                 lecture_day, lab_day = day_pair
 
-                course_units = course.lecture_unit + course.lab_unit
-
-                # Check if assigned time falls within constraint-defined hours
+                # Check time range for lecture
                 lecture_start_time = self.times[timeslot]
                 lecture_end_time = lecture_start_time + timedelta(
                     hours=course.lecture_unit
@@ -115,16 +138,16 @@ class GeneticAlgorithmRunner:
                         lecture_end_time <= scheduled_start
                         or lecture_start_time >= scheduled_end
                     ):
-                        fitness -= 15  # Penalize time overlaps
+                        fitness -= 15  # Penalize overlap
                         break
                 else:
-                    # No overlap, add this lecture time to section_day_times for further checks
+                    # Add this lecture time to section_day_times for further checks
                     section_day_times[lecture_day].append(
                         (lecture_start_time, lecture_end_time)
                     )
-                    fitness += 5  # Reward for non-overlapping schedules
+                    fitness += 5  # Reward non-overlapping schedules
 
-                # Check if assigned time falls within constraint-defined hours
+                # Check if the assigned time is within constraint-defined hours
                 if (
                     lecture_start_time < self.start_time
                     or lecture_end_time > self.end_time
@@ -137,91 +160,79 @@ class GeneticAlgorithmRunner:
                     fitness -= 10
                     continue
 
-                # Check daily units limit for lecture and lab days
+                # Check daily unit limits
                 if daily_units[lecture_day] + course.lecture_unit > 6:
-                    fitness -= 10  # Penalize exceeding lecture units per day
+                    fitness -= 10
                     continue
                 daily_units[lecture_day] += course.lecture_unit
 
                 if course.lab_unit > 0:
                     if daily_units[lab_day] + course.lab_unit > 6:
-                        fitness -= 10  # Penalize exceeding lab units per day
+                        fitness -= 10
                         continue
                     daily_units[lab_day] += course.lab_unit
 
-                # Wait time constraint: Enforce 30-minute gap between consecutive courses for a professor
+                # Check professor wait time constraint
                 if self.constraints.wait_time:
                     previous_times = professor_daily_times[professor][lecture_day]
                     if previous_times:
-                        last_end_time = previous_times[-1] + timedelta(minutes=30)
+                        last_end_time = previous_times[-1][1] + timedelta(minutes=30)
                         if lecture_start_time < last_end_time:
                             fitness -= 5  # Penalize lack of 30-minute gap
                         else:
-                            fitness += 1  # Reward schedules with proper gap
+                            fitness += 1  # Reward proper gap
                     professor_daily_times[professor][lecture_day].append(
-                        lecture_end_time
+                        (lecture_start_time, lecture_end_time)
                     )
 
-                # Assign lecture to the first day in the pair, and lab (if applicable) to the second day
+                # Room utilization
+                room_utilization[room][lecture_day] += 1
+
+                # Assign lecture and lab (if applicable) to room and professor
                 if course.lab_unit > 0:
-                    if (room, lecture_day, timeslot) in course_schedule or (
-                        room,
-                        lab_day,
-                        timeslot,
-                    ) in course_schedule:
-                        fitness -= 5
-                    else:
-                        course_schedule[(room, lecture_day, timeslot)] = course
-                        course_schedule[(room, lab_day, timeslot)] = course
-                        fitness += 1
+                    # Assign lab time
+                    lab_start_time = self.times[
+                        (timeslot + course.lecture_unit * 2) % self.TIME_SLOTS
+                    ]
+                    lab_end_time = lab_start_time + timedelta(hours=course.lab_unit)
+                    if lab_start_time < self.start_time or lab_end_time > self.end_time:
+                        fitness -= 10  # Penalize lab time outside constraints
+                        continue
 
-                    if (professor, lecture_day, timeslot) in course_schedule or (
-                        professor,
-                        lab_day,
-                        timeslot,
-                    ) in course_schedule:
-                        fitness -= 5
-                    else:
-                        course_schedule[(professor, lecture_day, timeslot)] = course
-                        course_schedule[(professor, lab_day, timeslot)] = course
-                        fitness += 1
-                else:
-                    if (room, lecture_day, timeslot) in course_schedule:
-                        fitness -= 5
-                    else:
-                        course_schedule[(room, lecture_day, timeslot)] = course
-                        fitness += 1
-
-                    if (professor, lecture_day, timeslot) in course_schedule:
-                        fitness -= 5
-                    else:
-                        course_schedule[(professor, lecture_day, timeslot)] = course
-                        fitness += 1
-
-                # Professor qualification and unit checks
-                if course.need_masteral and professor.has_masteral != "Y":
-                    fitness -= 5
-                else:
-                    fitness += 1
-
-                professor_units[professor] += course_units
-                if professor_units[professor] > (professor.required_units or 0):
-                    fitness -= 10
-                else:
-                    fitness += 1
-
-                # Ensure the number of unique courses matches curriculum requirements
-                if len(assigned_courses) != len(curriculum_courses):
-                    fitness -= 20
-                else:
-                    print(
-                        f"assign_courses:{len(assigned_courses)} curriculum_courses: {len(curriculum_courses)} "
+                    # Add lab to room and professor schedule
+                    section_day_times[lab_day].append((lab_start_time, lab_end_time))
+                    professor_daily_times[professor][lab_day].append(
+                        (lab_start_time, lab_end_time)
                     )
-                    print(" ")
+                    room_utilization[room][lab_day] += 1
+                    fitness += 5
+
+                professor_units[professor] += course.lecture_unit + course.lab_unit
+                if professor_units[professor] > (professor.required_units or 0):
+                    fitness -= 10  # Penalize exceeding required units
+                else:
+                    fitness += 1  # Reward appropriate workload
+
+            # Penalize missing curriculum courses
+            missing_courses = required_courses - assigned_courses
+            if missing_courses:
+                fitness -= 50 * len(
+                    missing_courses
+                )  # Higher penalty for more missing courses
+            else:
+                fitness += 100  # Reward for covering all curriculum courses
+
+            # Reward full utilization of rooms before opening new ones
+            for room, days in room_utilization.items():
+                for day, count in days.items():
+                    if count > 0 and count < self.TIME_SLOTS:  # Underutilized room
+                        fitness -= 10  # Penalize
+                    elif count == self.TIME_SLOTS:  # Fully utilized room
+                        fitness += 15  # Reward
 
             return fitness
 
-        # Initialize PyGAD instance for the section
+        # Initialize the PyGAD instance
         try:
             ga_instance = pygad.GA(
                 num_generations=self.num_generations,
@@ -239,17 +250,18 @@ class GeneticAlgorithmRunner:
             print(f"Error initializing PyGAD for section {section.label}: {e}")
             return []
 
-        # Run GA for the section
+        # Run the genetic algorithm
         ga_instance.run()
         solution, _, _ = ga_instance.best_solution()
 
-        # Format the best solution for this section
+        # Build the final schedule
         schedule = []
-        assigned_courses = set()  # Track assigned courses in the final schedule
+        assigned_courses = set()
         for i in range(0, len(solution), 5):
-            course = curriculum_courses[int(solution[i]) % len(curriculum_courses)]
+            course_idx = int(solution[i]) % len(curriculum_courses)
+            course = curriculum_courses[course_idx]
             if course in assigned_courses:
-                continue  # Skip duplicate courses in the final schedule
+                continue  # Skip duplicate courses
             assigned_courses.add(course)
 
             professor = self.professors[int(solution[i + 1]) % len(self.professors)]
@@ -258,6 +270,7 @@ class GeneticAlgorithmRunner:
             timeslot = int(solution[i + 4]) % self.TIME_SLOTS
 
             schedule.append((course, professor, room, day_pair, timeslot))
+
         return schedule
 
     def format_time_range(self, start_slot, duration_hours):
