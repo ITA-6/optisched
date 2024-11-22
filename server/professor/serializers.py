@@ -21,6 +21,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "last_name",
             "middle_name",  # If optional, you could add `required=False`
             "birth_date",
+            "course_specialization",
             "has_masteral",  # If optional, add `required=False`
             "department",
             "department_name",  # Read-only field from related department
