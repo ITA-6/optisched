@@ -1,6 +1,22 @@
 import React from "react";
 
 const GenerateTableRow = ({ course, sched }) => {
+  let building_name = "";
+
+  if (course.lab_room && course.lecture_room) {
+    if (course.lecture_room.building_name === course.lab_room.building_name) {
+      building_name = `${course.lecture_room.building_name}`; // Same room, no need for duplication
+    } else {
+      building_name = `${course.lecture_room.building_name} / ${course.lab_room.building_name}`;
+    }
+  } else if (course.lecture_room) {
+    building_name = course.lecture_room.building_name;
+  } else if (course.lab_room) {
+    building_name = course.lab_room.building_name;
+  } else {
+    building_name = "TBA";
+  }
+
   return (
     <tr>
       <td className="border-collapse border border-gray-300">
@@ -29,7 +45,7 @@ const GenerateTableRow = ({ course, sched }) => {
         {course.lecture_time_range.end_time}
       </td>
       <td className="border-collapse border border-gray-300">
-        {course.building_name ? course.building_name : "TBA"}
+        {building_name}
       </td>
 
       <td className="border-collapse border border-gray-300">

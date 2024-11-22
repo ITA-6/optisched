@@ -13,11 +13,11 @@ class ConstraintSerializer(serializers.ModelSerializer):
             "transition_time",
             "wait_time",
             "daily_teaching_limit",
-            "room_occupancy",
             "laboratory_sessions",
             "permanent_workload",
             "temporary_workload",
             "part_time_workload",
+            "semester",
             "start_time",
             "end_time",
         ]

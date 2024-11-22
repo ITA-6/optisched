@@ -114,10 +114,16 @@ class ProfessorScheduleView(APIView):
                         }
                         if course_schedule.lab_time_range
                         else None,
-                        "lecture_room": {"number": course_schedule.lecture_room.number}
+                        "lecture_room": {
+                            "number": course_schedule.lecture_room.number,
+                            "building_name": course_schedule.lecture_room.building.name,
+                        }
                         if course_schedule.lecture_room
                         else None,
-                        "lab_room": {"number": course_schedule.lab_room.number}
+                        "lab_room": {
+                            "number": course_schedule.lab_room.number,
+                            "building_name": course_schedule.lab_room.building.name,
+                        }
                         if course_schedule.lab_room
                         else None,
                     }

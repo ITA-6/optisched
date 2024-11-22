@@ -5,8 +5,7 @@ import { useSidebar } from "../Sidenav/SidenavContext/SidenavContext";
 import api from "../../../api";
 
 const Generated = () => {
-  const { isSidebarOpen, toggleSidebar } = useSidebar();
-  const schedules = [];
+  const { isSidebarOpen } = useSidebar();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -22,8 +21,6 @@ const Generated = () => {
     fetchData();
   }, []);
 
-  console.log(data);
-
   const totalUnitsSum = data.reduce(
     (sum, schedule) => sum + schedule.total_units,
     0,
@@ -36,21 +33,12 @@ const Generated = () => {
         <GeneratePrint />
         <div className="bg-white px-5 pt-5 grid-in-table">
           <div className="grid grid-cols-[1fr-1fr] grid-rows-[0.5fr_0.5fr_0.5fr_8fr_1fr] grid-areas-generated-table xm:mt-5">
-            {data?.map((sched) => (
-              <>
-                <h1 className="text-base font-bold grid-in-profName sm:text-sm md:text-base xm:text-xs">
-                  Professor name : {sched.professor.first_name}{" "}
-                  {sched.professor.last_name}
-                </h1>
-                <h1 className="text-base font-bold grid-in-departmentName sm:text-sm md:text-base xm:text-xs">
-                  Department : {sched.professor.department_name}
-                </h1>
-                <div className="flex items-center justify-between py-2 grid-in-units">
-                  <h1 className="text-xl font-medium sm:text-sm lg:text-lg xm:text-xs">
-                    Total Units : {totalUnitsSum}
-                  </h1>
-                </div>
-              </>
+            {data?.map((sched, index) => (
+              <ProfessorData
+                key={index}
+                totalUnitsSum={totalUnitsSum}
+                sched={sched}
+              />
             ))}
             <div className="h-[500px] overflow-auto grid-in-table">
               {" "}
@@ -61,6 +49,25 @@ const Generated = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const ProfessorData = ({ sched, totalUnitsSum }) => {
+  return (
+    <>
+      <h1 className="text-base font-bold grid-in-profName sm:text-sm md:text-base xm:text-xs">
+        Professor name : {sched.professor.first_name}{" "}
+        {sched.professor.last_name}
+      </h1>
+      <h1 className="text-base font-bold grid-in-departmentName sm:text-sm md:text-base xm:text-xs">
+        Department : {sched.professor.department_name}
+      </h1>
+      <div className="flex items-center justify-between py-2 grid-in-units">
+        <h1 className="text-xl font-medium sm:text-sm lg:text-lg xm:text-xs">
+          Total Units : {totalUnitsSum}
+        </h1>
+      </div>
+    </>
   );
 };
 
