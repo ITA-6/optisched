@@ -20,7 +20,7 @@ class Professor(models.Model):
     prof_id = models.BigIntegerField(unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    course_specialization = models.ManyToManyField("Course.course")
+    course_specialization = models.ManyToManyField("course.Course")
     middle_name = models.CharField(max_length=255)
     employment_status = models.CharField(
         max_length=25, choices=EMPLOYMENT_STATUS_CHOICES
