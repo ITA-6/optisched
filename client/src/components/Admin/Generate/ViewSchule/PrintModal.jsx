@@ -44,6 +44,7 @@ const PrintModal = ({ togglePrintModal, filterScheduleSections }) => {
         "Lab",
         "Day",
         "Time",
+        "Building",
         "Room",
         "Section",
       ],
@@ -60,6 +61,7 @@ const PrintModal = ({ togglePrintModal, filterScheduleSections }) => {
           course.lab_units || 0,
           `${course.lecture_day_of_week || ""}${course.lecture_units !== 3 && course.lab_day_of_week !== "Day Not Assigned" ? `/${course.lab_day_of_week}` : ""}`,
           `${course.lecture_time_range || ""}${course.lecture_units !== 3 && course.lab_time_range !== "Time Not Assigned" ? `/${course.lab_time_range}` : ""}`,
+          `${course.building_name ? course.building_name : "TBA"}`,
           course.lecture_room_number || "N/A",
           `${sched.year_level || ""}${sched.section_label || ""}`,
         ]),
@@ -89,15 +91,16 @@ const PrintModal = ({ togglePrintModal, filterScheduleSections }) => {
         lineColor: [0, 0, 0],
       },
       columnStyles: {
-        0: { cellWidth: 25 }, // Professor Name
-        1: { cellWidth: 20 }, // Course Code
-        2: { cellWidth: 50 }, // Course Description
+        0: { cellWidth: 20 }, // Professor Name
+        1: { cellWidth: 15 }, // Course Code
+        2: { cellWidth: 45 }, // Course Description
         3: { cellWidth: 10 }, // Lec
         4: { cellWidth: 10 }, // Lab
         5: { cellWidth: 15 }, // Day
         6: { cellWidth: 32 }, // Time
-        7: { cellWidth: 15 }, // Room
-        8: { cellWidth: 15 }, // Section
+        7: { cellWidth: 15 }, // Day
+        8: { cellWidth: 15 }, // Room
+        9: { cellWidth: 15 }, // Section
       },
       margin: { top: 10 },
       tableWidth: "wrap",
