@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import course from "../../../../../assets/course.png";
-import { faGraduationCap} from "@fortawesome/free-solid-svg-icons";
+import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
@@ -19,9 +19,9 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
       setName(initialData.name || "");
       setCode(initialData.code || "");
       setCategory(initialData.category || "");
-      setLectureUnits(initialData.lecture_units|| 0);
+      setLectureUnits(initialData.lecture_units || 0);
       setLectureHours(initialData.lecture_hours || 0);
-      setLabUnits(initialData.lab_units|| 0);
+      setLabUnits(initialData.lab_units || 0);
       setLabHours(initialData.lab_hours || 0);
       setNeedMasteral(initialData.need_masteral || false);
     }
@@ -43,7 +43,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
       need_masteral: needMasteral,
     };
 
-    console.log(courseData)
+    console.log(courseData);
     if (initialData) courseData.id = initialData.id;
     handler(courseData);
   };
@@ -52,10 +52,10 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
-        <FontAwesomeIcon
-            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+          <FontAwesomeIcon
+            className="m-3 mr-4 text-white sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em]"
             icon={faGraduationCap}
-           />
+          />
           <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             {initialData ? "Update Course" : "Create New Course"}
           </h2>
@@ -126,7 +126,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   placeholder="Lecture Units"
                   value={lectureUnits}
                   onChange={(e) => setLectureUnits(e.target.value)}
-                  className="rounded-md border border-gray-300 p-2"
+                  className="w-full rounded-md border border-gray-300 p-2"
                   required
                 />
               </div>
@@ -141,7 +141,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   placeholder="Lecture Hours"
                   value={lectureHours}
                   onChange={(e) => setLectureHours(e.target.value)}
-                  className="rounded-md border border-gray-300 p-2"
+                  className="w-full rounded-md border border-gray-300 p-2"
                   required
                 />
               </div>
@@ -160,7 +160,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   placeholder="Laboratory Units"
                   value={labUnits}
                   onChange={(e) => setLabUnits(e.target.value)}
-                  className="rounded-md border border-gray-300 p-2"
+                  className="w-full rounded-md border border-gray-300 p-2"
                   required
                 />
               </div>
@@ -175,7 +175,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                   placeholder="Laboratory Hours"
                   value={labHours}
                   onChange={(e) => setLabHours(e.target.value)}
-                  className="rounded-md border border-gray-300 p-2"
+                  className="w-full rounded-md border border-gray-300 p-2"
                   required
                 />
               </div>
@@ -203,9 +203,9 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
                 <label htmlFor="reqiusite">Choose Pre/Co-Requisite</label>
                 <button type="button" className="border border-gray-300 py-1 px-10 rounded-md" onClick={toggleRequisiteForm}>Choose</button>
             </div> */}
-             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
+            <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">
               <button className="mr-5 flex h-10 w-40 items-center justify-center rounded-2xl bg-green xm:w-28">
-                <span className="text-white xm:text-xs font-bold">Confirm</span>
+                <span className="font-bold text-white xm:text-xs">Confirm</span>
               </button>
             </div>
           </form>
