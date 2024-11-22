@@ -3,7 +3,14 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 
-const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage, errors }) => {
+const UserForm = ({
+  toggleModal,
+  handler,
+  initialData,
+  departments,
+  errorMessage,
+  errors,
+}) => {
   const [professorId, setProfessorId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -12,7 +19,7 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
   const [birthDate, setBirthDate] = useState("");
   const [department, setDepartment] = useState("");
   const [email, setEmail] = useState("");
-  console.log(errorMessage.user_id)
+  console.log(errorMessage.user_id);
   // Effect to populate form fields if initialData is provided
   useEffect(() => {
     if (initialData) {
@@ -50,9 +57,9 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
       <div className="relative w-1/4 rounded-lg bg-white shadow-lg">
         <div className="flex h-1/5 items-center justify-center bg-green">
           <FontAwesomeIcon
-            className="m-3 mr-4 sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em] text-white"
+            className="m-3 mr-4 text-white sm:h-[1.5em] sm:w-[1.7em] md:h-[2em] md:w-[2em] xm:h-[1.5em] xm:w-[1.5em]"
             icon={faUser}
-           />
+          />
           <h2 className="ml-2 text-3xl font-extrabold text-white sm:ml-0 sm:text-lg md:text-xl xm:ml-0 xm:text-sm">
             Create New User
           </h2>
@@ -66,21 +73,26 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 User ID *
-                <span className={`${errorMessage.user_id && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Professor ID is Taken</span>
+                <span
+                  className={`${errorMessage.user_id && errors ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {" "}
+                  * Professor ID is Taken
+                </span>
               </label>
               <input
-              type="number"
-              id="professorID"
-              className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 md:text-base xm:p-1 xm:text-xs"
-              value={professorId}
-              onChange={(e) => {
-                // Ensure value is not more than 7 digits
-                const value = e.target.value.slice(0, 7);
-                setProfessorId(value);
-              }}
-              max={9999999} // Allows up to 7 digits
-              required
-            />
+                type="number"
+                id="professorID"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 sm:p-1 md:text-base xm:p-1 xm:text-xs"
+                value={professorId}
+                onChange={(e) => {
+                  // Ensure value is not more than 7 digits
+                  const value = e.target.value.slice(0, 7);
+                  setProfessorId(value);
+                }}
+                max={9999999} // Allows up to 7 digits
+                required
+              />
             </div>
             {/* Role Field */}
             <div className="flex flex-col sm:text-sm md:text-base xm:text-xs">
@@ -89,7 +101,12 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Role *
-                <span className={`${errorMessage.user_type && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Please Select a  valid Role</span>
+                <span
+                  className={`${errorMessage.user_type && errors ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {" "}
+                  * Please Select a valid Role
+                </span>
               </label>
               <select
                 name="role"
@@ -102,7 +119,6 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 <option value="">Select Role</option>
                 <option value="DC">Department Chair</option>
                 <option value="D">Dean</option>
-                <option value="R">Registrar</option>
                 <option value="VPAA">
                   Vice President for Academic Affairs
                 </option>
@@ -172,7 +188,12 @@ const UserForm = ({ toggleModal, handler, initialData, departments, errorMessage
                 className="text-lg font-medium text-gray-700 sm:text-sm md:text-base xm:text-xs"
               >
                 Email Address *
-                <span className={`${errorMessage.email && errors ? "inline" : "hidden"} text-sm text-red-500 ml-2`}> * Email is Taken</span>
+                <span
+                  className={`${errorMessage.email && errors ? "inline" : "hidden"} ml-2 text-sm text-red-500`}
+                >
+                  {" "}
+                  * Email is Taken
+                </span>
               </label>
               <input
                 type="email"
