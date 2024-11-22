@@ -98,10 +98,14 @@ const Form = () => {
           only!
         </p>
         {error && (
-          <p className="mt-1 font-inter text-md text-red-500 text-center">{error}</p>
+          <p className="text-md mt-1 text-center font-inter text-red-500">
+            {error}
+          </p>
         )}
         {success && (
-          <p className="text-green-500 mt-1 font-inter text-xs text-center">{success}</p>
+          <p className="text-green-500 mt-1 text-center font-inter text-xs">
+            {success}
+          </p>
         )}
       </div>
 
@@ -114,6 +118,12 @@ const Form = () => {
           placeholder="Username..."
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          onKeyPress={(e) => {
+            if (!/[0-9]/.test(e.key)) {
+              e.preventDefault(); // Prevent non-numeric input
+            }
+          }}
+          maxLength={7} // Set the maximum character limit to 7
           required
           className="h-[2.6875em] w-[15.0625em] rounded-lg border-2 border-solid border-black/70 px-2 py-4 font-inter"
         />
@@ -130,7 +140,7 @@ const Form = () => {
             src={isHide ? show : hide}
             alt="Show Password"
             onClick={showPassword}
-            className="absolute right-5 top-2 w-8 cursor-pointer"
+            className="absolute right-5 top-3 w-6 cursor-pointer"
           />
         </div>
         <button

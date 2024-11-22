@@ -115,7 +115,7 @@ const ProfessorForm = ({
                   setProfessorId(value);
                 }}
                 max={9999999}
-                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${
+                className={`mt-1 w-full rounded-lg border border-gray-300 p-1 focus:border-blue-500 focus:ring-blue-500 ${
                   errorMessage.prof_id && errors
                     ? "border-red-500 outline-none duration-300 ease-in-out"
                     : ""
@@ -140,7 +140,7 @@ const ProfessorForm = ({
                     id="firstname"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-1 focus:border-blue-500 focus:ring-blue-500"
                     required
                   />
                 </div>
@@ -156,7 +156,7 @@ const ProfessorForm = ({
                     id="middlename"
                     value={middleName}
                     onChange={(e) => setMiddleName(e.target.value)}
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-1 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
                 <div className="flex-1">
@@ -171,11 +171,41 @@ const ProfessorForm = ({
                     id="lastname"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 w-full rounded-lg border border-gray-300 p-1 focus:border-blue-500 focus:ring-blue-500"
                     required
                   />
                 </div>
               </div>
+            </div>
+
+            {/* Email Address */}
+            <div className="flex flex-col">
+              <label
+                htmlFor="email"
+                className="text-lg font-medium text-gray-700"
+              >
+                Email Address *
+                <span
+                  className={`${
+                    errors && errorMessage.email ? "inline" : "hidden"
+                  } ml-2 text-sm text-red-500`}
+                >
+                  {" "}
+                  Email is Taken
+                </span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={`mt-1 w-full rounded-lg border border-gray-300 p-1 focus:border-blue-500 focus:ring-blue-500 ${
+                  errors && errorMessage.email
+                    ? "border-red-500 outline-none"
+                    : ""
+                }`}
+                required
+              />
             </div>
 
             {/* Specialization */}
@@ -200,38 +230,42 @@ const ProfessorForm = ({
                 </select>
 
                 <div className="flex flex-col">
-                  <p className="mb-2 ml-1 text-lg font-medium">
-                    Specialization
-                  </p>
-
                   {/* Specialization dropdowns */}
                   {specializationCount > 0 && (
-                    <div className="flex w-full flex-row gap-4">
-                      {Array.from(
-                        { length: specializationCount },
-                        (_, index) => (
-                          <select
-                            key={index}
-                            name={`specialization-${index}`}
-                            className="w-full flex-1 rounded-md border border-gray-300 p-1"
-                            onChange={(e) =>
-                              handleSpecializationChange(index, e.target.value)
-                            }
-                          >
-                            <option value="">Select Specialization</option>
-                            {course.map((courses) => (
-                              <option
-                                key={courses.id}
-                                value={courses.id}
-                                className=""
-                              >
-                                {courses.name}
-                              </option>
-                            ))}
-                          </select>
-                        ),
-                      )}
-                    </div>
+                    <>
+                      <p className="mb-2 ml-1 text-lg font-medium">
+                        Specialization
+                      </p>
+                      <div className="flex w-full flex-row gap-4">
+                        {Array.from(
+                          { length: specializationCount },
+                          (_, index) => (
+                            <select
+                              key={index}
+                              name={`specialization-${index}`}
+                              className="w-full flex-1 rounded-md border border-gray-300 p-1"
+                              onChange={(e) =>
+                                handleSpecializationChange(
+                                  index,
+                                  e.target.value,
+                                )
+                              }
+                            >
+                              <option value="">Select Specialization</option>
+                              {course.map((courses) => (
+                                <option
+                                  key={courses.id}
+                                  value={courses.id}
+                                  className=""
+                                >
+                                  {courses.name}
+                                </option>
+                              ))}
+                            </select>
+                          ),
+                        )}
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
@@ -250,7 +284,7 @@ const ProfessorForm = ({
                   id="gender"
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
-                  className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                  className="mt-1 w-full rounded-lg border border-gray-300 p-1 focus:border-blue-500 focus:ring-blue-500"
                   required
                 >
                   <option value="" disabled>
@@ -269,7 +303,7 @@ const ProfessorForm = ({
                   Birthdate *
                 </label>
                 <input
-                  className="rounded-md border border-gray-300 p-2"
+                  className="rounded-md border border-gray-300 p-1"
                   type="date"
                   name="birthdate"
                   id="birthdate"
@@ -280,82 +314,54 @@ const ProfessorForm = ({
               </div>
             </div>
 
-            {/* Employment Status */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="employmentStatus"
-                className="text-lg font-medium text-gray-700"
-              >
-                Employment Status *
-              </label>
-              <select
-                name="employmentStatus"
-                id="employmentStatus"
-                value={employmentStatus}
-                onChange={(e) => setEmploymentStatus(e.target.value)}
-                className="rounded-md border border-gray-300 p-2"
-                required
-              >
-                <option value="" disabled>
-                  Select Employment Status
-                </option>
-                <option value="CASUAL">Casual</option>
-                <option value="PART_TIME">Part-time</option>
-                <option value="PERMANENT">Permanent</option>
-              </select>
-            </div>
-
-            {/* Email Address */}
-            <div className="flex flex-col">
-              <label
-                htmlFor="email"
-                className="text-lg font-medium text-gray-700"
-              >
-                Email Address *
-                <span
-                  className={`${
-                    errors && errorMessage.email ? "inline" : "hidden"
-                  } ml-2 text-sm text-red-500`}
+            <div className="flex flex-row gap-4">
+              {/* Employment Status */}
+              <div className="w-full flex-1">
+                <label
+                  htmlFor="employmentStatus"
+                  className="text-lg font-medium text-gray-700"
                 >
-                  {" "}
-                  Email is Taken
-                </span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={`mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500 ${
-                  errors && errorMessage.email
-                    ? "border-red-500 outline-none"
-                    : ""
-                }`}
-                required
-              />
-            </div>
+                  Employment Status <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="employmentStatus"
+                  id="employmentStatus"
+                  value={employmentStatus}
+                  onChange={(e) => setEmploymentStatus(e.target.value)}
+                  className="mt-1 w-full rounded-md border border-gray-300 p-1 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="" disabled>
+                    Select Employment Status
+                  </option>
+                  <option value="CASUAL">Casual</option>
+                  <option value="PART_TIME">Part-time</option>
+                  <option value="PERMANENT">Permanent</option>
+                </select>
+              </div>
 
-            {/* Masteral */}
-            <div className="flex-1">
-              <label
-                htmlFor="masteral"
-                className="text-lg font-medium text-gray-700"
-              >
-                Masteral *
-              </label>
-              <select
-                id="masteral"
-                value={hasMasteral}
-                onChange={(e) => setHasMasteral(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                required
-              >
-                <option value="" disabled>
-                  Select If Has Masteral
-                </option>
-                <option value="Y">Yes</option>
-                <option value="N">No</option>
-              </select>
+              {/* Masteral */}
+              <div className="w-full flex-1">
+                <label
+                  htmlFor="masteral"
+                  className="text-lg font-medium text-gray-700"
+                >
+                  Masteral <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="masteral"
+                  value={hasMasteral}
+                  onChange={(e) => setHasMasteral(e.target.value)}
+                  className="mt-1 w-full rounded-md border border-gray-300 p-1 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="" disabled>
+                    Select If Has Masteral
+                  </option>
+                  <option value="Y">Yes</option>
+                  <option value="N">No</option>
+                </select>
+              </div>
             </div>
 
             {/* Submit Button */}

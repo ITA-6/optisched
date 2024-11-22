@@ -3,6 +3,10 @@ import { useLocation } from "react-router-dom";
 import CurriculumSubjectForm from "./CurriculumSubjectForm";
 import CurriculumTable from "./CurriculumTable";
 import api from "../../../../api";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { useSidebar } from "../../../Users/Sidenav/SidenavContext/SidenavContext";
 
 const CurriculumView = () => {
   const location = useLocation();
@@ -12,8 +16,10 @@ const CurriculumView = () => {
   const [errors, setError] = useState();
   const [errorMessage, setErrorMessage] = useState([]);
   const [course, setCourse] = useState([]);
-
+  const navigate = useNavigate();
   const [programId, setProgramId] = useState(location.state.id);
+
+  const { isSidebarOpen } = useSidebar();
 
   const fetchCurriculums = async () => {
     try {
@@ -42,7 +48,10 @@ const CurriculumView = () => {
     }
   };
 
-  console.log(curriculums);
+  const navigateBackButton = () => {
+    navigate(-1);
+  };
+
   // Initial fetch
   useEffect(() => {
     fetchCurriculums();
@@ -80,6 +89,16 @@ const CurriculumView = () => {
   return (
     <div className="flex h-screen w-screen flex-row md:px-4">
       <div className="flex w-full flex-col pb-16 pt-6 sm:px-0 sm:pt-20 lg:px-4 xm:pt-10">
+        <div
+          className={`mb-4 ${isSidebarOpen ? "lg:ml-64" : "ml-32"} mt-8 flex items-center justify-start duration-200 ease-linear`}
+        >
+          <button className="" onClick={navigateBackButton}>
+            <FontAwesomeIcon
+              icon={faAngleLeft}
+              className="text-3xl text-black"
+            />
+          </button>
+        </div>
         <h2 className="mb-4 mt-8 text-center text-xl font-bold sm:text-sm xm:px-20 xm:text-xs">
           CURRICULUM
         </h2>

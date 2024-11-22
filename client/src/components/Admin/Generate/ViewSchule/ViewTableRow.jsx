@@ -38,6 +38,10 @@ const ViewTableRow = ({ course, sectionArray }) => {
           : ""}
       </td>
       <td className="w-32 border-collapse border border-gray-300">
+        {" "}
+        {course.building_name ? course.building_name : "TBA"}
+      </td>
+      <td className="w-32 border-collapse border border-gray-300">
         {course.lecture_room_number}
       </td>
       <td className="w-32 border-collapse border border-gray-300">

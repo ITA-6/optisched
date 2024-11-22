@@ -17,6 +17,7 @@ const ViewTableSchedule = ({ sectionArray }) => {
           <th className="bg-green text-white sm:w-44 xm:w-44">Total Units</th>
           <th className="bg-green text-white sm:w-44 xm:w-44">Day</th>
           <th className="bg-green text-white sm:w-44 xm:w-44">Time</th>
+          <th className="bg-green text-white sm:w-44 xm:w-44">Building</th>
           <th className="bg-green text-white sm:w-44 xm:w-44">Room</th>
           <th className="bg-green text-white sm:w-44 xm:w-44">Section</th>
         </tr>
