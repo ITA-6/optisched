@@ -29,6 +29,10 @@ const GenerateTableRow = ({ course, sched }) => {
         {course.lecture_time_range.end_time}
       </td>
       <td className="border-collapse border border-gray-300">
+        {course.building_name ? course.building_name : "TBA"}
+      </td>
+
+      <td className="border-collapse border border-gray-300">
         {course.lecture_room.number}{" "}
         {course.course.lab_units > 0 && !course.lecture_room.number
           ? course.lab_room.number

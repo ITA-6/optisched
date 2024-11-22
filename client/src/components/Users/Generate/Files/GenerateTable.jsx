@@ -13,6 +13,7 @@ const GenerateTable = ({ data }) => {
           <th className="sm:w-20 xm:w-20">Total Units</th>
           <th className="sm:w-44 xm:w-44">Day</th>
           <th className="sm:w-44 xm:w-44">Time</th>
+          <th className="sm:w-20 xm:w-20">Building</th>
           <th className="sm:w-20 xm:w-20">Room</th>
           <th className="sm:w-20 xm:w-20">Section</th>
         </tr>

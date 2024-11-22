@@ -83,6 +83,7 @@ const GeneratePrint = () => {
               ? `/ ${course.lab_time_range.start_time} - ${course.lab_time_range.end_time}`
               : ""
           }`, // Time
+          `${course.building_name ? course.building_name : "TBA"}`,
           `${course.lecture_room?.number || ""} ${
             course.course.lab_units > 0 && course.lab_room?.number
               ? `/ ${course.lab_room.number}`
@@ -101,6 +102,7 @@ const GeneratePrint = () => {
         "Lab Units",
         "Day",
         "Time",
+        "Building",
         "Room",
         "Section",
       ],
@@ -140,9 +142,10 @@ const GeneratePrint = () => {
         4: { cellWidth: 25 }, // Day
         5: { cellWidth: 30 }, // Time
         6: { cellWidth: 15 }, // Room
-        7: { cellWidth: 15 }, // Section
+        7: { cellWidth: 15 }, // Room
+        8: { cellWidth: 15 }, // Section
       },
-      margin: { left: 15, right: 15 }, // Padding on each side
+      margin: { left: 8 }, // Padding on each side
       tableWidth: "wrap", // Wrap content within the page width
       rowPageBreak: "avoid", // Avoid page breaks within rows
     });
