@@ -206,7 +206,7 @@ const Generate = () => {
                         section.map((sectionArray, index) => (
                           <>
                             <div className="flex items-center justify-center">
-                              Curriculum Year Batch
+                              Curriculum Year Batch 2023
                             </div>
                             <div className="flex justify-between">
                               <p className="">
