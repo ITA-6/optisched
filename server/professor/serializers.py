@@ -9,8 +9,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
         many=True, queryset=Schedule.objects.all(), allow_empty=True
     )
     department_name = serializers.CharField(source="department.name", read_only=True)
-
-    # Additional department fields, if needed for clarity.
+    course_specialization_name = serializers.SerializerMethodField()
     department_id = serializers.IntegerField(source="department.id", read_only=True)
 
     class Meta:
@@ -22,6 +21,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "middle_name",  # If optional, you could add `required=False`
             "birth_date",
             "course_specialization",
+            "course_specialization_name",
             "has_masteral",  # If optional, add `required=False`
             "department",
             "department_name",  # Read-only field from related department
@@ -34,6 +34,12 @@ class ProfessorSerializer(serializers.ModelSerializer):
             "handled_schedule",  # List of schedules the professor handles
         ]
         read_only_fields = ["middle_name"]
+
+    def get_course_specialization_name(self, obj):
+        """
+        Returns the names of courses in the course_specialization ManyToManyField.
+        """
+        return [course.name for course in obj.course_specialization.all()]
 
     def validate(self, data):
         """
@@ -54,13 +60,21 @@ class ProfessorSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """
-        Custom creation logic if needed, especially for nested objects like `handled_schedule`.
+        Custom creation logic to handle nested or related objects like `handled_schedule`.
         """
+        # Extract handled_schedule data before creating the professor
         handled_schedule_data = validated_data.pop("handled_schedule", [])
+        course_specialization_data = validated_data.pop("course_specialization", [])
+
+        # Create the professor instance
         professor = Professor.objects.create(**validated_data)
 
-        # Associate the schedule (if provided) after the professor is created.
-        professor.handled_schedule.set(handled_schedule_data)
+        # Handle ManyToMany relationships
+        if handled_schedule_data:
+            professor.handled_schedule.set(handled_schedule_data)
+
+        if course_specialization_data:
+            professor.course_specialization.set(course_specialization_data)
 
         return professor
 

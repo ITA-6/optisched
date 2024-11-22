@@ -228,6 +228,7 @@ class ProfessorAPIView(APIView):
             "last_name": data.get("last_name"),
             "middle_name": data.get("middle_name"),
             "birth_date": data.get("birth_date"),
+            "course_specialization": data.get("course_specialization"),
             "department": data.get("department"),
             "email": data.get("email"),
             "gender": data.get("gender"),

@@ -1,12 +1,25 @@
 const ProfessorRow = ({ toggleDialog, filteredUsers, openUpdate }) => {
   const hasData = filteredUsers.prof_id && filteredUsers.first_name;
+  const hasSpecialization =
+    filteredUsers.course_specialization_name.length !== 0;
+
   return (
     <tr className="h-16" key={filteredUsers.prof_id}>
       <th scope="row" className="border-y-2 border-gray-200 px-5">
         {filteredUsers.prof_id}
       </th>
       <td className="border-y-2 border-gray-200">{`${filteredUsers.first_name} ${filteredUsers.last_name}`}</td>
-      <td className="border-y-2 border-gray-200">TBA</td>
+      <td className="border-y-2 border-gray-200">
+        {hasSpecialization
+          ? filteredUsers.course_specialization_name.map(
+              (course_specialization, index) => (
+                <span className="block" key={index}>
+                  {course_specialization}{" "}
+                </span>
+              ),
+            )
+          : "TBA"}
+      </td>
       <td className="border-y-2 border-gray-200">{filteredUsers.birth_date}</td>
       <td className="border-y-2 border-gray-200">{filteredUsers.email}</td>
       <td className="border-y-2 border-gray-200">

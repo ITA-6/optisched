@@ -51,8 +51,9 @@ const ProfessorForm = ({
       employment_status: employmentStatus,
       has_masteral: hasMasteral,
       birth_date: birthDate,
-      specialization: specialization,
+      course_specialization: specialization,
     };
+    console.log(professorData);
     if (initialData) professorData.id = initialData.id;
     handler(professorData);
   };
