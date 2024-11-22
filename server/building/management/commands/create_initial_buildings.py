@@ -9,7 +9,7 @@ class Command(BaseCommand):
         buildings_data = [
             {"name": "PNC Main Building", "total_rooms": 60, "available_rooms": 60},
             {"name": "BCH", "total_rooms": 100, "available_rooms": 100},
-            {"name": "Nursing Building", "total_rooms": 20, "available_rooms": 20},
+            # {"name": "Nursing Building", "total_rooms": 20, "available_rooms": 20},
         ]
 
         for building_data in buildings_data:
