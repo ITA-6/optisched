@@ -69,7 +69,7 @@ class ProgramAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
         else:
-            if user_privilege == "admin":
+            if user_privilege == "admin" or user.user_type == "VPAA":
                 programs = Program.objects.all()
             elif user_privilege == "sub_admin":
                 programs = Program.objects.filter(department=user.department)

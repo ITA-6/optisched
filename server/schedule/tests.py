@@ -1,6 +1,6 @@
 from django.test import TestCase
 from unittest.mock import patch, MagicMock
-from datetime import time
+from datetime import time, timedelta
 from schedule.management.commands.genetic_algorithm import GeneticAlgorithmRunner
 from room.models import Room
 from professor.models import Professor
@@ -186,3 +186,106 @@ class GeneticAlgorithmRunnerTests(TestCase):
 
         # Assert that schedule contains all curriculum courses
         self.assertEqual(len(schedule), len(curriculum_courses))
+
+    def test_schedule_conflicts(self):
+        # Generate schedule
+        curriculum_courses = [self.course1, self.course2]
+        schedule = self.runner.generate_schedule_for_section(
+            self.section, curriculum_courses
+        )
+
+        # Check for conflicts: Section, Professor, and Room
+        section_schedule = {}
+        professor_schedule = {prof: {} for prof in self.runner.professors}
+        room_schedule = {room: {} for room in self.runner.rooms}
+
+        for entry in schedule:
+            course, professor, room, day_pair, timeslot = entry
+            lecture_day, lab_day = day_pair
+
+            # Convert timeslot into actual start and end times for conflict checking
+            lecture_start_time = self.runner.times[timeslot]
+            lecture_end_time = lecture_start_time + timedelta(hours=course.lecture_unit)
+
+            # Check section-level conflicts (same section, same day, overlapping times)
+            if lecture_day not in section_schedule:
+                section_schedule[lecture_day] = []
+            for scheduled_start, scheduled_end in section_schedule[lecture_day]:
+                self.assertTrue(
+                    lecture_end_time <= scheduled_start
+                    or lecture_start_time >= scheduled_end,
+                    f"Conflict found in section schedule on day {lecture_day}: {lecture_start_time} - {lecture_end_time}",
+                )
+            section_schedule[lecture_day].append((lecture_start_time, lecture_end_time))
+
+            # Check professor-level conflicts (same professor, same day, overlapping times)
+            if lecture_day not in professor_schedule[professor]:
+                professor_schedule[professor][lecture_day] = []
+            for scheduled_start, scheduled_end in professor_schedule[professor][
+                lecture_day
+            ]:
+                self.assertTrue(
+                    lecture_end_time <= scheduled_start
+                    or lecture_start_time >= scheduled_end,
+                    f"Conflict found in professor {professor.first_name} {professor.last_name}'s schedule on day {lecture_day}: {lecture_start_time} - {lecture_end_time}",
+                )
+            professor_schedule[professor][lecture_day].append(
+                (lecture_start_time, lecture_end_time)
+            )
+
+            # Check room-level conflicts (same room, same day, overlapping times)
+            if lecture_day not in room_schedule[room]:
+                room_schedule[room][lecture_day] = []
+            for scheduled_start, scheduled_end in room_schedule[room][lecture_day]:
+                self.assertTrue(
+                    lecture_end_time <= scheduled_start
+                    or lecture_start_time >= scheduled_end,
+                    f"Conflict found in room {room.number} schedule on day {lecture_day}: {lecture_start_time} - {lecture_end_time}",
+                )
+            room_schedule[room][lecture_day].append(
+                (lecture_start_time, lecture_end_time)
+            )
+
+            # Handle lab time conflicts if the course has a lab component
+            if course.lab_unit > 0:
+                lab_start_time = self.runner.times[
+                    (timeslot + course.lecture_unit * 2) % self.runner.TIME_SLOTS
+                ]
+                lab_end_time = lab_start_time + timedelta(hours=course.lab_unit)
+
+                # Check section-level conflicts for the lab day
+                if lab_day not in section_schedule:
+                    section_schedule[lab_day] = []
+                for scheduled_start, scheduled_end in section_schedule[lab_day]:
+                    self.assertTrue(
+                        lab_end_time <= scheduled_start
+                        or lab_start_time >= scheduled_end,
+                        f"Conflict found in section schedule on day {lab_day}: {lab_start_time} - {lab_end_time}",
+                    )
+                section_schedule[lab_day].append((lab_start_time, lab_end_time))
+
+                # Check professor-level conflicts for the lab day
+                if lab_day not in professor_schedule[professor]:
+                    professor_schedule[professor][lab_day] = []
+                for scheduled_start, scheduled_end in professor_schedule[professor][
+                    lab_day
+                ]:
+                    self.assertTrue(
+                        lab_end_time <= scheduled_start
+                        or lab_start_time >= scheduled_end,
+                        f"Conflict found in professor {professor.first_name} {professor.last_name}'s schedule on day {lab_day}: {lab_start_time} - {lab_end_time}",
+                    )
+                professor_schedule[professor][lab_day].append(
+                    (lab_start_time, lab_end_time)
+                )
+
+                # Check room-level conflicts for the lab day
+                if lab_day not in room_schedule[room]:
+                    room_schedule[room][lab_day] = []
+                for scheduled_start, scheduled_end in room_schedule[room][lab_day]:
+                    self.assertTrue(
+                        lab_end_time <= scheduled_start
+                        or lab_start_time >= scheduled_end,
+                        f"Conflict found in room {room.number} schedule on day {lab_day}: {lab_start_time} - {lab_end_time}",
+                    )
+                room_schedule[room][lab_day].append((lab_start_time, lab_end_time))
