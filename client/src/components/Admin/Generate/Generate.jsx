@@ -10,9 +10,11 @@ import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import completeMark from "../../../assets/completeMark.png";
 import failedMark from "../../../assets/FailedMark.png";
+
 const Generate = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [progress, setProgress] = useState(0);
   const { isSidebarOpen } = useSidebar();
   const [scheduleData, setScheduleData] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState(1);
@@ -102,17 +104,69 @@ const Generate = () => {
 
   const handleGenerateSchedule = async () => {
     setLoading(true); // Show loading screen
+    setProgress(0); // Reset progress to 0
     setError(null);
+
     try {
-      const response = await api.get("schedule/generate/"); // Fetch schedule data from the API
-      setSchedules(response.data); // Set the fetched schedule data to `schedules` array
-      setScheduleData(response.data); // Optionally, set `scheduleData` as well if you need it
-      setIsGenerateClicked(true);
+      // Start both schedule generation and progress tracking simultaneously
+      const generatePromise = generateSchedule();
+      const progressPromise = handleProgress();
+
+      // Wait for both processes to complete
+      await Promise.all([generatePromise, progressPromise]);
+
+      setLoading(false); // Hide loading after both processes complete
+      setProgress(0);
     } catch (err) {
-      setError("Error generating schedule");
+      console.error(
+        "Error during schedule generation or progress tracking:",
+        err,
+      );
+      setError("An error occurred while generating the schedule.");
+      setLoading(false);
+    }
+  };
+
+  const generateSchedule = async () => {
+    try {
+      // Trigger the schedule generation process
+      const response = await api.get("schedule/generate/");
+      setSchedules(response.data); // Set the fetched schedule data to schedules array
+      setScheduleData(response.data); // Optionally, set scheduleData as well if you need it
+      setIsGenerateClicked(true); // Indicate that generation was triggered
+    } catch (err) {
       console.error("Error generating schedule:", err);
-    } finally {
-      setLoading(false); // Hide loading screen after operation
+      setError("Error generating schedule.");
+    }
+  };
+
+  const handleProgress = async () => {
+    try {
+      const interval = setInterval(async () => {
+        try {
+          // Poll progress from the API
+          const response = await api.get("schedule/progress/");
+          const currentProgress = response.data.generation_progress;
+
+          setProgress(currentProgress); // Update progress state
+
+          if (currentProgress >= 100) {
+            clearInterval(interval); // Stop polling once progress reaches 100%
+
+            // Optionally fetch the final schedules
+            const scheduleResponse = await api.get("schedule/");
+            setSchedules(scheduleResponse.data);
+            setScheduleData(scheduleResponse.data);
+          }
+        } catch (err) {
+          console.error("Error fetching progress:", err);
+          clearInterval(interval); // Stop polling on error
+          setError("Failed to fetch progress.");
+        }
+      }, 2000); // Poll every 2 seconds
+    } catch (err) {
+      console.error("Error in progress tracking:", err);
+      setError("Failed to track progress.");
     }
   };
 
@@ -121,8 +175,13 @@ const Generate = () => {
     setLoadingModal(true);
     setError(null);
     try {
-      await api.post("schedule/generate/", { schedule_data: scheduleData }); // API request to confirm and save schedule
-      setSuccess("Schedule has been Saved!");
+      const savePromise = saveSchedules();
+      const progressPromise = trackSaveProgress();
+
+      await Promise.all([savePromise, progressPromise]);
+
+      setSuccess("Schedule has been saved successfully!");
+      setProgress(0);
     } catch (err) {
       console.error("Error generating schedule:", err);
       setError("Failed to save the Schedule");
@@ -134,16 +193,39 @@ const Generate = () => {
     }
   };
 
+  const saveSchedules = async () => {
+    try {
+      await api.post("schedule/generate/", { schedule_data: scheduleData });
+    } catch (err) {
+      throw new Error("Error saving schedule.");
+    }
+  };
+
+  const trackSaveProgress = async () => {
+    const interval = setInterval(async () => {
+      try {
+        const response = await api.get("schedule/progress/");
+        const currentProgress = response.data.saving_progress;
+
+        setProgress(currentProgress);
+
+        if (currentProgress >= 100) {
+          clearInterval(interval);
+        }
+      } catch (err) {
+        console.error("Error fetching saving progress:", err);
+        clearInterval(interval);
+        setError("Failed to track saving progress.");
+      }
+    }, 2000);
+  };
+
   return (
     <div className="h-screen overflow-auto bg-white">
       {loading ? (
-        <div className="flex h-full items-center justify-center">
-          <video
-            src={loadingVideo}
-            autoPlay
-            loop
-            className="h-[50vh] w-[50vw] translate-x-20 transform"
-          />
+        <div className="flex flex-col items-center justify-center">
+          <video src={loadingVideo} autoPlay loop className="h-1/2 w-1/2" />
+          <p className="mt-4 text-lg font-bold">Progress: {progress}%</p>
         </div>
       ) : (
         // Main content is displayed when not loading
@@ -275,6 +357,9 @@ const Generate = () => {
                       loop
                       className="translate-x-0 transform rounded-lg"
                     />
+                    <p className="mt-4 text-lg font-bold">
+                      Progress: {progress}%
+                    </p>
                   </div>
                 ) : error ? (
                   <div className="flex flex-col items-center justify-center rounded-lg bg-white py-10 duration-75 ease-in-out">

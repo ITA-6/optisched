@@ -208,12 +208,17 @@ class GenerateScheduleView(APIView):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
+        total_sections = len(cached_schedules)  # Total sections to process
+        progress_key = "schedule_saving_progress"  # Cache key for saving progress
+        cache.set(progress_key, 0, timeout=60 * 10)  # Initialize progress to 0
+
         Schedule.objects.all().delete()
 
         # Iterate over each section's schedule and save it to the database
-        for section_id, cached_schedule in cached_schedules.items():
-            # Get or create the main Schedule entry
+        for index, (section_id, cached_schedule) in enumerate(cached_schedules.items()):
             section = Section.objects.get(id=section_id)
+
+            # Get or create the main Schedule entry
             schedule, created = Schedule.objects.get_or_create(
                 section=section,
                 year_level=cached_schedule["year_level"],
@@ -255,8 +260,15 @@ class GenerateScheduleView(APIView):
                 # Associate the course schedule with the main schedule
                 schedule.courses.add(course_schedule)
 
+            # Update progress after processing each section
+            progress = int((index + 1) / total_sections * 100)
+            cache.set(progress_key, progress, timeout=60 * 10)
+
         # Clear the cache after successfully saving all schedules
         cache.delete("all_generated_schedules")
+
+        # Reset the saving progress to 100% after completion
+        cache.set(progress_key, 100, timeout=60 * 10)
 
         # Log the activity
         self.log_activity(
@@ -268,4 +280,18 @@ class GenerateScheduleView(APIView):
         return Response(
             {"detail": "All cached schedules successfully saved to the database."},
             status=status.HTTP_201_CREATED,
+        )
+
+
+class ScheduleProgressView(APIView):
+    def get(self, request):
+        """Returns the current progress of schedule generation or saving."""
+        generation_progress = cache.get("schedule_generation_progress", 0)
+        saving_progress = cache.get("schedule_saving_progress", 0)
+        return Response(
+            {
+                "generation_progress": generation_progress,
+                "saving_progress": saving_progress,
+            },
+            status=status.HTTP_200_OK,
         )

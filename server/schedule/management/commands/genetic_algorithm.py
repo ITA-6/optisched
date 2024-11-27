@@ -49,6 +49,10 @@ class GeneticAlgorithmRunner:
             2: (2, 5),  # Wednesday and Saturday
         }
 
+        # Progress tracking
+        self.progress = 0
+        self.total_sections = len(self.sections)
+
         # PyGAD parameters
         self.num_generations = 200
         self.num_parents_mating = 4
@@ -360,41 +364,64 @@ class GeneticAlgorithmRunner:
             "all_generated_schedules", all_schedules, timeout=60 * 60 * 24
         )  # 24-hour cache
 
+    def update_progress(self, current_index):
+        """Update progress and store it in the cache."""
+        if self.total_sections > 0:
+            self.progress = int((current_index + 1) / self.total_sections * 100)
+            cache.set("schedule_generation_progress", self.progress, timeout=60 * 10)
+
     def run(self):
         all_schedules = {}  # Dictionary to accumulate schedules for all sections
         output = []
 
-        for section in self.sections:
-            # Filter curriculum based on year_level, program, and specified semester
-            curriculum = Curriculum.objects.filter(
-                year_level=section.year_level,
-                program=section.program,
-                semester=self.semester,
-            ).first()
+        for index, section in enumerate(
+            self.sections
+        ):  # Track the index of each section
+            try:
+                # Update progress
+                self.update_progress(index)
 
-            if not curriculum:
-                continue  # Skip if no matching curriculum is found
+                # Filter curriculum based on year_level, program, and specified semester
+                curriculum = Curriculum.objects.filter(
+                    year_level=section.year_level,
+                    program=section.program,
+                    semester=self.semester,
+                ).first()
 
-            curriculum_courses = list(curriculum.courses.all())
-            # Generate the raw schedule for the section
-            raw_schedule = self.generate_schedule_for_section(
-                section, curriculum_courses
-            )
+                if not curriculum:
+                    print(
+                        f"No curriculum found for section {section.label}. Skipping..."
+                    )
+                    continue  # Skip if no matching curriculum is found
 
-            # Serialize the raw schedule for JSON storage
-            serialized_schedule = self.serialize_schedule(
-                raw_schedule, section, self.semester
-            )
-            all_schedules[section.id] = serialized_schedule
+                curriculum_courses = list(curriculum.courses.all())
 
-            # Format the schedule for output
-            formatted_section_schedule = self.format_schedule_output(
-                section, curriculum, raw_schedule
-            )
+                # Generate the raw schedule for the section
+                raw_schedule = self.generate_schedule_for_section(
+                    section, curriculum_courses
+                )
 
-            output.append(formatted_section_schedule)
+                # Serialize the raw schedule for JSON storage
+                serialized_schedule = self.serialize_schedule(
+                    raw_schedule, section, self.semester
+                )
+                all_schedules[section.id] = serialized_schedule
+
+                # Format the schedule for output
+                formatted_section_schedule = self.format_schedule_output(
+                    section, curriculum, raw_schedule
+                )
+                output.append(formatted_section_schedule)
+
+            except Exception as e:
+                print(f"Error processing section {section.label}: {e}")
+                continue  # Skip the current section and move to the next one
 
         # Save all raw schedules to a single JSON file and cache the result
         self.save_all_schedules_to_json(all_schedules)
+
+        # Ensure progress is set to 100% when all sections are processed
+        self.progress = 100
+        cache.set("schedule_generation_progress", self.progress, timeout=60 * 10)
 
         return output
