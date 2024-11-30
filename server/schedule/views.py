@@ -288,8 +288,11 @@ class ScheduleProgressView(APIView):
         """Returns the current progress of schedule generation or saving."""
         generation_progress = cache.get("schedule_generation_progress", 0)
         saving_progress = cache.get("schedule_saving_progress", 0)
+        message_progress = cache.get("message_progress", 0)
+
         return Response(
             {
+                "message_progress": message_progress,
                 "generation_progress": generation_progress,
                 "saving_progress": saving_progress,
             },

@@ -65,7 +65,7 @@ class GeneticAlgorithmRunner:
         """
         if not curriculum_courses:
             print(
-                f"Warning: No courses found in the curriculum for section {section.label}. Skipping..."
+                f"Warning: No courses found in the curriculum for section {section.year_level}{section.label} - {section.program.acronym}. Skipping..."
             )
             return []
 
@@ -381,6 +381,13 @@ class GeneticAlgorithmRunner:
                 # Update progress
                 self.update_progress(index)
 
+                # Cached progress message
+                cache.set(
+                    "message_progress",
+                    f"Generating schedule for {section.year_level}{section.label} - {section.program.acronym}",
+                    timeout=60 * 10,
+                )
+
                 # Filter curriculum based on year_level, program, and specified semester
                 curriculum = Curriculum.objects.filter(
                     year_level=section.year_level,
@@ -390,7 +397,7 @@ class GeneticAlgorithmRunner:
 
                 if not curriculum:
                     print(
-                        f"No curriculum found for section {section.label}. Skipping..."
+                        f"No curriculum found for section {section.year_level}{section.label} - {section.program.acronym}. Skipping..."
                     )
                     continue  # Skip if no matching curriculum is found
 
