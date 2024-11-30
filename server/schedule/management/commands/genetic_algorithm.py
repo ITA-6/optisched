@@ -370,6 +370,50 @@ class GeneticAlgorithmRunner:
             self.progress = int((current_index + 1) / self.total_sections * 100)
             cache.set("schedule_generation_progress", self.progress, timeout=60 * 10)
 
+    def prepare_gantt_data(self, all_schedules):
+        """
+        Prepare Gantt chart data with rows for sections and items for schedules.
+        """
+        rows = []
+        items = []
+
+        for section_id, schedule in all_schedules.items():
+            # Add a row for the section
+            rows.append(
+                {
+                    "id": f"section-{section_id}",
+                    "label": f"{schedule['year_level']}{schedule['section_label']} - {schedule['program_name']}",
+                }
+            )
+
+            # Add items for courses in the section
+            for course in schedule["courses"]:
+                lecture_start = datetime.strptime(
+                    f"{self.semester.start_date} {course['lecture_time_range']['start_time']}",
+                    "%Y-%m-%d %H:%M:%S",
+                )
+                lecture_end = datetime.strptime(
+                    f"{self.semester.start_date} {course['lecture_time_range']['end_time']}",
+                    "%Y-%m-%d %H:%M:%S",
+                )
+
+                # Add the course as a Gantt item
+                items.append(
+                    {
+                        "id": f"course-{course['course_id']}",
+                        "rowId": f"section-{section_id}",
+                        "label": f"{course['course_code']} ({course['professor_name']})",
+                        "time": {
+                            "start": lecture_start.timestamp()
+                            * 1000,  # Convert to milliseconds
+                            "end": lecture_end.timestamp()
+                            * 1000,  # Convert to milliseconds
+                        },
+                    }
+                )
+
+        return {"rows": rows, "items": items}
+
     def run(self):
         all_schedules = {}  # Dictionary to accumulate schedules for all sections
         output = []
@@ -426,6 +470,12 @@ class GeneticAlgorithmRunner:
 
         # Save all raw schedules to a single JSON file and cache the result
         self.save_all_schedules_to_json(all_schedules)
+
+        # Prepare Gantt data
+        gantt_data = self.prepare_gantt_data(all_schedules)
+
+        # Cache Gantt data for frontend use
+        cache.set("schedule_gantt_data", gantt_data, timeout=60 * 10)
 
         # Ensure progress is set to 100% when all sections are processed
         self.progress = 100

@@ -6,6 +6,7 @@ from .views import (
     ScheduleView,
     ProfessorScheduleView,
     ScheduleProgressView,
+    GanttDataView,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path("generate/", GenerateScheduleView.as_view(), name="generate_schedule"),
     path("professor/", ProfessorScheduleView.as_view(), name="professor_schedule"),
     path("progress/", ScheduleProgressView.as_view(), name="schedule_progress"),
+    path("gantt/", GanttDataView.as_view(), name="gantt"),
 ]

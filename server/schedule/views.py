@@ -298,3 +298,12 @@ class ScheduleProgressView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+class GanttDataView(APIView):
+    def get(self, request):
+        """
+        API to fetch Gantt chart data.
+        """
+        gantt_data = cache.get("schedule_gantt_data", {"rows": [], "items": []})
+        return Response(gantt_data)
