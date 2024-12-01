@@ -38,7 +38,7 @@ const CourseTable = ({
   }
 
   return (
-    <table className="h-[100%] w-full table-auto bg-white text-center">
+    <table className="w-full table-auto bg-white text-center">
       <thead className="sticky top-0 mb-10 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">

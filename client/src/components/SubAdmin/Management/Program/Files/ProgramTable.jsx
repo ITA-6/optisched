@@ -17,9 +17,12 @@ const ProgramTable = ({ toggleDialog, filteredPrograms, openUpdate }) => {
     fetchData();
   }, []); // Empty dependency array to run this effect only once on component mount
 
-  const rowsToDisplay = Array.from({ length: filteredPrograms.length }, (_, index) => {
-    return filteredPrograms[index] || { name: "", department_name: "" };
-  });
+  const rowsToDisplay = Array.from(
+    { length: filteredPrograms.length },
+    (_, index) => {
+      return filteredPrograms[index] || { name: "", department_name: "" };
+    },
+  );
 
   if (loading) {
     // Show loading video while data is loading
@@ -31,7 +34,7 @@ const ProgramTable = ({ toggleDialog, filteredPrograms, openUpdate }) => {
   }
 
   return (
-    <table className="h-[100%] w-full table-fixed bg-white text-center">
+    <table className="w-full table-fixed bg-white text-center">
       <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">

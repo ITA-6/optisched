@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProfessorRow from "./ProfessorRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProfessorTables = ({ filteredUsers , totalRows = 10, ViewProfessor }) => {
+const ProfessorTables = ({ filteredUsers, totalRows = 10, ViewProfessor }) => {
   const [loading, setLoading] = useState(true); // State to manage loading status
 
   // data loading
@@ -18,20 +18,23 @@ const ProfessorTables = ({ filteredUsers , totalRows = 10, ViewProfessor }) => {
     fetchData();
   }, []); // Run only once on component mount
 
-  const rowsToDisplay = Array.from({ length: filteredUsers.length }, (_, index) => {
-    return (
-      filteredUsers[index] || {
-        prof_id: "",
-        first_name: "",
-        last_name: "",
-        birth_date: "",
-        email: "",
-        department_name: "",
-        has_masteral: "",
-        employment_status: "",
-      }
-    );
-  });
+  const rowsToDisplay = Array.from(
+    { length: filteredUsers.length },
+    (_, index) => {
+      return (
+        filteredUsers[index] || {
+          prof_id: "",
+          first_name: "",
+          last_name: "",
+          birth_date: "",
+          email: "",
+          department_name: "",
+          has_masteral: "",
+          employment_status: "",
+        }
+      );
+    },
+  );
 
   if (loading) {
     // Show the loading video when data is being loaded
@@ -44,7 +47,7 @@ const ProfessorTables = ({ filteredUsers , totalRows = 10, ViewProfessor }) => {
 
   // Show the table when loading is complete
   return (
-    <table className="h-full w-full table-fixed bg-white text-center">
+    <table className="w-full table-fixed bg-white text-center">
       <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="h-[30px] w-[100px]">
@@ -72,7 +75,11 @@ const ProfessorTables = ({ filteredUsers , totalRows = 10, ViewProfessor }) => {
       </thead>
       <tbody className="mb-10 border-collapse border-y-2 border-gray-200 text-sm">
         {rowsToDisplay.map((filteredUsers, index) => (
-          <ProfessorRow key={index} filteredUsers={filteredUsers} ViewProfessor={ViewProfessor} />
+          <ProfessorRow
+            key={index}
+            filteredUsers={filteredUsers}
+            ViewProfessor={ViewProfessor}
+          />
         ))}
       </tbody>
     </table>

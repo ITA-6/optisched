@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ClassroomRow from "./ClassroomRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ClassroomTable = ({filteredClassrooms}) => {
+const ClassroomTable = ({ filteredClassrooms }) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data loading
@@ -18,9 +18,14 @@ const ClassroomTable = ({filteredClassrooms}) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: filteredClassrooms.length }, (_, index) => {
-    return filteredClassrooms[index] || { number: "", floor: "", building: "" };
-  });
+  const rowsToDisplay = Array.from(
+    { length: filteredClassrooms.length },
+    (_, index) => {
+      return (
+        filteredClassrooms[index] || { number: "", floor: "", building: "" }
+      );
+    },
+  );
 
   if (loading) {
     // Show the loading video while data is being loaded
@@ -33,7 +38,7 @@ const ClassroomTable = ({filteredClassrooms}) => {
 
   // Display the table when data is loaded
   return (
-    <table className="h-[100%] w-full table-fixed bg-white text-center">
+    <table className="w-full table-fixed bg-white text-center">
       <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col">Building Name</th>
@@ -42,13 +47,15 @@ const ClassroomTable = ({filteredClassrooms}) => {
         </tr>
       </thead>
       <tbody className="mb-10 h-full overflow-auto">
-      {filteredClassrooms.length > 0 ? (
-        rowsToDisplay?.map((filteredClassrooms, index) => (
+        {filteredClassrooms.length > 0 ? (
+          rowsToDisplay?.map((filteredClassrooms, index) => (
             <ClassroomRow key={index} filteredClassrooms={filteredClassrooms} />
           ))
         ) : (
           <tr>
-            <td className="text-center" colSpan="3">No classrooms found</td>
+            <td className="text-center" colSpan="3">
+              No classrooms found
+            </td>
           </tr>
         )}
       </tbody>

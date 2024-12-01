@@ -21,10 +21,11 @@ const Buildings = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBuildings, setSelectedBuildings] = useState("");
 
-  const allBuildingNames = [...new Set(buildings.map((building) => building.name))];
+  const allBuildingNames = [
+    ...new Set(buildings.map((building) => building.name)),
+  ];
 
-
-  console.log(allBuildingNames)
+  console.log(allBuildingNames);
   useEffect(() => {
     // Set initial filtered buildings when component mounts or buildings change
     setFilteredBuildings(buildings);
@@ -45,13 +46,16 @@ const Buildings = () => {
   const filterBuildings = (searchTerm, selectedBuilding) => {
     const filteredItems = buildings.filter((building) => {
       // Check if building name matches the selected building, or if no building is selected
-      const matchesBuilding = selectedBuilding === "" || building.name === selectedBuilding;
+      const matchesBuilding =
+        selectedBuilding === "" || building.name === selectedBuilding;
 
       // Check if any relevant field in building data starts with the search term
       const matchesSearchTerm =
         (building.name && building.name.toLowerCase().startsWith(searchTerm)) ||
-        (building.total_rooms && building.total_rooms.toString().startsWith(searchTerm)) ||
-        (building.available_rooms && building.available_rooms.toString().startsWith(searchTerm));
+        (building.total_rooms &&
+          building.total_rooms.toString().startsWith(searchTerm)) ||
+        (building.available_rooms &&
+          building.available_rooms.toString().startsWith(searchTerm));
 
       return matchesBuilding && matchesSearchTerm;
     });
@@ -146,9 +150,13 @@ const Buildings = () => {
       <div
         className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
       >
-        <SearchField allBuildingNames={allBuildingNames}  handleBuildingChange={handleBuildingChange} handleInputChange={handleInputChange}/>
+        <SearchField
+          allBuildingNames={allBuildingNames}
+          handleBuildingChange={handleBuildingChange}
+          handleInputChange={handleInputChange}
+        />
         <div
-          className={`mr-5 h-full grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${filteredBuildings.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
+          className={`mr-5 grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${filteredBuildings.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
         >
           <BuildingTable
             toggleDialog={toggleDialog}

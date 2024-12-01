@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import BuildingRow from "./BuildingRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const BuildingTable = ({ filteredBuildings}) => {
+const BuildingTable = ({ filteredBuildings }) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data loading or replace with actual data fetching
@@ -18,11 +18,18 @@ const BuildingTable = ({ filteredBuildings}) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: filteredBuildings.length }, (_, index) => {
-    return (
-      filteredBuildings[index] || { name: "", total_rooms: "", available_rooms: "" }
-    );
-  });
+  const rowsToDisplay = Array.from(
+    { length: filteredBuildings.length },
+    (_, index) => {
+      return (
+        filteredBuildings[index] || {
+          name: "",
+          total_rooms: "",
+          available_rooms: "",
+        }
+      );
+    },
+  );
 
   if (loading) {
     // Show the loading video while data is being loaded
@@ -35,7 +42,7 @@ const BuildingTable = ({ filteredBuildings}) => {
 
   // Display the table when data is loaded
   return (
-    <table className="h-[100%] w-full table-fixed bg-white text-center">
+    <table className="w-full table-fixed bg-white text-center">
       <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">

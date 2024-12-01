@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import ClassroomRow from "./ClassroomRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ClassroomTable = ({
-  toggleDialog,
-  filteredClassrooms,
-  openUpdate,
-}) => {
+const ClassroomTable = ({ toggleDialog, filteredClassrooms, openUpdate }) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   useEffect(() => {
@@ -20,9 +16,14 @@ const ClassroomTable = ({
     fetchData();
   }, []); // Run once on mount
 
-  const rowsToDisplay = Array.from({ length: filteredClassrooms.length }, (_, index) => {
-    return filteredClassrooms[index] || { building: "", number: "", floor: "" };
-  });
+  const rowsToDisplay = Array.from(
+    { length: filteredClassrooms.length },
+    (_, index) => {
+      return (
+        filteredClassrooms[index] || { building: "", number: "", floor: "" }
+      );
+    },
+  );
 
   if (loading) {
     // Show the loading video while data is being loaded
@@ -34,7 +35,7 @@ const ClassroomTable = ({
   }
 
   return (
-    <table className="h-[100%] w-full table-fixed bg-white text-center">
+    <table className="w-full table-fixed bg-white text-center">
       <thead className="sticky -top-0.5 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">

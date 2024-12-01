@@ -163,7 +163,7 @@ const Section = () => {
           handleStatusChange={handleStatusChange}
         />
         <div
-          className={`mr-5 h-full grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${sections.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
+          className={`mr-5 grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${sections.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
         >
           <SectionTable
             toggleDialog={toggleDialog}

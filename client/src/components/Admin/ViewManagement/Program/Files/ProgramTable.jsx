@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProgramRow from "./ProgramRow";
 import loadingVideo from "../../../../../assets/loadingVideo.mp4";
 
-const ProgramTable = ({filteredPrograms}) => {
+const ProgramTable = ({ filteredPrograms }) => {
   const [loading, setLoading] = useState(true); // Manage loading state
 
   // Simulate data fetching or replace with actual fetching logic
@@ -18,9 +18,12 @@ const ProgramTable = ({filteredPrograms}) => {
     fetchData();
   }, []); // Run only once when the component mounts
 
-  const rowsToDisplay = Array.from({ length: filteredPrograms.length}, (_, index) => {
-    return filteredPrograms[index] || { name: "", department_name: "" };
-  });
+  const rowsToDisplay = Array.from(
+    { length: filteredPrograms.length },
+    (_, index) => {
+      return filteredPrograms[index] || { name: "", department_name: "" };
+    },
+  );
 
   if (loading) {
     // Show the loading video when data is being fetched
@@ -33,7 +36,7 @@ const ProgramTable = ({filteredPrograms}) => {
 
   // Render the table when data is available
   return (
-    <table className="h-[100%] w-full table-fixed bg-white text-center">
+    <table className="w-full table-fixed bg-white text-center">
       <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">
