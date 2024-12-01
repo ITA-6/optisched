@@ -4,15 +4,14 @@ import SearchField from "./Files/SearchField";
 import add from "../../..//assets/add.png";
 import { useState, useEffect } from "react";
 import api from "../../../api";
-import {useSidebar} from "../../Users/Sidenav/SidenavContext/SidenavContext";
+import { useSidebar } from "../../Users/Sidenav/SidenavContext/SidenavContext";
 
 const Department = () => {
   const [departments, setDepartment] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialData, setInitialData] = useState(null);
-  const totalRows = (departments.length < 10) ? 10 : departments.length;
-  const {isSidebarOpen} = useSidebar();
-
+  const totalRows = departments.length < 10 ? 10 : departments.length;
+  const { isSidebarOpen } = useSidebar();
 
   const [isLoading, setIsLoading] = useState(true); // Add loading state
 
@@ -29,13 +28,13 @@ const Department = () => {
       const response = await api.get("departments/");
       setDepartment(response.data);
       setTimeout(() => {
-        setIsLoading(false)
-      }, 3000)
+        setIsLoading(false);
+      }, 3000);
     };
     fetchData();
   }, []);
 
-  console.log(isLoading)
+  console.log(isLoading);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -81,10 +80,16 @@ const Department = () => {
   };
 
   return (
-    <div className={`${isLoading ? "h-screen" : "min-h-screen"}w-screen bg-white`}>
-      <div className={`font-noto mr-[2rem] ${isLoading ? "h-screen" : ""} grid grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]": "lg:ml-32"} ease-linear duration-200 `}>
+    <div
+      className={`${isLoading ? "h-screen" : "min-h-screen"}w-screen bg-white`}
+    >
+      <div
+        className={`mr-[2rem] font-noto ${isLoading ? "h-screen" : ""} grid grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
+      >
         <SearchField />
-        <div className={`xm:ml-5 xm:-mr-2 sm:ml-10 lg:ml-0 sm:mr-3 mr-5 h-full grid-in-userTable ${(departments.length > 10) ? "overflow-y-scroll" : "overflow-hidden"} relative`}>
+        <div
+          className={`mr-5 grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 xm:-mr-2 xm:ml-5 ${departments.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
+        >
           <DepartmentTable
             departments={departments}
             toggleDialog={toggleDialog}
@@ -94,11 +99,17 @@ const Department = () => {
         </div>
         <div className="mt-5 flex items-start justify-end grid-in-button">
           <button
-            className="mr-5 flex h-14 w-52 xm:h-10 xm:w-36 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white"
+            className="mr-5 flex h-14 w-52 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white xm:h-10 xm:w-36"
             onClick={toggleModal}
           >
-            <img src={add} alt="" className="h-[20px] w-[20px] xm:w-[0.8em] xm:h-[0.8em] "/>
-            <span className="xm:text-xs sm:text-sm md:text-base lg:text-xl">Add New College</span>
+            <img
+              src={add}
+              alt=""
+              className="h-[20px] w-[20px] xm:h-[0.8em] xm:w-[0.8em]"
+            />
+            <span className="sm:text-sm md:text-base lg:text-xl xm:text-xs">
+              Add New College
+            </span>
           </button>
         </div>
       </div>

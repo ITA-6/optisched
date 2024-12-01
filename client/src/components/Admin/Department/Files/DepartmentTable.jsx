@@ -35,7 +35,7 @@ const DepartmentTable = ({
   }
 
   return (
-    <table className="h-[100%] w-full table-fixed bg-white text-center">
+    <table className="w-full table-fixed bg-white text-center">
       <thead className="sticky top-0 border-separate border border-white bg-green text-xs text-white">
         <tr className="h-[30px]">
           <th scope="col" className="border border-white">
