@@ -2,7 +2,9 @@ import React from "react";
 
 const UserRow = ({ user, openUpdate, DeleteUser }) => {
   return (
-    <tr className={`xm:h-[2.5rem] sm:h-[3rem] md:h-[3.3rem] lg:h-[4rem] xm:text-xs md:text-sm  text-center`}>
+    <tr
+      className={`text-center sm:h-[3rem] md:h-[3.3rem] md:text-sm lg:h-[4rem] xm:h-[2.5rem] xm:text-xs`}
+    >
       <td className="border-y-2 border-gray-200">{user.username}</td>
       <td className="border-y-2 border-gray-200">{user.first_name}</td>
       <td className="border-y-2 border-gray-200">{user.middle_name}</td>

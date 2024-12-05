@@ -20,8 +20,8 @@ const User = () => {
   const [errors, setError] = useState();
   const [errorMessage, setErrorMessage] = useState([]);
 
-  const [selectedStatus, setSelectedStatus] = useState(''); // New state for the select option
-  const [searchItem, setSearchItem] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState(""); // New state for the select option
+  const [searchItem, setSearchItem] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(users);
 
   useEffect(() => {
@@ -29,41 +29,42 @@ const User = () => {
   }, [users]);
 
   const handleInputChange = (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      setSearchItem(searchTerm);
-      filterUsers(searchTerm, selectedStatus);
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchItem(searchTerm);
+    filterUsers(searchTerm, selectedStatus);
   };
 
   const handleStatusChange = (e) => {
-      const status = e.target.value;
-      setSelectedStatus(status);
-      filterUsers(searchItem, status);
+    const status = e.target.value;
+    setSelectedStatus(status);
+    filterUsers(searchItem, status);
   };
 
   const filterUsers = (searchTerm, status) => {
-      const filteredItems = users.filter((user) => {
-          // Check if professor's employment status matches the selected status, if any
-          const matchesStatus = status ? user.user_type === status : true;
-          
-          // Check if any field in professor's data starts with the search term
-          const matchesSearchTerm = Object.values(user).some(value =>
-              value && value.toString().toLowerCase().startsWith(searchTerm)
-          );
+    const filteredItems = users.filter((user) => {
+      // Check if professor's employment status matches the selected status, if any
+      const matchesStatus = status ? user.user_type === status : true;
 
-          // Return true if both conditions match
-          return matchesStatus && matchesSearchTerm;
-      });
+      // Check if any field in professor's data starts with the search term
+      const matchesSearchTerm = Object.values(user).some(
+        (value) =>
+          value && value.toString().toLowerCase().startsWith(searchTerm),
+      );
 
-      setFilteredUsers(filteredItems);
+      // Return true if both conditions match
+      return matchesStatus && matchesSearchTerm;
+    });
+
+    setFilteredUsers(filteredItems);
   };
 
-  const {isSidebarOpen} = useSidebar();
+  const { isSidebarOpen } = useSidebar();
   const toggleDialog = (id) => {
     setIsDialogOpen(!isDialogOpen);
     setSelectedUser(id);
   };
 
-  const DeleteUser= async (id) => {
+  const DeleteUser = async (id) => {
     try {
       await api.delete(`account/users/${id}`);
       const response = await api.get("account/users/");
@@ -122,7 +123,7 @@ const User = () => {
       if (error.response && error.response.status === 400) {
         const errorData = error.response.data;
         setErrorMessage(errorData);
-        console.log(errorMessage)
+        console.log(errorMessage);
         // Check for specific errors in prof_id and email
         if (errorData.prof_id && errorData.prof_id.length > 0) {
           setError(`Professor ID error: ${errorData.prof_id.join(", ")}`);
@@ -141,30 +142,32 @@ const User = () => {
         setError(false);
       }, 5000);
     }
-  }
+  };
 
   if (loading) {
     // Render the loading video while data is being fetched and during the delay
     return (
       <div className="flex h-screen items-center justify-center">
-        <video
-          autoPlay
-          loop
-          muted
-          className="h-[50vh] sm:w-[80vw]"
-        >
+        <video autoPlay loop muted className="h-[50vh] sm:w-[80vw]">
           <source src={loadingVideo} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
     );
   }
- 
+
   return (
-    <div className="min-h-screen m-w-screen bg-white font-noto">
-      <div className={`w-full grid grid-cols-[2fr_1fr] grid-rows-[1fr_1fr_9fr_3fr] grid-areas-user-layout`}>
-          <UserSearchField handleInputChange={handleInputChange} handleStatusChange={handleStatusChange} />
-        <div className={`grid h-[37rem] grid-areas-user-table-layout  grid-in-userTable overflow-y-auto xm:mx-4 sm:mx-8 xl:mr-5 xm:overflow-auto  ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-24"} ease-out duration-300`}>
+    <div className="h-screen w-screen bg-white font-noto">
+      <div
+        className={`mr-[2rem] grid h-screen grid-cols-[2fr_1fr] grid-rows-[0.5fr_0.5fr_5fr_1fr] grid-areas-user-layout ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} duration-200 ease-linear`}
+      >
+        <UserSearchField
+          handleInputChange={handleInputChange}
+          handleStatusChange={handleStatusChange}
+        />
+        <div
+          className={`mr-5 grid-in-userTable sm:ml-10 sm:mr-3 lg:ml-0 ${filteredUsers.length > 10 ? "overflow-y-scroll" : "overflow-hidden"} relative`}
+        >
           <UserTable
             filteredUsers={filteredUsers}
             openUpdate={openUpdate}
@@ -172,14 +175,20 @@ const User = () => {
             DeleteUser={DeleteUser}
           />
         </div>
-       
+
         <div className="mt-5 flex items-start justify-end grid-in-button md:mt-10">
           <button
-            className="mr-5 flex h-14 w-40 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white xm:w-32 xm:h-10 sm:w-36 md:w-40 "
+            className="mr-5 flex h-14 w-40 items-center justify-center space-x-2 rounded-3xl bg-light-green text-white sm:w-36 md:w-40 xm:h-10 xm:w-32"
             onClick={toggleModal}
           >
-            <img src={add} alt="" className="h-[1.2rem] w-[1.2rem] xm:w-[0.7em] xm:h-[0.7em] sm:h-[1rem] md:h-[1.2em] md:w-[1.2em]" />
-            <span className="xm:text-[0.7em] sm:text-sm md:text-base">Add New User</span>
+            <img
+              src={add}
+              alt=""
+              className="h-[1.2rem] w-[1.2rem] sm:h-[1rem] md:h-[1.2em] md:w-[1.2em] xm:h-[0.7em] xm:w-[0.7em]"
+            />
+            <span className="sm:text-sm md:text-base xm:text-[0.7em]">
+              Add New User
+            </span>
           </button>
         </div>
       </div>
@@ -227,7 +236,7 @@ const User = () => {
             </div>
           </div>
         </div>
-        )}
+      )}
     </div>
   );
 };
