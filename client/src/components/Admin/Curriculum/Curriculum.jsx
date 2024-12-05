@@ -39,7 +39,7 @@ const Curriculum = () => {
   );
 
   return (
-    <div className="h-screen bg-white-grayish">
+    <div className="h-screen">
       <div
         className={`mr-[2rem] h-full ${isSidebarOpen ? "lg:ml-[18rem]" : "lg:ml-32"} font-noto duration-300 ease-out`}
       >
@@ -61,7 +61,7 @@ const Curriculum = () => {
             ))}
           </div>
         </div>
-        <table className="h-3/4 w-full table-auto bg-white text-center">
+        <table className="w-full table-auto bg-white text-center">
           <thead className="bg-green-500 text-white">
             <tr className="h-12">
               <th scope="col">Program</th>
