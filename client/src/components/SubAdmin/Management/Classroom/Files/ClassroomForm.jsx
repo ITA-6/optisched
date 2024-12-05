@@ -10,6 +10,7 @@ const ClassroomForm = ({
   initialData,
   errorMessage,
   program,
+  errorCount,
 }) => {
   const [building, setBuilding] = useState("");
   const [floorNumber, setFloorNumber] = useState("");
@@ -51,16 +52,12 @@ const ClassroomForm = ({
         </div>
         <div className="p-5">
           <form onSubmit={handleSubmit} className="mt-5 space-y-6">
-            {/* Display non_field_errors if available */}
-            {errorMessage.non_field_errors && (
-              <div className="mb-4 text-sm text-red-500">
-                {errorMessage.non_field_errors[0]}
-              </div>
-            )}
-
             <div className="flex flex-1 flex-col">
               <label htmlFor="building" className="text-lg font-medium">
-                Building Name *
+                Building Name <span className="text-red-500">*</span>
+                {errorMessage.message && (
+                  <p className="text-xs text-red-500">{errorMessage.message}</p>
+                )}
               </label>
               <select
                 id="building"
@@ -109,7 +106,7 @@ const ClassroomForm = ({
 
             <div className="flex flex-1 flex-col">
               <label htmlFor="floorNumber" className="text-lg font-medium">
-                Floor Number *
+                Floor Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
@@ -120,16 +117,16 @@ const ClassroomForm = ({
                 className={`rounded-md border p-2 ${errorMessage.floor ? "border-red-500" : "border-gray-300"}`}
                 required
               />
-              {errorMessage.floor && (
-                <span className="ml-2 text-sm text-red-500">
-                  {errorMessage.floor[0]}
-                </span>
+              {errorCount && errorMessage.non_field_errors && (
+                <div className="mb-4 text-sm text-red-500">
+                  {errorMessage.non_field_errors}
+                </div>
               )}
             </div>
 
             <div className="flex flex-1 flex-col">
               <label htmlFor="roomNumber" className="text-lg font-medium">
-                Room Number *
+                Room Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
@@ -141,11 +138,6 @@ const ClassroomForm = ({
                 className={`rounded-md border p-2 ${errorMessage.number ? "border-red-500" : "border-gray-300"}`}
                 required
               />
-              {errorMessage.number && (
-                <span className="ml-2 text-sm text-red-500">
-                  {errorMessage.number[0]}
-                </span>
-              )}
             </div>
 
             <div className="ml-10 mt-5 flex items-start justify-end grid-in-button">

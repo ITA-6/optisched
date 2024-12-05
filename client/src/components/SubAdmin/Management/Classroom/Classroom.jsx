@@ -16,6 +16,7 @@ const Classroom = () => {
   const [program, setProgram] = useState();
   const [SelectedClassroom, setSelectedClassroom] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [errorCount, setErrorCount] = useState();
 
   const [filteredClassrooms, setFilteredClassrooms] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -103,11 +104,16 @@ const Classroom = () => {
       console.error("An error occurred:", error);
       if (error.response && error.response.status === 400) {
         // Capture validation errors
+        setErrorCount(true);
         setErrorMessage(error.response.data);
+        console.log(errorCount);
       } else {
         console.error("An error occurred:", error);
       }
     }
+    setTimeout(() => {
+      setErrorCount(false);
+    }, 3000);
   };
 
   const updateClassroom = async (classroom) => {
@@ -179,6 +185,7 @@ const Classroom = () => {
           initialData={initialData}
           errorMessage={errorMessage} // Pass down errorMessage
           program={program}
+          errorCount={errorCount}
         />
       )}
 
