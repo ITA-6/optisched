@@ -10,6 +10,7 @@ import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import completeMark from "../../../assets/completeMark.png";
 import failedMark from "../../../assets/FailedMark.png";
+import GanttChartModal from "./GanttChartModal";
 
 const Generate = () => {
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,11 @@ const Generate = () => {
   const [saveSchedule, setSaveSchedule] = useState();
   const [loadingModal, setLoadingModal] = useState();
   const [success, setSuccess] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const togglePrintModal = () => {
     setPrintModalOpen(!printModalOpen);
   };
@@ -241,13 +247,21 @@ const Generate = () => {
           <div
             className={`mb-4 grid ${isGenerateClicked ? "grid-cols-[2fr_2fr_0.1fr]" : "grid-cols-[5fr_1fr]"} md:text-md items-center justify-between sm:mb-2 sm:text-sm xm:ml-4 xm:text-xs`}
           >
-            <div className="justify flex items-center justify-start">
+            <div className="justify flex items-center justify-start gap-4">
               <button
                 onClick={handleGenerateSchedule}
                 className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
               >
                 Generate Schedule
               </button>
+              {scheduleData.length !== 0 && (
+                <button
+                  onClick={openModal}
+                  className="rounded bg-green px-4 py-2 text-white hover:bg-dark-green"
+                >
+                  View Chart
+                </button>
+              )}
             </div>
             {isGenerateClicked && (
               <div className="flex items-center justify-end">
@@ -377,6 +391,7 @@ const Generate = () => {
           )}
         </div>
       )}
+      <GanttChartModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };

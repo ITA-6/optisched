@@ -382,19 +382,24 @@ class GeneticAlgorithmRunner:
             rows.append(
                 {
                     "id": f"section-{section_id}",
-                    "label": f"{schedule['year_level']}{schedule['section_label']} - {schedule['program_name']}",
+                    "label": f"Year {schedule['year_level']} - Program {schedule['program_id']} - Section {section_id}",
                 }
             )
 
             # Add items for courses in the section
             for course in schedule["courses"]:
-                lecture_start = datetime.strptime(
-                    f"{self.semester.start_date} {course['lecture_time_range']['start_time']}",
-                    "%Y-%m-%d %H:%M:%S",
+                lecture_day = course["lecture_time_range"]["day_of_week"]
+                lecture_start = datetime.combine(
+                    datetime.now(),  # Use today's date as a placeholder
+                    datetime.strptime(
+                        course["lecture_time_range"]["start_time"], "%H:%M"
+                    ).time(),
                 )
-                lecture_end = datetime.strptime(
-                    f"{self.semester.start_date} {course['lecture_time_range']['end_time']}",
-                    "%Y-%m-%d %H:%M:%S",
+                lecture_end = datetime.combine(
+                    datetime.now(),
+                    datetime.strptime(
+                        course["lecture_time_range"]["end_time"], "%H:%M"
+                    ).time(),
                 )
 
                 # Add the course as a Gantt item
@@ -402,7 +407,7 @@ class GeneticAlgorithmRunner:
                     {
                         "id": f"course-{course['course_id']}",
                         "rowId": f"section-{section_id}",
-                        "label": f"{course['course_code']} ({course['professor_name']})",
+                        "label": f"Course {course['course_id']} - Prof {course['professor_id']}",
                         "time": {
                             "start": lecture_start.timestamp()
                             * 1000,  # Convert to milliseconds

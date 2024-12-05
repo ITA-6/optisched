@@ -31,7 +31,7 @@ class Section(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.label} (Year {self.year_level}) - {self.department.name if self.department else 'No Department'}"
+        return f"{self.year_level}{self.label} - {self.program.acronym if self.program else 'No Department'}"
 
     def soft_delete(self):
         self.is_active = False

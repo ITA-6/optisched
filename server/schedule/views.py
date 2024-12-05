@@ -11,6 +11,7 @@ from schedule.serializers import (
     SectionScheduleSerializer,
     ScheduleSerializer,
 )
+from schedule.utils.prepare_gantt_chart import prepare_gantt_data
 from section.models import Section
 
 from .management.commands.genetic_algorithm import GeneticAlgorithmRunner
@@ -301,9 +302,27 @@ class ScheduleProgressView(APIView):
 
 
 class GanttDataView(APIView):
+    """
+    API to fetch Gantt chart data.
+    """
+
     def get(self, request):
-        """
-        API to fetch Gantt chart data.
-        """
-        gantt_data = cache.get("schedule_gantt_data", {"rows": [], "items": []})
-        return Response(gantt_data)
+        try:
+            # Check if Gantt data is cached
+            gantt_data = cache.get("schedule_gantt_data")
+            if not gantt_data:
+                # If not cached, generate the Gantt data
+                gantt_data = prepare_gantt_data()
+                # Cache the generated data for subsequent requests
+                cache.set(
+                    "schedule_gantt_data", gantt_data, timeout=60 * 60
+                )  # Cache for 1 hour
+
+            return Response(gantt_data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            # Return a detailed error response if something goes wrong
+            return Response(
+                {"error": "Failed to fetch Gantt data", "details": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
