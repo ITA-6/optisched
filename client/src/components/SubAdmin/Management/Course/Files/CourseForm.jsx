@@ -3,7 +3,14 @@ import course from "../../../../../assets/course.png";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
+const CourseForm = ({
+  toggleModal,
+  handler,
+  initialData,
+  courses,
+  errorCount,
+  errorMessage,
+}) => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [category, setCategory] = useState("");
@@ -64,7 +71,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
           <form onSubmit={handleSubmit} className="mt-5 space-y-6">
             <div className="flex flex-1 flex-col">
               <label htmlFor="courseTitle" className="text-lg font-medium">
-                Course Title *
+                Course Title <span className="text-md text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -79,7 +86,12 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
             </div>
             <div className="flex flex-1 flex-col">
               <label htmlFor="courseCode" className="text-lg font-medium">
-                Course Code *
+                Course Code <span className="text-md text-red-500">*</span>
+                {errorMessage && errorCount && (
+                  <p className="text-sm text-red-500">
+                    {errorMessage.non_field_errors}
+                  </p>
+                )}
               </label>
               <input
                 type="text"
@@ -94,7 +106,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
             </div>
             <div className="flex flex-1 flex-col">
               <label htmlFor="courseType" className="text-lg font-medium">
-                Course Type *
+                Course Type <span className="text-md text-red-500">*</span>
               </label>
               <select
                 name="courseType"
@@ -117,7 +129,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
             >
               <div className={`flex flex-1 flex-col`}>
                 <label htmlFor="lecUnits" className="text-lg font-medium">
-                  Lecture Units *
+                  Lecture Units <span className="text-md text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -132,7 +144,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
               </div>
               <div className={`flex flex-1 flex-col`}>
                 <label htmlFor="Lecture Hours" className="text-lg font-medium">
-                  Lecture Hours *
+                  Lecture Hours <span className="text-md text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -151,7 +163,8 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
             >
               <div className={`flex flex-1 flex-col`}>
                 <label htmlFor="labUnits" className="text-lg font-medium">
-                  Laboratory Units *
+                  Laboratory Units{" "}
+                  <span className="text-md text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -166,7 +179,8 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
               </div>
               <div className={`flex flex-1 flex-col`}>
                 <label htmlFor="Lecture Hours" className="text-lg font-medium">
-                  Laboratory Hours *
+                  Laboratory Hours{" "}
+                  <span className="text-md text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -182,7 +196,7 @@ const CourseForm = ({ toggleModal, handler, initialData, courses }) => {
             </div>
             <div className="flex flex-1 flex-col">
               <label htmlFor="needMasteral" className="text-lg font-medium">
-                Need Masteral *
+                Need Masteral <span className="text-md text-red-500">*</span>
               </label>
               <select
                 name="needMasteral"

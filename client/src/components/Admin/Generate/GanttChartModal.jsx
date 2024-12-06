@@ -18,13 +18,16 @@ const GanttChartModal = ({ isOpen, onClose }) => {
         setLoading(true);
         const response = await api.get("schedule/gantt/");
         const rawData = response.data;
-        setGanttImage(rawData.gantt_chart.image);
 
-        // Process and format rows and items
+        console.log("API Response:", rawData); // Debugging
+
+        setGanttImage(rawData.gantt_chart.image); // Set base64 image
+
+        // Format rows and items
         const rows = rawData.rows.map((row) => ({
           ...row,
           id: GSTCID(row.id),
-          customField: `Room: ${row.label}`, // Custom field for demonstration
+          customField: `Room: ${row.label}`, // Add custom field for demonstration
         }));
 
         const items = rawData.items.map((item) => ({
@@ -55,11 +58,16 @@ const GanttChartModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (!gstcContainerRef.current || ganttData.rows.length === 0) return;
 
-    // GSTC Configuration
     const config = {
-      licenseKey:
-        "hADNzx8RMYTxlvcxFUsHH3TG4ilj2eabwWTM46fQcqRJPnf3AJfkVXHIu5TZgNnWXPpfOPf4MU1jN7Tq+kX7d3DjMZAieBvzw2xy0rRNkDaV3cpm9F4ICfxp9HHkaiRcYIzkBXwCVqp5SxaUbHDBJy/LCoJmuui9qORwZpeJNmvRSckzmc+9sGU6hR5W/EBT0pGIBtFOQy2wF1hC4z6GecbLp4zwRSjtAhLPNwQgiLnLHjaQhDNJift5Yn9MUwRV0mME6p2lHWgworC7NjbejkqXPjw+soLEckJ84KsIKgT1cnVuGOKJ1pi/bansZG8MC1ZZiBxeMPT9MF6umnEY2Q==||U2FsdGVkX194UK4YYZKcm2TxijmeNTwatRliJwPl1TQcXOG/TLlAjbYNlp+0BwM1iYZ5afj/0kN0oHDkhAa7oGlLzfpZF1ZMilvxBqQ+7tc=\nC/o7HoUatFssVXC/ApBbjhnqFu6Nt0IWEuffGk9zQGvjNRZdAa+hcu06BxcPincFil7vPLkfgyKlxzen/W7E6d0HQDLDfvNXpDzJCrETfnfcy63C6QZtv/qYDIPOQLsCnzLPO329ref0Qe/NtmMFaMN0C7yabzRs8dmCVDRewbIbzqEJLmp7oTqVmEcc9I0OjjNMXwMxb94vA6RZe2lUvz1f69EcxdK2CzxyvjOLslRiNeXX17lC8tUNxXu0KfMoXSgOZXWP5AU+vbe15AwP5uAzk3vMnNG0aAIqRZeq8/BFPLUXKrQ+3CeV0d64PjVzy3w6OPChlza9+aGfuHYu2w==",
+      licenseKey: "your-license-key", // Replace with your GSTC license key
       list: {
+        rows: ganttData.rows.reduce((acc, row) => {
+          acc[row.id] = {
+            ...row,
+            height: 50, // Further increase row height for better spacing
+          };
+          return acc;
+        }, {}),
         columns: {
           data: {
             [GSTCID("label")]: {
@@ -80,18 +88,40 @@ const GanttChartModal = ({ isOpen, onClose }) => {
             },
           },
         },
-        rows: ganttData.rows.reduce((acc, row) => {
-          acc[row.id] = row;
-          return acc;
-        }, {}),
       },
       chart: {
         items: ganttData.items.reduce((acc, item) => {
           acc[item.id] = item;
           return acc;
         }, {}),
+        time: {
+          zoom: 10, // Reduce zoom level for better readability
+          from: GSTC.api.date().startOf("day").valueOf(),
+          to: GSTC.api.date().endOf("day").add(1, "day").valueOf(),
+          period: "hour",
+          header: [
+            {
+              content: "MMM DD, YYYY", // Top header for dates
+              style: { "font-size": "14px", "margin-bottom": "10px" },
+            },
+            {
+              content: "hh:mm A", // Bottom header for hours
+              style: {
+                "font-size": "12px",
+                "margin-top": "5px",
+                "padding-bottom": "10px",
+                transform: "rotate(-30deg)", // Slight rotation for readability
+              },
+            },
+          ],
+        },
       },
-      scroll: { horizontal: { precise: true } },
+      scroll: {
+        horizontal: { precise: true },
+        vertical: {
+          enabled: true, // Enable vertical scrolling
+        },
+      },
     };
 
     gstcInstance.current = GSTC({
@@ -110,7 +140,7 @@ const GanttChartModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="relative h-3/4 w-3/4 rounded-lg bg-white p-4">
+      <div className="relative flex h-[90%] w-[95%] max-w-7xl flex-col rounded-lg bg-white p-4">
         <button
           className="absolute right-2 top-2 rounded bg-red-500 px-4 py-2 text-white"
           onClick={onClose}
@@ -119,10 +149,19 @@ const GanttChartModal = ({ isOpen, onClose }) => {
         </button>
         {loading ? (
           <p className="text-center text-gray-500">Loading Gantt Chart...</p>
+        ) : ganttImage ? (
+          <div className="h-full w-full overflow-auto">
+            <img
+              src={`data:image/png;base64,${ganttImage}`}
+              alt="Gantt Chart"
+              className="h-full w-full object-contain"
+            />
+          </div>
         ) : (
-          <>
-            <img src={`data:image/png;base64,${ganttImage}`} alt="" />
-          </>
+          <div
+            ref={gstcContainerRef}
+            className="h-full w-full border border-gray-300"
+          />
         )}
       </div>
     </div>

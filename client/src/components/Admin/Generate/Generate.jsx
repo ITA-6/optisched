@@ -230,8 +230,19 @@ const Generate = () => {
     <div className="h-screen overflow-auto bg-white">
       {loading ? (
         <div className="flex flex-col items-center justify-center">
-          <video src={loadingVideo} autoPlay loop className="h-1/2 w-1/2" />
-          <p className="mt-4 text-lg font-bold">Progress: {progress}%</p>
+          <video src={loadingVideo} autoPlay loop className="h-1/2 w-7/12" />
+          <p className="mt-4 text-lg font-bold">Progress</p>
+          <div className="relative h-7 w-1/4 overflow-hidden rounded-xl border border-gray-500">
+            {/* Progress bar */}
+            <div
+              className="h-full bg-green transition-all duration-300 ease-in-out"
+              style={{ width: `${progress}%` }}
+            ></div>
+            {/* Percentage text */}
+            <p className="absolute inset-0 flex items-center justify-center font-semibold">
+              {progress}%
+            </p>
+          </div>
         </div>
       ) : (
         // Main content is displayed when not loading
@@ -362,16 +373,16 @@ const Generate = () => {
           )}
           {saveSchedule && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="h- w-1/4 rounded-lg bg-white shadow-lg">
+              <div className="w-1/4 rounded-lg bg-white shadow-lg">
                 {loadingModal ? (
-                  <div className="flex h-10 flex-col items-center justify-center rounded-lg bg-white py-10">
+                  <div className="relative flex h-24 flex-col items-center justify-center rounded-lg bg-white py-10">
                     <video
                       src={loadingVideo}
                       autoPlay
                       loop
                       className="translate-x-0 transform rounded-lg"
                     />
-                    <p className="mt-4 text-lg font-bold">
+                    <p className="absolute -bottom-14 mt-4 text-lg font-bold">
                       Progress: {progress}%
                     </p>
                   </div>

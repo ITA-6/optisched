@@ -15,7 +15,8 @@ const Course = () => {
   const { isSidebarOpen } = useSidebar();
   const [SelectedCourse, setSelectedCourse] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorCount, setErrorCount] = useState("");
   const getAllCourseType = [
     ...new Set(courses.map((course) => course.category)),
   ];
@@ -87,6 +88,12 @@ const Course = () => {
       setIsModalOpen(false);
     } catch (error) {
       console.error(error);
+      setErrorMessage(error.response.data);
+      setErrorCount(true);
+      console.log(errorMessage);
+      setTimeout(() => {
+        setErrorCount(false);
+      }, 3000);
     }
   };
 
@@ -153,6 +160,8 @@ const Course = () => {
           handler={initialData ? updateCourse : submitCourse}
           initialData={initialData}
           courses={courses}
+          errorCount={errorCount}
+          errorMessage={errorMessage}
         />
       )}
 
