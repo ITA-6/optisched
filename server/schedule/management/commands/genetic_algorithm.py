@@ -476,11 +476,11 @@ class GeneticAlgorithmRunner:
         # Save all raw schedules to a single JSON file and cache the result
         self.save_all_schedules_to_json(all_schedules)
 
-        # Prepare Gantt data
-        gantt_data = self.prepare_gantt_data(all_schedules)
+        # # Prepare Gantt data
+        # gantt_data = self.prepare_gantt_data(all_schedules)
 
-        # Cache Gantt data for frontend use
-        cache.set("schedule_gantt_data", gantt_data, timeout=60 * 10)
+        # # Cache Gantt data for frontend use
+        # cache.set("schedule_gantt_data", gantt_data, timeout=60 * 10)
 
         # Ensure progress is set to 100% when all sections are processed
         self.progress = 100
