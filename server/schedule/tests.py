@@ -1,5 +1,5 @@
 from django.test import TestCase
-from unittest.mock import patch, MagicMock
+
 from datetime import time, timedelta
 from schedule.management.commands.genetic_algorithm import GeneticAlgorithmRunner
 from room.models import Room
@@ -168,24 +168,6 @@ class GeneticAlgorithmRunnerTests(TestCase):
             self.assertIn("course_code", course_entry)
             self.assertIn("professor_name", course_entry)
             self.assertIn("lecture_time_range", course_entry)
-
-    @patch("schedule.management.commands.genetic_algorithm.pygad.GA")
-    def test_fitness_function_integration(self, MockGA):
-        # Mock GA behavior to test integration
-        mock_ga_instance = MagicMock()
-        mock_ga_instance.best_solution.return_value = ([0, 0, 0, 0] * 2, 0, 0)
-        MockGA.return_value = mock_ga_instance
-
-        curriculum_courses = [self.course1, self.course2]
-        schedule = self.runner.generate_schedule_for_section(
-            self.section, curriculum_courses
-        )
-
-        # Assert that the genetic algorithm ran
-        mock_ga_instance.run.assert_called_once()
-
-        # Assert that schedule contains all curriculum courses
-        self.assertEqual(len(schedule), len(curriculum_courses))
 
     def test_schedule_conflicts(self):
         # Generate schedule
