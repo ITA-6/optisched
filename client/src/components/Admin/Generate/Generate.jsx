@@ -373,16 +373,16 @@ const Generate = () => {
           )}
           {saveSchedule && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-              <div className="h- w-1/4 rounded-lg bg-white shadow-lg">
+              <div className="w-1/4 rounded-lg bg-white shadow-lg">
                 {loadingModal ? (
-                  <div className="relative flex h-10 flex-col items-center justify-center rounded-lg bg-white py-10">
+                  <div className="relative flex h-24 flex-col items-center justify-center rounded-lg bg-white py-10">
                     <video
                       src={loadingVideo}
                       autoPlay
                       loop
                       className="translate-x-0 transform rounded-lg"
                     />
-                    <p className="fixed bottom-0 mt-4 text-lg font-bold">
+                    <p className="absolute -bottom-14 mt-4 text-lg font-bold">
                       Progress: {progress}%
                     </p>
                   </div>
