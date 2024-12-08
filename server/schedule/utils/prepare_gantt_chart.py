@@ -1,8 +1,4 @@
 from datetime import datetime, timedelta
-import io
-from matplotlib.figure import Figure
-import base64
-
 
 from room.models import Room
 from constraint.models import Constraint
@@ -40,6 +36,15 @@ def prepare_gantt_data():
         else datetime.strptime("18:00", "%H:%M").time()
     )
 
+    DAYS_OF_WEEK = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ]
+
     # Generate 30-minute time frame columns
     time_slots = []
     current_time = datetime.combine(datetime.today(), start_time)
@@ -65,6 +70,7 @@ def prepare_gantt_data():
         rows.append(
             {
                 "id": f"room-{room.id}",
+                "roomId": room.id,
                 "label": f"{room.building.name} Room {room.number}",
             }
         )
@@ -89,13 +95,19 @@ def prepare_gantt_data():
                 )
                 items.append(
                     {
-                        "id": f"course-{course_schedule.id}-lecture",
+                        "id": f"{course_schedule.id}",
                         "rowId": f"room-{course_schedule.lecture_room.id}",
+                        "roomId": course_schedule.lecture_room.id,
+                        "room": f"{course_schedule.lecture_room.number} - {course_schedule.lecture_room.building.name}",
                         "label": f"{course_schedule.course.code} Lecture - {professor_name} - {section_label}",
+                        "type": "Lecture",
                         "time": {
                             "start": lecture_start.timestamp() * 1000,  # Milliseconds
                             "end": lecture_end.timestamp() * 1000,  # Milliseconds
                         },
+                        "day": DAYS_OF_WEEK[
+                            course_schedule.lecture_time_range.day_of_week
+                        ],
                     }
                 )
 
@@ -109,89 +121,22 @@ def prepare_gantt_data():
                 )
                 items.append(
                     {
-                        "id": f"course-{course_schedule.id}-lab",
+                        "id": f"{course_schedule.id}",
                         "rowId": f"room-{course_schedule.lab_room.id}",
+                        "roomId": course_schedule.lab_room.id,
+                        "room": f"{course_schedule.lab_room.number} - {course_schedule.lab_room.building.name}",
                         "label": f"{course_schedule.course.code} Lab - {professor_name} - {section_label}",
+                        "type": "Laboratory",
                         "time": {
                             "start": lab_start.timestamp() * 1000,  # Milliseconds
                             "end": lab_end.timestamp() * 1000,  # Milliseconds
                         },
+                        "day": DAYS_OF_WEEK[course_schedule.lab_time_range.day_of_week],
                     }
                 )
-
-    gantt_chart = get_gantt(rows, items)
 
     return {
         "rows": rows,
         "items": items,
         "columns": time_slots,
-        "gantt_chart": gantt_chart,
     }
-
-
-def get_gantt(rows, items):
-    # Create a mapping for room IDs to labels
-    room_mapping = {room["id"]: room["label"] for room in rows}
-
-    # Prepare data for the Gantt chart
-    gantt_data = []
-    for item in items:
-        start_time = datetime.fromtimestamp(
-            item["time"]["start"] / 1000
-        )  # Convert milliseconds to seconds
-        end_time = datetime.fromtimestamp(item["time"]["end"] / 1000)
-        room_label = room_mapping.get(item["rowId"], "Unknown Room")
-        gantt_data.append(
-            {
-                "room": room_label,
-                "label": item["label"],
-                "start_time": start_time,
-                "end_time": end_time,
-            }
-        )
-
-    # Sort the data by room and start time
-    gantt_data.sort(key=lambda x: (x["room"], x["start_time"]))
-
-    # Extract unique room labels and indices
-    rooms = sorted(set(data["room"] for data in gantt_data))
-    room_indices = {room: idx for idx, room in enumerate(rooms)}
-
-    # Create a figure for the Gantt chart
-    fig = Figure(figsize=(12, 8))
-    ax = fig.subplots()
-
-    for data in gantt_data:
-        start = data["start_time"]
-        end = data["end_time"]
-        room_idx = room_indices[data["room"]]
-        ax.barh(
-            room_idx,
-            (end - start).seconds / 3600,
-            left=start.hour + start.minute / 60,
-            label=data["label"],
-            align="center",
-            edgecolor="black",
-        )
-
-    # Set y-axis labels to room names
-    ax.set_yticks(range(len(rooms)))
-    ax.set_yticklabels(rooms)
-
-    # Set labels and title
-    ax.set_xlabel("Time")
-    ax.set_ylabel("Rooms")
-    ax.set_title("Schedule Gantt Chart")
-    fig.tight_layout()
-
-    # Save the Gantt chart to a BytesIO buffer
-    buffer = io.BytesIO()
-    fig.savefig(buffer, format="png")
-    buffer.seek(0)
-
-    # Encode the image as a base64 string
-    encoded_image = base64.b64encode(buffer.getvalue()).decode("utf-8")
-    buffer.close()
-
-    # Return the base64 string
-    return {"image": encoded_image}

@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
+from room.models import Room
 from account.models import ActivityHistory
 from professor.models import Professor
 from schedule.models import Schedule, CourseSchedule, TimeSlot
@@ -20,6 +21,8 @@ from .management.commands.genetic_algorithm import GeneticAlgorithmRunner
 from django.shortcuts import get_object_or_404
 from django.core.cache import cache
 from django.utils.timezone import now
+from django.db.models import Q
+from datetime import timedelta, datetime, time
 
 
 class ScheduleView(APIView):
@@ -308,16 +311,7 @@ class GanttDataView(APIView):
 
     def get(self, request):
         try:
-            # Check if Gantt data is cached
-            gantt_data = cache.get("schedule_gantt_data")
-            if not gantt_data:
-                # If not cached, generate the Gantt data
-                gantt_data = prepare_gantt_data()
-                # Cache the generated data for subsequent requests
-                cache.set(
-                    "schedule_gantt_data", gantt_data, timeout=60 * 60
-                )  # Cache for 1 hour
-
+            gantt_data = prepare_gantt_data()
             return Response(gantt_data, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -326,3 +320,263 @@ class GanttDataView(APIView):
                 {"error": "Failed to fetch Gantt data", "details": str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+
+
+class FixConflictScheduleView(APIView):
+    def post(self, request):
+        try:
+            # Received list of conflicting schedule IDs
+            conflict_ids = request.data
+            resolved_conflicts = []
+            unresolved_conflicts = []
+
+            for schedule_id in conflict_ids:
+                try:
+                    # Fetch the conflicting schedule
+                    schedule = CourseSchedule.objects.select_related(
+                        "lecture_time_range",
+                        "lab_time_range",
+                        "lecture_room",
+                        "lab_room",
+                    ).get(id=schedule_id)
+
+                    # Get current room and timeslot
+                    current_room = schedule.lecture_room or schedule.lab_room
+                    current_timeslot = (
+                        schedule.lecture_time_range or schedule.lab_time_range
+                    )
+                    day_of_week = current_timeslot.day_of_week
+                    required_duration = (
+                        timedelta(hours=schedule.course.lecture_unit)
+                        if schedule.lecture_time_range
+                        else timedelta(hours=schedule.course.lab_unit)
+                    )
+
+                    # Check all timeslots for the current room
+                    room_timeslots = TimeSlot.objects.filter(
+                        day_of_week=day_of_week
+                    ).order_by("start_time")
+
+                    # Track availability for each timeslot
+                    for timeslot in room_timeslots:
+                        # Find schedules already allocated to this timeslot
+                        allocated_schedules = CourseSchedule.objects.filter(
+                            Q(lecture_time_range=timeslot) | Q(lab_time_range=timeslot),
+                            Q(lecture_room=current_room) | Q(lab_room=current_room),
+                        )
+
+                        # Calculate total time occupied in the timeslot
+                        occupied_duration = timedelta()
+                        for allocated_schedule in allocated_schedules:
+                            occupied_duration += timedelta(
+                                hours=allocated_schedule.course.lecture_unit
+                                if allocated_schedule.lecture_time_range == timeslot
+                                else allocated_schedule.course.lab_unit
+                            )
+
+                        # Combine time with a dummy date for subtraction
+                        start_datetime = datetime.combine(
+                            datetime.min, timeslot.start_time
+                        )
+                        end_datetime = datetime.combine(datetime.min, timeslot.end_time)
+                        available_duration = (
+                            end_datetime - start_datetime - occupied_duration
+                        )
+                        if available_duration >= required_duration:
+                            # Assign this timeslot to the schedule
+                            if schedule.lecture_time_range:
+                                schedule.lecture_time_range = timeslot
+                            else:
+                                schedule.lab_time_range = timeslot
+                            schedule.save()
+
+                            resolved_conflicts.append(
+                                {
+                                    "schedule_id": schedule_id,
+                                    "new_timeslot": str(timeslot),
+                                    "room": current_room.number,
+                                }
+                            )
+                            break
+                    else:
+                        # If no space found, try another room
+                        available_rooms = Room.objects.exclude(
+                            id=current_room.id
+                        ).order_by("number")
+
+                        for new_room in available_rooms:
+                            for timeslot in room_timeslots:
+                                allocated_schedules = CourseSchedule.objects.filter(
+                                    Q(lecture_time_range=timeslot)
+                                    | Q(lab_time_range=timeslot),
+                                    Q(lecture_room=new_room) | Q(lab_room=new_room),
+                                )
+
+                                occupied_duration = timedelta()
+                                for allocated_schedule in allocated_schedules:
+                                    occupied_duration += timedelta(
+                                        hours=allocated_schedule.course.lecture_unit
+                                        if allocated_schedule.lecture_time_range
+                                        == timeslot
+                                        else allocated_schedule.course.lab_unit
+                                    )
+
+                                available_duration = (
+                                    timeslot.end_time
+                                    - timeslot.start_time
+                                    - occupied_duration
+                                )
+                                if available_duration >= required_duration:
+                                    # Assign this timeslot to the schedule
+                                    if schedule.lecture_time_range:
+                                        schedule.lecture_room = new_room
+                                        schedule.lecture_time_range = timeslot
+                                    else:
+                                        schedule.lab_room = new_room
+                                        schedule.lab_time_range = timeslot
+                                    schedule.save()
+
+                                    resolved_conflicts.append(
+                                        {
+                                            "schedule_id": schedule_id,
+                                            "new_timeslot": str(timeslot),
+                                            "room": new_room.number,
+                                        }
+                                    )
+                                    break
+                            else:
+                                # No suitable timeslot found in this room, continue to next room
+                                continue
+                            break
+                        else:
+                            # Mark as unresolved if no solution is found
+                            unresolved_conflicts.append(schedule_id)
+
+                except CourseSchedule.DoesNotExist:
+                    unresolved_conflicts.append(schedule_id)
+
+            # Prepare response
+            response_data = {
+                "message": "Conflict resolution completed.",
+                "resolved_conflicts": resolved_conflicts,
+                "unresolved_conflicts": unresolved_conflicts,
+            }
+            return Response(response_data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class ManualScheduleFix(APIView):
+    def put(self, request, *args, **kwargs):
+        # Extract inputs
+        course_schedule_id = request.data.get("course_schedule_id")
+        room_id = request.data.get("room_id")
+        schedule_type = request.data.get("type")
+        start_time = request.data.get("start")
+        end_time = request.data.get("end")
+
+        # Validate inputs
+        if (
+            not course_schedule_id
+            or not room_id
+            or not schedule_type
+            or not start_time
+            or not end_time
+        ):
+            return Response(
+                {"error": "Missing required fields."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if schedule_type not in ["Lecture", "Lab"]:
+            return Response(
+                {"error": "Invalid type. Must be either 'Lecture' or 'Lab'."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Parse times
+        try:
+            start_time = time.fromisoformat(start_time)
+            end_time = time.fromisoformat(end_time)
+        except ValueError:
+            return Response(
+                {"error": "Invalid time format. Use HH:MM."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if start_time >= end_time:
+            return Response(
+                {"error": "Start time must be before end time."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Fetch CourseSchedule and Room
+        course_schedule = get_object_or_404(CourseSchedule, pk=course_schedule_id)
+        room = get_object_or_404(Room, pk=room_id)
+
+        # Retain existing day_of_week from the associated TimeSlot
+        if schedule_type == "Lecture":
+            current_timeslot = course_schedule.lecture_time_range
+        elif schedule_type == "Lab":
+            current_timeslot = course_schedule.lab_time_range
+
+        if not current_timeslot:
+            return Response(
+                {
+                    "error": f"CourseSchedule does not have an associated {schedule_type} TimeSlot."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        day_of_week = current_timeslot.day_of_week
+
+        # Check for conflicts in TimeSlot
+        conflicting_timeslots = TimeSlot.objects.filter(
+            day_of_week=day_of_week,
+            start_time__lt=end_time,
+            end_time__gt=start_time,
+        ).exclude(
+            id=current_timeslot.id  # Exclude the current timeslot for this course
+        )
+
+        # if conflicting_timeslots.exists():
+        #     return Response(
+        #         {
+        #             "error": f"{schedule_type} time range conflicts with an existing schedule."
+        #         },
+        #         status=status.HTTP_400_BAD_REQUEST,
+        #     )
+
+        # Create or update the TimeSlot
+        timeslot, created = TimeSlot.objects.get_or_create(
+            day_of_week=day_of_week,
+            start_time=start_time,
+            end_time=end_time,
+        )
+
+        # Update the CourseSchedule based on type
+        if schedule_type == "Lecture":
+            course_schedule.lecture_time_range = timeslot
+            course_schedule.lecture_room = room  # Update the lecture room
+        elif schedule_type == "Lab":
+            course_schedule.lab_time_range = timeslot
+            course_schedule.lab_room = room  # Update the lab room
+
+        course_schedule.save()
+
+        # Response
+        return Response(
+            {
+                "message": f"{schedule_type} TimeSlot successfully updated for the CourseSchedule.",
+                "timeslot_id": timeslot.id,
+                "course_schedule_id": course_schedule_id,
+                "room_id": room_id,
+                "day_of_week": day_of_week,
+                "start_time": start_time.strftime("%H:%M"),
+                "end_time": end_time.strftime("%H:%M"),
+            },
+            status=status.HTTP_200_OK,
+        )

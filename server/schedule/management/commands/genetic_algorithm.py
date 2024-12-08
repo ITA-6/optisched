@@ -1,5 +1,7 @@
 # schedule/management/commands/genetic_algorithm.py
 import pygad
+import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from room.models import Room
 from professor.models import Professor
 from curriculum.models import Curriculum
@@ -12,15 +14,11 @@ from django.core.serializers.json import (
 from django.core.cache import cache
 from constraint.models import Constraint
 from datetime import datetime, timedelta, date
+from django.db import models
 
 
 class GeneticAlgorithmRunner:
     def __init__(self):
-        # Load data from models
-        self.rooms = list(Room.objects.filter(is_active=True))
-        self.professors = list(Professor.objects.filter(is_active=True))
-        self.sections = list(Section.objects.filter(is_active=True))
-
         # Load constraint settings for start and end times
         self.constraints = (
             Constraint.objects.first()
@@ -30,6 +28,20 @@ class GeneticAlgorithmRunner:
 
         # Semester filter
         self.semester = self.constraints.semester
+
+        # Load data from models
+        self.rooms = list(Room.objects.filter(is_active=True))
+        self.professors = list(Professor.objects.filter(is_active=True))
+        self.sections = list(
+            Section.objects.filter(
+                is_active=True,
+                program__curriculum__isnull=False,  # Ensures the curriculum exists
+                program__curriculum__year_level=models.F(
+                    "year_level"
+                ),  # Matches the year level
+                program__curriculum__semester=self.semester,  # Matches the semester constraint
+            ).distinct()  # Removes duplicates in case of multiple curriculums
+        )
 
         # Calculate time slots based on constraint-defined time range
         time_interval = timedelta(minutes=30)  # 30-minute intervals
@@ -42,6 +54,12 @@ class GeneticAlgorithmRunner:
         self.times = [
             self.start_time + i * time_interval for i in range(self.TIME_SLOTS)
         ]
+
+        # Track room availability dynamically for each day and time slot
+        self.available_rooms = {
+            day: {slot: set(self.rooms) for slot in range(self.TIME_SLOTS)}
+            for day in range(6)  # 6 days in the week (Monday to Saturday)
+        }
 
         self.DAY_PAIRS = {
             0: (0, 3),  # Monday and Thursday
@@ -79,31 +97,38 @@ class GeneticAlgorithmRunner:
 
         def fitness_func(ga_instance, solution, solution_idx):
             """
-            Fitness function to evaluate the quality of a solution.
+            Fitness function to evaluate the quality of a solution with dynamic room availability.
             """
             fitness = 0
-            section_day_times = {
-                day: [] for day in range(6)
-            }  # Track timeslots per day for the section
+
             professor_daily_times = {
                 prof: {day: [] for day in range(6)} for prof in self.professors
             }
+            section_day_times = {
+                day: [] for day in range(6)
+            }  # Tracks timeslots per day for the section
+
             professor_units = {prof: 0 for prof in self.professors}
-            daily_units = {day: 0 for day in range(6)}
-            room_utilization = {
-                room: {day: 0 for day in range(6)} for room in self.rooms
-            }
+            buffer = timedelta(minutes=10)  # Buffer time between consecutive classes
 
             for idx, course in enumerate(curriculum_courses):
                 professor = self.professors[
                     int(solution[idx * 4]) % len(self.professors)
                 ]
-                room = self.rooms[int(solution[idx * 4 + 1]) % len(self.rooms)]
                 day_pair_idx = int(solution[idx * 4 + 2]) % len(self.DAY_PAIRS)
                 timeslot = int(solution[idx * 4 + 3]) % self.TIME_SLOTS
 
                 day_pair = self.DAY_PAIRS[day_pair_idx]
                 lecture_day, lab_day = day_pair
+
+                # ** Lecture Room Assignment **
+                if self.available_rooms[lecture_day][timeslot]:
+                    room = self.available_rooms[lecture_day][
+                        timeslot
+                    ].pop()  # Assign first available room
+                else:
+                    fitness -= 50  # Penalize heavily if no room is available
+                    continue
 
                 # Calculate lecture time range
                 lecture_start_time = self.times[timeslot]
@@ -111,75 +136,77 @@ class GeneticAlgorithmRunner:
                     hours=course.lecture_unit
                 )
 
-                # Overlap check for the same section on the same day
+                # ** Section Schedule Check **
                 for scheduled_start, scheduled_end in section_day_times[lecture_day]:
                     if not (
                         lecture_end_time <= scheduled_start
                         or lecture_start_time >= scheduled_end
                     ):
-                        fitness -= 15  # Penalize overlap
+                        fitness -= 30  # Penalize overlap in section schedule
                         break
                 else:
                     section_day_times[lecture_day].append(
                         (lecture_start_time, lecture_end_time)
                     )
-                    fitness += 5  # Reward non-overlapping schedules
+                    fitness += 10  # Reward valid section schedule
 
-                # Check if time is within constraints
-                if (
-                    lecture_start_time < self.start_time
-                    or lecture_end_time > self.end_time
-                ):
-                    fitness -= 10
-                    continue
+                # ** Professor Availability Check **
+                is_professor_available = True
+                for scheduled_start, scheduled_end in professor_daily_times[professor][
+                    lecture_day
+                ]:
+                    if not (
+                        lecture_end_time + buffer <= scheduled_start
+                        or lecture_start_time - buffer >= scheduled_end
+                    ):
+                        is_professor_available = False
+                        fitness -= 20  # Penalize professor double-booking
+                        break
 
-                # Assign lab time if the course has a lab component
+                if is_professor_available:
+                    professor_daily_times[professor][lecture_day].append(
+                        (lecture_start_time, lecture_end_time)
+                    )
+                    professor_units[professor] += course.lecture_unit
+                    fitness += 10  # Reward valid professor assignment
+
+                # ** Lab Scheduling **
                 if course.lab_unit > 0:
-                    lab_start_time = self.times[
-                        (timeslot + course.lecture_unit * 2) % self.TIME_SLOTS
-                    ]
+                    lab_timeslot = (
+                        timeslot + course.lecture_unit * 2
+                    ) % self.TIME_SLOTS
+                    lab_start_time = self.times[lab_timeslot]
                     lab_end_time = lab_start_time + timedelta(hours=course.lab_unit)
 
+                    # Check lab room availability
+                    if self.available_rooms[lab_day][lab_timeslot]:
+                        lab_room = self.available_rooms[lab_day][
+                            lab_timeslot
+                        ].pop()  # Assign first available lab room
+                    else:
+                        fitness -= 50  # Penalize heavily if no lab room is available
+                        continue
+
+                    # Check lab schedule overlaps
                     for scheduled_start, scheduled_end in section_day_times[lab_day]:
                         if not (
                             lab_end_time <= scheduled_start
                             or lab_start_time >= scheduled_end
                         ):
-                            fitness -= 15  # Penalize lab overlap
+                            fitness -= 30  # Penalize lab schedule overlap
                             break
                     else:
                         section_day_times[lab_day].append(
                             (lab_start_time, lab_end_time)
                         )
-                        fitness += 5
+                        fitness += 10  # Reward valid lab schedule
 
-                # Check professor availability and workload
-                previous_times = professor_daily_times[professor][lecture_day]
-                if previous_times:
-                    last_end_time = previous_times[-1][1] + timedelta(minutes=30)
-                    if lecture_start_time < last_end_time:
-                        fitness -= 5  # Penalize lack of gap
-                professor_daily_times[professor][lecture_day].append(
-                    (lecture_start_time, lecture_end_time)
-                )
-                professor_units[professor] += course.lecture_unit + course.lab_unit
-
-                # Check if professor workload exceeds required units
-                if professor_units[professor] > (professor.required_units or 0):
-                    fitness -= 10  # Penalize exceeding required units
+            # Penalize professors exceeding workloads
+            for prof, units in professor_units.items():
+                if units > (prof.required_units or 0):
+                    fitness -= 50  # Penalize exceeding workload
                 else:
-                    fitness += 1  # Reward balanced workloads
-
-                # Check room utilization
-                room_utilization[room][lecture_day] += 1
-
-            # Reward full room utilization
-            for room, days in room_utilization.items():
-                for day, count in days.items():
-                    if count > 0 and count < self.TIME_SLOTS:
-                        fitness -= 10  # Penalize underutilized room
-                    elif count == self.TIME_SLOTS:
-                        fitness += 15  # Reward full utilization
+                    fitness += 20  # Reward balanced workloads
 
             return fitness
 
@@ -370,73 +397,13 @@ class GeneticAlgorithmRunner:
             self.progress = int((current_index + 1) / self.total_sections * 100)
             cache.set("schedule_generation_progress", self.progress, timeout=60 * 10)
 
-    def prepare_gantt_data(self, all_schedules):
-        """
-        Prepare Gantt chart data with rows for sections and items for schedules.
-        """
-        rows = []
-        items = []
-
-        for section_id, schedule in all_schedules.items():
-            # Add a row for the section
-            rows.append(
-                {
-                    "id": f"section-{section_id}",
-                    "label": f"Year {schedule['year_level']} - Program {schedule['program_id']} - Section {section_id}",
-                }
-            )
-
-            # Add items for courses in the section
-            for course in schedule["courses"]:
-                lecture_day = course["lecture_time_range"]["day_of_week"]
-                lecture_start = datetime.combine(
-                    datetime.now(),  # Use today's date as a placeholder
-                    datetime.strptime(
-                        course["lecture_time_range"]["start_time"], "%H:%M"
-                    ).time(),
-                )
-                lecture_end = datetime.combine(
-                    datetime.now(),
-                    datetime.strptime(
-                        course["lecture_time_range"]["end_time"], "%H:%M"
-                    ).time(),
-                )
-
-                # Add the course as a Gantt item
-                items.append(
-                    {
-                        "id": f"course-{course['course_id']}",
-                        "rowId": f"section-{section_id}",
-                        "label": f"Course {course['course_id']} - Prof {course['professor_id']}",
-                        "time": {
-                            "start": lecture_start.timestamp()
-                            * 1000,  # Convert to milliseconds
-                            "end": lecture_end.timestamp()
-                            * 1000,  # Convert to milliseconds
-                        },
-                    }
-                )
-
-        return {"rows": rows, "items": items}
-
     def run(self):
         all_schedules = {}  # Dictionary to accumulate schedules for all sections
         output = []
 
-        for index, section in enumerate(
-            self.sections
-        ):  # Track the index of each section
+        def worker(section):
+            """Worker function to process a single section."""
             try:
-                # Update progress
-                self.update_progress(index)
-
-                # Cached progress message
-                cache.set(
-                    "message_progress",
-                    f"Generating schedule for {section.year_level}{section.label} - {section.program.acronym}",
-                    timeout=60 * 10,
-                )
-
                 # Filter curriculum based on year_level, program, and specified semester
                 curriculum = Curriculum.objects.filter(
                     year_level=section.year_level,
@@ -448,7 +415,7 @@ class GeneticAlgorithmRunner:
                     print(
                         f"No curriculum found for section {section.year_level}{section.label} - {section.program.acronym}. Skipping..."
                     )
-                    continue  # Skip if no matching curriculum is found
+                    return None  # Skip if no matching curriculum is found
 
                 curriculum_courses = list(curriculum.courses.all())
 
@@ -461,26 +428,42 @@ class GeneticAlgorithmRunner:
                 serialized_schedule = self.serialize_schedule(
                     raw_schedule, section, self.semester
                 )
-                all_schedules[section.id] = serialized_schedule
 
                 # Format the schedule for output
                 formatted_section_schedule = self.format_schedule_output(
                     section, curriculum, raw_schedule
                 )
-                output.append(formatted_section_schedule)
+
+                return section.id, serialized_schedule, formatted_section_schedule
 
             except Exception as e:
                 print(f"Error processing section {section.label}: {e}")
-                continue  # Skip the current section and move to the next one
+                return None
+
+        # Use ThreadPoolExecutor to process sections in parallel
+        with ThreadPoolExecutor(
+            max_workers=2 * os.cpu_count()
+        ) as executor:  # Adjust the number of workers as needed
+            futures = {
+                executor.submit(worker, section): section for section in self.sections
+            }
+
+            for future in as_completed(futures):
+                result = future.result()
+                if result:
+                    section_id, serialized_schedule, formatted_section_schedule = result
+                    all_schedules[section_id] = serialized_schedule
+                    output.append(formatted_section_schedule)
+
+                # Update progress after each section is processed
+                processed_sections = len(output)
+                self.progress = int((processed_sections / self.total_sections) * 100)
+                cache.set(
+                    "schedule_generation_progress", self.progress, timeout=60 * 10
+                )
 
         # Save all raw schedules to a single JSON file and cache the result
         self.save_all_schedules_to_json(all_schedules)
-
-        # # Prepare Gantt data
-        # gantt_data = self.prepare_gantt_data(all_schedules)
-
-        # # Cache Gantt data for frontend use
-        # cache.set("schedule_gantt_data", gantt_data, timeout=60 * 10)
 
         # Ensure progress is set to 100% when all sections are processed
         self.progress = 100
